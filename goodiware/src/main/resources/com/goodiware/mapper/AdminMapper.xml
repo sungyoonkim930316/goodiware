@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.goodiware.mapper.AdminMapper">
+
+	<insert id="insertEmployee" parameterType="com.goodiware.vo.Employee" useGeneratedKeys="true" keyColumn="EMPNO" keyProperty="empno">
+		INSERT INTO EMPLOYEE ( ID , NAME, PW, JOINDAY, PHONE ) VALUES ( #{id}, #{name}, #{pw}, NOW(), #{phone} )
+	</insert>
+	
+</mapper>
