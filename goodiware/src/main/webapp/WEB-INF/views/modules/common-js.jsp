@@ -30,5 +30,10 @@
 	    <script src="/resources/plugins/fullcalendar/js/fullcalendar.min.js"></script>
 	    <script src="/resources/js/plugins-init/fullcalendar-init.js"></script>
 
-	    <script src="./plugins/validation/jquery.validate.min.js"></script>
-    	<script src="./plugins/validation/jquery.validate-init.js"></script>
+	    <script src="/resources/plugins/validation/jquery.validate.min.js"></script>
+    	<script src="/resources/plugins/validation/jquery.validate-init.js"></script>
+    	
+    	
+    	<script src="/resources/plugins/tables/js/jquery.dataTables.min.js"></script>
+	    <script src="/resources/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
+	    <script src="/resources/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
