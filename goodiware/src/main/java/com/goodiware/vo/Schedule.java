@@ -1,6 +1,7 @@
 package com.goodiware.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -12,5 +13,8 @@ public class Schedule {
 	private String content;
 	private Date startdate;
 	private Date enddate;
+	
+	private List<Schdiv> schdivs;
+	private List<Employee> employees;
 	
 }

@@ -1,6 +1,6 @@
 package com.goodiware.vo;
 
-import java.awt.List;
+import java.util.List;
 
 import lombok.Data;
 
@@ -22,8 +22,8 @@ public class Employee {
 	private String intro;
 	private boolean deleted;
 	
-	private int posno;
-	private int depno;
-	private int authno;
+	private List<Position> positions;
+	private List<Department> departments;
+	private List<Auth> auths;
 	
 }

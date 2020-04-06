@@ -1,6 +1,7 @@
 package com.goodiware.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -12,4 +13,7 @@ public class Board {
 	private String content;
 	private Date regdate;
 	private boolean bdel;
+	
+	private List<Employee> employees;
+	private List<BoardDiv> boardDivs;
 }

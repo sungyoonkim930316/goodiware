@@ -47,10 +47,10 @@
         
                                 <form class="mt-5 mb-5 login-input" method="post" action="/employee/login" id="login-form">
                                     <div class="form-group">
-                                        <input type="id" class="form-control" placeholder="아이디" name="id" id="id">
+                                        <input type="text" class="form-control" placeholder="아이디" name="id" id="id">
                                     </div>
                                     <div class="form-group">
-                                        <input type="pw" class="form-control" placeholder="패스워드" name="pw" id="pw">
+                                        <input type="password" class="form-control" placeholder="패스워드" name="pw" id="pw">
                                     </div>
                                     <button type="button" id="login" class="btn login-form__btn submit w-100">로그인</button>
                                 </form>

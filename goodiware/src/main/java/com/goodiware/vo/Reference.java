@@ -1,6 +1,7 @@
 package com.goodiware.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -14,4 +15,6 @@ public class Reference {
 	private String reffilename;
 	private String refpath;
 	private boolean refdel;
+	
+	private List<Employee> employees;
 }
