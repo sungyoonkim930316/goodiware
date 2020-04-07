@@ -50,11 +50,12 @@
                         <ul aria-expanded="false">
                             <li><a href="./page-login.html">출퇴근관리</a></li>
                             <li><a href="/employee/edit">나의정보수정</a></li>
+                            <li><a href="#">${ loginuser.auths.authno }</a></li>
                             <!-- <li><a href="/employee/confirmPw">패스워드변경</a></li> -->
                         </ul>
                     </li>
-                    <c:choose>
-                    <c:when test="${ loginuser.authno == 3 || loginuser.authno == 2 }">
+                    <%-- <c:choose>
+                    <c:when test="${ loginuser.auths.authno == 3 || loginuser.auths.authno == 2 }"> --%>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-note menu-icon"></i><span class="nav-text">관리자페이지</span>
@@ -64,8 +65,8 @@
                             <li><a href="#">사원정보수정</a></li>
                         </ul>
                     </li>
-                    </c:when>
-                    </c:choose>
+                    <%-- </c:when>
+                    </c:choose> --%>
                 </ul>
             </div>
         </div>

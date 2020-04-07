@@ -17,6 +17,8 @@
 
 </head>
 
+
+
 <body>
 
     <!--*******************
@@ -93,66 +95,42 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">자유게시판</h4>
-                                <div class="table-responsive">
-                                    <table class="table">
-									  <thead>
-									    <tr>
-									      <th scope="col">No</th>
-									      <th scope="col">Subject</th>
-									      <th scope="col">Name</th>
-									      <th scope="col">Date</th>
-									    </tr>
-									  </thead>
-									  <tbody>
-									    <tr>
-									      <th scope="row">1</th>
-									      <td>Mark</td>
-									      <td>Otto</td>
-									      <td>@mdo</td>
-									    </tr>
-									    <tr>
-									      <th scope="row">2</th>
-									      <td>Jacob</td>
-									      <td>Thornton</td>
-									      <td>@fat</td>
-									    </tr>
-									    <tr>
-									      <th scope="row">3</th>
-									      <td>Larry</td>
-									      <td>the Bird</td>
-									      <td>@twitter</td>
-									    </tr>
-									  </tbody>
-									</table>
-									<table class="table">
-										<tbody>
-										    <tr>
-										      <td colspan="3">
-												<div class="bootstrap-pagination">
-				                                    <nav>
-				                                        <ul class="pagination justify-content-center">
-				                                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">◀</a>
-				                                            </li>
-				                                            <li class="page-item"><a class="page-link" href="#">1</a>
-				                                            </li>
-				                                            <li class="page-item"><a class="page-link" href="#">2</a>
-				                                            </li>
-				                                            <li class="page-item"><a class="page-link" href="#">3</a>
-				                                            </li>
-				                                            <li class="page-item"><a class="page-link" href="#">▶</a>
-				                                            </li>
-				                                        </ul>
-				                                    </nav>
-				                                </div>
-										      </td>
-										      <td>
-										      	<button type="button" class="btn btn-primary" id="writeBoard">글쓰기</button>
-										      </td>
-										    </tr>
-										</tbody>
-									</table>
+                                <h4 class="card-title">글 쓰기</h4>
+                             	<div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="summernote">
+                                    <h3>Default Summernote</h3>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="inline-editor">
+                                    <h4 class="card-title m-b-40">You can select content and edit inline</h4>
+                                    <h3>Title Heading will be <b>apear here</b></h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elitconsectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud Exercitation ullamco laboris
+                                        nisi ut aliquip ex ea commodo consequat.</p>
+                                    <ul class="list-icons">
+                                        <li><i class="fa fa-check text-success"></i> Lorem ipsum dolor sit amet</li>
+                                        <li><i class="fa fa-check text-success"></i> Consectetur adipiscing elit</li>
+                                        <li><i class="fa fa-check text-success"></i> Integer molestie lorem at massa</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <button id="edit" class="btn btn-info btn-rounded" onclick="edit()" type="button">Edit</button>
+                                <button id="save" class="btn btn-success btn-rounded" onclick="save()" type="button">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+                               
                             </div>
                         </div>
                     </div>
@@ -190,7 +168,7 @@
     <script type="text/javascript">
 	$(function(){
 
-		$("#writeBoard").on("click", function(event){
+		$("#writeboard").on("click", function(event){
 
 			location.href="/board/write";
 
@@ -198,9 +176,20 @@
 
 		
 	})
+	
     
     </script>
+    
+    <script src="plugins/common/common.min.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+
+    <script src="./plugins/summernote/dist/summernote.min.js"></script>
+    <script src="./plugins/summernote/dist/summernote-init.js"></script>
 
 </body>
+
 
 </html>

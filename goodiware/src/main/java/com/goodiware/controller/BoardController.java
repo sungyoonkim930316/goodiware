@@ -17,7 +17,7 @@ public class BoardController {
 	// 게시판 글쓰기로 이동
 	@GetMapping(path= {"/write"})
 	public String toWrite() {
-		return "";
+		return "/board/write";
 	}
 	
 	
