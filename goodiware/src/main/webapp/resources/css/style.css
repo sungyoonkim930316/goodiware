@@ -10650,7 +10650,7 @@ input[type="checkbox"]:checked:after {
   outline: medium none;
   transition-duration: 0.3s; }
 
-.dataTables_filter {
+/* .dataTables_filter {
   float: right;
   margin-top: 10px; }
 
@@ -10670,7 +10670,7 @@ input[type="checkbox"]:checked:after {
   background-size: 100% 2px, 100% 1px;
   box-shadow: none;
   outline: medium none;
-  transition-duration: 0.3s; }
+  transition-duration: 0.3s; } */
 
 table.dataTable thead .sorting,
 table.dataTable thead .sorting_asc,

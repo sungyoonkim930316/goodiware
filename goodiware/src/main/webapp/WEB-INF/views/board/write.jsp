@@ -169,7 +169,7 @@
 	$(function(){
 
 		$("#writeboard").on("click", function(event){
-
+  
 			location.href="/board/write";
 
 		})

@@ -21,9 +21,10 @@ public class Employee {
 	private String picture;
 	private String intro;
 	private boolean deleted;
+	private int authno;
 	
 	private List<Position> positions;
 	private List<Department> departments;
-	private List<Auth> auths;
+	private Auth auth;
 	
 }

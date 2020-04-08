@@ -5,7 +5,10 @@
 <mapper namespace="com.goodiware.mapper.EmployeeMapper">
 
 	<select id="selectEmployee" parameterType="com.goodiware.vo.Employee" resultType="com.goodiware.vo.Employee">
-		SELECT * FROM EMPLOYEE where ID = #{id} and PW = #{pw} and deleted ='N'
+		SELECT e.empno, e.id, e.pw, e.name, e.birth, e.phone, e.add1, e.add2, e.add3, e.joinday, e.leaveday, e.picture, e.intro, e.deleted, 
+				e.posno, e.authno, e.depno, a.authno, a.authname 
+		FROM EMPLOYEE e, AUTH a 
+		where a.authno = e.authno and e.id = #{id} and e.pw = #{pw} and deleted ='N'
 	</select>
 	
 	<update id="updateEmployee" parameterType="com.goodiware.vo.Employee">
