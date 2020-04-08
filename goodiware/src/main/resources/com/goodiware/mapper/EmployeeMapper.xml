@@ -4,11 +4,37 @@
 
 <mapper namespace="com.goodiware.mapper.EmployeeMapper">
 
-	<select id="selectEmployee" parameterType="com.goodiware.vo.Employee" resultType="com.goodiware.vo.Employee">
+	<resultMap type="com.goodiware.vo.Employee" id="employeeMap">
+		<id column="empno" property="empno" />
+		<result column="id" property="id" />
+		<result column="pw" property="id" />
+		<result column="name" property="id" />
+		<result column="birth" property="id" />
+		<result column="phone" property="id" />
+		<result column="add1" property="id" />
+		<result column="add2" property="id" />
+		<result column="add3" property="id" />
+		<result column="joinday" property="joinday" />
+		<result column="leaveday" property="leaveday" />
+		<result column="picture" property="picture" />
+		<result column="intro" property="intro" />
+		<result column="deleted" property="deleted" />
+		<association property="auth" column="authno" resultMap="authMap"></association>
+	</resultMap>
+	
+	<resultMap type="com.goodiware.vo.Auth" id="authMap">
+		<id column="authno" property="authno" />
+		<result column="authname" property="authname" />
+	</resultMap>
+
+
+	<select id="selectEmployee" parameterType="com.goodiware.vo.Employee" resultMap="employeeMap" resultType="com.goodiware.vo.Employee">
 		SELECT e.empno, e.id, e.pw, e.name, e.birth, e.phone, e.add1, e.add2, e.add3, e.joinday, e.leaveday, e.picture, e.intro, e.deleted, 
 				e.posno, e.authno, e.depno, a.authno, a.authname 
-		FROM EMPLOYEE e, AUTH a 
-		where a.authno = e.authno and e.id = #{id} and e.pw = #{pw} and deleted ='N'
+		FROM EMPLOYEE e 
+		inner join AUTH a
+		on a.authno = e.authno 
+		where e.id = #{id} and e.pw = #{pw} and deleted ='N'
 	</select>
 	
 	<update id="updateEmployee" parameterType="com.goodiware.vo.Employee">
