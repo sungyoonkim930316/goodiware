@@ -190,7 +190,7 @@
     <script type="text/javascript">
 	$(function(){
 
-		$("#writeboard").on("click", function(event){
+		$("#writeBoard").on("click", function(event){
 
 			location.href="/board/write";
 
