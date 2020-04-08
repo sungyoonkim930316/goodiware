@@ -133,14 +133,24 @@
                                             <label class="col-lg-4 col-form-label" for="val-username">직급 <span class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" id="position" name="position">
+                                                <!-- <input type="text" class="form-control" id="position" name="position"> -->
+                                                <select class="form-control" id="position" name="position">
+	                                                <c:forEach items="${ positions }" var="position">
+	                                                <option value="${ position.posno }">${ position.posname }</option>
+	                                                </c:forEach>
+	                                            </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-lg-4 col-form-label" for="val-username">부서 <span class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" id="department" name="department">
+                                                <!-- <input type="text" class="form-control" id="department" name="department"> -->
+                                                <select class="form-control" id="department" name="department">
+	                                                <c:forEach items="${ departments }" var="department">
+	                                                <option value="${ department.depno }">${ department.depname }</option>
+	                                                </c:forEach>
+	                                            </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -208,16 +218,6 @@
 			if($("#pw2").val() == '' ){
 				alert("패스워드확인을 입력하세요!");
 				$("#pw2").focus();
-				return;
-			}
-			if($("#position").val() == '' ){
-				alert("직급을 입력하세요!");
-				$("#position").focus();
-				return;
-			}
-			if($("#department").val() == '' ){
-				alert("부서를 입력하세요!");
-				$("#department").focus();
 				return;
 			}
 			if($("#phone").val() == '' ){

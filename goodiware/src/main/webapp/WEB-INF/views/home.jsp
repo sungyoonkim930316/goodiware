@@ -667,6 +667,12 @@
 			$('#messageModal .modal-body').text("정보가 수정되었습니다.")
 			$('#messageModal').modal('show');
 		}
+
+		var NewId = '${ NewId }';
+		if( NewId && !history.state ) {
+			alert("사원 등록이 완료되었습니다.");
+		}
+		history.replaceState({}, null, null);
 				
 	</script>
 

@@ -8,4 +8,12 @@
 		INSERT INTO EMPLOYEE ( ID , NAME, PW, JOINDAY, PHONE ) VALUES ( #{id}, #{name}, #{pw}, NOW(), #{phone} )
 	</insert>
 	
+	<select id="selectPostions" resultType="com.goodiware.vo.Position">
+		select * from POSITION
+	</select>
+	
+	<select id="selectDepartments" resultType="com.goodiware.vo.Department">
+		select * from DEPARTMENT
+	</select>
+	
 </mapper>

@@ -34,7 +34,7 @@ public class EmployeeController {
 		
 		Employee employee2 = employeeService.userLogin(employee);
 		if(employee2 == null) {
-			attr.addFlashAttribute("loginFalse", employee);
+			attr.addFlashAttribute("loginFalse", employee2);
 			return "redirect:/employee/login";
 		} else {
 			session.setAttribute("loginuser", employee2);

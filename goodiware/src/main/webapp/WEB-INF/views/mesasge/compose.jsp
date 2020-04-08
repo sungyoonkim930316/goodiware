@@ -127,29 +127,29 @@
                                         </div>
                                     </div>
                                     <div class="compose-content mt-5">
-                                        <form action="#">
+                                        <form action="/message/sendMessage" method="post" id="send-form">
+                                        	<input type="hidden" name="sender" value="${ loginuser.id }">
                                             <div class="form-group">
-                                                <input type="text" class="form-control bg-transparent" placeholder=" To">
+                                                <input type="text" class="form-control bg-transparent" placeholder="받는사람" id="receiver" name="receiver">
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control bg-transparent" placeholder=" Subject">
-                                            </div>
+                                                <input type="text" class="form-control bg-transparent" placeholder="제목" id="title" name="title">                                            </div>
                                             <div class="form-group">
-                                                <textarea class="textarea_editor form-control bg-light" rows="15" placeholder="Enter text ..."></textarea>
+                                                <textarea class="textarea_editor form-control bg-light" rows="15" placeholder="내용" id="content" name="content"></textarea>
                                             </div>
                                         </form>
-                                        <h5 class="m-b-20"><i class="fa fa-paperclip m-r-5 f-s-18"></i> Attatchment</h5>
-                                        <form action="#" class="dropzone">
+                                        <!-- <h5 class="m-b-20"><i class="fa fa-paperclip m-r-5 f-s-18"></i> Attatchment</h5> -->
+                                        <!-- <form action="#" class="dropzone">
                                             <div class="form-group">
                                                 <div class="fallback">
                                                     <input class="l-border-1" name="file" type="file" multiple="multiple">
                                                 </div>
                                             </div>
-                                        </form>
+                                        </form> -->
                                     </div>
                                     <div class="text-left m-t-15">
-                                        <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button"><i class="fa fa-paper-plane m-r-5"></i> 보내기</button>
-                                        <button class="btn btn-dark m-b-30 m-t-15 f-s-14 p-l-20 p-r-20" type="button"><i class="ti-close m-r-5 f-s-12"></i> 삭제하기</button>
+                                        <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button" id="send"><i class="fa fa-paper-plane m-r-5"></i> 보내기</button>
+                                        <button class="btn btn-dark m-b-30 m-t-15 f-s-14 p-l-20 p-r-20" type="button" id="delete"><i class="ti-close m-r-5 f-s-12"></i> 삭제하기</button>
                                     </div>
                                 </div>
                             </div>
@@ -185,6 +185,34 @@
         Scripts
     ***********************************-->
     <jsp:include page="/WEB-INF/views/modules/common-js.jsp"></jsp:include>
+    <script type="text/javascript">
+		$(function(){
+
+			$("#send").on("click", function(event){
+
+				if($("#receiver").val() == '' ){
+					alert("받는사람을 입력하세요!");
+					$("#receiver").focus();
+					return;
+				}
+				if($("#title").val() == '' ){
+					alert("제목을 입력하세요!");
+					$("#title").focus();
+					return;
+				}
+				if($("#content").val() == '' ){
+					alert("내용을 입력하세요!");
+					$("#content").focus();
+					return;
+				}
+
+				$("#send-form").submit();
+				
+			})
+			
+
+		})
+    </script>
 
 </body>
 

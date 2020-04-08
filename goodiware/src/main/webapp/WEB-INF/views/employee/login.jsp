@@ -38,7 +38,7 @@
 			<div class="wrap-login100 p-t-50 p-b-90">
 				<form class="login100-form validate-form flex-sb flex-w" method="post" action="/employee/login" id="login-form" >
 					<span class="login100-form-title p-b-51">
-						로그인
+						GOODI WARE
 					</span>
 
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
@@ -53,7 +53,7 @@
 					</div>
 
 					<div class="container-login100-form-btn m-t-17">
-						<button class="login100-form-btn" id="login">로그인하기</button>
+						<button class="login100-form-btn" id="login">login</button>
 					</div>
 
 				</form>
@@ -102,15 +102,10 @@
 			});
 
 			
-			var newId = '${ newId }'; 
 			var loginFalse = '${ loginFalse }';
 			
-			if(newId && !history.state) {
-				$('#messageModal .modal-body').text("사원 등록이 완료 되었습니다.")
-				$('#messageModal').modal('show');
-			} else if( loginFalse && !history.state ) {
-				$('#messageModal .modal-body').text("로그인 실패 하였습니다.")
-				$('#messageModal').modal('show');
+			if( loginFalse && !history.state ) {
+				alert("로그인 실패 하였습니다.")
 			}
 			history.replaceState({}, null, null);
 
