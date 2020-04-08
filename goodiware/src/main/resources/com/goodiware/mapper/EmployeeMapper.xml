@@ -7,13 +7,13 @@
 	<resultMap type="com.goodiware.vo.Employee" id="employeeMap">
 		<id column="empno" property="empno" />
 		<result column="id" property="id" />
-		<result column="pw" property="id" />
-		<result column="name" property="id" />
-		<result column="birth" property="id" />
-		<result column="phone" property="id" />
-		<result column="add1" property="id" />
-		<result column="add2" property="id" />
-		<result column="add3" property="id" />
+		<result column="pw" property="pw" />
+		<result column="name" property="name" />
+		<result column="birth" property="birth" />
+		<result column="phone" property="phone" />
+		<result column="add1" property="add1" />
+		<result column="add2" property="add2" />
+		<result column="add3" property="add3" />
 		<result column="joinday" property="joinday" />
 		<result column="leaveday" property="leaveday" />
 		<result column="picture" property="picture" />
