@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.goodiware.service.MessageService;
 import com.goodiware.vo.Message;
 
+
 @Controller
 @RequestMapping(path= {"/message"})
 public class MessageController {
@@ -34,7 +35,7 @@ public class MessageController {
 	@PostMapping(path= {"sendMessage"})
 	public String sendMessage(Message message) {
 		
-		Message message2 = messageService.sendMessage(message);
+		messageService.sendMessage(message);
 		
 		return "";
 		
