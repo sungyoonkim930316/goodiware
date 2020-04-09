@@ -40,7 +40,7 @@
                         <ul aria-expanded="false">
                             <li><a href="/board/list">자유게시판</a></li>
                             <li><a href="./form-validation.html">중고장터</a></li>
-                            <li><a href="./form-step.html">자료실</a></li>
+                            <li><a href="/reference/list">자료실</a></li>
                         </ul>
                     </li>
                     <li>

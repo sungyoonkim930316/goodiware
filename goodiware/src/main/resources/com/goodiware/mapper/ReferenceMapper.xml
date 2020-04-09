@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.goodiware.mapper.ReferenceMapper">
+
+	<insert id="insertReference" parameterType="com.goodiware.vo.Reference" useGeneratedKeys="true"
+			keyColumn="refrno" keyProperty="refrno">
+		INSERT INTO REFERENCE ( refname, refcontent, refdate, reffilename, refpath ) 
+		VALUES ( #{refname}, #{refcontent}, NOW(), #{reffilename}, #{refpath} )
+	</insert>
+	
+</mapper>
