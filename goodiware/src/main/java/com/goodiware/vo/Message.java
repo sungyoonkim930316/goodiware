@@ -14,6 +14,8 @@ public class Message {
 	private Date senddate;
 	private boolean deleted;
 	
-	private Employee sender;
-	private Employee receiver;
+	private String receiveid;
+	private int sender;
+	private int receiver;
+	
 }

@@ -128,9 +128,9 @@
                                     </div>
                                     <div class="compose-content mt-5">
                                         <form action="/message/sendMessage" method="post" id="send-form">
-                                        	<input type="hidden" name="sender" value="${ loginuser.id }">
+                                        	<input type="hidden" name="sender" value="${ loginuser.empno }">
                                             <div class="form-group">
-                                                <input type="text" class="form-control bg-transparent" placeholder="받는사람" id="receiver" name="receiver">
+                                                <input type="text" class="form-control bg-transparent" placeholder="받는사람" id="receiveid" name="receiveid">
                                             </div>
                                             <div class="form-group">
                                                 <input type="text" class="form-control bg-transparent" placeholder="제목" id="title" name="title">                                            </div>
@@ -205,6 +205,7 @@
 					$("#content").focus();
 					return;
 				}
+				if (!confirm("메일을 전송하시겠습니까?")) return;
 
 				$("#send-form").submit();
 				

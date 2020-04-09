@@ -9,8 +9,8 @@
                             <i class="icon-envelope menu-icon"></i> <span class="nav-text">메일</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/mail/compose">메일쓰기</a></li>
-                            <li><a href="/mail/inbox">받은메일함</a></li>
+                            <li><a href="/message/compose">메일쓰기</a></li>
+                            <li><a href="/message/inbox?empno=${ loginuser.empno }">받은메일함</a></li>
                         </ul>
                     </li>
                     <li class="mega-menu mega-menu-sm">

@@ -1,5 +1,7 @@
 package com.goodiware.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +17,19 @@ public class MessageServiceImpl implements MessageService {
 	@Override
 	public void sendMessage(Message message) {
 		
+		message.setReceiver(messageMapper.selectEmployeeNoById(message.getReceiveid()));
+		
 		messageMapper.insertMessage(message);
+		
 	}
+
+	@Override
+	public List<Message> showMessages(int empno) {
+		
+		return messageMapper.selectMessage(empno);
+	}
+
+
 	
 
 	

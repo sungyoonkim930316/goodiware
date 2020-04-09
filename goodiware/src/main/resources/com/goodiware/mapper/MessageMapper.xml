@@ -4,8 +4,16 @@
 
 <mapper namespace="com.goodiware.mapper.MessageMapper">
 
+	<select id="selectEmployeeNoById" parameterType="com.goodiware.vo.Message" resultType="int">
+		select empno from EMPLOYEE where id = #{ receiveid }
+	</select>
+
 	<insert id="insertMessage" parameterType="com.goodiware.vo.Message">
-	
+		insert into MESSAGE( title, content, senddate, sender, receiver ) values ( #{ title }, #{ content }, NOW(), #{sender}, #{receiver} )
 	</insert>
+	
+	<select id="selectMessage" parameterType="int" resultType="com.goodiware.vo.Message">
+		select * from MESSAGE where receiver = #{ empno } and deleted = 'N' order by mno DESC
+	</select>
 
 </mapper>
