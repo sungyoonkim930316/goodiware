@@ -42,14 +42,28 @@ public class MessageController {
 	}
 	
 	// 메세지 전송 처리
-	@PostMapping(path= {"sendMessage"})
+	@PostMapping(path= {"/sendMessage"})
 	public String sendMessage(Message message, RedirectAttributes attr) {
 		
 		messageService.sendMessage(message);
 		attr.addAttribute("success", message.getMno());
 		
-		return "redirect:/message/inbox";
+//		return "redirect:/message/inbox";
+		return String.format("redirect:/message/inbox?empno=%d", message.getSender());
 		
+	}
+	
+	// 메세지 상세 보기
+	@GetMapping(path= {"/messageContent" })
+	public String showMessageContent(int empno, int mno, Model model, Message message) {
+		
+		Message message2 = messageService.showContent(mno);
+		model.addAttribute("message", message2);
+		
+		// 읽은 메일의 읽은 시간 업데이트
+		messageService.updateReadDate(mno);
+		
+		return "/message/content";
 	}
 	
 }

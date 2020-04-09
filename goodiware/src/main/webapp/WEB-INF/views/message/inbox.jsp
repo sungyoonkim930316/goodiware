@@ -96,7 +96,7 @@
                                     
                                 </div>
                                 <div class="email-right-box">
-                                    <div role="toolbar" class="toolbar">
+                                    <!-- <div role="toolbar" class="toolbar">
                                         <div class="btn-group">
                                             <button aria-expanded="false" data-toggle="dropdown" class="btn btn-dark dropdown-toggle" type="button">More <span class="caret m-l-5"></span>
                                             </button>
@@ -104,16 +104,18 @@
                                                 class="dropdown-item">Add Star</a>  <a href="javascript: void(0);" class="dropdown-item">Mute</a>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
+                                    <hr>
                                     <div class="email-list m-t-15">
                                     	<c:forEach items="${ messages }" var="message">
-                                        <div class="message">
-                                            <a href="email-read.html">
+                                    	<input type="hidden" name="mno" value="${ message.mno }">
+                                        <div class="message unread">
+                                            <a href="/message/messageContent?empno=${ loginuser.empno }&mno=${ message.mno }">
                                                 <div class="col-mail col-mail-1">
                                                     <div class="email-checkbox">
                                                         <input type="checkbox" id="chk2">
                                                         <label class="toggle" for="chk2"></label>
-                                                    </div><span>${ message.sender }</span>
+                                                    </div><span>${ message.name }</span>
                                                 </div>
                                                 <div class="col-mail col-mail-2">
                                                     <div class="subject">${ message.title }</div>
@@ -169,7 +171,7 @@
                                         </div> -->
                                     </div><br>
                                     <!-- panel -->
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-7">
                                             <div class="text-left">1 - 20 of 568</div>
                                         </div>
@@ -181,7 +183,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

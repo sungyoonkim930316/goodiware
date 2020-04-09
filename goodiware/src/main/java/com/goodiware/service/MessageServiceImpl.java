@@ -29,6 +29,18 @@ public class MessageServiceImpl implements MessageService {
 		return messageMapper.selectMessage(empno);
 	}
 
+	@Override
+	public Message showContent(int mno) {
+		
+		return messageMapper.selectMessageContent(mno);
+	}
+
+	@Override
+	public void updateReadDate(int mno) {
+
+		messageMapper.insertOpenDate(mno);
+	}
+
 
 	
 

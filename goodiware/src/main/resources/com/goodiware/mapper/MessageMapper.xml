@@ -11,9 +11,23 @@
 	<insert id="insertMessage" parameterType="com.goodiware.vo.Message">
 		insert into MESSAGE( title, content, senddate, sender, receiver ) values ( #{ title }, #{ content }, NOW(), #{sender}, #{receiver} )
 	</insert>
-	
+
 	<select id="selectMessage" parameterType="int" resultType="com.goodiware.vo.Message">
-		select * from MESSAGE where receiver = #{ empno } and deleted = 'N' order by mno DESC
+		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, e.name
+		from MESSAGE m , EMPLOYEE e 
+		where m.receiver = #{ empno } and m.deleted = 'N' and  m.sender = e.empno
+		order by mno DESC
 	</select>
 
-</mapper>
+	<select id="selectMessageContent" parameterType="int" resultType="com.goodiware.vo.Message">
+		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, e.name, e.id
+		from MESSAGE m , EMPLOYEE e
+		where m.mno = #{ mno } and m.deleted ='N' and m.sender = e.empno
+	</select>
+	
+	<insert id="insertOpenDate" parameterType="int">
+		update MESSAGE set opendate = NOW() where mno = #{ mno }
+	</insert>
+
+ 
+ </mapper>

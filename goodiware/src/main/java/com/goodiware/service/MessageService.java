@@ -10,5 +10,9 @@ public interface MessageService {
 
 	List<Message> showMessages(int empno);
 
+	Message showContent(int mno);
+
+	void updateReadDate(int mno);
+
 
 }

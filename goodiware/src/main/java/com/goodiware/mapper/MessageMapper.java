@@ -16,6 +16,9 @@ public interface MessageMapper {
 
 	List<Message> selectMessage(int empno);
 
+	Message selectMessageContent(int mno);
+
+	void insertOpenDate(int mno);
 
 
 }
