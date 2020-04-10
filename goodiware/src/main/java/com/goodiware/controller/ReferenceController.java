@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
@@ -145,5 +146,93 @@ public class ReferenceController {
 		fos.close();
 	}
 	
+	@GetMapping(path = { "/delete" })
+	public String delete(int refNo, int pageNo,
+			@RequestParam(required = false) String searchType,
+			@RequestParam(required = false) String searchKey) {
+		
+		referenceService.deleteReference(refNo);
+		
+		String encodedKey = "";
+		try {
+			//URL경로에서 한글을 처리하기 위한 구현
+			encodedKey = URLEncoder.encode(searchKey, "utf-8");
+		} catch(Exception ex) {
+		}
+		
+		return String.format("redirect:list?pageNo=%d&searchKey=%s&searchType=%s", 
+							 pageNo, encodedKey, searchType);
+	}
+	
+	@GetMapping(path = { "/update" })
+	public String showUpdateForm(int refNo, Model model) {
+	
+		Reference reference = referenceService.findRefByRefNo(refNo);
+		if (reference == null) {
+			return "redirect:list";
+		}
+		
+		model.addAttribute("reference", reference);
+		
+		return "reference/update";
+	}
+	
+	@PostMapping(path = { "/update" })
+	public String update(@RequestParam("refFile") MultipartFile ref, 
+			Reference reference, int pageNo, String refName, int refNo, String smarteditor,
+			@RequestParam(required = false) String searchType,
+			@RequestParam(required = false) String searchKey, HttpServletRequest req) {
+			
+		reference.setRefno(refNo);
+		reference.setRefcontent(smarteditor);
+		
+		ServletContext application = req.getServletContext();
+					
+		String path = application.getRealPath("resources/file/reference/" + refName);
+		
+		String newPath = application.getRealPath("resources/file/reference");
+		String newFilename = ref.getOriginalFilename();
+		
+		System.out.println("**********************************");
+		System.out.println("기존 파일 : " + path);
+		System.out.println("경로 : " + newPath);
+		System.out.println("새 파일 : " + newFilename);
+		System.out.println("**********************************");
+		
+		//새로운 파일이 등록되었는지 확인
+		if(ref.getOriginalFilename() != null && !ref.getOriginalFilename().equals("")) {
+			// 기존 파일을 삭제
+			new File(path).delete();
+						
+			// 새로 첨부한 파일을 등록
+			try {
+				File f = new File(newPath, newFilename);
+				ref.transferTo(f);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			System.out.println("새 자료 : " + newFilename);
+			reference.setRefpath(newPath);
+			reference.setReffilename(newFilename);
+			
+		} else { // 새 파일이 등록되지 않았다면
+			// 기존 파일 그대로 사용
+			reference.setReffilename(req.getParameter("refName"));
+		}
+		
+		referenceService.updateRef(reference);
+		
+		String encodedKey = "";
+		
+		try {
+			//URL경로에서 한글을 처리하기 위한 구현
+			encodedKey = URLEncoder.encode(searchKey, "utf-8");
+		} catch(Exception ex) {
+		}
+		
+		return String.format(
+				"redirect:detail?refNo=%d&pageNo=%d&searchType=%s&searchKey=%s", 
+				reference.getRefno(), pageNo, searchType, encodedKey);
+	}
 	
 }

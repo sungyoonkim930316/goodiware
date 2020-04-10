@@ -3,9 +3,6 @@ package com.goodiware.service;
 import java.util.HashMap;
 import java.util.List;
 
-import com.goodiware.vo.Department;
-import com.goodiware.vo.Employee;
-import com.goodiware.vo.Position;
 import com.goodiware.vo.Reference;
 
 public interface ReferenceService {
@@ -19,5 +16,9 @@ public interface ReferenceService {
 	Reference findRefByRefNo(int refNo);
 
 	Reference findUploadFileByRefNo(int refNo);
+
+	void deleteReference(int refNo);
+	
+	void updateRef(Reference reference);
 
 }

@@ -133,9 +133,16 @@
 									    	<tr>
 									    		<td>${ reference.refno }</td>
 									    		<td>
-									    			<a href="detail?refNo=${ reference.refno }&pageNo=${ pager.pageNo }&searchType=${ empty param.searchType ? '' : param.searchType }&searchKey=${ empty param.searchKey ? '' : param.searchKey }">
-														${ reference.refname } 
-													</a>
+									    			<c:choose>
+										    			<c:when test="${ reference.refdel eq 'N' }">
+											    			<a href="detail?refNo=${ reference.refno }&pageNo=${ pager.pageNo }&searchType=${ empty param.searchType ? '' : param.searchType }&searchKey=${ empty param.searchKey ? '' : param.searchKey }">
+																${ reference.refname } 
+															</a>
+														</c:when>
+														<c:otherwise>
+															[삭제] ${ reference.refname }								
+														</c:otherwise>
+													</c:choose>
 									    		</td>
 									    		<td>${ reference.name }</td>
 									    		<td>${ reference.refdate }</td>

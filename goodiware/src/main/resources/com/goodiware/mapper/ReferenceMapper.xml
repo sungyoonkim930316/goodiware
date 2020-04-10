@@ -25,7 +25,7 @@
 	<select id="selectRefWithPaging" 
 			resultType="com.goodiware.vo.Reference" parameterType="hashmap">
 	
-		SELECT r.empno, r.refno, r.refname, r.refcontent, r.refdate, r.refdel, e.name
+		SELECT r.empno, r.refno, r.refname, r.refcontent, r.refdate, r.refdel, e.name, e.empno
 		FROM REFERENCE r, EMPLOYEE e
 		WHERE    
 			<include refid="searchCondition" />
@@ -48,9 +48,11 @@
 	
 	<select id="selectRefByRefNo" parameterType="int" resultType="com.goodiware.vo.Reference">
 		
-		SELECT r.empno, r.refno, r.refname, r.refcontent, r.refdate, r.refdel, r.reffilename, r.refpath, e.name
+		SELECT r.empno, r.refno, r.refname, r.refcontent, r.refdate, r.refdel, r.reffilename, r.refpath, e.name, e.empno
 		FROM REFERENCE r, EMPLOYEE e
-		WHERE r.refno = #{refNo} AND r.refdel = 'N' AND r.empno = e.empno
+		WHERE r.refno = #{refNo} 
+		AND r.refdel = 'N' 
+		AND r.empno = e.empno
 		
 	</select>
 	
@@ -59,5 +61,17 @@
 		FROM REFERENCE
 		WHERE refno = #{refNo}
 	</select>
+	
+	<update id="deleteReference" parameterType="int">
+		UPDATE REFERENCE
+		SET refdel = 'Y' 
+		WHERE refno = #{ refNo }
+	</update>	
+	
+	<update id="updateReference" parameterType="com.goodiware.vo.Reference">
+		UPDATE REFERENCE
+		SET refname = #{ refname }, refcontent = #{ refcontent }, refdate = NOW(), refpath = #{ refpath }, reffilename = #{ reffilename }  
+		WHERE refno = #{ refno } 
+	</update>
 	
 </mapper>

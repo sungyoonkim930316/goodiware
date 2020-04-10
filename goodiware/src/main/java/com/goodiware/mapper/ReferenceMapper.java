@@ -5,9 +5,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.goodiware.vo.Department;
-import com.goodiware.vo.Employee;
-import com.goodiware.vo.Position;
 import com.goodiware.vo.Reference;
 
 @Mapper
@@ -22,6 +19,10 @@ public interface ReferenceMapper {
 	Reference selectRefByRefNo(int refNo);
 
 	Reference selectUploadRefByRefNo(int refNo);
+
+	void deleteReference(int refNo);
+	
+	void updateReference(Reference reference);
 
 
 }

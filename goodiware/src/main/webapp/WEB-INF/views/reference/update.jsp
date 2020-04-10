@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>자료 정보</title>
+<title>자료 수정</title>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="/resources/images/favicon.png">
@@ -92,7 +92,7 @@
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="javascript:void(0)">자료실</a></li>
 						<li class="breadcrumb-item active"><a
-							href="javascript:void(0)">자료정보</a></li>
+							href="javascript:void(0)">자료수정</a></li>
 					</ol>
 				</div>
 			</div>
@@ -101,58 +101,38 @@
 			
 
 			<div class="container-fluid">
-				<h4 class="card-title">업로드 자료 정보</h4>
-				<br>
-				<div class="form-group row">
-					<div class="col-sm-6 mb-3 mb-sm-0">
-						<label>자료 번호</label>
-						<input type="text" name="refno"
-							class="form-control form-control-user" id="refno"
-							value=${ reference.refno }>
-					</div>
-					<div class="col-sm-6">
-						<label>자료 이름</label>
-						<input type="text" name="refname"
-							class="form-control form-control-user" id="refname"
-							value="${ reference.refname }">
-					</div>
-				</div>
+				<h4 class="card-title">업로드 자료 수정</h4>
 				
-				<div class="form-group row">
-					<div class="col-sm-6 mb-3 mb-sm-0">
-						<label>등록자</label>
-						<input type="text" name="name"
-							class="form-control form-control-user" id="name"
-							value=${ reference.name }>
-					</div>
-					<div class="col-sm-6">
-						<label>등록 일자</label>
-						<input type="text" name="refdate"
-							class="form-control form-control-user" id="refdate"
-							value="${ reference.refdate }">
-					</div>
+				<div class="form-group">
+					
+					<form id="frm" action="/reference/update" method="post" class="user" enctype="multipart/form-data">
+						
+						<input type="hidden" name="refNo" value="${ reference.refno }">
+				        <input type="hidden" name="pageNo" value="${ param.pageNo }">
+				        <input type="hidden" id="searchType" name="searchType" value="${ param.searchType }">
+		  				<input type="hidden" id="searchKey" name="searchKey" value="${ param.searchKey }">
+						
+						<input type="hidden" name="empno" value="${ loginuser.empno }">
+						
+						<input type="text" name="refname" class="form-control input-default" value="${ reference.refname }"><br>
+						<textarea name="smarteditor" id="smarteditor" rows="10" cols="100" style="width:100%; height:412px;"></textarea><br>
+						<br>
+						<label>업로드 파일</label>
+						<br>
+						기존 업로드 파일 : ${ reference.reffilename }
+						<br>
+						<input id="refFile" type="file" name="refFile"
+							class="form-control">
+						<input type="hidden" name="refName" value="${ reference.reffilename }">
+						<br>
+						<div style="text-align: center">
+							<input type="button" class="btn btn-info btn-rounded" id="savebutton" value="수정" />
+							<input type="button" class="btn btn-success btn-rounded" id="cancel" value="취소" />
+						</div>
+					</form>
+					
 				</div>
-				
-				<div class="form-group">					
-					<label>본문 내용</label>
-					<div>
-						${ reference.refcontent }
-					</div>
-					<label>첨부 자료</label>
-					<br>
-					<a href="download?refNo=${ reference.refno }">
-			        	${ reference.reffilename }
-			        </a>
-				</div>
-				<br>
-				<br>
-				<div style="text-align: center">
-					<c:if test="${ loginuser.empno eq reference.empno }">
-						<button id="edit-button" type="button" class="btn btn-success">수정</button>
-			    		<button id="delete-button" type="button" class="btn btn-success">삭제</button>
-            		</c:if>
-	        		<button id="tolist-button" type="button" class="btn btn-success">목록</button>
-				</div>
+		
 			</div>
 			<!-- #/ container -->
 		</div>
@@ -185,65 +165,51 @@
 	<script type="text/javascript" src="/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 	<script type='text/javascript'>
 	$(function(){
+	    //전역변수선언
+	    var editor_object = [];
 
-		$('input').attr({'readonly': 'readonly'})
-		
-		$('#tolist-button').on('click', function(event) {
-			location.href = "list?pageNo=${ param.pageNo }&searchType=${ param.searchType }&searchKey=${ param.searchKey }";
-		});
+	    $('#smarteditor').val('${reference.refcontent}');
+	 	     
+	    nhn.husky.EZCreator.createInIFrame({
+	        oAppRef: editor_object,
+	        elPlaceHolder: "smarteditor", // textarea의 id
+	        sSkinURI: "/resources/navereditor/SmartEditor2Skin.html", 
+	        htParams : {
+	            // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+	            bUseToolbar : true,             
+	            // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+	            bUseVerticalResizer : true,     
+	            // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+	            bUseModeChanger : true, 
+	        }
+	    });
+	
+	    //전송버튼 클릭이벤트
+	    $("#savebutton").click(function(){
+	        //id가 smarteditor인 textarea에 에디터에서 대입
+	        editor_object.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
+	         
+	        // 이부분에 에디터 validation 검증
+	
+	        //폼 submit
+	        $("#frm").submit();
+	    })
+	    cancel
+	    $('#cancel').on('click', function() {
 
-		$('#delete-button').on('click', function(event) {
+			var result = confirm("수정을 취소하시겠습니까?");
+
+			if(!result) {
+				return false;
+			} else {
+				alert('게시글로 돌아갑니다.');
+				location.href = 'detail?refNo=${ reference.refno }&pageNo=${ param.pageNo }&searchType=${ param.searchType }&searchKey=${ param.searchKey }';
+			} 
 			
-			var yes = confirm("${ reference.refno }번 글을 삭제할까요?");
-			if (!yes) {
-				return;
-			}
-								
-			var form =
-				makeForm('delete', ${ reference.refno }, ${ param.pageNo }, '${ param.searchType }', '${ param.searchKey }');
-			form.submit();
-			alert('정상적으로 삭제되었습니다.');
-		});
 
-		$('#edit-button').on('click', function(event) {
-			var form =
-				makeForm('update', ${ reference.refno }, ${ param.pageNo }, '${ param.searchType }', '${ param.searchKey }');
-			form.submit();
 		});
-
-		function makeForm(action, refno, pageNo, searchType, searchKey, method="get") {
-			var form = $('<form></form>');
-			form.attr({
-				'action': action,
-				'method': method
-			});
-			form.append($('<input>').attr({
-				"type": "hidden",
-				"name": "refNo",
-				"value" : refno })
-			);
-			form.append($('<input>').attr({
-				"type": "hidden",
-				"name": "pageNo",
-				"value" : pageNo })
-			);
-			form.append($('<input>').attr({
-				"type": "hidden",
-				"name": "searchType",
-				"value" : searchType })
-			);
-			form.append($('<input>').attr({
-				"type": "hidden",
-				"name": "searchKey",
-				"value" : searchKey })
-			);
-			
-			form.appendTo("body");
-			
-			return form;
-		}
 	    
-	});
+	})
 	</script>
 
 
