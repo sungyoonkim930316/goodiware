@@ -41,6 +41,13 @@ public class ReferenceServiceImpl implements ReferenceService {
 		
 	}
 
+	@Override
+	public Reference findRefByRefNo(int refNo) {
+		
+		return referenceMapper.selectRefByRefNo(refNo);
+		
+	}
+
 
 
 }

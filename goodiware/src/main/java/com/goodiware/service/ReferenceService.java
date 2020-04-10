@@ -16,4 +16,6 @@ public interface ReferenceService {
 
 	int findRefCount(HashMap<String, Object> params);
 
+	Reference findRefByRefNo(int refNo);
+
 }

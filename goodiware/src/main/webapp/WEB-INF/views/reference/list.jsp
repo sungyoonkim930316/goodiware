@@ -94,12 +94,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-	                                <h4 style="float: left;" class="card-title">자료실</h4>
-	                                <c:choose>
-		                				<c:when test="${ loginuser.auth.authno eq 2 or loginuser.auth.authno eq 3 }">
-								      		<button type="button" class="btn btn-primary" style="float: right;" id="writeBoard">업로드</button>	
-								      	</c:when>
-								    </c:choose>
+	                                <h4 class="card-title">자료실</h4>
+	                                
 							    </div>
                                 <div class="row" style="text-align: center">
 									<div class="col-sm-12 col-md-12">
@@ -141,7 +137,7 @@
 														${ reference.refname } 
 													</a>
 									    		</td>
-									    		<td>${ reference.empno }</td>
+									    		<td>${ reference.name }</td>
 									    		<td>${ reference.refdate }</td>
 									    	</tr>
 									    </c:forEach>
@@ -152,6 +148,11 @@
 											</tr>
 									  </tfoot>
 									</table>
+									<c:choose>
+		                				<c:when test="${ loginuser.auth.authno eq 2 or loginuser.auth.authno eq 3 }">
+								      		<button type="button" class="btn btn-primary" style="float: right;" id="writeBoard">업로드</button>	
+								      	</c:when>
+								    </c:choose>
 									<!-- <table class="table">
 										<tbody>
 										    <tr>

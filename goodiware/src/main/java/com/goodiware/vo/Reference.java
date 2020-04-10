@@ -17,6 +17,7 @@ public class Reference {
 	private boolean refdel;
 	
 	private int empno;
+	private String name;
 	
 	private List<Employee> employees;
 }

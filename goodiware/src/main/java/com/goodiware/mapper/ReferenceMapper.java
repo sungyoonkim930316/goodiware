@@ -19,5 +19,7 @@ public interface ReferenceMapper {
 
 	int selectRefCount(HashMap<String, Object> params);
 
+	Reference selectRefByRefNo(int refNo);
+
 
 }

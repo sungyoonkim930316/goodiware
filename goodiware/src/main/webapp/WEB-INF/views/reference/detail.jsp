@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>자료 등록</title>
+<title>자료 정보</title>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="/resources/images/favicon.png">
@@ -92,7 +92,7 @@
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="javascript:void(0)">자료실</a></li>
 						<li class="breadcrumb-item active"><a
-							href="javascript:void(0)">자료등록</a></li>
+							href="javascript:void(0)">자료정보</a></li>
 					</ol>
 				</div>
 			</div>
@@ -101,26 +101,58 @@
 			
 
 			<div class="container-fluid">
-				<h4 class="card-title">업로드 자료 등록</h4>
-				
-				<div class="form-group">
-					
-					<form id="frm" action="/reference/upload" method="post" class="user" enctype="multipart/form-data">
-						
-						<input type="hidden" name="empno" value="${ loginuser.empno }">
-						<input type="text" name="refname" class="form-control input-default" placeholder="제목을 입력하세요."><br>
-						<textarea name="smarteditor" id="smarteditor" rows="10" cols="100" style="width:100%; height:412px;"></textarea><br>
-						<br>
-						<input type="file" name="filename"/><br>
-						<br>
-						<div style="text-align: center">
-							<input type="button" class="btn btn-info btn-rounded" id="savebutton" value="등록" />
-							<input type="button" class="btn btn-success btn-rounded" id="cancel" value="취소" />
-						</div>
-					</form>
-					
+				<h4 class="card-title">업로드 자료 정보</h4>
+				<br>
+				<div class="form-group row">
+					<div class="col-sm-6 mb-3 mb-sm-0">
+						<label>자료 번호</label>
+						<input type="text" name="refno"
+							class="form-control form-control-user" id="refno"
+							value=${ reference.refno }>
+					</div>
+					<div class="col-sm-6">
+						<label>자료 이름</label>
+						<input type="text" name="refname"
+							class="form-control form-control-user" id="refname"
+							value="${ reference.refname }">
+					</div>
 				</div>
-		
+				
+				<div class="form-group row">
+					<div class="col-sm-6 mb-3 mb-sm-0">
+						<label>등록자</label>
+						<input type="text" name="name"
+							class="form-control form-control-user" id="name"
+							value=${ reference.name }>
+					</div>
+					<div class="col-sm-6">
+						<label>등록 일자</label>
+						<input type="text" name="refdate"
+							class="form-control form-control-user" id="refdate"
+							value="${ reference.refdate }">
+					</div>
+				</div>
+				
+				<div class="form-group">					
+					<label>본문 내용</label>
+					<div>
+						${ reference.refcontent }
+					</div>
+					<label>첨부 자료</label>
+					<br>
+					<a href="download?refNo=${ reference.refno }">
+			        	${ reference.reffilename }
+			        </a>
+				</div>
+				<br>
+				<br>
+				<div style="text-align: center">
+					<c:if test="${ loginuser.auth.authno eq 2 or loginuser.auth.authno eq 3 }">
+						<button id="edit-button" type="button" class="btn btn-success">수정</button>
+			    		<button id="delete-button" type="button" class="btn btn-success">삭제</button>
+            		</c:if>
+	        		<button id="tolist-button" type="button" class="btn btn-success">목록</button>
+				</div>
 			</div>
 			<!-- #/ container -->
 		</div>
@@ -153,49 +185,14 @@
 	<script type="text/javascript" src="/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 	<script type='text/javascript'>
 	$(function(){
-	    //전역변수선언
-	    var editor_object = [];
-	    	     
-	    nhn.husky.EZCreator.createInIFrame({
-	        oAppRef: editor_object,
-	        elPlaceHolder: "smarteditor", // textarea의 id
-	        sSkinURI: "/resources/navereditor/SmartEditor2Skin.html", 
-	        htParams : {
-	            // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-	            bUseToolbar : true,             
-	            // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-	            bUseVerticalResizer : true,     
-	            // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-	            bUseModeChanger : true, 
-	        }
-	    });
-	
-	    //전송버튼 클릭이벤트
-	    $("#savebutton").click(function(){
-	        //id가 smarteditor인 textarea에 에디터에서 대입
-	        editor_object.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
-	         
-	        // 이부분에 에디터 validation 검증
-	
-	        //폼 submit
-	        $("#frm").submit();
-	    })
-	    cancel
-	    $('#cancel').on('click', function() {
 
-			var result = confirm("작성을 취소하시겠습니까?");
-
-			if(!result) {
-				return false;
-			} else {
-				alert('목록으로 돌아갑니다.');
-				location.href = "/reference/list";
-			} 
-			
-
+		$('input').attr({'readonly': 'readonly'})
+		
+		$('#tolist-button').on('click', function(event) {
+			location.href = "list?pageNo=${ param.pageNo }&searchType=${ param.searchType }&searchKey=${ param.searchKey }";
 		});
 	    
-	})
+	});
 	</script>
 
 

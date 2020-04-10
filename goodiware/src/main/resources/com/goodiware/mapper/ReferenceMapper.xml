@@ -25,12 +25,14 @@
 	<select id="selectRefWithPaging" 
 			resultType="com.goodiware.vo.Reference" parameterType="hashmap">
 	
-		SELECT *
-		FROM REFERENCE
+		SELECT r.empno, r.refno, r.refname, r.refcontent, r.refdate, r.refdel, e.name
+		FROM REFERENCE r, EMPLOYEE e
 		WHERE    
 			<include refid="searchCondition" />
-		    refdel = 'N'
-		ORDER BY refno DESC
+		    r.refdel = 'N'
+		    and r.empno = e.empno
+		    
+		ORDER BY r.refno DESC
 		LIMIT #{beginning}, #{end}
 		
 	</select>
@@ -41,6 +43,14 @@
 		WHERE 
 			<include refid="searchCondition" />
 			refdel = 'N'
+		
+	</select>
+	
+	<select id="selectRefByRefNo" parameterType="int" resultType="com.goodiware.vo.Reference">
+		
+		SELECT r.empno, r.refno, r.refname, r.refcontent, r.refdate, r.refdel, r.reffilename, r.refpath, e.name
+		FROM REFERENCE r, EMPLOYEE e
+		WHERE r.refno = #{refNo} AND r.refdel = 'N' AND r.empno = e.empno
 		
 	</select>
 	

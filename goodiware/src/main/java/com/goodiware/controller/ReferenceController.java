@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -89,6 +90,21 @@ public class ReferenceController {
 		return "redirect:/reference/list";
 	}
 	
-	
+	@GetMapping(path = { "/detail" })
+	public String showDetail(int refNo, @RequestParam(defaultValue = "1") int pageNo, Model model,
+			HttpServletRequest req, HttpServletResponse resp) {
+ 
+		Reference reference = referenceService.findRefByRefNo(refNo);
+		
+		if (reference == null) {
+			return "redirect:list";
+		}
+
+		// 2. 조회된 데이터를 View에서 사용할 수 있도록 저장
+		model.addAttribute("reference", reference);
+
+		// 3. View로 이동
+		return "reference/detail";
+	}
 	
 }
