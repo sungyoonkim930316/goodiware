@@ -4,10 +4,9 @@
 
 <mapper namespace="com.goodiware.mapper.ReferenceMapper">
 
-	<insert id="insertReference" parameterType="com.goodiware.vo.Reference" useGeneratedKeys="true"
-			keyColumn="refrno" keyProperty="refrno">
-		INSERT INTO REFERENCE ( refname, refcontent, refdate, reffilename, refpath ) 
-		VALUES ( #{refname}, #{refcontent}, NOW(), #{reffilename}, #{refpath} )
+	<insert id="insertReference" parameterType="com.goodiware.vo.Reference">
+		INSERT INTO REFERENCE ( empno, refname, refcontent, refdate, reffilename, refpath ) 
+		VALUES ( #{empno}, #{refname}, #{refcontent}, NOW(), #{reffilename}, #{refpath} )
 	</insert>
 	
 </mapper>

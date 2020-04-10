@@ -200,7 +200,7 @@
 
 		$("#writeBoard").on("click", function(event){
 
-			location.href="/reference/write";
+			location.href="/reference/upload";
 
 		})
 
