@@ -61,6 +61,10 @@
 	<update id="updateRestoreMessage" parameterType="int">
 		update MESSAGE set deleted ='N' where mno = #{ mno }
 	</update>
+	
+	<select id="selectSendId" parameterType="int" resultType="String">
+		select id from EMPLOYEE where empno = #{ sender }	
+	</select>
 
  
  </mapper>

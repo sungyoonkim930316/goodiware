@@ -32,5 +32,7 @@ public interface MessageMapper {
 
 	void updateRestoreMessage(int mno);
 
+	String selectSendId(int sender);
+
 
 }

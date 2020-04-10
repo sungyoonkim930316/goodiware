@@ -88,9 +88,9 @@
                                     <div class="mail-list mt-4">
                                     	<a href="/message/inbox?empno=${ loginuser.empno }" class="list-group-item border-0 p-r-0"><i class="fa fa-inbox font-18 align-middle mr-2"></i> <b>받은메일함</b> <span class="badge badge-primary badge-sm float-right m-t-5">${ unreadCount }</span> </a>
                                         <a href="/message/compose?empno=${ loginuser.empno }" class="list-group-item border-0 p-r-0"><i class="fa fa-paper-plane font-18 align-middle mr-2"></i>메일쓰기</a>  
-                                        <a href="#" class="list-group-item border-0 p-r-0"><i class="fa fa-star-o font-18 align-middle mr-2"></i>중요메일함 <span class="badge badge-danger badge-sm float-right m-t-5">47</span> </a>
+                                        <a href="#" class="list-group-item border-0 p-r-0"><i class="fa fa-star-o font-18 align-middle mr-2"></i>중요메일함 </a>
                                         <a href="#" class="list-group-item border-0 p-r-0"><i class="mdi mdi-file-document-box font-18 align-middle mr-2"></i>Draft</a>
-                                        <a href="/message/trashcan?empno=${ loginuser.empno }" class="list-group-item border-0 text-primary p-r-0"><i class="fa fa-trash font-18 align-middle mr-2"></i>휴지통</a>
+                                        <a href="/message/trashcan?empno=${ loginuser.empno }" class="list-group-item border-0 text-primary p-r-0"><i class="fa fa-trash font-18 align-middle mr-2"></i>휴지통 <span class="badge badge-danger badge-sm float-right m-t-5">${ trashMessage }</span> </a>
                                     </div>
                                     <!-- <h5 class="mt-5 m-b-10">Categories</h5>
                                     <div class="list-group mail-list"><a href="#" class="list-group-item border-0"><span class="fa fa-briefcase f-s-14 mr-2"></span>Work</a>  <a href="#" class="list-group-item border-0"><span class="fa fa-sellsy f-s-14 mr-2"></span>Private</a>  <a href="#"

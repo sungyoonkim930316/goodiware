@@ -49,6 +49,10 @@ public class MessageController {
 		int unreadCount = messageService.lookupOpendate(empno);
 		model.addAttribute("unreadCount", unreadCount);
 		
+		// 휴지통 메일 카운트
+		int trashMessage = messageService.trashCount(empno);
+		model.addAttribute("trashMessage", trashMessage);
+		
 		return "message/compose";
 		
 	}
@@ -79,6 +83,10 @@ public class MessageController {
 		int unreadCount = messageService.lookupOpendate(empno);
 		model.addAttribute("unreadCount", unreadCount);
 		
+		// 휴지통 메일 카운트
+		int trashMessage = messageService.trashCount(empno);
+		model.addAttribute("trashMessage", trashMessage);
+		
 		return "/message/content";
 	}
 	
@@ -102,6 +110,10 @@ public class MessageController {
 		int unreadCount = messageService.lookupOpendate(empno);
 		model.addAttribute("unreadCount", unreadCount);
 		
+		// 휴지통 메일 카운트
+		int trashMessage = messageService.trashCount(empno);
+		model.addAttribute("trashMessage", trashMessage);
+		
 		return "/message/trashCan";
 	}
 	
@@ -116,6 +128,10 @@ public class MessageController {
 		int unreadCount = messageService.lookupOpendate(empno);
 		model.addAttribute("unreadCount", unreadCount);
 		
+		// 휴지통 메일 카운트
+		int trashMessage = messageService.trashCount(empno);
+		model.addAttribute("trashMessage", trashMessage);
+		
 		return "/message/trashContent";
 	}
 	
@@ -129,12 +145,33 @@ public class MessageController {
 	}
 	
 	// 휴지통의 메세지 복구하기
-	@GetMapping(path= {"restoreMessage"})
+	@GetMapping(path= {"/restoreMessage"})
 	public String restoreMessage(int empno, int mno) {
 		
 		messageService.resotreMessage(mno);
 		
 		return String.format("redirect:/message/trashcan?empno=%d", empno);
+	} 
+	
+	// 답장 페이지로 이동
+	@GetMapping(path= {"/toReply"})
+	public String toReply(int empno, int sender, Model model ) {
+		
+		// sendId 조회하기
+		String sendId = messageService.searchSendId(sender);
+		model.addAttribute("sendId", sendId);
+		
+		// 안읽은메일 카운트
+		int unreadCount = messageService.lookupOpendate(empno);
+		model.addAttribute("unreadCount", unreadCount);
+		
+		// 휴지통 메일 카운트
+		int trashMessage = messageService.trashCount(empno);
+		model.addAttribute("trashMessage", trashMessage);
+		
+		return "/message/reply";
 	}
+	
+	// 읽지않은 메일 갯수 
 	
 }

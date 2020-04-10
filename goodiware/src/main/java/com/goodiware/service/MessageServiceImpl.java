@@ -77,6 +77,12 @@ public class MessageServiceImpl implements MessageService {
 		messageMapper.updateRestoreMessage(mno);
 	}
 
+	@Override
+	public String searchSendId(int sender) {
+		
+		return messageMapper.selectSendId(sender);
+	}
+
 
 	
 

@@ -26,5 +26,7 @@ public interface MessageService {
 
 	void resotreMessage(int mno);
 
+	String searchSendId(int sender);
+
 
 }
