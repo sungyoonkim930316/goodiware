@@ -138,6 +138,7 @@
 					<div>
 						${ reference.refcontent }
 					</div>
+					<hr>
 					<label>첨부 자료</label>
 					<br>
 					<a href="download?refNo=${ reference.refno }">
