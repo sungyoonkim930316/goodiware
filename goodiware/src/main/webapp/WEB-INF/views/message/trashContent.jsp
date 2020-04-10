@@ -96,14 +96,14 @@
                                 </div>
                                 <div class="email-right-box">
                                     <div class="toolbar" role="toolbar">
-                                        <div class="btn-group m-b-20">
+                                        <!-- <div class="btn-group m-b-20">
                                             <button type="button" class="btn btn-light"><i class="fa fa-archive"></i>
                                             </button>
                                             <button type="button" class="btn btn-light"><i class="fa fa-exclamation-circle"></i>
                                             </button>
                                             <button type="button" class="btn btn-light" id="trash"><i class="fa fa-trash"></i>
                                             </button>
-                                        </div>
+                                        </div> -->
                                         <!-- <div class="btn-group m-b-20">
                                             <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown"><i class="fa fa-folder"></i>  <b class="caret m-l-5"></b>
                                             </button>
@@ -161,7 +161,7 @@
                                         </div>
                                     </div>
                                     <div class="text-right">
-                                        <button class="btn btn-primaryw-md m-b-30" type="button" id="reply">답장</button>
+                                        <button class="btn btn-primaryw-md m-b-30" type="button" id="delete">삭제하기</button>
                                     </div>
                                 </div>
                             </div>
@@ -199,19 +199,17 @@
     <script type="text/javascript">
 	$(function(){
 
-		$("#trash").on("click", function(event){
+		$("#delete").on("click", function(event){
+
 			if (!confirm("메일을 삭제하시겠습니까?")) return;
 
 			var empno = ${ loginuser.empno };
-			console.log(empno);
 			var mno = ${ message.mno };
-			
-			location.href="/message/trash?empno=" + empno +"&mno=" + mno;
+
+			location.href="/message/deleteMessage?empno=" + empno +"&mno=" + mno;
 
 		})
 		
-
-
 	})
 
     </script>

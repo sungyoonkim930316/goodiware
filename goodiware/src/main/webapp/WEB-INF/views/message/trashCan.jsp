@@ -90,7 +90,7 @@
                                         <a href="/message/compose" class="list-group-item border-0 p-r-0"><i class="fa fa-paper-plane font-18 align-middle mr-2"></i>메일쓰기</a>  
                                         <a href="#" class="list-group-item border-0 p-r-0"><i class="fa fa-star-o font-18 align-middle mr-2"></i>중요메일함 <span class="badge badge-danger badge-sm float-right m-t-5">47</span> </a>
                                         <a href="#" class="list-group-item border-0 p-r-0"><i class="mdi mdi-file-document-box font-18 align-middle mr-2"></i>Draft</a>
-                                        <a href="/message/trashcan?empno=${ loginuser.empno }" class="list-group-item border-0 p-r-0"><i class="fa fa-trash font-18 align-middle mr-2"></i>휴지통</a>
+                                        <a href="/message/trashcan?empno=${ loginuser.empno }" class="list-group-item border-0 text-primary p-r-0"><i class="fa fa-trash font-18 align-middle mr-2"></i>휴지통</a>
                                     </div>
                                     <!-- <h5 class="mt-5 m-b-10">Categories</h5>
                                     <div class="list-group mail-list"><a href="#" class="list-group-item border-0"><span class="fa fa-briefcase f-s-14 mr-2"></span>Work</a>  <a href="#" class="list-group-item border-0"><span class="fa fa-sellsy f-s-14 mr-2"></span>Private</a>  <a href="#"
@@ -113,7 +113,7 @@
                                     	<c:forEach items="${ messages }" var="message">
                                     	<input type="hidden" name="mno" value="${ message.mno }">
                                         <div class="message unread">
-                                            <a href="/message/messageContent?empno=${ loginuser.empno }&mno=${ message.mno }">
+                                            <a href="/message/trashContent?empno=${ loginuser.empno }&mno=${ message.mno }">
                                                 <div class="col-mail col-mail-1">
                                                     <div class="email-checkbox">
                                                         <input type="checkbox" id="chk2">

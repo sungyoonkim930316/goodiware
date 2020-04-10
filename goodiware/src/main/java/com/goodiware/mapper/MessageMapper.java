@@ -20,5 +20,11 @@ public interface MessageMapper {
 
 	void insertOpenDate(int mno);
 
+	void updateMessage(int mno);
+
+	List<Message> selectTrashMessages(int empno);
+
+	void deleteMessage(int mno);
+
 
 }

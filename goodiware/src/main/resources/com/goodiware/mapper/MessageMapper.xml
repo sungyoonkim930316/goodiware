@@ -16,18 +16,33 @@
 		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, e.name
 		from MESSAGE m , EMPLOYEE e 
 		where m.receiver = #{ empno } and m.deleted = 'N' and  m.sender = e.empno
-		order by mno DESC
+		order by m.senddate DESC
 	</select>
 
 	<select id="selectMessageContent" parameterType="int" resultType="com.goodiware.vo.Message">
 		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, e.name, e.id
 		from MESSAGE m , EMPLOYEE e
-		where m.mno = #{ mno } and m.deleted ='N' and m.sender = e.empno
+		where m.mno = #{ mno } and m.sender = e.empno
 	</select>
 	
 	<insert id="insertOpenDate" parameterType="int">
 		update MESSAGE set opendate = NOW() where mno = #{ mno }
 	</insert>
+	
+	<update id="updateMessage" parameterType="int">
+		update MESSAGE set deleted = 'Y' where mno = #{ mno }
+	</update>
+	
+	<select id="selectTrashMessages" parameterType="int" resultType="com.goodiware.vo.Message">
+		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, e.name 
+		from MESSAGE m, EMPLOYEE e
+		where m.receiver = #{ empno } and m.deleted ='Y' and m.sender = e.empno
+		order by senddate DESC
+	</select>
+	
+	<delete id="deleteMessage" parameterType="int">
+		delete from MESSAGE where mno = #{ mno }
+	</delete>
 
  
  </mapper>

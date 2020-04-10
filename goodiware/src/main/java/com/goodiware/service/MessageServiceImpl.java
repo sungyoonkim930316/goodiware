@@ -41,6 +41,24 @@ public class MessageServiceImpl implements MessageService {
 		messageMapper.insertOpenDate(mno);
 	}
 
+	@Override
+	public void trashMessage(int mno) {
+
+		messageMapper.updateMessage(mno);
+	}
+
+	@Override
+	public List<Message> showTrashMessage(int empno) {
+		
+		return messageMapper.selectTrashMessages(empno);
+	}
+
+	@Override
+	public void deleteMessage(int mno) {
+		
+		messageMapper.deleteMessage(mno);
+	}
+
 
 	
 

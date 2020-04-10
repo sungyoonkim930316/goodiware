@@ -66,4 +66,42 @@ public class MessageController {
 		return "/message/content";
 	}
 	
+	// 메세지 삭제
+	@GetMapping(path = {"/trash"})
+	public String trashMessage(int empno, int mno) {
+		
+		messageService.trashMessage(mno);
+		
+		return String.format("redirect:/message/trash?empno=%d", empno);
+	}
+	
+	// 휴지통으로 이동
+	@GetMapping(path= {"/trashcan"})
+	public String trashCan(int empno, Model model) {
+		
+		List<Message> messages = messageService.showTrashMessage(empno);
+		model.addAttribute("messages", messages);
+		
+		return "/message/trashCan";
+	}
+	
+	// 휴지통 메세지 상세보기
+	@GetMapping(path= {"/trashContent"})
+	public String trashContent(int empno, int mno, Model model, Message message) {
+		
+		Message message2 = messageService.showContent(mno);
+		model.addAttribute("message", message2);
+		
+		return "/message/trashContent";
+	}
+	
+	// 메세지 삭제하기
+	@GetMapping(path = {"/deleteMessage"})
+	public String deleteMessage(int empno, int mno) {
+		
+		messageService.deleteMessage(mno);
+		
+		return String.format("redirect:/message/trashcan?empno=%d", empno);
+	}
+	
 }

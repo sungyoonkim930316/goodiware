@@ -14,5 +14,11 @@ public interface MessageService {
 
 	void updateReadDate(int mno);
 
+	void trashMessage(int mno);
+
+	List<Message> showTrashMessage(int empno);
+
+	void deleteMessage(int mno);
+
 
 }
