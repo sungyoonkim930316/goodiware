@@ -162,13 +162,19 @@
 
 	<jsp:include page="/WEB-INF/views/modules/common-js.jsp"></jsp:include>
 	
+<c:set var="new_line" value="
+" />
+
+	
 	<script type="text/javascript" src="/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 	<script type='text/javascript'>
 	$(function(){
 	    //전역변수선언
 	    var editor_object = [];
 
-	    $('#smarteditor').val('${reference.refcontent}');
+	    var html = '${ fn:replace(reference.refcontent, new_line, ' ') }';
+
+	    $('#smarteditor').val(html);
 	 	     
 	    nhn.husky.EZCreator.createInIFrame({
 	        oAppRef: editor_object,
