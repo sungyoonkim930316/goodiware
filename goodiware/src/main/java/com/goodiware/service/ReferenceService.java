@@ -18,4 +18,6 @@ public interface ReferenceService {
 
 	Reference findRefByRefNo(int refNo);
 
+	Reference findUploadFileByRefNo(int refNo);
+
 }

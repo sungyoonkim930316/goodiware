@@ -54,4 +54,10 @@
 		
 	</select>
 	
+	<select id="selectUploadRefByRefNo" parameterType="int" resultType="com.goodiware.vo.Reference">
+		SELECT refno, reffilename, refpath
+		FROM REFERENCE
+		WHERE refno = #{refNo}
+	</select>
+	
 </mapper>

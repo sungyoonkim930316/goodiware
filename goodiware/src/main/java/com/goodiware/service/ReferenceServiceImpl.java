@@ -48,6 +48,12 @@ public class ReferenceServiceImpl implements ReferenceService {
 		
 	}
 
+	@Override
+	public Reference findUploadFileByRefNo(int refNo) {
+		
+		return referenceMapper.selectUploadRefByRefNo(refNo);
+	}
+
 
 
 }

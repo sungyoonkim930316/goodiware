@@ -21,5 +21,7 @@ public interface ReferenceMapper {
 
 	Reference selectRefByRefNo(int refNo);
 
+	Reference selectUploadRefByRefNo(int refNo);
+
 
 }
