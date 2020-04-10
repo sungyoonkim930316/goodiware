@@ -1,5 +1,6 @@
 package com.goodiware.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,20 @@ public class ReferenceServiceImpl implements ReferenceService {
 	public void insertRef(Reference reference) {
 
 		referenceMapper.insertReference(reference);
+		
+	}
+
+	@Override
+	public List<Reference> findRefWithPaging(HashMap<String, Object> params) {
+		
+		return referenceMapper.selectRefWithPaging(params);
+		
+	}
+
+	@Override
+	public int findRefCount(HashMap<String, Object> params) {
+		
+		return referenceMapper.selectRefCount(params);
 		
 	}
 

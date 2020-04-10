@@ -4,9 +4,44 @@
 
 <mapper namespace="com.goodiware.mapper.ReferenceMapper">
 
+	<sql id="searchCondition">
+		<trim suffix="AND">
+	    	<choose>
+	    		<when test="searchType == 'T'.toString()">
+	    			refname LIKE CONCAT('%',#{searchKey},'%')
+	    		</when>
+	    		<when test="searchType == 'C'.toString()">
+	    			empno LIKE CONCAT('%',#{searchKey},'%')
+	    		</when>
+	    	</choose>
+		</trim>
+	</sql>
+
 	<insert id="insertReference" parameterType="com.goodiware.vo.Reference">
 		INSERT INTO REFERENCE ( empno, refname, refcontent, refdate, reffilename, refpath ) 
 		VALUES ( #{empno}, #{refname}, #{refcontent}, NOW(), #{reffilename}, #{refpath} )
 	</insert>
+	
+	<select id="selectRefWithPaging" 
+			resultType="com.goodiware.vo.Reference" parameterType="hashmap">
+	
+		SELECT *
+		FROM REFERENCE
+		WHERE    
+			<include refid="searchCondition" />
+		    refdel = 'N'
+		ORDER BY refno DESC
+		LIMIT #{beginning}, #{end}
+		
+	</select>
+	<select id="selectRefCount" parameterType="hashmap" resultType="int">
+		
+		SELECT COUNT(*) 
+		FROM REFERENCE 
+		WHERE 
+			<include refid="searchCondition" />
+			refdel = 'N'
+		
+	</select>
 	
 </mapper>
