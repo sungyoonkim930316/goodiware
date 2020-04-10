@@ -9,7 +9,7 @@
                             <i class="icon-envelope menu-icon"></i> <span class="nav-text">메일</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/message/compose">메일쓰기</a></li>
+                            <li><a href="/message/compose?empno=${ loginuser.empno }">메일쓰기</a></li>
                             <li><a href="/message/inbox?empno=${ loginuser.empno }">받은메일함</a></li>
                         </ul>
                     </li>
@@ -18,11 +18,11 @@
                             <i class="icon-globe-alt menu-icon"></i><span class="nav-text">전자결재</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./layout-blank.html">업무</a></li>
-                            <li><a href="./layout-one-column.html">파견</a></li>
-                            <li><a href="./layout-two-column.html">경비지출</a></li>
-                            <li><a href="./layout-compact-nav.html">초과근무</a></li>
-                            <li><a href="./layout-vertical.html">휴가</a></li>
+                            <li><a href="#">업무</a></li>
+                            <li><a href="#">파견</a></li>
+                            <li><a href="#">경비지출</a></li>
+                            <li><a href="#">초과근무</a></li>
+                            <li><a href="#">휴가</a></li>
                         </ul>
                     </li>
                     <li>
@@ -39,7 +39,7 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="/board/list">자유게시판</a></li>
-                            <li><a href="./form-validation.html">중고장터</a></li>
+                            <li><a href="#">중고장터</a></li>
                             <li><a href="/reference/list">자료실</a></li>
                         </ul>
                     </li>
@@ -48,7 +48,7 @@
                             <i class="icon-notebook menu-icon"></i><span class="nav-text">마이페이지</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./page-login.html">출퇴근관리</a></li>
+                            <li><a href="#">출퇴근관리</a></li>
                             <li><a href="/employee/edit">나의정보수정</a></li>
                             <!-- <li><a href="/employee/confirmPw">패스워드변경</a></li> -->
                         </ul>

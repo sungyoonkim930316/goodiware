@@ -30,12 +30,24 @@ public class MessageController {
 		List<Message> messages = messageService.showMessages(empno);
 		model.addAttribute("messages", messages);
 		
+		// 안읽은메일 카운트
+		int unreadCount = messageService.lookupOpendate(empno);
+		model.addAttribute("unreadCount", unreadCount);
+		
+		// 휴지통 메일 카운트
+		int trashMessage = messageService.trashCount(empno);
+		model.addAttribute("trashMessage", trashMessage);
+		
 		return "message/inbox";
 	}
 	
 	// 메일 전송 페이지로 이동
 	@GetMapping(path = {"/compose"})
-	public String composeMail() {
+	public String composeMail(int empno, Model model) {
+		
+		// 안읽은메일 카운트
+		int unreadCount = messageService.lookupOpendate(empno);
+		model.addAttribute("unreadCount", unreadCount);
 		
 		return "message/compose";
 		
@@ -63,10 +75,14 @@ public class MessageController {
 		// 읽은 메일의 읽은 시간 업데이트
 		messageService.updateReadDate(mno);
 		
+		// 안읽은메일 카운트
+		int unreadCount = messageService.lookupOpendate(empno);
+		model.addAttribute("unreadCount", unreadCount);
+		
 		return "/message/content";
 	}
 	
-	// 메세지 삭제
+	// 메세지 휴지통으로 이동
 	@GetMapping(path = {"/trash"})
 	public String trashMessage(int empno, int mno) {
 		
@@ -82,6 +98,10 @@ public class MessageController {
 		List<Message> messages = messageService.showTrashMessage(empno);
 		model.addAttribute("messages", messages);
 		
+		// 안읽은메일 카운트
+		int unreadCount = messageService.lookupOpendate(empno);
+		model.addAttribute("unreadCount", unreadCount);
+		
 		return "/message/trashCan";
 	}
 	
@@ -92,6 +112,10 @@ public class MessageController {
 		Message message2 = messageService.showContent(mno);
 		model.addAttribute("message", message2);
 		
+		// 안읽은메일 카운트
+		int unreadCount = messageService.lookupOpendate(empno);
+		model.addAttribute("unreadCount", unreadCount);
+		
 		return "/message/trashContent";
 	}
 	
@@ -100,6 +124,15 @@ public class MessageController {
 	public String deleteMessage(int empno, int mno) {
 		
 		messageService.deleteMessage(mno);
+		
+		return String.format("redirect:/message/trashcan?empno=%d", empno);
+	}
+	
+	// 휴지통의 메세지 복구하기
+	@GetMapping(path= {"restoreMessage"})
+	public String restoreMessage(int empno, int mno) {
+		
+		messageService.resotreMessage(mno);
 		
 		return String.format("redirect:/message/trashcan?empno=%d", empno);
 	}

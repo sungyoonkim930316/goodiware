@@ -59,6 +59,24 @@ public class MessageServiceImpl implements MessageService {
 		messageMapper.deleteMessage(mno);
 	}
 
+	@Override
+	public int lookupOpendate(int empno) {
+		
+		return messageMapper.selectOpendateCount(empno);
+	}
+
+	@Override
+	public int trashCount(int empno) {
+
+		return messageMapper.selectDeleteCount(empno);
+	}
+
+	@Override
+	public void resotreMessage(int mno) {
+
+		messageMapper.updateRestoreMessage(mno);
+	}
+
 
 	
 

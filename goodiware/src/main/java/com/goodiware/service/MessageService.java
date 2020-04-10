@@ -20,5 +20,11 @@ public interface MessageService {
 
 	void deleteMessage(int mno);
 
+	int lookupOpendate(int empno);
+
+	int trashCount(int empno);
+
+	void resotreMessage(int mno);
+
 
 }

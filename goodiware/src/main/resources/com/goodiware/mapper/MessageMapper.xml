@@ -44,5 +44,23 @@
 		delete from MESSAGE where mno = #{ mno }
 	</delete>
 
+<!-- 	
+	<select id="selectOpendateCount" parameterType="int" resultType="int">
+		select count(*) from MESSAGE where receiver = #{ empno } and opendate is null
+	</select>
+
+ -->	
+ 	<select id="selectOpendateCount" parameterType="int" resultType="int">
+		select count(*) from MESSAGE where receiver = #{ empno } and deleted ='N'
+	</select>
+	
+	<select id="selectDeleteCount" parameterType="int" resultType="int">
+		select count(*) from MESSAGE where receiver = #{ empno } and deleted ='Y'
+	</select>
+	
+	<update id="updateRestoreMessage" parameterType="int">
+		update MESSAGE set deleted ='N' where mno = #{ mno }
+	</update>
+
  
  </mapper>

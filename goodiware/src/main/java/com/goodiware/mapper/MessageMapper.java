@@ -26,5 +26,11 @@ public interface MessageMapper {
 
 	void deleteMessage(int mno);
 
+	int selectOpendateCount(int empno);
+
+	int selectDeleteCount(int empno);
+
+	void updateRestoreMessage(int mno);
+
 
 }
