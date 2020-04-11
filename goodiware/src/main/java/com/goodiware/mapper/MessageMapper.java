@@ -1,5 +1,6 @@
 package com.goodiware.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -33,6 +34,14 @@ public interface MessageMapper {
 	void updateRestoreMessage(int mno);
 
 	String selectSendId(int sender);
+
+	List<Message> selectSendMessageByMe(int empno);
+
+	Message sendMessageContent(int mno);
+
+	List<Message> selectMessageWithPaging(HashMap<String, Object> params);
+
+	int selectMessageCountWithpaging(HashMap<String, Object> params);
 
 
 }

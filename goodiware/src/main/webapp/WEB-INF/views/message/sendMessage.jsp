@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>받은메일함</title>
+    <title>보낸메일함</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/resources/images/favicon.png">
     <!-- Custom Stylesheet -->
@@ -86,9 +86,9 @@
                             <div class="card-body">
                                 <div class="email-left-box"><!-- <a href="email-compose.html" class="btn btn-primary btn-block">Compose</a> -->
                                     <div class="mail-list mt-4">
-                                    	<a href="/message/inbox?empno=${ loginuser.empno }" class="list-group-item border-0 text-primary p-r-0"><i class="fa fa-inbox font-18 align-middle mr-2"></i> <b>받은메일함</b> <span class="badge badge-primary badge-sm float-right m-t-5">${ unreadCount }</span> </a>
+                                    	<a href="/message/inbox?empno=${ loginuser.empno }" class="list-group-item border-0 p-r-0"><i class="fa fa-inbox font-18 align-middle mr-2"></i> <b>받은메일함</b> <span class="badge badge-primary badge-sm float-right m-t-5">${ unreadCount }</span> </a>
                                         <a href="/message/compose?empno=${ loginuser.empno }" class="list-group-item border-0 p-r-0"><i class="fa fa-paper-plane font-18 align-middle mr-2"></i>메일쓰기</a>  
-                                        <a href="/message/sendMessage?empno=${ loginuser.empno }" class="list-group-item border-0 p-r-0"><i class="mdi mdi-file-document-box font-18 align-middle mr-2"></i>보낸메일함</a>
+                                        <a href="/message/sendMessage?empno=${ loginuser.empno }" class="list-group-item border-0 text-primary p-r-0"><i class="mdi mdi-file-document-box font-18 align-middle mr-2"></i>보낸메일함</a>
                                         <a href="#" class="list-group-item border-0 p-r-0"><i class="fa fa-star-o font-18 align-middle mr-2"></i>중요메일함</a>
                                         <a href="/message/trashcan?empno=${ loginuser.empno }" class="list-group-item border-0 p-r-0"><i class="fa fa-trash font-18 align-middle mr-2"></i>휴지통 <span class="badge badge-danger badge-sm float-right m-t-5">${ trashMessage }</span> </a>
                                     </div>
@@ -108,16 +108,6 @@
                                             </div>
                                         </div>
                                     </div> -->
-                                    <form action="/message/inbox" method="get">
-										<select name="searchType" aria-controls="dataTable" class="form-control-sm">
-											<option value="I" ${ param.searchType == 'T' ? 'selected' : '' }>보낸사람</option>
-											<option value="T" ${ param.searchType == 'C' ? 'selected' : '' }>메일제목</option>
-											<option value="C" ${ param.searchType == 'C' ? 'selected' : '' }>메일내용</option>
-										</select> 
-										<input style="width:200px" type="search" name="searchKey" class="form-control-sm" placeholder="" aria-controls="dataTable" value="${ param.searchKey }"> 
-										<!-- <input type="submit" class="btn btn-success btn-sm" value="검색"> -->
-										  <button type="submit" class="btn btn-primary mb-2">검색</button>
-									</form>
                                     <hr>
                                     <div class="email-list m-t-15">
                                     	<%-- <c:forEach items="${ messages }" var="message">
@@ -144,7 +134,7 @@
                                          <table class="table">
 	                                        <thead>
 	                                            <tr>
-	                                                <th>sender</th>
+	                                                <th>receiver</th>
 	                                                <th>Subject</th>
 	                                                <th>Date</th>
 	                                            </tr>
@@ -154,7 +144,7 @@
 	                                            <tr>
 	                                                <td>${ message.name }</span></td>
 	                                                
-	                                                <td><a href="/message/messageContent?empno=${ loginuser.empno }&mno=${ message.mno }">${ message.title }</a></td>
+	                                                <td><a href="/message/sendContent?empno=${ loginuser.empno }&mno=${ message.mno }">${ message.title }</a></td>
 	                                                
 	                                                <td><fmt:formatDate value="${ message.senddate }" pattern="yyyy-MM-dd"/></div></td>
 	                                            </tr>
@@ -223,27 +213,18 @@
                                     </div> -->
                                 </div>
                             </div>
-                            <div class="table-responsive">
-                                    <table class="table" style="text-align: center">
-                                    	<tfoot>
-											<tr>
-												<td colspan="4" style="text-align: center">${ pager }</td>
-											</tr>
-									  </tfoot>
-                                    </table>
-                            </div>
-                        		<!-- <ul class="pagination justify-content-center">
-                                    <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul> -->
+                        	<ul class="pagination justify-content-center">
+                                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">1</a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">Next</a>
+                                            </li>
+                                        </ul>
                         </div>
                     </div>
                 </div>

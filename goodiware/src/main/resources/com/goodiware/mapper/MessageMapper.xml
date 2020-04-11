@@ -4,6 +4,22 @@
 
 <mapper namespace="com.goodiware.mapper.MessageMapper">
 
+	<sql id="searchCondition">
+		<trim suffix="AND">
+			<choose>
+				<when test="searchType == 'I'.toString()">
+					e.name LIKE CONCAT('%',#{searchKey},'%')
+				</when>
+				<when test="searchType == 'T'.toString()">
+					m.title LIKE CONCAT('%',#{searchKey},'%')
+				</when>
+				<when test="searchType == 'C'.toString()">
+					m.content LIKE CONCAT('%',#{searchKey},'%')
+				</when>
+			</choose>
+		</trim>
+	</sql>
+
 	<select id="selectEmployeeNoById" parameterType="com.goodiware.vo.Message" resultType="int">
 		select empno from EMPLOYEE where id = #{ receiveid }
 	</select>
@@ -17,6 +33,23 @@
 		from MESSAGE m , EMPLOYEE e 
 		where m.receiver = #{ empno } and m.deleted = 'N' and  m.sender = e.empno
 		order by m.senddate DESC
+	</select>
+
+	<select id="selectMessageWithPaging" parameterType="hashmap" resultType="com.goodiware.vo.Message">
+		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, e.name
+		from MESSAGE m , EMPLOYEE e 
+		where
+			<include refid="searchCondition" /> 
+			m.receiver = #{ empno } and m.deleted = 'N' and  m.sender = e.empno
+		order by m.senddate DESC
+		limit #{beginning}, #{end}
+	</select>
+	
+	<select id="selectMessageCountWithpaging" parameterType="hashmap" resultType="int">
+		select count(*) from MESSAGE
+		where 
+			<include refid="searchCondition" />
+			 receiver = #{ empno } and deleted ='N'
 	</select>
 
 	<select id="selectMessageContent" parameterType="int" resultType="com.goodiware.vo.Message">
@@ -65,6 +98,20 @@
 	<select id="selectSendId" parameterType="int" resultType="String">
 		select id from EMPLOYEE where empno = #{ sender }	
 	</select>
+	
+	<select id="selectSendMessageByMe" parameterType="int" resultType="com.goodiware.vo.Message">
+		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, m.receiver, e.name, e.id 
+		from MESSAGE m , EMPLOYEE e
+		where sender = #{ empno } and m.receiver = e.empno and m.deleted ='N'
+		order by senddate DESC
+	</select>
+	
+	<select id="sendMessageContent" parameterType="int" resultType="com.goodiware.vo.Message">
+		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, e.name, e.id
+		from MESSAGE m , EMPLOYEE e
+		where m.mno = #{ mno } and m.receiver = e.empno
+	</select>
+	
 
  
  </mapper>

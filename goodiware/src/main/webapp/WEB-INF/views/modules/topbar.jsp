@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+ <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <% request.setCharacterEncoding("utf-8"); %>
@@ -51,10 +51,11 @@
                     	<li class="icons dropdown d-none d-md-flex">
                             <span>${ loginuser.name }님 환영합니다</span>
                         </li>
-                        <li class="icons dropdown"><a href="/message/inbox?empno=${ loginuser.empno }" data-toggle="dropdown">
+                        <li class="icons dropdown">
+                        	<%-- <a href="/message/inbox?empno=${ loginuser.empno }" data-toggle="dropdown">
                                 <i class="mdi mdi-email-outline"></i>
                                 <span class="badge gradient-1 badge-pill badge-primary">3</span>
-                            </a>
+                            </a> --%>
                             <!-- <div class="drop-down animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-heading d-flex justify-content-between">
                                     <span class="">3 New Messages</span>  

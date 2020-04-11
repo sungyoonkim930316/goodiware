@@ -1,5 +1,6 @@
 package com.goodiware.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +82,30 @@ public class MessageServiceImpl implements MessageService {
 	public String searchSendId(int sender) {
 		
 		return messageMapper.selectSendId(sender);
+	}
+
+	@Override
+	public List<Message> showMessagesByMe(int empno) {
+
+		return messageMapper.selectSendMessageByMe(empno);
+	}
+
+	@Override
+	public Message sendMessageContent(int mno) {
+
+		return messageMapper.sendMessageContent(mno);
+	}
+
+	@Override
+	public List<Message> findMessageWithPaging(HashMap<String, Object> params) {
+
+		return messageMapper.selectMessageWithPaging(params);
+	}
+
+	@Override
+	public int findMessageCount(HashMap<String, Object> params) {
+		
+		return messageMapper.selectMessageCountWithpaging(params);
 	}
 
 

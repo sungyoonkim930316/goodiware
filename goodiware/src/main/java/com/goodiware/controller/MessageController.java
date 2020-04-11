@@ -1,6 +1,9 @@
 package com.goodiware.controller;
 
+import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,9 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.goodiware.service.MessageService;
+import com.goodiware.ui.ThePager2;
 import com.goodiware.vo.Message;
 
 
@@ -24,11 +29,45 @@ public class MessageController {
 	MessageService messageService;
 
 	// 받은메일함 페이지로 이동
+//	public String showMail(int empno, Model model ) {
+//		
+//		List<Message> messages = messageService.showMessages(empno);
+//		model.addAttribute("messages", messages);
+//		
+//		// 안읽은메일 카운트
+//		int unreadCount = messageService.lookupOpendate(empno);
+//		model.addAttribute("unreadCount", unreadCount);
+//		
+//		// 휴지통 메일 카운트
+//		int trashMessage = messageService.trashCount(empno);
+//		model.addAttribute("trashMessage", trashMessage);
+//		
+//		return "/message/inbox";
+//	}
+	
+	// 페이징받은메일함 페이지로 이동
 	@GetMapping(path= {"/inbox"})
-	public String getMail(int empno, Model model) {
+	public String getMail(int empno, Model model, @RequestParam(defaultValue="1")int pageNo, 
+					@RequestParam(required = false) String searchType, @RequestParam(required=false)String searchKey, HttpServletRequest req) {
 		
-		List<Message> messages = messageService.showMessages(empno);
+		int pageSize = 10;
+		int pagerSize = 3;
+		int beginning = (pageNo -1)* pageSize;
+		
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("beginning", beginning);
+		params.put("end", beginning + pageSize);
+		params.put("searchType", searchType);
+		params.put("searchkey", searchKey);
+		params.put("empno", empno);
+		
+		List<Message> messages = messageService.findMessageWithPaging(params);
+		int messageCount = messageService.findMessageCount(params);
+		
+		ThePager2 pager = new ThePager2(messageCount, pageNo, pageSize, pagerSize, "inbox", req.getQueryString());
+		
 		model.addAttribute("messages", messages);
+		model.addAttribute("pager", pager);
 		
 		// 안읽은메일 카운트
 		int unreadCount = messageService.lookupOpendate(empno);
@@ -172,6 +211,43 @@ public class MessageController {
 		return "/message/reply";
 	}
 	
-	// 읽지않은 메일 갯수 
+	// 보낸메일함 페이지로 이동
+	@GetMapping(path= {"sendMessage"})
+	public String sendMessgaePage(int empno, Model model) {
+		
+		List<Message> messages = messageService.showMessagesByMe(empno);
+		model.addAttribute("messages", messages);
+		
+		// 안읽은메일 카운트
+		int unreadCount = messageService.lookupOpendate(empno);
+		model.addAttribute("unreadCount", unreadCount);
+		
+		// 휴지통 메일 카운트
+		int trashMessage = messageService.trashCount(empno);
+		model.addAttribute("trashMessage", trashMessage);
+		
+		return "/message/sendMessage";
+	}
+	
+	// 보낸 메일 상세 보기
+	@GetMapping(path= {"sendContent"})
+	public String sendContent(int empno, int mno, Model model) {
+
+		Message message2 = messageService.sendMessageContent(mno);
+		model.addAttribute("message", message2);
+		
+		// 읽은 메일의 읽은 시간 업데이트
+		messageService.updateReadDate(mno);
+		
+		// 안읽은메일 카운트
+		int unreadCount = messageService.lookupOpendate(empno);
+		model.addAttribute("unreadCount", unreadCount);
+		
+		// 휴지통 메일 카운트
+		int trashMessage = messageService.trashCount(empno);
+		model.addAttribute("trashMessage", trashMessage);
+		
+		return "/message/sendContent";
+	}
 	
 }
