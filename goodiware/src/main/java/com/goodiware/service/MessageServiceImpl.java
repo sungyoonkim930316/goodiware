@@ -108,6 +108,30 @@ public class MessageServiceImpl implements MessageService {
 		return messageMapper.selectMessageCountWithpaging(params);
 	}
 
+	@Override
+	public List<Message> findMessageByMeWithPaging(HashMap<String, Object> params) {
+
+		return messageMapper.selectMessageByMeWithPaging(params);
+	}
+
+	@Override
+	public int findSendMessageCount(HashMap<String, Object> params) {
+
+		return messageMapper.selectSendMessageCount(params);
+	}
+
+	@Override
+	public List<Message> findTrashMessageWithPaging(HashMap<String, Object> params) {
+
+		return messageMapper.selectTrashMessageWithPaging(params);
+	}
+
+	@Override
+	public int findTrashMessageCount(HashMap<String, Object> params) {
+
+		return messageMapper.selectTrashMessageCount(params);
+	}
+
 
 	
 

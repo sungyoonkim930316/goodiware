@@ -138,23 +138,23 @@ public class MessageController {
 		return String.format("redirect:/message/trash?empno=%d", empno);
 	}
 	
-	// 휴지통으로 이동
-	@GetMapping(path= {"/trashcan"})
-	public String trashCan(int empno, Model model) {
-		
-		List<Message> messages = messageService.showTrashMessage(empno);
-		model.addAttribute("messages", messages);
-		
-		// 안읽은메일 카운트
-		int unreadCount = messageService.lookupOpendate(empno);
-		model.addAttribute("unreadCount", unreadCount);
-		
-		// 휴지통 메일 카운트
-		int trashMessage = messageService.trashCount(empno);
-		model.addAttribute("trashMessage", trashMessage);
-		
-		return "/message/trashCan";
-	}
+//	// 휴지통으로 이동
+//	@GetMapping(path= {"/trashcan"})
+//	public String trashCan(int empno, Model model) {
+//		
+//		List<Message> messages = messageService.showTrashMessage(empno);
+//		model.addAttribute("messages", messages);
+//		
+//		// 안읽은메일 카운트
+//		int unreadCount = messageService.lookupOpendate(empno);
+//		model.addAttribute("unreadCount", unreadCount);
+//		
+//		// 휴지통 메일 카운트
+//		int trashMessage = messageService.trashCount(empno);
+//		model.addAttribute("trashMessage", trashMessage);
+//		
+//		return "/message/trashCan";
+//	}
 	
 	// 휴지통 메세지 상세보기
 	@GetMapping(path= {"/trashContent"})
@@ -212,11 +212,46 @@ public class MessageController {
 	}
 	
 	// 보낸메일함 페이지로 이동
+//	@GetMapping(path= {"sendMessage"})
+//	public String sendMessgaePage(int empno, Model model) {
+//		
+//		List<Message> messages = messageService.showMessagesByMe(empno);
+//		model.addAttribute("messages", messages);
+//		
+//		// 안읽은메일 카운트
+//		int unreadCount = messageService.lookupOpendate(empno);
+//		model.addAttribute("unreadCount", unreadCount);
+//		
+//		// 휴지통 메일 카운트
+//		int trashMessage = messageService.trashCount(empno);
+//		model.addAttribute("trashMessage", trashMessage);
+//		
+//		return "/message/sendMessage";
+//	}
+
+	// 페이징 보낸메일함 페이지로 이동
 	@GetMapping(path= {"sendMessage"})
-	public String sendMessgaePage(int empno, Model model) {
+	public String sendMessgaePage(int empno, Model model, @RequestParam(defaultValue="1")int pageNo, 
+			@RequestParam(required = false) String searchType, @RequestParam(required=false)String searchKey, HttpServletRequest req) {
 		
-		List<Message> messages = messageService.showMessagesByMe(empno);
+		int pageSize = 10;
+		int pagerSize = 3;
+		int beginning = (pageNo -1)* pageSize;
+		
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("beginning", beginning);
+		params.put("end", beginning + pageSize);
+		params.put("searchType", searchType);
+		params.put("searchkey", searchKey);
+		params.put("empno", empno);
+		
+		List<Message> messages = messageService.findMessageByMeWithPaging(params);
+		int messageCount = messageService.findSendMessageCount(params);
+		
+		ThePager2 pager = new ThePager2(messageCount, pageNo, pageSize, pagerSize, "inbox", req.getQueryString());
+		
 		model.addAttribute("messages", messages);
+		model.addAttribute("pager", pager);
 		
 		// 안읽은메일 카운트
 		int unreadCount = messageService.lookupOpendate(empno);
@@ -249,5 +284,44 @@ public class MessageController {
 		
 		return "/message/sendContent";
 	}
+	
+	// 페이징 휴지통으로 이동
+	@GetMapping(path= {"/trashcan"})
+	public String trashCan(int empno, Model model, @RequestParam(defaultValue="1")int pageNo, 
+			@RequestParam(required = false) String searchType, @RequestParam(required=false)String searchKey, HttpServletRequest req) {
+		
+		int pageSize = 10;
+		int pagerSize = 3;
+		int beginning = (pageNo -1)* pageSize;
+		
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("beginning", beginning);
+		params.put("end", beginning + pageSize);
+		params.put("searchType", searchType);
+		params.put("searchkey", searchKey);
+		params.put("empno", empno);
+		
+		List<Message> messages = messageService.findTrashMessageWithPaging(params);
+		int messageCount = messageService.findTrashMessageCount(params);
+		
+		ThePager2 pager = new ThePager2(messageCount, pageNo, pageSize, pagerSize, "inbox", req.getQueryString());
+		
+		model.addAttribute("messages", messages);
+		model.addAttribute("pager", pager);
+		
+		///////////////////////////////////////////////////////////
+		
+		// 안읽은메일 카운트
+		int unreadCount = messageService.lookupOpendate(empno);
+		model.addAttribute("unreadCount", unreadCount);
+		
+		// 휴지통 메일 카운트
+		int trashMessage = messageService.trashCount(empno);
+		model.addAttribute("trashMessage", trashMessage);
+		
+		return "/message/trashCan";
+	}
+	
+	
 	
 }

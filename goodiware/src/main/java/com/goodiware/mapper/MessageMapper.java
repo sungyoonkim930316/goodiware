@@ -43,5 +43,13 @@ public interface MessageMapper {
 
 	int selectMessageCountWithpaging(HashMap<String, Object> params);
 
+	List<Message> selectMessageByMeWithPaging(HashMap<String, Object> params);
+
+	int selectSendMessageCount(HashMap<String, Object> params);
+
+	List<Message> selectTrashMessageWithPaging(HashMap<String, Object> params);
+
+	int selectTrashMessageCount(HashMap<String, Object> params);
+
 
 }

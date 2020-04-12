@@ -112,6 +112,40 @@
 		where m.mno = #{ mno } and m.receiver = e.empno
 	</select>
 	
+	<select id="selectMessageByMeWithPaging" parameterType="hashmap" resultType="com.goodiware.vo.Message">
+		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, e.name, e.id
+		from MESSAGE m , EMPLOYEE e 
+		where
+			<include refid="searchCondition" /> 
+			m.sender = #{ empno } and m.deleted = 'N' and  m.receiver = e.empno
+		order by m.senddate DESC
+		limit #{beginning}, #{end}
+	</select>
+	
+	<select id="selectSendMessageCount" parameterType="int" resultType="int">
+		select count(*) from MESSAGE
+		where 
+			<include refid="searchCondition" />
+			 sender = #{ empno } and deleted ='N'
+	</select>
+	
+	<select id="selectTrashMessageWithPaging" parameterType="hashmap" resultType="com.goodiware.vo.Message">
+		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, e.name, e.id
+		from MESSAGE m , EMPLOYEE e 
+		where
+			<include refid="searchCondition" /> 
+			m.receiver = #{ empno } and m.deleted = 'Y' and  m.sender = e.empno
+		order by m.senddate DESC
+		limit #{beginning}, #{end}
+	</select>
+	
+	<select id="selectTrashMessageCount" parameterType="int" resultType="int">
+		select count(*) from MESSAGE
+		where 
+			<include refid="searchCondition" />
+			 receiver = #{ empno } and deleted ='Y'
+	</select>
+	
 
  
  </mapper>

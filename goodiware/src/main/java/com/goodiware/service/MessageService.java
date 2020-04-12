@@ -37,5 +37,13 @@ public interface MessageService {
 
 	int findMessageCount(HashMap<String, Object> params);
 
+	List<Message> findMessageByMeWithPaging(HashMap<String, Object> params);
+
+	int findSendMessageCount(HashMap<String, Object> params);
+
+	List<Message> findTrashMessageWithPaging(HashMap<String, Object> params);
+
+	int findTrashMessageCount(HashMap<String, Object> params);
+
 
 }

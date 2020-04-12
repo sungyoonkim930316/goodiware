@@ -108,6 +108,16 @@
                                             </div>
                                         </div>
                                     </div> -->
+                                    <form action="/message/inbox" method="get">
+										<select name="searchType" aria-controls="dataTable" class="form-control-sm">
+											<option value="I" ${ param.searchType == 'T' ? 'selected' : '' }>보낸사람</option>
+											<option value="T" ${ param.searchType == 'C' ? 'selected' : '' }>메일제목</option>
+											<option value="C" ${ param.searchType == 'C' ? 'selected' : '' }>메일내용</option>
+										</select> 
+										<input style="width:200px" type="search" name="searchKey" class="form-control-sm" placeholder="" aria-controls="dataTable" value="${ param.searchKey }"> 
+										<!-- <input type="submit" class="btn btn-success btn-sm" value="검색"> -->
+										  <button type="submit" class="btn btn-primary mb-2">검색</button>
+									</form>
                                     <hr>
                                     <div class="email-list m-t-15">
                                     	<%-- <c:forEach items="${ messages }" var="message">
@@ -132,9 +142,9 @@
                                         <table class="table">
 	                                        <thead>
 	                                            <tr>
-	                                                <th>Sender</th>
-	                                                <th>Subject</th>
-	                                                <th>Date</th>
+	                                                <th style="width:200px">Sender</th>
+	                                                <th style="width:700px">Subject</th>
+	                                                <th style="width:200px">Date</th>
 	                                            </tr>
 	                                        </thead>
 	                                        <tbody>
@@ -217,6 +227,15 @@
                                         </div>
                                     </div> -->
                                 </div>
+                            </div>
+                        <div class="table-responsive">
+                                    <table class="table" style="text-align: center">
+                                    	<tfoot>
+											<tr>
+												<td colspan="4" style="text-align: center">${ pager }</td>
+											</tr>
+									  </tfoot>
+                                    </table>
                             </div>
                         </div>
                     </div>
