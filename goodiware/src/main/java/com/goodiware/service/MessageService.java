@@ -45,5 +45,7 @@ public interface MessageService {
 
 	int findTrashMessageCount(HashMap<String, Object> params);
 
+	Message findFileByMno(int mno);
+
 
 }

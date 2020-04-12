@@ -1,9 +1,15 @@
 package com.goodiware.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.goodiware.service.MessageService;
@@ -97,13 +104,41 @@ public class MessageController {
 	}
 	
 	// 메세지 전송 처리
+//	@PostMapping(path= {"/sendMessage"})
+//	public String sendMessage(Message message, RedirectAttributes attr) {
+//		
+//		messageService.sendMessage(message);
+//		attr.addAttribute("success", message.getMno());
+//		
+//		return String.format("redirect:/message/inbox?empno=%d", message.getSender());
+//		
+//	}
+
+	// 메세지 전송 처리 - 첨부파일
 	@PostMapping(path= {"/sendMessage"})
-	public String sendMessage(Message message, RedirectAttributes attr) {
+	public String sendMessage(Message message, RedirectAttributes attr, @RequestParam("filename")MultipartFile msg, HttpServletRequest req) {
+		
+		ServletContext application = req.getServletContext();
+		String path = application.getRealPath("resources/file/message");
+		String fileName = msg.getOriginalFilename();
+		
+		try {
+			File file = new File(path, fileName);
+			msg.transferTo(file);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("파일이 없읍니다");
+		}
+		
+		System.out.println("파일 이름 : "+ fileName);
+		System.out.println("파일 경로 : "+ path);
+		
+		message.setMsgfilename(fileName);
+		message.setFilepath(path);
 		
 		messageService.sendMessage(message);
 		attr.addAttribute("success", message.getMno());
 		
-//		return "redirect:/message/inbox";
 		return String.format("redirect:/message/inbox?empno=%d", message.getSender());
 		
 	}
@@ -322,6 +357,32 @@ public class MessageController {
 		return "/message/trashCan";
 	}
 	
+	// 다운로드
+	@GetMapping(path= {"/download"})
+	public void downloadFile(int mno, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
+		Message message = messageService.findFileByMno(mno);
+		
+		ServletContext application = req.getServletContext();
+		String path = application.getRealPath("resources/file/message/" + message.getMsgfilename());
+		
+		resp.setContentType("application/octet-stream;charset=utf-8");
+		
+		resp.addHeader("Content-Disposition", "Attachment;filename=\"" + new String(message.getMsgfilename().getBytes("utf-8"), "ISO-8859-1") + "\"");
+		
+		FileInputStream fis = new FileInputStream(path);
+		OutputStream fos = resp.getOutputStream();
+		
+		while (true) {
+			int data = fis.read();
+			if( data == -1) {
+				break;
+			}
+			fos.write(data);
+		}
+		fis.close();
+		fos.close();
+	}
 	
 	
 }

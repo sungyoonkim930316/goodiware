@@ -130,7 +130,7 @@
                                         </div>
                                     </div>
                                     <div class="compose-content mt-5">
-                                        <form action="/message/sendMessage" method="post" id="send-form">
+                                        <form action="/message/sendMessage" method="post" id="send-form" enctype="multipart/form-data">
                                         	<input type="hidden" name="sender" value="${ loginuser.empno }">
                                             <div class="form-group">
                                                 <input type="text" class="form-control bg-transparent" placeholder="받는사람" id="receiveid" name="receiveid">
@@ -140,6 +140,8 @@
                                             <div class="form-group">
                                                 <textarea class="textarea_editor form-control bg-light" rows="15" placeholder="내용" id="content" name="content"></textarea>
                                             </div>
+                                            <br>
+                                            <input type="file" name="filename"/><br><br><br>
                                         </form>
                                         <!-- <h5 class="m-b-20"><i class="fa fa-paperclip m-r-5 f-s-18"></i> Attatchment</h5> -->
                                         <!-- <form action="#" class="dropzone">

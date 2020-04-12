@@ -23,12 +23,14 @@
 	<select id="selectEmployeeNoById" parameterType="com.goodiware.vo.Message" resultType="int">
 		select empno from EMPLOYEE where id = #{ receiveid }
 	</select>
-
+	
+<!-- 
 	<insert id="insertMessage" parameterType="com.goodiware.vo.Message">
 		insert into MESSAGE( title, content, senddate, sender, receiver ) values ( #{ title }, #{ content }, NOW(), #{sender}, #{receiver} )
 	</insert>
-
-	<select id="selectMessage" parameterType="int" resultType="com.goodiware.vo.Message">
+ -->
+ 	
+ 	<select id="selectMessage" parameterType="int" resultType="com.goodiware.vo.Message">
 		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, e.name
 		from MESSAGE m , EMPLOYEE e 
 		where m.receiver = #{ empno } and m.deleted = 'N' and  m.sender = e.empno
@@ -53,7 +55,7 @@
 	</select>
 
 	<select id="selectMessageContent" parameterType="int" resultType="com.goodiware.vo.Message">
-		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, e.name, e.id
+		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, m.msgfilename, m.filepath, e.name, e.id
 		from MESSAGE m , EMPLOYEE e
 		where m.mno = #{ mno } and m.sender = e.empno
 	</select>
@@ -144,6 +146,15 @@
 		where 
 			<include refid="searchCondition" />
 			 receiver = #{ empno } and deleted ='Y'
+	</select>
+	
+	<insert id="insertMessage" parameterType="com.goodiware.vo.Message">
+		insert into MESSAGE( title, content, senddate, sender, receiver, msgfilename, filepath ) 
+		values ( #{ title }, #{ content }, NOW(), #{sender}, #{receiver}, #{ msgfilename }, #{ filepath } )
+	</insert>
+	
+	<select id="selectFileByMno" parameterType="int" resultType="com.goodiware.vo.Message">
+		select mno, msgfilename, filepath from MESSAGE where mno = #{ mno }
 	</select>
 	
 

@@ -13,6 +13,8 @@ public class Message {
 	private Date opendate;
 	private Date senddate;
 	private boolean deleted;
+	private String msgfilename;
+	private String filepath;
 	
 	private int sender;
 	private int receiver;

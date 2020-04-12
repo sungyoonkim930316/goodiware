@@ -132,6 +132,12 @@ public class MessageServiceImpl implements MessageService {
 		return messageMapper.selectTrashMessageCount(params);
 	}
 
+	@Override
+	public Message findFileByMno(int mno) {
+
+		return messageMapper.selectFileByMno(mno);
+	}
+
 
 	
 

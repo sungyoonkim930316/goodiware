@@ -146,13 +146,9 @@
                                         <p>${ message.content }
                                         </p>
                                         <hr>
-                                        <h6 class="p-t-15"><i class="fa fa-download mb-2"></i> Attachments <span>(3)</span></h6>
+                                        <h6 class="p-t-15"><i class="fa fa-download mb-2"></i> 첨부파일 </h6>
                                         <div class="row m-b-30">
-                                            <div class="col-auto"><a href="#" class="text-muted">My-Photo.png</a>
-                                            </div>
-                                            <div class="col-auto"><a href="#" class="text-muted">My-File.docx</a>
-                                            </div>
-                                            <div class="col-auto"><a href="#" class="text-muted">My-Resume.pdf</a>
+                                            <div class="col-auto"><a href="/message/download?mno=${ message.mno } }" class="text-muted">${ message.msgfilename }</a>
                                             </div>
                                         </div>
                                         <hr>

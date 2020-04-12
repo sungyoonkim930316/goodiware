@@ -144,7 +144,7 @@
                                          <table class="table">
 	                                        <thead>
 	                                            <tr>
-	                                                <th style="width:200px">sender</th>
+	                                                <th style="width:200px">Sender</th>
 	                                                <th style="width:700px">Subject</th>
 	                                                <th style="width:200px">Date</th>
 	                                            </tr>

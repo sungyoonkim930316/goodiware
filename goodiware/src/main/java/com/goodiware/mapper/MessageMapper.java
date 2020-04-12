@@ -51,5 +51,7 @@ public interface MessageMapper {
 
 	int selectTrashMessageCount(HashMap<String, Object> params);
 
+	Message selectFileByMno(int mno);
+
 
 }
