@@ -1,5 +1,7 @@
 package com.goodiware.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +76,17 @@ public class EmployeeController {
 		
 	}
 	
+	// 사원 검색 결과 페이지 이동
+		@GetMapping(path= {"/searchEmp"})
+		public String toSearchEmp(Model model, Employee employee) {
+			
+		List<Employee> employees = employeeService.searchEmp(employee);
+		
+		model.addAttribute("employees", employees);
+		
+		return "/employee/searchEmp";
+		
+		}
 	
 	
 }

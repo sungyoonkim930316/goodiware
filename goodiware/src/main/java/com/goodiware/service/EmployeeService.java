@@ -1,5 +1,7 @@
 package com.goodiware.service;
 
+import java.util.List;
+
 import com.goodiware.vo.Employee;
 
 public interface EmployeeService {
@@ -8,5 +10,6 @@ public interface EmployeeService {
 
 	void editEmployee(Employee employee);
 
+	List<Employee> searchEmp(Employee employee);
 
 }

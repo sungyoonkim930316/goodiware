@@ -26,6 +26,9 @@ public class Employee {
 	private String depno;
 	private String authno;
 		
+	private String posname;
+	private String depname; 
+	
 	private List<Position> positions;
 	private List<Department> departments;
 	private Auth auth;

@@ -26,6 +26,16 @@
 		<id column="authno" property="authno" />
 		<result column="authname" property="authname" />
 	</resultMap>
+	
+	<resultMap type="com.goodiware.vo.Position" id="posMap">
+		<id column="posno" property="posno" />
+		<result column="posname" property="posname" />
+	</resultMap>
+	
+	<resultMap type="com.goodiware.vo.Department" id="depMap">
+		<id column="depno" property="depno" />
+		<result column="depname" property="depname" />
+	</resultMap>
 
 
 	<select id="selectEmployee" parameterType="com.goodiware.vo.Employee" resultMap="employeeMap" resultType="com.goodiware.vo.Employee">
@@ -40,5 +50,24 @@
 	<update id="updateEmployee" parameterType="com.goodiware.vo.Employee">
 		UPDATE EMPLOYEE SET phone = #{ phone }, birth = #{ birth }, add1 = #{ add1 }, add2 = #{ add2 }, add3 = #{ add3 }, intro = #{ intro } where id = #{ id }
 	</update>
+<!-- 	
+	<select id ="searchEmp" parameterType="com.goodiware.vo.Employee" resultMap="employeeMap" resultType="com.goodiware.vo.Employee">
+		SELECT e.empno, e.name, e.posno, e.depno, e.phone, p.posname, d.depname
+		FROM EMPLOYEE e 
+		inner join POSITION p
+		on e.posno = p.posno
+		inner join DEPARTMENT d 
+		on e.depno = d.depno  
+		where deleted ='N'
+		order by empno ASC
+	</select> 
+-->
+
+	<select id ="searchEmp" parameterType="com.goodiware.vo.Employee" resultType="com.goodiware.vo.Employee">
+		SELECT e.empno, e.name, e.posno, e.depno, e.phone, p.posname, d.depname
+		FROM EMPLOYEE e, POSITION p, DEPARTMENT d 
+		where deleted ='N' and e.posno = p.posno and e.depno = d.depno
+		order by empno ASC
+	</select>
 
 </mapper>

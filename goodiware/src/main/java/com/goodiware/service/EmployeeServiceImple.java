@@ -1,5 +1,7 @@
 package com.goodiware.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,12 @@ public class EmployeeServiceImple implements EmployeeService {
 	public void editEmployee(Employee employee) {
 		
 		employeeMapper.updateEmployee(employee);
+	}
+
+	@Override
+	public List<Employee> searchEmp(Employee employee) {
+		
+		return employeeMapper.searchEmp(employee);
 	}
 
 
