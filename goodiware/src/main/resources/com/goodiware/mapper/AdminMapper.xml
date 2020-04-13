@@ -16,4 +16,8 @@
 		select * from DEPARTMENT
 	</select>
 	
+	<select id="selectAuths" resultType="com.goodiware.vo.Auth">
+		select * from AUTH
+	</select>
+	
 </mapper>

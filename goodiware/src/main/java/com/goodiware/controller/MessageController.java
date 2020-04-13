@@ -62,11 +62,11 @@ public class MessageController {
 		int beginning = (pageNo -1)* pageSize;
 		
 		HashMap<String, Object> params = new HashMap<>();
+		params.put("empno", empno);
 		params.put("beginning", beginning);
 		params.put("end", beginning + pageSize);
 		params.put("searchType", searchType);
 		params.put("searchkey", searchKey);
-		params.put("empno", empno);
 		
 		List<Message> messages = messageService.findMessageWithPaging(params);
 		int messageCount = messageService.findMessageCount(params);
@@ -168,13 +168,10 @@ public class MessageController {
 	@GetMapping(path = {"/trash"})
 	public String trashMessage(int empno, int mno, Model model) {
 		
-		System.out.println("mno : " + mno);
-		System.out.println("empno : " + empno);
-		
 		messageService.trashMessage(mno);
 		
 //		return String.format("redirect:/message/trash?empno=%d", empno);
-		return "redirect:/message/inbox";
+		return String.format("redirect:/message/inbox?empno=%d", empno);
 
 	}
 	
@@ -370,6 +367,8 @@ public class MessageController {
 		
 		ServletContext application = req.getServletContext();
 		String path = application.getRealPath("resources/file/message/" + message.getMsgfilename());
+		
+		System.out.println("path : " + path);
 		
 		resp.setContentType("application/octet-stream;charset=utf-8");
 		

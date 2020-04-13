@@ -22,9 +22,9 @@ public class Employee {
 	private String intro;
 	private boolean deleted;
 	
-	private String posno;
-	private String depno;
-	private String authno;
+	private int posno;
+	private int depno;
+	private int authno;
 		
 	private String posname;
 	private String depname; 

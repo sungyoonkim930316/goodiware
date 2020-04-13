@@ -7,14 +7,11 @@
 	<sql id="searchCondition">
 		<trim suffix="AND">
 			<choose>
-				<when test="searchType == 'I'.toString()">
-					e.name LIKE CONCAT('%',#{searchKey},'%')
-				</when>
 				<when test="searchType == 'T'.toString()">
-					m.title LIKE CONCAT('%',#{searchKey},'%')
+					title LIKE CONCAT("%",#{searchKey},"%")
 				</when>
 				<when test="searchType == 'C'.toString()">
-					m.content LIKE CONCAT('%',#{searchKey},'%')
+					content LIKE CONCAT('%',#{searchKey},'%')
 				</when>
 			</choose>
 		</trim>

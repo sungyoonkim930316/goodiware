@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.goodiware.common.Util;
 import com.goodiware.mapper.AdminMapper;
+import com.goodiware.vo.Auth;
 import com.goodiware.vo.Department;
 import com.goodiware.vo.Employee;
 import com.goodiware.vo.Position;
@@ -38,6 +39,12 @@ public class AdminServiceImpl implements AdminService {
 	public List<Department> showDepartments() {
 
 		return adminMapper.selectDepartments();
+	}
+
+	@Override
+	public List<Auth> showAuths() {
+
+		return adminMapper.selectAuths();
 	}
 
 }

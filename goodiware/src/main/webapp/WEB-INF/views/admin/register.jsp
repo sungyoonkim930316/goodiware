@@ -154,6 +154,18 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label" for="val-username">권한 <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <!-- <input type="text" class="form-control" id="position" name="position"> -->
+                                                <select class="form-control" id="auth" name="authno">
+	                                                <c:forEach items="${ auths }" var="auth">
+	                                                <option value="${ auth.authno }">${ auth.authname }</option>
+	                                                </c:forEach>
+	                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
                                             <div class="col-lg-8 ml-auto">
                                                 <button class="btn btn-primary" id="edit">등록</button>
                                             </div>

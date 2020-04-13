@@ -10,7 +10,7 @@
                     <b class="logo-abbr"><img src="/resources/images/logo1.PNG" alt=""> </b>
                     <span class="logo-compact"><img src="/resources/images/logo-compact.png" alt=""></span>
                     <span class="brand-title">
-                        <img src="/resources/images/logo-text.png" alt="">
+                        <img src="/resources/images/goodi_logo1.PNG" alt="">
                     </span>
                 </a>
             </div>
