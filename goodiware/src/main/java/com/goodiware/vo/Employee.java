@@ -21,6 +21,10 @@ public class Employee {
 	private String picture;
 	private String intro;
 	private boolean deleted;
+	
+	private String posno;
+	private String depno;
+	private String authno;
 		
 	private List<Position> positions;
 	private List<Department> departments;

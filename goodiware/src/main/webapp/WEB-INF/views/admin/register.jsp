@@ -134,7 +134,7 @@
                                             </label>
                                             <div class="col-lg-6">
                                                 <!-- <input type="text" class="form-control" id="position" name="position"> -->
-                                                <select class="form-control" id="position" name="position">
+                                                <select class="form-control" id="position" name="posno">
 	                                                <c:forEach items="${ positions }" var="position">
 	                                                <option value="${ position.posno }">${ position.posname }</option>
 	                                                </c:forEach>
@@ -146,7 +146,7 @@
                                             </label>
                                             <div class="col-lg-6">
                                                 <!-- <input type="text" class="form-control" id="department" name="department"> -->
-                                                <select class="form-control" id="department" name="department">
+                                                <select class="form-control" id="department" name="depno">
 	                                                <c:forEach items="${ departments }" var="department">
 	                                                <option value="${ department.depno }">${ department.depname }</option>
 	                                                </c:forEach>

@@ -5,7 +5,7 @@
 <mapper namespace="com.goodiware.mapper.AdminMapper">
 
 	<insert id="insertEmployee" parameterType="com.goodiware.vo.Employee" useGeneratedKeys="true" keyColumn="EMPNO" keyProperty="empno">
-		INSERT INTO EMPLOYEE ( ID , NAME, PW, JOINDAY, PHONE ) VALUES ( #{id}, #{name}, #{pw}, NOW(), #{phone} )
+		INSERT INTO EMPLOYEE ( ID , NAME, PW, JOINDAY, PHONE, POSNO, DEPNO, AUTHNO ) VALUES ( #{id}, #{name}, #{pw}, NOW(), #{phone}, #{ posno }, #{ depno }, 1 )
 	</insert>
 	
 	<select id="selectPostions" resultType="com.goodiware.vo.Position">

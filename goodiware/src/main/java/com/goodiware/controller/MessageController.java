@@ -166,11 +166,16 @@ public class MessageController {
 	
 	// 메세지 휴지통으로 이동
 	@GetMapping(path = {"/trash"})
-	public String trashMessage(int empno, int mno) {
+	public String trashMessage(int empno, int mno, Model model) {
+		
+		System.out.println("mno : " + mno);
+		System.out.println("empno : " + empno);
 		
 		messageService.trashMessage(mno);
 		
-		return String.format("redirect:/message/trash?empno=%d", empno);
+//		return String.format("redirect:/message/trash?empno=%d", empno);
+		return "redirect:/message/inbox";
+
 	}
 	
 //	// 휴지통으로 이동
