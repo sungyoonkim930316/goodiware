@@ -148,7 +148,7 @@
                                         <hr>
                                         <h6 class="p-t-15"><i class="fa fa-download mb-2"></i> 첨부파일 </h6>
                                         <div class="row m-b-30">
-                                            <div class="col-auto"><a href="/message/download?mno=${ message.mno } }" class="text-muted">${ message.msgfilename }</a>
+                                            <div class="col-auto"><a href="/message/download?mno=${ message.mno }" class="text-muted">${ message.msgfilename }</a>
                                             </div>
                                         </div>
                                         <hr>

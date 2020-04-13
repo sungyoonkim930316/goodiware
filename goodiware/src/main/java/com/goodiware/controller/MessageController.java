@@ -368,6 +368,8 @@ public class MessageController {
 		ServletContext application = req.getServletContext();
 		String path = application.getRealPath("resources/file/message/" + message.getMsgfilename());
 		
+		System.out.println("path : " + path);
+		
 		resp.setContentType("application/octet-stream;charset=utf-8");
 		
 		resp.addHeader("Content-Disposition", "Attachment;filename=\"" + new String(message.getMsgfilename().getBytes("utf-8"), "ISO-8859-1") + "\"");
