@@ -143,22 +143,16 @@
                                                 <!-- <small class="text-muted">To:Me,invernessmckenzie@example.com</small> -->
                                             </div>
                                         </div>
-                                        <p>${ message.content }
-                                        </p>
-                                        <hr>
-                                        <h6 class="p-t-15"><i class="fa fa-download mb-2"></i> Attachments <span>(3)</span></h6>
-                                        <div class="row m-b-30">
-                                            <div class="col-auto"><a href="#" class="text-muted">My-Photo.png</a>
-                                            </div>
-                                            <div class="col-auto"><a href="#" class="text-muted">My-File.docx</a>
-                                            </div>
-                                            <div class="col-auto"><a href="#" class="text-muted">My-Resume.pdf</a>
-                                            </div>
-                                        </div>
-                                        <hr>
                                         <div class="form-group p-t-15">
-                                            <textarea class="w-100 p-20 l-border-1" name="" id="" cols="30" rows="5" placeholder="It's really an amazing.I want to know more about it..!"></textarea>
+                                            <textarea class="w-100 p-20 l-border-1" name="" id="" cols="30" rows="8">${ message.content }</textarea>
                                         </div>
+                                        <hr>
+                                        <h6 class="p-t-15"><i class="fa fa-download mb-2"></i> 첨부파일 </h6>
+                                        <div class="row m-b-30">
+                                            <div class="col-auto"><a href="/message/download?mno=${ message.mno }" class="text-muted">${ message.msgfilename }</a>
+                                            </div>
+                                        </div>
+                                        <hr>
                                     </div>
                                     <div class="text-right">
                                         <button class="btn btn-primaryw-md m-b-30" type="button" id="reply">답장</button>

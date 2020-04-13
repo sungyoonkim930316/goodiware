@@ -7,5 +7,6 @@ public class ApprDiv {
 
 	private int appdivno;
 	private String divname;
+	private String divfiletype;
 	
 }

@@ -9,9 +9,12 @@ public class Approval {
 
 	private int type;
 	private String title;
+	private String content;
 	private String filename;
 	private String filepath;
 	private String companoin;
+	
+	private int appdivno;
 	
 	private List<ApprDiv> ApprDivs;
 	private List<ApproAccp> ApproAccps;
