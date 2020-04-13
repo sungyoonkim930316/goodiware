@@ -168,9 +168,6 @@ public class MessageController {
 	@GetMapping(path = {"/trash"})
 	public String trashMessage(int empno, int mno, Model model) {
 		
-		System.out.println("mno : " + mno);
-		System.out.println("empno : " + empno);
-		
 		messageService.trashMessage(mno);
 		
 //		return String.format("redirect:/message/trash?empno=%d", empno);

@@ -110,9 +110,8 @@
                                     </div> -->
                                     <form action="/message/inbox" method="get">
 										<select name="searchType" aria-controls="dataTable" class="form-control-sm">
-											<option value="I" ${ param.searchType == 'T' ? 'selected' : '' }>보낸사람</option>
-											<option value="T" ${ param.searchType == 'C' ? 'selected' : '' }>메일제목</option>
-											<option value="C" ${ param.searchType == 'C' ? 'selected' : '' }>메일내용</option>
+											<option value="T" ${ param.searchType == 'C' ? 'selected' : '' }>제목</option>
+											<option value="C" ${ param.searchType == 'C' ? 'selected' : '' }>내용</option>
 										</select> 
 										<input style="width:200px" type="search" name="searchKey" class="form-control-sm" placeholder="" aria-controls="dataTable" value="${ param.searchKey }"> 
 										<!-- <input type="submit" class="btn btn-success btn-sm" value="검색"> -->

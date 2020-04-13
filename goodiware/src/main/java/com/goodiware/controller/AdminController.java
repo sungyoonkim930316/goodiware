@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.goodiware.service.AdminService;
+import com.goodiware.vo.Auth;
 import com.goodiware.vo.Department;
 import com.goodiware.vo.Employee;
 import com.goodiware.vo.Position;
@@ -33,6 +34,9 @@ public class AdminController {
 
 		List<Department> departments = adminService.showDepartments();
 		model.addAttribute("departments", departments);
+		
+		List<Auth> auths = adminService.showAuths();
+		model.addAttribute("auths", auths);
 		
 		return "/admin/register";
 	}
