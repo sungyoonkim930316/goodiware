@@ -8,7 +8,7 @@
 		<trim suffix="AND">
 			<choose>
 				<when test="searchType == 'T'.toString()">
-					title LIKE CONCAT('%',#{searchKey},'%')
+					title LIKE CONCAT("%",#{searchKey},"%")
 				</when>
 				<when test="searchType == 'C'.toString()">
 					content LIKE CONCAT('%',#{searchKey},'%')
