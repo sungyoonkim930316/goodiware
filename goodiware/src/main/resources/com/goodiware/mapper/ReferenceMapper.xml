@@ -11,7 +11,7 @@
 	    			refname LIKE CONCAT('%',#{searchKey},'%')
 	    		</when>
 	    		<when test="searchType == 'C'.toString()">
-	    			name LIKE CONCAT('%',#{searchKey},'%')
+	    			(refname LIKE CONCAT('%',#{searchKey},'%') OR refcontent LIKE CONCAT('%',#{searchKey},'%'))
 	    		</when>
 	    	</choose>
 		</trim>
@@ -39,7 +39,7 @@
 	<select id="selectRefCount" parameterType="hashmap" resultType="int">
 		
 		SELECT COUNT(*) 
-		FROM REFERENCE, EMPLOYEE 
+		FROM REFERENCE
 		WHERE 
 			<include refid="searchCondition" />
 			refdel = 'N'

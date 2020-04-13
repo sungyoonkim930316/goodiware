@@ -107,7 +107,7 @@
 													<option value="T"
 														${ param.searchType == 'T' ? 'selected' : '' }>파일이름</option>
 													<option value="C"
-														${ param.searchType == 'C' ? 'selected' : '' }>등록자</option>
+														${ param.searchType == 'C' ? 'selected' : '' }>제목+내용</option>
 												</select> 
 												<input style="width:470px" type="search" name="searchKey" class="form-control-sm"
 													placeholder="" aria-controls="dataTable"
