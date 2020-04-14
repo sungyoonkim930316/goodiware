@@ -168,7 +168,8 @@
                                 <span class="activity active"></span>
                                 <img src="/resources/images/user/1.png" height="40" width="40" alt="">
                             </div>
-                            <div class="drop-down dropdown-profile   dropdown-menu">
+                            <a href="/employee/logout"><span>로그아웃</span></a>
+                            <!-- <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-body">
                                     <ul>
                                         <li>
@@ -185,7 +186,7 @@
                                         <li><a href="/employee/logout"><i class="icon-key"></i> <span>로그아웃</span></a></li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> -->
                         </li>
                     	</c:otherwise>
                     	</c:choose>
