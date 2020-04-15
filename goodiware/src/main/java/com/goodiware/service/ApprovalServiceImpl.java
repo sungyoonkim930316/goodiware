@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.goodiware.mapper.ApprovalMapper;
 import com.goodiware.vo.ApprDiv;
 import com.goodiware.vo.Approval;
+import com.goodiware.vo.Employee;
 
 
 
@@ -27,6 +28,12 @@ public class ApprovalServiceImpl implements ApprovalService {
 	public void registApproval(Approval approval) {
 
 		approvalMapper.insertApproval(approval);
+	}
+
+	@Override
+	public Employee showMaccp(Employee employee) {
+
+		return approvalMapper.selectMaccpNoByName(employee);
 	}
 
 }

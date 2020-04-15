@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.goodiware.service.ApprovalService;
 import com.goodiware.vo.ApprDiv;
 import com.goodiware.vo.Approval;
+import com.goodiware.vo.Employee;
 
 @Controller
 @RequestMapping(path= {"/appr/"})
@@ -64,6 +65,23 @@ public class ApprovalController {
 		approvalService.registApproval(approval);
 		
 		return "redirect:/";
+	}
+	
+	// 중간승인자 찾기
+	@GetMapping(path = {"/maccpSearch"})
+	public String maccpSearch() {
+		
+		return "/approval/searchPopup";
+	}
+	
+	// 중간승인자 검색결과
+	@PostMapping(path= {"/searchMaccp"})
+	public String getMaccp(Employee employee, Model model) {
+		
+		Employee employee2 = approvalService.showMaccp(employee);
+		model.addAttribute("maccp", employee2);
+		
+		return "/approval/searchPopup";
 	}
 	
 }

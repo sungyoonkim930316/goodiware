@@ -135,7 +135,7 @@
 											      <td class="right-menu">
 											      	<!-- <a href="#"><input class="form-control form-control-sm" type="text" name="maccp"></a> -->
 											      	<div class="input-group mb-3">
-													  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" name=maccp>
+													  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="maccp" name=maccp>
 													  <div class="input-group-append">
 													    <button class="btn btn-outline-secondary" type="button" id="search-maccp">검색</button>
 													  </div>
@@ -147,7 +147,7 @@
 											      <td class="right-menu">
 											      	<!-- <input class="form-control form-control-sm" type="text" name="faccp"> -->
 											      	<div class="input-group mb-3">
-													  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" name=faccp>
+													  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="faccp" name=faccp>
 													  <div class="input-group-append">
 													    <button class="btn btn-outline-secondary" type="button" id="search-faccp">검색</button>
 													  </div>
@@ -213,6 +213,8 @@
 	<script type='text/javascript'>
 	$(function(){
 
+		/* $("#maccp, #faccp").attr({"readonly" : "readonly"}) */
+
 		$(".left-menu").css({ "width" : "200" , "text-align" : "center", "vertical-align" : "middle" });
 
 		$(".right-menu").css({ "width" : "600" });
@@ -221,7 +223,14 @@
 
 			$("#registAppr").submit();
 
-		})		
+		});
+
+		$("#search-maccp").on("click", function(event){
+
+			window.open("/appr/maccpSearch","중간승인자검색","width=600, height=700, resizeable=no");
+
+		})
+		
 	    
 	})
 	</script>

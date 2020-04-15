@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.goodiware.vo.ApprDiv;
 import com.goodiware.vo.Approval;
+import com.goodiware.vo.Employee;
 
 @Mapper
 public interface ApprovalMapper {
@@ -13,5 +14,7 @@ public interface ApprovalMapper {
 	List<ApprDiv> selectApprDivs();
 
 	void insertApproval(Approval approval);
+
+	Employee selectMaccpNoByName(Employee employee);
 
 }
