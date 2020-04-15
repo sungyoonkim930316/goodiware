@@ -7,7 +7,7 @@
             <div class="brand-logo">
                 <a href="/">
                     <b class="logo-abbr"><img src="/resources/images/logo.png" alt=""> </b>
-                    <b class="logo-abbr"><img src="/resources/images/logo1.PNG" alt=""> </b>
+                    <b class="logo-abbr"><img src="/resources/logo-compact.png alt="> </b>
                     <span class="logo-compact"><img src="/resources/images/logo-compact.png" alt=""></span>
                     <span class="brand-title">
                         <img src="/resources/images/goodi_logo1.PNG" alt="">
@@ -17,7 +17,7 @@
         </div>
         
 
-  		<div class="header">     
+  		 <div class="header">    
             <div class="header-content clearfix">
                 
                 <div class="nav-control">
@@ -30,12 +30,11 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
                         </div>
-                        <input type="search" class="form-control" placeholder="사원 검색" aria-label="Search Dashboard">
-                        <button class="btn btn-primary px-3 ml-4" id="searchEmp">검색</button>
-                        <div class="drop-down   d-md-none">
-							<form action="#">
-								<input type="text" class="form-control" placeholder="Search">
-							</form>
+                        <input type="search" class="form-control" placeholder="Search Dashboard" aria-label="Search Dashboard">
+                        <div class="drop-down animated flipInX d-md-none">
+                            <form action="#">
+                                <input type="text" class="form-control" placeholder="Search">
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -194,6 +193,7 @@
                 </div>
             </div>
         </div>
+        
 <jsp:include page="/WEB-INF/views/modules/common-js.jsp"></jsp:include>
    
 <script type="text/javascript">

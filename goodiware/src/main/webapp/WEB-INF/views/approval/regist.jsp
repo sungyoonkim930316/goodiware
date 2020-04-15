@@ -103,7 +103,7 @@
 				
 				<div class="form-group">
 					
-					<form id="registAppr" action="/apprl/registAppr" method="post" class="user" enctype="multipart/form-data">
+					<form id="registAppr" action="/appr/registAppr" method="post" class="user" enctype="multipart/form-data">
 						
 						<div class="container-fluid">
 			                <div class="row">
@@ -111,12 +111,13 @@
 			                        <div class="card">
 			                            <div class="card-body">
 			                            	
+			                            	<input type="hidden" name="empno" value="${ loginuser.empno }">
 			                            	<table class="table table-bordered">
 											  <tbody>
 											    <tr>
 											      <th class="left-menu">결재구분</th>
 											      <td class="right-menu">
-											      	<select class="form-control form-control-sm" id="apprdivno" name="apprdivno">
+											      	<select class="form-control form-control-sm" id="apprdivno" name="appdivno">
 											      		<c:forEach items="${ apprdivs }" var="apprdiv">
 														  <option value="${ apprdiv.appdivno }">${ apprdiv.divname }</option>
 											      		</c:forEach>
@@ -132,20 +133,32 @@
 											    <tr>
 											      <th class="left-menu">중간승인자</th>
 											      <td class="right-menu">
-											      	<input class="form-control form-control-sm" type="text" name="maccp">
+											      	<!-- <a href="#"><input class="form-control form-control-sm" type="text" name="maccp"></a> -->
+											      	<div class="input-group mb-3">
+													  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" name=maccp>
+													  <div class="input-group-append">
+													    <button class="btn btn-outline-secondary" type="button" id="search-maccp">검색</button>
+													  </div>
+													</div>
 											      </td>
 											    </tr>
 											    <tr>
 											      <th class="left-menu">최종승인자</th>
 											      <td class="right-menu">
-											      	<input class="form-control form-control-sm" type="text" name="faccp">
+											      	<!-- <input class="form-control form-control-sm" type="text" name="faccp"> -->
+											      	<div class="input-group mb-3">
+													  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" name=faccp>
+													  <div class="input-group-append">
+													    <button class="btn btn-outline-secondary" type="button" id="search-faccp">검색</button>
+													  </div>
+													</div>
 											      </td>
 											    </tr>
 											    <tr>
 											      <th class="left-menu">첨부파일</th>
 											      <td class="right-menu">
-												    <input type="file" class="form-control-file" id="exampleFormControlFile1">
-											      </td>
+												    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="filename">
+											      </td> 
 											    </tr>
 											    <tr>
 											      <th class="left-menu">내용</th>
@@ -154,7 +167,7 @@
 											  </tbody>
 											</table>
 											<div style="float: right;">
-			                            	<button type="button" class="btn btn-primary" id="registApproval">등록</button>
+			                            	<button type="button" class="btn btn-primary" id="registerAproval">등록</button>
 			                            	</div>
 			                            </div>
 			                        </div>

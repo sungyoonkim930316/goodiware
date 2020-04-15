@@ -8,4 +8,8 @@
 		select * from APPRDIV
 	</select>
 
+	<insert id="insertApproval" parameterType="com.goodiware.vo.Approval">
+		insert into APPROVAL ( empno, appdivno, title, maccp, faccp, apprfilename, filepath ) values ( #{empno }, #{ appdivno}, #{ title }, #{ maccp }, #{ faccp }, #{ apprfilename }, #{ filepath })
+	</insert>
+
 </mapper>

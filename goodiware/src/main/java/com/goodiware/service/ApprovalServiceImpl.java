@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.goodiware.mapper.ApprovalMapper;
 import com.goodiware.vo.ApprDiv;
+import com.goodiware.vo.Approval;
 
 
 
@@ -20,6 +21,12 @@ public class ApprovalServiceImpl implements ApprovalService {
 	public List<ApprDiv> getApprDivs() {
 
 		return approvalMapper.selectApprDivs();
+	}
+
+	@Override
+	public void registApproval(Approval approval) {
+
+		approvalMapper.insertApproval(approval);
 	}
 
 }
