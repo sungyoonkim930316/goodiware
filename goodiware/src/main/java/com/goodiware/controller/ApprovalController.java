@@ -103,4 +103,39 @@ public class ApprovalController {
 		return "/approval/searchPopup2";
 	}
 	
+	// 업무 페이지 이동
+	@GetMapping(path= {"/task"})
+	public String getTask() {
+		
+//		List<Approval> approvals = approvalService.getApprovalList();
+		
+		return "/approval/taskList";
+		
+	}
+
+	// 파견 페이지로 이동
+	@GetMapping(path= {"/dispatch"})
+	public String getDispatch() {
+		return "/approval/dispatchList";
+	}
+	
+	
+	// 경비지출 페이지로 이동
+	@GetMapping(path= {"/expenditure"})
+	public String getExpenditure() {
+		return "/approval/expenditureList";
+	}
+	
+	//초과근무 페이지로 이동
+	@GetMapping(path= {"/overtime"})
+	public String getOvertime() {
+		return "/approval/overtimeList";
+	}
+	
+	// 휴가 페이지로 이동
+	@GetMapping(path= {"/vacation"})
+	public String getVacation() {
+		return "/approval/vacationList";
+	}
+	
 }

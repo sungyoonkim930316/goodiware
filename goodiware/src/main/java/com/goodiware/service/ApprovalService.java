@@ -14,5 +14,7 @@ public interface ApprovalService {
 
 	List<Employee> showMaccp(Employee employee);
 
+	List<Approval> getApprovalList();
+
 
 }

@@ -119,7 +119,8 @@
 											      <td class="right-menu">
 											      	<select class="form-control form-control-sm" id="apprdivno" name="appdivno">
 											      		<c:forEach items="${ apprdivs }" var="apprdiv">
-														  <option value="${ apprdiv.appdivno }">${ apprdiv.divname }</option>
+														  <%-- <option value="${ apprdiv.appdivno }">${ apprdiv.divname }</option> --%>
+														  <option value="${ apprdiv.appdivno }" ${ param.appdivno == apprdiv.appdivno ? "selected" : "" }>${ apprdiv.divname }</option>
 											      		</c:forEach>
 													</select>
 											      </td>

@@ -25,5 +25,9 @@
 		where e.depno = d.depno and deleted ='N' and
 				(e.name LIKE CONCAT('%',#{name},'%') OR d.depname LIKE CONCAT('%',#{name},'%'))
 	</select>
+	
+	<select id="selectApprovalList" resultType="com.goodiware.vo.Approval">
+	
+	</select>
 
 </mapper>

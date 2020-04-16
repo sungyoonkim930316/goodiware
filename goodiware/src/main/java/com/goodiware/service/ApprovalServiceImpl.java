@@ -36,4 +36,10 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return approvalMapper.selectMaccpNoByName(employee);
 	}
 
+	@Override
+	public List<Approval> getApprovalList() {
+
+		return approvalMapper.selectApprovalList();
+	}
+
 }
