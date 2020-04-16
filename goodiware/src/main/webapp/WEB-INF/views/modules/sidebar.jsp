@@ -18,7 +18,7 @@
                             <i class="icon-globe-alt menu-icon"></i><span class="nav-text">전자결재</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/appr/regist">결재등록</a></li>
+                            <!-- <li><a href="/appr/regist">결재등록</a></li> -->
                             <li><a href="#">업무</a></li>
                             <li><a href="#">파견</a></li>
                             <li><a href="#">경비지출</a></li>
