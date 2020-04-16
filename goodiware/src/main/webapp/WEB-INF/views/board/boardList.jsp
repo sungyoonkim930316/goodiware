@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>게시판</title>
+    <title>자유게시판</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/resources/images/favicon.png">
     <!-- Custom Stylesheet -->
@@ -93,42 +93,74 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">자유게시판</h4>
+                                <div class="row">
+	                                <h4 class="card-title">자유게시판</h4>
+	                                
+							    </div>
+                                <div class="row" style="text-align: center">
+									<div class="col-sm-12 col-md-12">
+										<div class="dataTables_length" id="dataTable_length"
+											style="margin-bottom: 15px">
+											<form action="list" method="get">
+												<select name="searchType" aria-controls="dataTable"
+													class="form-control-sm">
+													<option value="T"
+														${ param.searchType == 'T' ? 'selected' : '' }>글 제목</option>
+													<option value="C"
+														${ param.searchType == 'C' ? 'selected' : '' }>제목+내용</option>
+												</select> 
+												<input style="width:470px" type="search" name="searchKey" class="form-control-sm"
+													placeholder="" aria-controls="dataTable"
+													value="${ param.searchKey }"> 
+												<input type="submit" class="btn btn-success btn-sm" value="검색">
+											</form>
+										</div>
+									</div>
+								</div>
+								<br>
                                 <div class="table-responsive">
-                                    <table class="table">
+                                    <table class="table" style="text-align: center">
 									  <thead>
 									    <tr>
-									      <th scope="col">No</th>
-									      <th scope="col">Subject</th>
-									      <th scope="col">Name</th>
-									      <th scope="col">Date</th>
+									      <th scope="col">글 번호</th>
+									      <th scope="col">글 제목</th>
+									      <th scope="col">작성자</th>
+									      <th scope="col">등록일</th>
 									    </tr>
 									  </thead>
 									  <tbody>
-									    <tr>
-									      <th scope="row">1</th>
-									      <td>Mark</td>
-									      <td>Otto</td>
-									      <td>@mdo</td>
-									    </tr>
-									    <tr>
-									      <th scope="row">2</th>
-									      <td>Jacob</td>
-									      <td>Thornton</td>
-									      <td>@fat</td>
-									    </tr>
-									    <tr>
-									      <th scope="row">3</th>
-									      <td>Larry</td>
-									      <td>the Bird</td>
-									      <td>@twitter</td>
-									    </tr>
+									    <c:forEach items="${ boards }" var="board">
+									    	<tr>
+									    		<td>${ board.bno }</td>
+									    		<td>
+									    			<c:choose>
+										    			<c:when test="${ board.bdel eq 'N' }">
+											    			<a href="detail?BNo=${ board.bno }&pageNo=${ pager.pageNo }&searchType=${ empty param.searchType ? '' : param.searchType }&searchKey=${ empty param.searchKey ? '' : param.searchKey }">
+																${ board.title } 
+															</a>
+														</c:when>
+														<c:otherwise>
+															[삭제] ${ board.title }								
+														</c:otherwise>
+													</c:choose>
+									    		</td>
+									    		<td>${ board.empno }</td>
+									    		<td>${ board.regdate }</td>
+									    	</tr>
+									    </c:forEach>
 									  </tbody>
+									  <tfoot>
+											<tr>
+												<td colspan="4" style="text-align: center">${ pager }</td>
+											</tr>
+									  </tfoot>
 									</table>
-									<table class="table">
+								      		<button type="button" class="btn btn-primary" style="float: right;" id="writeBoard">글 쓰기</button>	
+
+									<!-- <table class="table">
 										<tbody>
 										    <tr>
-										      <td colspan="3">
+										      <td colspan="4">
 												<div class="bootstrap-pagination">
 				                                    <nav>
 				                                        <ul class="pagination justify-content-center">
@@ -146,12 +178,9 @@
 				                                    </nav>
 				                                </div>
 										      </td>
-										      <td>
-										      	<button type="button" class="btn btn-primary" id="writeBoard">글쓰기</button>
-										      </td>
-										    </tr>
+										      </tr>
 										</tbody>
-									</table>
+									</table> -->
                                 </div>
                             </div>
                         </div>

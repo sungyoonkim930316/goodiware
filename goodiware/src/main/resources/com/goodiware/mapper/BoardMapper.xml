@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- package-name : com.springboard.mapper, class-name : BoardMapper -->
+<mapper namespace="com.goodiware.mapper.BoardMapper">
+
+	<sql id="searchCondition">
+		<trim suffix="AND">
+	    	<choose>
+	    		<when test="searchType == 'T'.toString()">
+	    			title LIKE CONCAT('%',#{searchKey},'%')
+	    		</when>
+	    		<when test="searchType == 'C'.toString()">
+	    			(title LIKE CONCAT('%',#{searchKey},'%') OR content LIKE CONCAT('%',#{searchKey},'%'))
+	    		</when>
+	    	</choose>
+		</trim>
+	</sql>
+
+	
+	<insert id="insertBoard" parameterType="com.goodiware.vo.Board">
+		INSERT INTO BOARD (bno, title, content, regdate, bdivno, empno)
+		VALUES
+		(#{bno}, #{title}, #{content}, NOW(), #{bdivno}, #{empno})
+	</insert>
+	
+	<select id="selectBoardWithPaging" 
+			resultType="com.goodiware.vo.Board" parameterType="hashmap">
+	
+		SELECT b.bno, b.title, b.content, b.regdate, b.bdel, e.empno
+		FROM BOARD b, EMPLOYEE e
+		WHERE    
+			<include refid="searchCondition" />
+		    b.bdel = 'N'
+		    and b.empno = e.empno
+		    
+		ORDER BY b.bno DESC
+		LIMIT #{beginning}, #{end}
+		
+	</select>
+	<select id="selectBoardCount" parameterType="hashmap" resultType="int">
+		
+		SELECT COUNT(*) 
+		FROM BOARD
+		WHERE 
+			<include refid="searchCondition" />
+			bdel = 'N'
+		
+	</select>
+	
+	<select id="selectBoardByBno" parameterType="int" resultType="com.goodiware.vo.Board">
+		<![CDATA[ SELECT bno, title, content, regdate, empno 
+				  FROM BOARD 
+			      WHERE bno = #{ bNo } ]]>
+	 
+	</select>
+	
+	<update id="deleteBoard" parameterType="int">
+		UPDATE BOARD
+		SET bdel = 'Y' 
+		WHERE bno = #{ bNo }
+	</update>
+	
+	<update id="updateBoard" parameterType="com.goodiware.vo.Board">
+		UPDATE BOARD
+		SET title = #{ title }, content = #{ content }, regdate = NOW() 
+		WHERE bno = #{ bno } 
+	</update>	
+	
+
+
+
+</mapper>

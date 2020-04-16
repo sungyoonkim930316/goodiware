@@ -13,6 +13,9 @@ public class Board {
 	private String content;
 	private Date regdate;
 	private boolean bdel;
+	private int empno;
+	private int bdivno;
+
 	
 	private List<Employee> employees;
 	private List<BoardDiv> boardDivs;
