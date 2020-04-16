@@ -42,7 +42,8 @@ public class ApprovalController {
 	
 	// 등록 처리
 	@PostMapping(path= {"/registAppr"})
-	public String registApproval(Approval approval, RedirectAttributes attr, @RequestParam("filename")MultipartFile AccpFile, HttpServletRequest req) {
+	public String registApproval(Approval approval, RedirectAttributes attr, 
+								@RequestParam("filename")MultipartFile AccpFile, HttpServletRequest req, Model model) {
 		
 		ServletContext application = req.getServletContext();
 		String path = application.getRealPath("resources/file/approval");
@@ -63,6 +64,7 @@ public class ApprovalController {
 		approval.setFilepath(path);
 		
 		approvalService.registApproval(approval);
+		model.addAttribute("Success", approval.getTitle());
 		
 		return "redirect:/";
 	}
@@ -78,10 +80,27 @@ public class ApprovalController {
 	@PostMapping(path= {"/searchMaccp"})
 	public String getMaccp(Employee employee, Model model) {
 		
-		Employee employee2 = approvalService.showMaccp(employee);
-		model.addAttribute("maccp", employee2);
+		List<Employee> employee2 = approvalService.showMaccp(employee);
+		model.addAttribute("maccps", employee2);
 		
 		return "/approval/searchPopup";
+	}
+	
+	// 최종승인자 찾기
+	@GetMapping(path = {"/faccpSearch"})
+	public String faccpSearch() {
+		
+		return "/approval/searchPopup2";
+	}
+	
+	// 중간승인자 검색결과
+	@PostMapping(path= {"/searchFaccp"})
+	public String getFaccp(Employee employee, Model model) {
+		
+		List<Employee> employee2 = approvalService.showMaccp(employee);
+		model.addAttribute("faccps", employee2);
+		
+		return "/approval/searchPopup2";
 	}
 	
 }

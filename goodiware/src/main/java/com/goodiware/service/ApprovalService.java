@@ -12,7 +12,7 @@ public interface ApprovalService {
 
 	void registApproval(Approval approval);
 
-	Employee showMaccp(Employee employee);
+	List<Employee> showMaccp(Employee employee);
 
 
 }

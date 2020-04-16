@@ -11,11 +11,19 @@
 	<insert id="insertApproval" parameterType="com.goodiware.vo.Approval">
 		insert into APPROVAL ( empno, appdivno, title, maccp, faccp, apprfilename, filepath ) values ( #{empno }, #{ appdivno}, #{ title }, #{ maccp }, #{ faccp }, #{ apprfilename }, #{ filepath })
 	</insert>
-	
+<!-- 	
 	<select id="selectMaccpNoByName" parameterType="com.goodiware.vo.Employee" resultType="com.goodiware.vo.Employee">
 		select e.empno, e.name, d.depname 
 		from EMPLOYEE e, DEPARTMENT d
 		where e.depno = d.depno and name = #{ name }
+	</select>
+-->
+
+	<select id="selectMaccpNoByName" parameterType="com.goodiware.vo.Employee" resultType="com.goodiware.vo.Employee">
+		select e.empno, e.name, d.depname 
+		from EMPLOYEE e, DEPARTMENT d
+		where e.depno = d.depno and deleted ='N' and
+				(e.name LIKE CONCAT('%',#{name},'%') OR d.depname LIKE CONCAT('%',#{name},'%'))
 	</select>
 
 </mapper>

@@ -31,7 +31,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 	@Override
-	public Employee showMaccp(Employee employee) {
+	public List<Employee> showMaccp(Employee employee) {
 
 		return approvalMapper.selectMaccpNoByName(employee);
 	}

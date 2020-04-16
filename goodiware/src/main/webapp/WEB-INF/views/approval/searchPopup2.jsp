@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>중간승인자 검색</title>
+<title>최종승인자 검색</title>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16" href="/resources/images/favicon.png">
 <!-- Custom Stylesheet -->
@@ -25,11 +25,11 @@
 <body>
 
 	<br>
-	<form id="search-form" action="/appr/searchMaccp" method="post" class="user">
+	<form id="search-form" action="/appr/searchFaccp" method="post" class="user">
 		<div class="input-group mb-3">
-		  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="maccp"  name="name">
+		  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="faccp"  name="name">
 		  <div class="input-group-append">
-		    <button class="btn btn-outline-secondary" type="button" id="searchmaccp">검색</button>
+		    <button class="btn btn-outline-secondary" type="button" id="searchfaccp">검색</button>
 		  </div>
 		</div>
 	</form>
@@ -45,15 +45,15 @@
 	      <!-- <th></th> -->
 	    </tr>
 	  </thead>
-	  <c:if test="${ empty maccps }">
+	  <c:if test="${ empty faccps }">
       <p class="text-center">검색결과가 없읍니다</p>
       </c:if>
-	<c:forEach items="${ maccps }" var="maccp">	
-	  <tbody class="maccplist">
+	<c:forEach items="${ faccps }" var="faccp">	
+	  <tbody class="faccplist">
 	    <tr>
-	      <th id="maccpid" data-maccp="${ maccp.empno }">${ maccp.empno }</th>
-	      <td><a href="#" class="selectmaccp" data-name="${ maccp.name }">${ maccp.name }</a></td>
-	      <td>${ maccp.depname }</td>
+	      <th id="faccpid" data-faccp="${ faccp.empno }">${ faccp.empno }</th>
+	      <td><a href="#" class="selectfaccp" data-faccpname="${ faccp.name }">${ faccp.name }</a></td>
+	      <td>${ faccp.depname }</td>
 	      <!-- <td><button type="button" class="btn btn-primary" id="registerAproval">선택</button></td> -->
 	    </tr>
 	  </tbody>
@@ -64,11 +64,11 @@
 	<script type='text/javascript'>
 	$(function(){
 
-		$("#searchmaccp").on("click", function(event){
+		$("#searchfaccp").on("click", function(event){
 
-			if($("#maccp").val() == '' ){
+			if($("#faccp").val() == '' ){
 				alert("승인자를 입력하세요!");
-				$("#maccp").focus();
+				$("#faccp").focus();
 				return;
 			}
 			
@@ -77,15 +77,16 @@
 		});
 
 		
-		$(".maccplist").on("click", '.selectmaccp', function(event){
+		$(".faccplist").on("click", '.selectfaccp', function(event){
 
-			var maccp = $("#maccpid").attr('data-maccp');
-			var maccpname = $(this).attr('data-name');
+			var faccp = $("#faccpid").attr('data-faccp');
+			var faccpname = $(this).attr('data-faccpname');
 			
-			$("#maccp", opener.document).val(maccp);
-			$("#maccpname", opener.document).val(maccpname);
+			$("#faccp", opener.document).val(faccp);
+			$("#faccpname", opener.document).val(faccpname);
 
 			window.close();
+
 
 		})
 		

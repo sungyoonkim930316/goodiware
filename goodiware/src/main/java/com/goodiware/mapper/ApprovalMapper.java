@@ -15,6 +15,6 @@ public interface ApprovalMapper {
 
 	void insertApproval(Approval approval);
 
-	Employee selectMaccpNoByName(Employee employee);
+	List<Employee> selectMaccpNoByName(Employee employee);
 
 }
