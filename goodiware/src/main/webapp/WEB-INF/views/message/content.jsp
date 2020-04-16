@@ -144,7 +144,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group p-t-15">
-                                            <textarea class="w-100 p-20 l-border-1" name="" id="" cols="30" rows="8">${ message.content }</textarea>
+                                            <p style="width:600px; height:300px">${ message.content }<p>
                                         </div>
                                         <hr>
                                         <h6 class="p-t-15"><i class="fa fa-download mb-2"></i> 첨부파일 </h6>
