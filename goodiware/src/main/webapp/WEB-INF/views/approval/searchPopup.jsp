@@ -45,11 +45,12 @@
 	      <!-- <th></th> -->
 	    </tr>
 	  </thead>
-	  <c:if test="${ empty maccps }">
+	<c:forEach items="${ maccps }" var="maccp">	
+<%-- 	  <c:if test="${ empty maccps }">
       <p class="text-center">검색결과가 없읍니다</p>
       </c:if>
-	<c:forEach items="${ maccps }" var="maccp">	
-	  <tbody class="maccplist">
+ --%>	  
+ 	   <tbody class="maccplist">
 	    <tr>
 	      <th id="maccpid" data-maccp="${ maccp.empno }">${ maccp.empno }</th>
 	      <td><a href="#" class="selectmaccp" data-name="${ maccp.name }">${ maccp.name }</a></td>

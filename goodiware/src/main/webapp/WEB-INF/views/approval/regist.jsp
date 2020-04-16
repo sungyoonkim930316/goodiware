@@ -136,7 +136,7 @@
 											      	<!-- <a href="#"><input class="form-control form-control-sm" type="text" name="maccp"></a> -->
 											      	<div class="input-group mb-3">
 													  <input type="hidden"id="maccp" name="maccp">
-													  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="maccpname"> 
+													  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="maccpname" readonly> 
 													  <div class="input-group-append">
 													    <button class="btn btn-outline-secondary" type="button" id="search-maccp">검색</button>
 													  </div>
@@ -149,7 +149,7 @@
 											      	<!-- <input class="form-control form-control-sm" type="text" name="faccp"> -->
 											      	<div class="input-group mb-3">
 													  <input type="hidden"  id="faccp" name=faccp>
-													  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="faccpname">
+													  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="faccpname" readonly>
 													  <div class="input-group-append">
 													    <button class="btn btn-outline-secondary" type="button" id="search-faccp">검색</button>
 													  </div>
@@ -215,7 +215,7 @@
 	<script type='text/javascript'>
 	$(function(){
 
-		$("#maccp, #faccp").attr({"readonly" : "readonly"})
+		$("#maccp, #faccp").attr({"readOnly" : "readOnly"})
 
 		$(".left-menu").css({ "width" : "200" , "text-align" : "center", "vertical-align" : "middle" });
 

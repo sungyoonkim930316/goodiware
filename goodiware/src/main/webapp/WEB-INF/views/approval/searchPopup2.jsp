@@ -45,9 +45,9 @@
 	      <!-- <th></th> -->
 	    </tr>
 	  </thead>
-	  <c:if test="${ empty faccps }">
+	  <%-- <c:if test="${ empty faccps }">
       <p class="text-center">검색결과가 없읍니다</p>
-      </c:if>
+      </c:if> --%>
 	<c:forEach items="${ faccps }" var="faccp">	
 	  <tbody class="faccplist">
 	    <tr>
