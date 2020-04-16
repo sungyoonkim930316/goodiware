@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.goodiware.mapper.ScheduleMapper">
+
+	<insert id="plusScd" parameterType="com.goodiware.vo.Schedule" useGeneratedKeys="true" keyColumn="SCHENO" keyProperty="scheno">
+		INSERT INTO SCHEDULE ( SCHENO, TITLE, STARTDATE, ENDDATE, CONTENT ) VALUES ( #{scheno}, #{title}, #{startdate}, #{enddate}, #{content} )
+	</insert>
+	
+	<!-- <select id="selectSchdiv" resultType="com.goodiware.vo.Schdiv">
+		select * from SCHDIV
+	</select> -->
+	
+</mapper>

@@ -9330,11 +9330,11 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   top: 3px; }
 
 #add-category .modal-header,
-#event-modal .modal-header {
+#scd-modal .modal-header {
   border-bottom: 1px solid rgba(120, 130, 140, 0.13); }
 
 #add-category .modal-dialog,
-#event-modal .modal-dialog {
+#scd-modal .modal-dialog {
   max-width: 600px; }
 
 .fc-view.fc-month-view.fc-basic-view,

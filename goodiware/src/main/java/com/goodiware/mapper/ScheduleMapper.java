@@ -1,0 +1,16 @@
+package com.goodiware.mapper;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import com.goodiware.vo.Schdiv;
+import com.goodiware.vo.Schedule;
+
+@Mapper
+public interface ScheduleMapper {
+
+	void plusScd(Schedule schedule);
+//
+//	List<Schdiv> selectSchdiv();
+}
