@@ -70,4 +70,20 @@
 		order by empno ASC
 	</select>
 
+	<select id="searchNoByName" parameterType="hashmap" resultType="com.goodiware.vo.Employee">
+		select e.empno, e.name, d.depname, e.posno, e.depno, e.phone, p.posname
+		from EMPLOYEE e, DEPARTMENT d, POSITION p
+		where e.depno = d.depno and e.posno = p.posno and deleted ='N' and
+				(e.name LIKE CONCAT('%',#{name},'%') OR d.depname LIKE CONCAT('%',#{name},'%'))
+		LIMIT #{beginning}, #{end}
+	</select>
+	
+	<select id="selectEmpCount" parameterType="hashmap" resultType="int">
+		
+		SELECT COUNT(*) 
+		FROM EMPLOYEE e, DEPARTMENT d, POSITION p
+		where e.depno = d.depno and e.posno = p.posno and deleted ='N' and
+				(e.name LIKE CONCAT('%',#{name},'%') OR d.depname LIKE CONCAT('%',#{name},'%'))
+		
+	</select>
 </mapper>

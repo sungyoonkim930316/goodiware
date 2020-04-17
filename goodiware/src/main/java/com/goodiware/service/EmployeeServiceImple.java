@@ -1,5 +1,6 @@
 package com.goodiware.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,21 @@ public class EmployeeServiceImple implements EmployeeService {
 	}
 
 	@Override
-	public List<Employee> searchEmp(Employee employee) {
+	public List<Employee> searchEmp(HashMap<String, Object> params) {
 		
-		return employeeMapper.searchEmp(employee);
+		return employeeMapper.searchNoByName(params);
 	}
 
+	@Override
+	public int searchEmpCount(HashMap<String, Object> params) {
+		
+		return employeeMapper.selectEmpCount(params);
+	}
+	
+//	@Override
+//	public List<Employee> searchNoByName(Employee employee) {
+//
+//		return employeeMapper.searchNoByName(employee);
+//	}
 
 }

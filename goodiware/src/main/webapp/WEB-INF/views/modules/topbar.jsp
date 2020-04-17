@@ -30,13 +30,25 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
                         </div>
-                        <input type="search" class="form-control" placeholder="Search Dashboard" aria-label="Search Dashboard">
-						<button class="btn btn-primary px-3 ml-4" id="searchEmp">검색</button>	
-                        <div class="drop-down animated flipInX d-md-none">
-                            <form action="#">
-                                <input type="text" class="form-control" placeholder="Search">
+
+						
+                        <!-- <input type="search" class="form-control" placeholder="사원 검색" aria-label="Search Dashboard">
+                        <button class="btn btn-primary px-3 ml-4" id="searchEmp">검색</button>
+ 						-->
+ 						
+ 						<form class="form-inline" action="/employee/searchEmp" id="search-form">
+						  <div class="form-group mx-sm-3 mb-2">
+						    <input name="name" type="text" class="form-control" id="searchName" placeholder="사원 또는 부서 검색">
+						  </div>
+						  <button class="btn btn-primary mb-2" id="searchEmp">검색</button>
+						</form>
+ 						
+                      	<!--
+                         <div class="drop-down animated flipInX d-md-none">
+                            <form id="search-form" action="/employee/searchList" method="get">
+                                <input type="text" class="form-control" placeholder="">
                             </form>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="header-right">
@@ -200,12 +212,25 @@
 <script type="text/javascript">
 	$(function(){
 
-		$("#searchEmp").on("click", function(event){
+		/* $("#searchEmp").on("click", function(event){
 
 			location.href="/employee/searchEmp";
 
-		})
+		}) */
 
-	})
+		$("#searchEmp").on("click", function(event){
+
+			event.preventDefault();
+			
+			if($("#searchName").val() == '') {
+				alert("검색어를 입력하세요");
+				$("#searchName").focus();
+				return;
+			}
+			
+			$("#search-form").submit();
+			
+		});
+	});
    
 </script>           

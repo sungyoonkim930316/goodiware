@@ -1,5 +1,6 @@
 package com.goodiware.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -14,7 +15,11 @@ public interface EmployeeMapper {
 
 	void updateEmployee(Employee employee);
 
-	List<Employee> searchEmp(Employee employee);
+//	List<Employee> searchEmp(Employee employee);
+
+	List<Employee> searchNoByName(HashMap<String, Object> params);
+
+	int selectEmpCount(HashMap<String, Object> params);
 
 
 }

@@ -65,7 +65,7 @@ public class ThePager2 {
 			if (i > pageCount) break;
 			linkString.append("&nbsp;");
 			if(i == pageNo) {
-				linkString.append(String.format("[%d]", i));
+				linkString.append(String.format("<a>[%d] </a>", i));
 			} else { 
 				linkString.append(String.format(
 					"<a href='%s?pageNo=%d&%s'>%d</a>", linkUrl, i, queryString, i));
