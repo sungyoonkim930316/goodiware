@@ -33,4 +33,6 @@ public interface ApprovalMapper {
 
 	String selectFaccpNameByFaccpNo(int typeNo);
 
+	Approval selectUploadApprByTypeNo(int typeNo);
+
 }

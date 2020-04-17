@@ -71,4 +71,10 @@
 		
 	</select>
 
+	<select id="selectUploadApprByTypeNo" parameterType="int" resultType="com.goodiware.vo.Approval">
+		SELECT type, apprfilename, filepath
+		FROM APPROVAL
+		WHERE type = #{typeNo}
+	</select>
+
 </mapper>

@@ -27,5 +27,7 @@ public interface ApprovalService {
 
 	String findFaccpNameByFaccpNo(int typeNo);
 
+	Approval findUploadFileByTypeNo(int typeNo);
+
 
 }

@@ -77,4 +77,10 @@ public class ApprovalServiceImpl implements ApprovalService {
 		
 	}
 
+	@Override
+	public Approval findUploadFileByTypeNo(int typeNo) {
+		
+		return approvalMapper.selectUploadApprByTypeNo(typeNo);
+	}
+
 }

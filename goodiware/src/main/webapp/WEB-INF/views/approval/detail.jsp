@@ -120,6 +120,12 @@
 											      </td>
 											    </tr>
 											    <tr>
+											      <th class="left-menu">진행상황</th>
+											      <td class="right-menu">
+											      	<input class="form-control form-control-sm" type="text" name="accepname" value="${ approval.accepname }" readOnly>
+											      </td>
+											    </tr>
+											    <tr>
 											      <th class="left-menu">제목</th>
 											      <td class="right-menu">
 											      	<input class="form-control form-control-sm" type="text" name="title" value="${ approval.title }" readOnly>
@@ -146,14 +152,20 @@
 											    <tr>
 											      <th class="left-menu">첨부파일</th>
 											      <td class="right-menu">
-												    다운 받기 
+												    <c:if test="${ empty approval.apprfilename }">
+												    	업로드된 파일이 없습니다
+												    </c:if>
+												    <c:if test="${ not empty approval.apprfilename }">
+												    다운 받기
 												    <a href="download?typeNo=${ approval.type }">
 			        									[${ approval.apprfilename }]
 			        								</a>&nbsp;&nbsp;&nbsp;
-			        								<button class="btn btn-primary" id="openPdf">파일 미리보기(pdf 이외의 파일은 미리보기가 지원되지 않습니다)</button>&nbsp;&nbsp;
-			        								<button class="btn btn-primary" id="closePdf">미리보기 닫기</button>
-			        								<br><br>
-			        								<iframe id="pdfView" src="/resources/file/approval/${ approval.apprfilename }" width='100%' height='500' allowfullscreen webkitallowfullscreen></iframe>
+			        								
+				        								<button class="btn btn-primary" id="openPdf">파일 미리보기(pdf 이외의 파일은 미리보기가 지원되지 않습니다)</button>&nbsp;&nbsp;
+				        								<button class="btn btn-primary" id="closePdf">미리보기 닫기</button>
+				        								<br><br>
+				        								<iframe id="pdfView" src="/resources/file/approval/${ approval.apprfilename }" width='100%' height='500' allowfullscreen webkitallowfullscreen></iframe>
+			        								</c:if>
 											      </td> 
 											    </tr>
 											    <tr>
