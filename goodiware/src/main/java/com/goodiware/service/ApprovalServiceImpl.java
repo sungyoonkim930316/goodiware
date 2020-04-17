@@ -37,9 +37,9 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 	@Override
-	public List<Approval> getApprovalList() {
+	public List<Approval> getApprovalList(int divno) {
 
-		return approvalMapper.selectApprovalList();
+		return approvalMapper.selectApprovalList(divno);
 	}
 
 }

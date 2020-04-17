@@ -26,8 +26,11 @@
 				(e.name LIKE CONCAT('%',#{name},'%') OR d.depname LIKE CONCAT('%',#{name},'%'))
 	</select>
 	
-	<select id="selectApprovalList" resultType="com.goodiware.vo.Approval">
-	
+	<select id="selectApprovalList" parameterType="int" resultType="com.goodiware.vo.Approval">
+		select d.divname, a.type, a.title, a.content, a.appdivno, a.maccp, a.faccp, a.APPACCPNO, p.accepname, e.name
+		from APPRDIV d, APPROVAL a, APPROACCP p, EMPLOYEE e
+		where a.appaccpno = p.appaccpno and a.appdivno = d.appdivno AND a.empno = e.empno AND a.deleted = 'N' and a.appdivno = #{ divno }
+		order by a.type DESC;
 	</select>
 
 </mapper>

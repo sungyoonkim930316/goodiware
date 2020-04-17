@@ -19,6 +19,9 @@ public class Approval {
 	private int maccp;
 	private int faccp;
 	private int appaccpno;
+	private String name;
+	private String divname;
+	private String accepname;
 	
 //	private List<ApprDiv> ApprDivs;
 //	private List<ApproAccp> ApproAccps;

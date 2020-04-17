@@ -110,13 +110,17 @@
 									    </tr>
 									  </thead>
 									  <tbody>
+									  	<c:forEach items="${ approvals }" var="approval">
+										<%-- <c:when test="${ approval.divname eq '업무' }"> --%>
 										<tr>
-										  <td></td>
-										  <td></td>
-										  <td></td>
-										  <td></td>
-										  <td></td>
+										  <td>${ approval.type }</td>
+										  <td>${ approval.title }</td>
+										  <td>${ approval.name }</td>
+										  <td>${ approval.divname }</td>
+										  <td>${ approval.accepname }</td>
 										</tr>
+										<%-- </c:when> --%>
+										</c:forEach>
 									  </tbody>
 									  <tfoot>
 											<tr>

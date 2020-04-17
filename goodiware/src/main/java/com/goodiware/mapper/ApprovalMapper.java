@@ -17,6 +17,6 @@ public interface ApprovalMapper {
 
 	List<Employee> selectMaccpNoByName(Employee employee);
 
-	List<Approval> selectApprovalList();
+	List<Approval> selectApprovalList(int divno);
 
 }

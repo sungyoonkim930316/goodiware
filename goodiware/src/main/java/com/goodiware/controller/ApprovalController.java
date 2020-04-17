@@ -105,9 +105,10 @@ public class ApprovalController {
 	
 	// 업무 페이지 이동
 	@GetMapping(path= {"/task"})
-	public String getTask() {
+	public String getTask(Model model, int divno) {
 		
-//		List<Approval> approvals = approvalService.getApprovalList();
+		List<Approval> approvals = approvalService.getApprovalList(divno);
+		model.addAttribute("approvals", approvals);
 		
 		return "/approval/taskList";
 		
@@ -115,26 +116,42 @@ public class ApprovalController {
 
 	// 파견 페이지로 이동
 	@GetMapping(path= {"/dispatch"})
-	public String getDispatch() {
+	public String getDispatch(Model model, int divno) {
+		
+		List<Approval> approvals = approvalService.getApprovalList(divno);
+		model.addAttribute("approvals", approvals);
+		
 		return "/approval/dispatchList";
 	}
 	
 	
 	// 경비지출 페이지로 이동
 	@GetMapping(path= {"/expenditure"})
-	public String getExpenditure() {
+	public String getExpenditure(Model model, int divno) {
+		
+		List<Approval> approvals = approvalService.getApprovalList(divno);
+		model.addAttribute("approvals", approvals);
+		
 		return "/approval/expenditureList";
 	}
 	
 	//초과근무 페이지로 이동
 	@GetMapping(path= {"/overtime"})
-	public String getOvertime() {
+	public String getOvertime(Model model, int divno) {
+		
+		List<Approval> approvals = approvalService.getApprovalList(divno);
+		model.addAttribute("approvals", approvals);
+		
 		return "/approval/overtimeList";
 	}
 	
 	// 휴가 페이지로 이동
 	@GetMapping(path= {"/vacation"})
-	public String getVacation() {
+	public String getVacation(Model model, int divno) {
+		
+		List<Approval> approvals = approvalService.getApprovalList(divno);
+		model.addAttribute("approvals", approvals);
+		
 		return "/approval/vacationList";
 	}
 	
