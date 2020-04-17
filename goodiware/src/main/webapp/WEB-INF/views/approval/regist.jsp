@@ -117,12 +117,8 @@
 											    <tr>
 											      <th class="left-menu">결재구분</th>
 											      <td class="right-menu">
-											      	<select class="form-control form-control-sm" id="apprdivno" name="appdivno">
-											      		<c:forEach items="${ apprdivs }" var="apprdiv">
-														  <%-- <option value="${ apprdiv.appdivno }">${ apprdiv.divname }</option> --%>
-														  <option value="${ apprdiv.appdivno }" ${ param.appdivno == apprdiv.appdivno ? "selected" : "" }>${ apprdiv.divname }</option>
-											      		</c:forEach>
-													</select>
+											      	<input class="form-control form-control-sm" type="hidden" name=appdivno value="${ param.appdivno }">
+											      	<input class="form-control form-control-sm" type="text" value="${ appdivname.divname }" readOnly>
 											      </td>
 											    </tr>
 											    <tr>

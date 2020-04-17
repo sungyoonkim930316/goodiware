@@ -189,7 +189,7 @@
 
 		$("#dispatchRegist").on("click", function(event){
 
-			var appdivno = 2;
+			var appdivno = '${ param.appdivno}';
 			
 			location.href="/appr/regist?appdivno=" + appdivno;
 

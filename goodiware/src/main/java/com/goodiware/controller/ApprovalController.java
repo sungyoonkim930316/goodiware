@@ -32,10 +32,10 @@ public class ApprovalController {
 
 	// 등록 페이지로 이동
 	@GetMapping(path= {"/regist"})
-	public String getApprRegist(Model model) {
+	public String getApprRegist(Model model, int appdivno) {
 		
-		List<ApprDiv> apprdivs = approvalService.getApprDivs();
-		model.addAttribute("apprdivs", apprdivs);
+		ApprDiv apprdiv2 = approvalService.getAppdivname(appdivno);
+		model.addAttribute("appdivname", apprdiv2);
 		
 		return "/approval/regist";
 	}
@@ -105,9 +105,9 @@ public class ApprovalController {
 	
 	// 업무 페이지 이동
 	@GetMapping(path= {"/task"})
-	public String getTask(Model model, int divno) {
+	public String getTask(Model model, int appdivno) {
 		
-		List<Approval> approvals = approvalService.getApprovalList(divno);
+		List<Approval> approvals = approvalService.getApprovalList(appdivno);
 		model.addAttribute("approvals", approvals);
 		
 		return "/approval/taskList";
@@ -116,9 +116,9 @@ public class ApprovalController {
 
 	// 파견 페이지로 이동
 	@GetMapping(path= {"/dispatch"})
-	public String getDispatch(Model model, int divno) {
+	public String getDispatch(Model model, int appdivno) {
 		
-		List<Approval> approvals = approvalService.getApprovalList(divno);
+		List<Approval> approvals = approvalService.getApprovalList(appdivno);
 		model.addAttribute("approvals", approvals);
 		
 		return "/approval/dispatchList";
@@ -127,9 +127,9 @@ public class ApprovalController {
 	
 	// 경비지출 페이지로 이동
 	@GetMapping(path= {"/expenditure"})
-	public String getExpenditure(Model model, int divno) {
+	public String getExpenditure(Model model, int appdivno) {
 		
-		List<Approval> approvals = approvalService.getApprovalList(divno);
+		List<Approval> approvals = approvalService.getApprovalList(appdivno);
 		model.addAttribute("approvals", approvals);
 		
 		return "/approval/expenditureList";
@@ -137,9 +137,9 @@ public class ApprovalController {
 	
 	//초과근무 페이지로 이동
 	@GetMapping(path= {"/overtime"})
-	public String getOvertime(Model model, int divno) {
+	public String getOvertime(Model model, int appdivno) {
 		
-		List<Approval> approvals = approvalService.getApprovalList(divno);
+		List<Approval> approvals = approvalService.getApprovalList(appdivno);
 		model.addAttribute("approvals", approvals);
 		
 		return "/approval/overtimeList";
@@ -147,9 +147,9 @@ public class ApprovalController {
 	
 	// 휴가 페이지로 이동
 	@GetMapping(path= {"/vacation"})
-	public String getVacation(Model model, int divno) {
+	public String getVacation(Model model, int appdivno) {
 		
-		List<Approval> approvals = approvalService.getApprovalList(divno);
+		List<Approval> approvals = approvalService.getApprovalList(appdivno);
 		model.addAttribute("approvals", approvals);
 		
 		return "/approval/vacationList";

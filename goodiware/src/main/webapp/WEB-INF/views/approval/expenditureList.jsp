@@ -189,7 +189,7 @@
 
 		$("#taskRegist").on("click", function(event){
 
-			var appdivno = 3;
+			var appdivno = '${ param.appdivno}';
 			
 			location.href="/appr/regist?appdivno=" + appdivno;
 

@@ -19,11 +19,11 @@
                         </a>
                         <ul aria-expanded="false">
                             <!-- <li><a href="/appr/regist">결재등록</a></li> -->
-                            <li><a href="/appr/task?divno=1">업무</a></li>
-                            <li><a href="/appr/dispatch?divno=2">파견</a></li>
-                            <li><a href="/appr/expenditure?divno=3">경비지출</a></li>
-                            <li><a href="/appr/overtime?divno=4">초과근무</a></li>
-                            <li><a href="/appr/vacation?divno=5">휴가</a></li>
+                            <li><a href="/appr/task?appdivno=1">업무</a></li>
+                            <li><a href="/appr/dispatch?appdivno=2">파견</a></li>
+                            <li><a href="/appr/expenditure?appdivno=3">경비지출</a></li>
+                            <li><a href="/appr/overtime?appdivno=4">초과근무</a></li>
+                            <li><a href="/appr/vacation?appdivno=5">휴가</a></li>
                         </ul>
                     </li>
                     <li>

@@ -19,4 +19,6 @@ public interface ApprovalMapper {
 
 	List<Approval> selectApprovalList(int divno);
 
+	ApprDiv selectAppDivName(int appdivno);
+
 }

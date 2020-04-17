@@ -14,7 +14,9 @@ public interface ApprovalService {
 
 	List<Employee> showMaccp(Employee employee);
 
-	List<Approval> getApprovalList(int divno);
+	List<Approval> getApprovalList(int appdivno);
+
+	ApprDiv getAppdivname(int appdivno);
 
 
 }
