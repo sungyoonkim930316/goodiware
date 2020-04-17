@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>휴가 결재 리스트</title>
+    <title>결재 리스트</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/resources/images/favicon.png">
     <!-- Custom Stylesheet -->
@@ -82,7 +82,7 @@
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">결재</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">휴가 결재 리스트</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">결재 리스트</a></li>
                     </ol>
                 </div>
             </div>
@@ -94,8 +94,23 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-	                                <h4 class="card-title">휴가 결재</h4>
-	                                
+	                                <c:choose>
+		                                <c:when test="${ param.appdivno eq 1 }">
+		                                	<h4 class="card-title">업무 결재</h4>
+		                                </c:when>
+	                                	<c:when test="${ param.appdivno eq 2 }">
+		                                	<h4 class="card-title">파견 결재</h4>
+		                                </c:when>
+		                                <c:when test="${ param.appdivno eq 3 }">
+		                                	<h4 class="card-title">경비지출 결재</h4>
+		                                </c:when>
+		                                <c:when test="${ param.appdivno eq 4 }">
+		                                	<h4 class="card-title">초과근무 결재</h4>
+		                                </c:when>
+		                                <c:when test="${ param.appdivno eq 5 }">
+		                                	<h4 class="card-title">휴가 결재</h4>
+		                                </c:when>
+	                                </c:choose>
 							    </div>
 								<br>
                                 <div class="table-responsive">
