@@ -145,7 +145,7 @@
 														</c:otherwise>
 													</c:choose>
 									    		</td>
-									    		<td>${ board.empno }</td>
+									    		<td>${ board.name }</td>
 									    		<td><fmt:formatDate value="${ board.regdate }" pattern="yyyy-MM-dd"/></td>
 									    	</tr>
 									    </c:forEach>

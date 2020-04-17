@@ -30,7 +30,7 @@
 	<select id="selectBoardWithPaging" 
 			resultType="com.goodiware.vo.Board" parameterType="hashmap">
 	
-		SELECT b.bno, b.title, b.content, b.regdate, b.bdel, e.empno
+		SELECT b.bno, b.title, b.content, b.regdate, b.bdel, e.name
 		FROM BOARD b, EMPLOYEE e
 		WHERE    
 			<include refid="searchCondition" />
@@ -52,9 +52,11 @@
 	</select>
 	
 	<select id="selectBoardByBno" parameterType="int" resultType="com.goodiware.vo.Board">
-		<![CDATA[ SELECT bno, title, content, regdate, empno 
-				  FROM BOARD 
-			      WHERE bno = #{ bNo } ]]>
+		<![CDATA[ SELECT b.bno, b.title, b.content, b.regdate, e.name
+				  FROM BOARD b , EMPLOYEE e
+			      WHERE b.bno = #{BNo} 
+				  AND b.Bdel = 'N' 
+				  AND b.empno = e.empno ]]>
 	 
 	</select>
 	

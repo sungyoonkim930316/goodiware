@@ -122,9 +122,9 @@
 				<div class="form-group row">
 					<div class="col-sm-6 mb-3 mb-sm-0">
 						<label>작성자</label>
-						<input type="text" name="empno"
-							class="form-control form-control-user" id="empno"
-							value=${ board.empno }>
+						<input type="text" name="name"
+							class="form-control form-control-user" id="name"
+							value=${ board.name }>
 					</div>
 					<div class="col-sm-6">
 						<label>작성 일자</label>

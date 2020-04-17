@@ -15,6 +15,7 @@ public class Board {
 	private boolean bdel;
 	private int empno;
 	private int bdivno;
+	private String name;
 
 	
 	private List<Employee> employees;
