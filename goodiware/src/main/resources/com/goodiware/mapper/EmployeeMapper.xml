@@ -47,8 +47,14 @@
 		where e.id = #{id} and e.pw = #{pw} and deleted ='N'
 	</select>
 	
+	<select id="selectUserInfoByEmpNo" parameterType="int" resultType="com.goodiware.vo.Employee">
+		SELECT * 
+		FROM EMPLOYEE  
+		where empno = #{empNo} and deleted = 'N'
+	</select>
+	
 	<update id="updateEmployee" parameterType="com.goodiware.vo.Employee">
-		UPDATE EMPLOYEE SET phone = #{ phone }, birth = #{ birth }, add1 = #{ add1 }, add2 = #{ add2 }, add3 = #{ add3 }, intro = #{ intro } where id = #{ id }
+		UPDATE EMPLOYEE SET picture = #{ picture }, phone = #{ phone }, birth = #{ birth }, add1 = #{ add1 }, add2 = #{ add2 }, add3 = #{ add3 }, intro = #{ intro } where id = #{ id }
 	</update>
 <!-- 	
 	<select id ="searchEmp" parameterType="com.goodiware.vo.Employee" resultMap="employeeMap" resultType="com.goodiware.vo.Employee">
@@ -86,4 +92,17 @@
 				(e.name LIKE CONCAT('%',#{name},'%') OR d.depname LIKE CONCAT('%',#{name},'%'))
 		
 	</select>
+	
+	<select id ="selectPosNameByPosNo" parameterType="map" resultType="String">
+		SELECT p.posname
+		FROM EMPLOYEE e, POSITION p
+		where deleted ='N' and p.posno = #{posno} and e.empno = #{empNo}
+	</select>
+	
+	<select id ="selectDepNameByDepNo" parameterType="map" resultType="String">
+		SELECT d.depname
+		FROM EMPLOYEE e, DEPARTMENT d 
+		where deleted ='N' and d.depno = #{depno} and e.empno = #{empNo}
+	</select>
+	
 </mapper>

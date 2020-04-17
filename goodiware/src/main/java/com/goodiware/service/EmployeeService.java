@@ -15,6 +15,12 @@ public interface EmployeeService {
 
 	int searchEmpCount(HashMap<String, Object> params);
 
+	Employee findUserInfoByEmpNo(int empNo);
+
+	String findPosNameByPosNo(int posno, int empNo);
+
+	String findDepNameByDepNo(int depno, int empNo);
+
 //	List<Employee> searchNoByName(Employee employee);
 
 }
