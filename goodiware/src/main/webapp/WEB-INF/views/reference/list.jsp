@@ -1,6 +1,7 @@
 <%@ page pageEncoding="utf-8" contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html class="no-js" lang="ko">
 
@@ -145,7 +146,7 @@
 													</c:choose>
 									    		</td>
 									    		<td>${ reference.name }</td>
-									    		<td>${ reference.refdate }</td>
+									    		<td><fmt:formatDate value="${ reference.refdate }" pattern="yyyy-MM-dd"/></td>
 									    	</tr>
 									    </c:forEach>
 									  </tbody>

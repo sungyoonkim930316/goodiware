@@ -152,11 +152,11 @@
 	                                        <tbody>
 	                                        <c:forEach items="${ messages }" var="message">
 	                                            <tr>
-	                                                <td>${ message.name }</span></td>
+	                                                <td>${ message.name }</td>
 	                                                
 	                                                <td><a href="/message/messageContent?empno=${ loginuser.empno }&mno=${ message.mno }">${ message.title }</a></td>
 	                                                
-	                                                <td><fmt:formatDate value="${ message.senddate }" pattern="yyyy-MM-dd"/></div></td>
+	                                                <td><fmt:formatDate value="${ message.senddate }" pattern="yyyy-MM-dd"/></td>
 	                                            </tr>
 		                                    </c:forEach>
 	                                        </tbody>

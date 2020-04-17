@@ -73,7 +73,7 @@
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">이메일</a></li>
-                        <li class="breadcrumb-item active"><a href="#">받은메일함</a></li>
+                        <li class="breadcrumb-item active"><a href="#">보낸메일함</a></li>
                     </ol>
                 </div>
             </div>
