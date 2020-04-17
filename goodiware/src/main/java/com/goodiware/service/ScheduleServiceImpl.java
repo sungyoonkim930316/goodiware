@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.goodiware.mapper.ScheduleMapper;
+import com.goodiware.vo.Employee;
 import com.goodiware.vo.Schdiv;
 import com.goodiware.vo.Schedule;
 
@@ -21,10 +22,20 @@ public class ScheduleServiceImpl implements ScheduleService {
 		scheduleMapper.plusScd(schedule);
 		
 	}
-//
-//	@Override
-//	public List<Schdiv> showSchdiv() {
-//		return scheduleMapper.selectSchdiv();
-//	}
+
+	@Override
+	public List<Schdiv> showSchdiv() {
+		return scheduleMapper.selectSchdiv();
+	}
+
+	@Override
+	public List<Employee> showEmpno() {
+		return scheduleMapper.selectEmpno();
+	}
+
+	@Override
+	public List<Schedule> plans(String id) {
+		return scheduleMapper.selectPlans();
+	}
 
 }

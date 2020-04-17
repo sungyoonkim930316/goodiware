@@ -14,6 +14,10 @@ public class Schedule {
 	private Date startdate;
 	private Date enddate;
 	
+	private int schedivno;
+	private int empno;
+	private String sctitle;
+	
 	private List<Schdiv> schdivs;
 	private List<Employee> employees;
 	

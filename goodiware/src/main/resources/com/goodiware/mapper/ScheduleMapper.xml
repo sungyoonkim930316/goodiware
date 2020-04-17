@@ -4,12 +4,22 @@
 
 <mapper namespace="com.goodiware.mapper.ScheduleMapper">
 
-	<insert id="plusScd" parameterType="com.goodiware.vo.Schedule" useGeneratedKeys="true" keyColumn="SCHENO" keyProperty="scheno">
-		INSERT INTO SCHEDULE ( SCHENO, TITLE, STARTDATE, ENDDATE, CONTENT ) VALUES ( #{scheno}, #{title}, #{startdate}, #{enddate}, #{content} )
+	<insert id="plusScd" parameterType="com.goodiware.vo.Schedule">
+		INSERT INTO SCHEDULE ( SCHENO, SCHEDIVNO, EMPNO, TITLE, STARTDATE, ENDDATE, CONTENT ) VALUES ( #{scheno}, #{schedivno}, #{empno}, #{title}, #{startdate}, #{enddate}, #{content} )
 	</insert>
 	
-	<!-- <select id="selectSchdiv" resultType="com.goodiware.vo.Schdiv">
+	<select id="selectSchdiv" resultType="com.goodiware.vo.Schdiv">
 		select * from SCHDIV
-	</select> -->
+	</select>
+	
+	<select id="selectEmpno" resultType="com.goodiware.vo.Employee">
+		select * from EMPLOYEE
+	</select>
+	
+	<select id="selectPlans" resultType="com.goodiware.vo.Schedule" parameterType="hashmap">
+		select * from Schedule
+	</select>
+	
+	
 	
 </mapper>

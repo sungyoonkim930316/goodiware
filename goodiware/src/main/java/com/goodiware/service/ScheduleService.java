@@ -2,13 +2,18 @@ package com.goodiware.service;
 
 import java.util.List;
 
+import com.goodiware.vo.Employee;
 import com.goodiware.vo.Schdiv;
 import com.goodiware.vo.Schedule;
 
 public interface ScheduleService {
 
 	void plusScd(Schedule schedule);
-//	
-//	List<Schdiv> showSchdiv();
+	
+	List<Schdiv> showSchdiv();
+
+	List<Employee> showEmpno();
+
+	List<Schedule> plans(String id);
 
 }

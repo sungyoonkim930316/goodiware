@@ -16,11 +16,17 @@
     <link href="/resources/plugins/fullcalendar/css/fcmain.css" rel="stylesheet" />
     <link href="/resources/plugins/fullcalendar/css/dgmain.css" rel="stylesheet" />
     <link href="/resources/plugins/fullcalendar/css/tgmain.css" rel="stylesheet" />
+    <link href="/resources/css/jquery.datetimepicker.css" rel="stylesheet" />
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.min.css" />
+    
     <script src="/resources/plugins/fullcalendar/js/fcmain.js"></script>
     <script src="/resources/plugins/fullcalendar/js/itmain.js"></script>
     <script src="/resources/plugins/fullcalendar/js/dgmain.js"></script>
     <script src="/resources/plugins/fullcalendar/js/tgmain.js"></script>
     <script src="/resources/plugins/fullcalendar/js/ko.js"></script>
+    <script src="/resources/js/jquery.datetimepicker.full.min.js"></script>
 
 </head>
 
@@ -50,20 +56,6 @@
 
         <!-- Content body start -->
         <div class="content-body">
-        
-	        <!-- <div id="contextMenu" class="dropdown clearfix">
-	            <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu"
-	                style="display:block; position:static; margin-bottom:5px;">
-	                <li><a tabindex="-1" href="#">미팅</a></li>
-	                <li><a tabindex="-1" href="#">회의</a></li>
-	                <li><a tabindex="-1" href="#">휴가</a></li>
-	                <li><a tabindex="-1" href="#">회식</a></li>
-	                <li><a tabindex="-1" href="#">기타</a></li>
-	                <li class="divider"></li>
-	                <li><a tabindex="-1" href="#" data-role="close">Close</a></li>
-	            </ul>
-	        </div> -->
-
             <div class="row page-titles mx-0">
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
@@ -72,7 +64,6 @@
                     </ol>
                 </div>
             </div>
-
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
@@ -81,21 +72,8 @@
                                 <div class="card-title">
                                     <h4>달력</h4>
                                 </div>
-                                <div id="external-events">
-                                	<p>
-                                		<strong>일정 카테고리</strong>
-                                	</p>
-                                	<div class="fc-event">미팅</div>
-                                	<div class="fc-event">회의</div>
-                                	<div class="fc-event">휴가</div>
-                                	<div class="fc-event">회식</div>
-                                	<div class="fc-event">기타</div>
-                                	<p>
-                                		<input type="checkbox" id="drop-remove">
-                                		<label for="drop-remove">드랍 후 카테고리 제거</label>
-                                	</p>
-                                </div>
                                 <div id='calendar'></div>
+                                <!-- <input type="button" id="btnAddTest" value="추가"> -->
                             </div>
                         </div>
                     </div>
@@ -125,35 +103,28 @@
 	            <div class="modal-body">
 	            	<form id="addscd-form" action="/schedule/mainschedule" method="post">
 	                    <div class="row">
-	                    
-	                    	<%-- <div class="col-md-12 form-group">
-	                    		<input type="hidden" name='scheno' value='${ board.scheno }' />
-	                    	</div> --%>
-	                    	
-	                        <div class="col-md-6 form-group">
+	                    	<div class="col-md-6 form-group">
 	                            <label class="control-label">일정이름</label>
 	                            <input class="form-control form-white" placeholder="일정명을 작성하세요" required="required" type="text" id="title" name="title" />
 	                        </div>
 	                        
 	                        <div class="col-md-6 form-group">
 	                            <label class="control-label">일정유형</label>
-	                            <select class="form-control form-white" data-placeholder="일정유형을 선택하세요" id="schdivs" name="schdivs">
-	                                <option value="미팅">미팅</option>
-	                                <option value="회의">회의</option>
-	                                <option value="휴가">휴가</option>
-	                                <option value="회식">회식</option>
-	                                <option value="기타">기타</option>
+	                            <select class="form-control form-white" data-placeholder="일정유형을 선택하세요" id="schdivs" name="schedivno">
+	                            	<c:forEach items="${ schdivs }" var="schdivs">
+	                                <option value="${ schdivs.schedivno }">${ schdivs.sctitle }</option>
+	                                </c:forEach>
 	                            </select>
 	                        </div>
 	                        
 	                        <div class="col-md-6 form-group">
 	                        	<label class="control-label">일정시작</label>
-	                        	<input class="form-control form-white" type="text" id="startdate" name="startdate" />
+	                        	<input class="form-control form-white" type="text" id="startdate" name="startdate" placeholder="yyyy-MM-dd" />
 	                        </div>
 	                        
 	                        <div class="col-md-6 form-group">
 	                        	<label class="control-label">일정끝</label>
-	                        	<input class="form-control form-white" type="text" id="enddate" name="enddate" />
+	                        	<input class="form-control form-white" type="text" id="enddate" name="enddate" placeholder="yyyy-MM-dd" />
 	                        </div>
 	                        
 	                        <br>
@@ -162,6 +133,10 @@
 	                            <label class="control-label">내용</label>
 	                            <textarea class="form-control form-white" id="content" value="" name="content"></textarea>
 	                        </div>
+	                        
+	                        <div class="col-md-12 form-group">
+	                    		<input type="hidden" id="empno" name='empno' value='${ loginuser.empno }' />
+	                    	</div>
 	                        
 	                    </div>
 	                </form>
@@ -179,27 +154,6 @@
 	    </div>
 	</div>
 	<!-- Modal end -->
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h4 class="panel-title">필터</h4>
-		</div>
-		
-		<div class="panel-body">
-			<div class="col-lg-6">
-				<label for="calendar_view">구분별</label>
-                <div class="input-group">
-                    <select class="filter" id="type_filter" multiple="multiple">
-                        <option value="미팅">미팅</option>
-                        <option value="회의">회의</option>
-                        <option value="휴가">휴가</option>
-                        <option value="회식">회식</option>
-                        <option value="기타">기타</option>
-                    </select>
-                </div>
-			</div>
-		</div>
-	
-	</div>
 	
     <!-- Scripts -->
     <jsp:include page="/WEB-INF/views/modules/common-js.jsp"></jsp:include>
@@ -207,23 +161,9 @@
      <script type="text/javascript">
 		document.addEventListener('DOMContentLoaded', function() {
 			var Calendar = FullCalendar.Calendar;
-			var Draggable = FullCalendarInteraction.Draggable;
-			var containerEl = document.getElementById('external-events');
 			var calendarEl = document.getElementById('calendar');
-			var checkbox = document.getElementById('drop-remove');
-			/* var startdate = document.getElementById('startdate');
+			var startdate = document.getElementById('startdate');
 			var enddate = document.getElementById('enddate');
-			var schdivs = document.getElementById('schdivs');
-			var addBtnContainer = document.getElementById('.modalBtnContainer-addScd'); */
-
-			new Draggable(containerEl, {
-				itemSelector: '.fc-event',
-				eventData: function(eventEl) {
-					return {
-						title: eventEl.innerText
-					};
-				}
-			});
 
 			var calendar = new Calendar(calendarEl, {
 				plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
@@ -233,58 +173,49 @@
 					right: 'dayGridMonth,timeGridWeek,timeGridDay'
 				},
 				editable: true,
-				droppable: true,
-				drop: function(info) {
-					if (checkbox.checked) {
-						info.draggedEl.parentNode.removeChild(info.draggedEl);
-					}
-				},
 				dateClick: function() {
 					$('#scd-modal').modal('show');
 				},
 				locale: 'ko'
 			});
-
-			/* var newScd = function (start, end, scddivs) {
-				$('#contextMenu').hide();
-
-				schdivs.val(scddivs).prop('selected', true);
-				startdate.val(start);
-				enddate.val(end);
-
-				addBtnContainer.show();
-				$('#scd-modal').modal('show');
-
-				$('#modalRegisterBtn').on('click', function(event) {
-
-					var scdData = {
-						start: startdate.val(),
-						end: enddate.val(),
-						type: schdivs.val()
-					};
-					
-					if ($('#title').val().length == 0) {
-						alert("일정이름을 입력하세요")
-						return;
-					}
-
-					if (scdData.start > scdData.end) {
-						alert('끝나는 날짜가 시작 날짜보다 앞설 수 없습니다.');
-						return false;
-					}
-					
-					$('#addscd-form').submit();
-				})
-
-				if
-			} */
-
-			/* var calendar = new FullCalendar.Calendar(calendarEl, {
-				plugins: ['dayGrid']
-			}); */
-
 			calendar.render();
 		})
+		
+		function getCalendarEvent() {
+			var arr = { 'title': 'evt4', 'start': '2020-04-16', 'end': '2020-04-18' };
+			return arr;
+		}
+		
+		function getCalendarDataInDB() {
+			var arr = [{title: 'evt1', start:'ssssss'}, {title: 'evt2', start: '123123123'}];
+
+			var viewData = {};
+			viewData["id"] = $('#currId').text().trim();
+			viewData["title"] = $('#title').val();
+			viewData["content"] = $('#content').val();
+
+			$.ajax({
+				contentType: 'application/json',
+				dataType: 'json',
+				url: 'calendar/getall',
+				type: 'post',
+				async: 'false',
+				data: JSON.stringify(viewData),
+				success: function(resp) {
+					$.each(resp, function(index, item){
+						console.log(index + ' : ' + item);
+						$.each(item, function(iii, ttt) {
+							console.log('inner loop => ' + iii + ' : ' + ttt);
+						});
+					});
+					arr = resp;
+				},
+				error: function() {
+					alert('저장 중 에러가 발생했습니다. 다시 시도해 주세요.');
+				}
+			});
+			return arr;
+		}
 		
 		$(function() {
 			$('#modalCloseBtn').on('click', function(event) {
@@ -296,37 +227,60 @@
 					alert("일정이름을 입력하세요")
 					return;
 				}
+
+				if ($('#startdate').val().length == 0) {
+					alert("일정 시작일을 입력하세요")
+					return;
+				}
+
+				if ($('#enddate').val().length == 0) {
+					alert("일정 종료일을 입력하세요")
+					return;
+				}
 				$('#addscd-form').submit();
+			})
 
-				/* var values = $('#addscd-form').serializeArray2();
-
-				$.ajax({
-					"url": "/",
-					"method": "post",
-					"data": values,
-					"success": function(data, status, xhr) {
-						$('#scd-modal').modal('hide');
-						$('#')
-					}
-				}) */
+			/* $('#startdate, #enddate').datetimepicker({
+				format: 'YYYY-MM-DD HH:mm'
+			}) */
+			$('#startdate, #enddate').on('click', function(event) {
+				$(this).datetimepicker("show");
 			})
 		})
-		
-		/* $(function() {
-			var testList = new Array();
 
-			for(var i=1, i<=2; i++){
-				var data = new Object();
+		/* $(function(){
+			$('#startdate').appendDtpicker();
+		}); */
 
-				data.number = i;
-				data.name = "Tester #" + i;
+		/* $(document).on("click", "#startdate", function(){
+			$(this).datetimepicker("show");
+		}); */
 
-				testList.push(data);
-			}
+		/* var arrTest = getCalendarDataInDB();
+		$.each(arrTest, function(index, item) {
+			console.log('outer loop_in_cal' + index + ' : ' + item);
+			$.each(item, function(iii, ttt) {
+				console.log('inner loop_in_cal => ' + iii + ' : ' + ttt);
+			});
+		});
 
-			var jsonData = JSON.stringify(testList);
-			alert(jsonData);
-		}) */
+		$('#btnAddTest').click(function() {
+			var arr = getCalendarDataInDB();
+			$.each(arr, function(index, item) {
+				calendar.addEvent(item);
+				console.log('click evt loop_in_cal' + index + ' : ' + item);
+				$.each(item, function(iii, ttt) {
+					console.log('click evt inner loop_in_cal => ' + iii + ' : ' + ttt);
+				});
+			});
+			calendar.render();
+		}); */
+
+		/* function getCalendarEvent() {
+			var arr = { 'title': 'evt4', 'start': '2020-04-16', 'end': '2020-04-18' };
+			return arr;
+		} */
+
     </script>
 
 </body>
