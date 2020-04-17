@@ -1,5 +1,6 @@
 package com.goodiware.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,15 +38,43 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 	@Override
-	public List<Approval> getApprovalList(int appdivno) {
-
-		return approvalMapper.selectApprovalList(appdivno);
-	}
-
-	@Override
 	public ApprDiv getAppdivname(int appdivno) {
 
 		return approvalMapper.selectAppDivName(appdivno);
+	}
+
+	@Override
+	public int findApprCount(HashMap<String, Object> params) {
+		
+		return approvalMapper.selectApprCount(params);
+		
+	}
+
+	@Override
+	public List<Approval> getApprovalListWithPaging(HashMap<String, Object> params) {
+		
+		return approvalMapper.selectApprovalList(params); 
+	}
+
+	@Override
+	public Approval findApprBytypeNo(int typeNo, int appdivno) {
+		
+		return approvalMapper.selectApprByTypeNo(typeNo, appdivno);
+		
+	}
+
+	@Override
+	public String findMaccpNameByMaccpNo(int typeNo) {
+		
+		return approvalMapper.selectMaccpNameByMaccpNo(typeNo);
+		
+	}
+
+	@Override
+	public String findFaccpNameByFaccpNo(int typeNo) {
+		
+		return approvalMapper.selectFaccpNameByFaccpNo(typeNo);
+		
 	}
 
 }

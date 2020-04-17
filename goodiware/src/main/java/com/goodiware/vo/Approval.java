@@ -13,6 +13,7 @@ public class Approval {
 	private String apprfilename;
 	private String filepath;
 	private String companoin;
+	private boolean deleted;
 	
 	private int empno;
 	private int appdivno;
@@ -22,6 +23,9 @@ public class Approval {
 	private String name;
 	private String divname;
 	private String accepname;
+	
+	private String maccpname; // 중간승인자 이름
+	private String faccpname; // 최종승인자 이름
 	
 //	private List<ApprDiv> ApprDivs;
 //	private List<ApproAccp> ApproAccps;

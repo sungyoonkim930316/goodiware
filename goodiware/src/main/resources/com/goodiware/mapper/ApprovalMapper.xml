@@ -9,7 +9,7 @@
 	</select>
 
 	<insert id="insertApproval" parameterType="com.goodiware.vo.Approval">
-		insert into APPROVAL ( empno, appdivno, title, maccp, faccp, apprfilename, filepath ) values ( #{empno }, #{ appdivno}, #{ title }, #{ maccp }, #{ faccp }, #{ apprfilename }, #{ filepath })
+		insert into APPROVAL ( empno, appdivno, title, content, maccp, faccp, apprfilename, filepath ) values ( #{empno }, #{ appdivno}, #{ title }, #{ content }, #{ maccp }, #{ faccp }, #{ apprfilename }, #{ filepath })
 	</insert>
 <!-- 	
 	<select id="selectMaccpNoByName" parameterType="com.goodiware.vo.Employee" resultType="com.goodiware.vo.Employee">
@@ -26,15 +26,49 @@
 				(e.name LIKE CONCAT('%',#{name},'%') OR d.depname LIKE CONCAT('%',#{name},'%'))
 	</select>
 	
-	<select id="selectApprovalList" parameterType="int" resultType="com.goodiware.vo.Approval">
+	<select id="selectApprovalList" parameterType="hashmap" resultType="com.goodiware.vo.Approval">
 		select d.divname, a.type, a.title, a.content, a.appdivno, a.maccp, a.faccp, a.APPACCPNO, p.accepname, e.name
 		from APPRDIV d, APPROVAL a, APPROACCP p, EMPLOYEE e
 		where a.appaccpno = p.appaccpno and a.appdivno = d.appdivno AND a.empno = e.empno AND a.deleted = 'N' and a.appdivno = #{ appdivno }
 		order by a.type DESC;
 	</select>
 	
+	<select id="selectApprCount" parameterType="hashmap" resultType="int">
+		
+		SELECT COUNT(*) 
+		FROM APPROVAL
+		WHERE deleted = 'N'
+		
+	</select>
+	
 	<select id="selectAppDivName" parameterType="int" resultType="com.goodiware.vo.ApprDiv">
-		select divname from APPRDIV where APPDIVNO = #{ appdivno }
+		select divname, divfiletype from APPRDIV where APPDIVNO = #{ appdivno }
+	</select>
+
+	<select id="selectApprByTypeNo" parameterType="map" resultType="com.goodiware.vo.Approval">
+		
+		SELECT d.divname, a.type, a.empno, a.appdivno, a.title, a.content, a.maccp, a.faccp, a.apprfilename, a.filepath, a.deleted, a.APPACCPNO, p.accepname, e.name
+		FROM APPRDIV d, APPROVAL a, APPROACCP p, EMPLOYEE e
+		WHERE a.appaccpno = p.appaccpno and a.appdivno = d.appdivno AND a.empno = e.empno AND a.deleted = 'N' and a.appdivno = #{ appdivno } and a.type = #{typeNo} 
+		
+	</select>
+
+	<select id="selectMaccpNameByMaccpNo" parameterType="int" resultType="String">
+	
+		SELECT e.name 
+		FROM EMPLOYEE e, APPROVAL a
+		WHERE a.type = #{ typeNo }
+		AND a.maccp = e.empno
+	
+	</select>
+	
+	<select id="selectFaccpNameByFaccpNo" parameterType="int" resultType="String">
+		
+		SELECT e.name 
+		FROM EMPLOYEE e, APPROVAL a
+		WHERE a.type = #{ typeNo }
+		AND a.faccp = e.empno
+		
 	</select>
 
 </mapper>

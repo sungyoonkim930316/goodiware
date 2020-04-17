@@ -1,10 +1,15 @@
 package com.goodiware.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,9 +23,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.goodiware.service.ApprovalService;
+import com.goodiware.ui.ThePager2;
 import com.goodiware.vo.ApprDiv;
 import com.goodiware.vo.Approval;
 import com.goodiware.vo.Employee;
+import com.goodiware.vo.Reference;
 
 @Controller
 @RequestMapping(path= {"/appr/"})
@@ -42,8 +49,8 @@ public class ApprovalController {
 	
 	// 등록 처리
 	@PostMapping(path= {"/registAppr"})
-	public String registApproval(Approval approval, RedirectAttributes attr, 
-								@RequestParam("filename")MultipartFile AccpFile, HttpServletRequest req, Model model) {
+	public String registApproval(String smarteditor, Approval approval, RedirectAttributes attr, 
+								@RequestParam("filename")MultipartFile AccpFile, HttpServletRequest req, Model model, int appdivno) {
 		
 		ServletContext application = req.getServletContext();
 		String path = application.getRealPath("resources/file/approval");
@@ -60,13 +67,14 @@ public class ApprovalController {
 		System.out.println("파일이름 : " + fileName);
 		System.out.println("파일경로: "  + path);
 		
+		approval.setContent(smarteditor);
 		approval.setApprfilename(fileName);
 		approval.setFilepath(path);
 		
 		approvalService.registApproval(approval);
 		model.addAttribute("Success", approval.getTitle());
 		
-		return "redirect:/";
+		return String.format("redirect:/appr/apprlist?appdivno=%d", appdivno);
 	}
 	
 	// 중간승인자 찾기
@@ -104,55 +112,88 @@ public class ApprovalController {
 	}
 	
 	// 업무 페이지 이동
-	@GetMapping(path= {"/task"})
-	public String getTask(Model model, int appdivno) {
+	@GetMapping(path= {"/apprlist"})
+	public String getApprList(@RequestParam(defaultValue = "1") int pageNo, HttpServletRequest req, Model model, int appdivno) {
 		
-		List<Approval> approvals = approvalService.getApprovalList(appdivno);
+		int pageSize = 10;
+		int pagerSize = 10;
+		HashMap<String, Object> params = new HashMap<>();
+		int beginning = (pageNo - 1) * pageSize;
+		params.put("beginning", beginning);
+		params.put("end", beginning + pageSize);
+		params.put("appdivno", appdivno);
+				
+		List<Approval> approvals = approvalService.getApprovalListWithPaging(params);
+		int boardCount = approvalService.findApprCount(params); // 전체 글 개수
+		
+		ThePager2 pager = new ThePager2(boardCount, pageNo, pageSize, pagerSize, "apprlist", req.getQueryString());
+		
 		model.addAttribute("approvals", approvals);
+		model.addAttribute("pager", pager);
 		
-		return "/approval/taskList";
+		return "/approval/apprlist";
 		
 	}
+	
+	// 결재 상세 디테일로이동
+	@GetMapping(path = { "/detail" })
+	public String showDetail(int typeNo, int appdivno, @RequestParam(defaultValue = "1") int pageNo, Model model,
+			HttpServletRequest req, HttpServletResponse resp) {
+ 						
+		Approval approval = approvalService.findApprBytypeNo(typeNo, appdivno);
+		
+		if (approval == null) {
+			return "redirect:apprlist";
+		}
+		
+		String maccpName = approvalService.findMaccpNameByMaccpNo(typeNo);
+		String faccpName = approvalService.findFaccpNameByFaccpNo(typeNo);
+						
+		approval.setMaccpname(maccpName);
+		approval.setFaccpname(faccpName);
+		
+		
+			
+		// 2. 조회된 데이터를 View에서 사용할 수 있도록 저장
+		model.addAttribute("approval", approval);
 
-	// 파견 페이지로 이동
-	@GetMapping(path= {"/dispatch"})
-	public String getDispatch(Model model, int appdivno) {
-		
-		List<Approval> approvals = approvalService.getApprovalList(appdivno);
-		model.addAttribute("approvals", approvals);
-		
-		return "/approval/dispatchList";
+		// 3. View로 이동
+		return "approval/detail";
 	}
 	
-	
-	// 경비지출 페이지로 이동
-	@GetMapping(path= {"/expenditure"})
-	public String getExpenditure(Model model, int appdivno) {
-		
-		List<Approval> approvals = approvalService.getApprovalList(appdivno);
-		model.addAttribute("approvals", approvals);
-		
-		return "/approval/expenditureList";
-	}
-	
-	//초과근무 페이지로 이동
-	@GetMapping(path= {"/overtime"})
-	public String getOvertime(Model model, int appdivno) {
-		
-		List<Approval> approvals = approvalService.getApprovalList(appdivno);
-		model.addAttribute("approvals", approvals);
-		
-		return "/approval/overtimeList";
-	}
-	
-	// 휴가 페이지로 이동
-	@GetMapping(path= {"/vacation"})
-	public String getVacation(Model model, int appdivno) {
-		
-		List<Approval> approvals = approvalService.getApprovalList(appdivno);
-		model.addAttribute("approvals", approvals);
-		
-		return "/approval/vacationList";
-	}
+//	@GetMapping(path = { "/download" })
+//	public void downloadResume(int refNo, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+//		
+//		Reference reference = referenceService.findUploadFileByRefNo(refNo);
+//
+//		// 다운로드 처리
+//		// ServletContext : JSP의 application객체와 동일한 객체
+//		ServletContext application = req.getServletContext();
+//		String path = application.getRealPath("resources/file/reference/" + reference.getReffilename());
+//
+//		// System.out.println(fileName);
+//
+//		// 브라우저가 응답 컨텐츠를 다운로드로 처리하도록 정보 설정 / 브라우저 속이기
+//		resp.setContentType("application/octet-stream;charset=utf-8");
+//
+//		// 브라우저에게 다운로드하는 파일의 이름을 알려주는 코드
+//		resp.addHeader("Content-Disposition",
+//				// "Attachment;filename=\"" + fileName + "\"");
+//				"Attachment;filename=\"" + new String(reference.getReffilename().getBytes("utf-8"), "ISO-8859-1") + "\"");
+//
+//		FileInputStream fis = new FileInputStream(path); // 파일을 읽는 도구
+//		OutputStream fos = resp.getOutputStream(); // 브라우저에게 전송하는 도구
+//
+//		while (true) {
+//			int data = fis.read(); // 파일에서 1byte 읽기
+//			if (data == -1) { // 더 이상 읽을 데이터가 없다면 (EOF)
+//				break;
+//			}
+//			fos.write(data); // 응답 스트림에 1byte 쓰기
+//		}
+//
+//		fis.close();
+//		fos.close();
+//	}
 	
 }

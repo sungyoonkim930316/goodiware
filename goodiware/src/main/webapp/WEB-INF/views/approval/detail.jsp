@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>결재 등록</title>
+<title>결재 확인</title>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16" href="/resources/images/favicon.png">
 <!-- Custom Stylesheet -->
@@ -90,7 +90,7 @@
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="javascript:void(0)">결재</a></li>
 						<li class="breadcrumb-item active"><a
-							href="javascript:void(0)">결재등록</a></li>
+							href="javascript:void(0)">결재확인</a></li>
 					</ol>
 				</div>
 			</div>
@@ -99,12 +99,10 @@
 			
 
 			<div class="container-fluid">
-				<h4 class="card-title">결재 등록</h4>
+				<h4 class="card-title">결재 확인</h4>
 				
 				<div class="form-group">
-					
-					<form id="registAppr" action="/appr/registAppr" method="post" class="user" enctype="multipart/form-data">
-						
+																
 						<div class="container-fluid">
 			                <div class="row">
 			                    <div class="col-12">
@@ -117,14 +115,14 @@
 											    <tr>
 											      <th class="left-menu">결재구분</th>
 											      <td class="right-menu">
-											      	<input class="form-control form-control-sm" type="hidden" name=appdivno value="${ param.appdivno }">
-											      	<input class="form-control form-control-sm" type="text" value="${ appdivname.divname }" readOnly>
+											      	
+											      	<input class="form-control form-control-sm" type="text" value="${ approval.divname }" readOnly>
 											      </td>
 											    </tr>
 											    <tr>
 											      <th class="left-menu">제목</th>
 											      <td class="right-menu">
-											      	<input class="form-control form-control-sm" type="text" name="title">
+											      	<input class="form-control form-control-sm" type="text" name="title" value="${ approval.title }" readOnly>
 											      </td>
 											    </tr>
 											    <tr>
@@ -132,11 +130,7 @@
 											      <td class="right-menu">
 											      	<!-- <a href="#"><input class="form-control form-control-sm" type="text" name="maccp"></a> -->
 											      	<div class="input-group mb-3">
-													  <input type="hidden"id="maccp" name="maccp">
-													  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="maccpname" readonly> 
-													  <div class="input-group-append">
-													    <button class="btn btn-outline-secondary" type="button" id="search-maccp">검색</button>
-													  </div>
+													  <input class="form-control form-control-sm" type="text" id="maccp" name="maccp" value="${ approval.maccpname }">
 													</div>
 											      </td>
 											    </tr>
@@ -145,39 +139,71 @@
 											      <td class="right-menu">
 											      	<!-- <input class="form-control form-control-sm" type="text" name="faccp"> -->
 											      	<div class="input-group mb-3">
-													  <input type="hidden"  id="faccp" name=faccp>
-													  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="faccpname" readonly>
-													  <div class="input-group-append">
-													    <button class="btn btn-outline-secondary" type="button" id="search-faccp">검색</button>
-													  </div>
+													  <input class="form-control form-control-sm" type="text"  id="faccp" name=faccp value="${ approval.faccpname }">
 													</div>
 											      </td>
 											    </tr>
 											    <tr>
 											      <th class="left-menu">첨부파일</th>
 											      <td class="right-menu">
-												    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="filename">
+												    다운 받기 
+												    <a href="download?typeNo=${ approval.type }">
+			        									[${ approval.apprfilename }]
+			        								</a>&nbsp;&nbsp;&nbsp;
+			        								<button class="btn btn-primary" id="openPdf">파일 미리보기(pdf 이외의 파일은 미리보기가 지원되지 않습니다)</button>&nbsp;&nbsp;
+			        								<button class="btn btn-primary" id="closePdf">미리보기 닫기</button>
+			        								<br><br>
+			        								<iframe id="pdfView" src="/resources/file/approval/${ approval.apprfilename }" width='100%' height='500' allowfullscreen webkitallowfullscreen></iframe>
 											      </td> 
 											    </tr>
 											    <tr>
 											      <th style="text-align: center" class="left-menu">내 용</th>
 											      <td class="right-menu">
-											    		<textarea name="smarteditor" id="smarteditor" rows="10" cols="100" style="width:100%; height:412px;"></textarea>
+											    		${ approval.content }
 											      </td>
 											    </tr>
 											    
 											  </tbody>
 											</table>
-											<div style="float: right;">
-			                            	<button type="button" class="btn btn-primary" id="registerAproval">등록</button>
+
+											<button style="float: right;" type="button" class="btn btn-primary" id="toList">목록</button>
+											
+											<div style="text-align: center; width: 30%; margin: 0 auto">
+												<c:choose>
+													<c:when test="${ approval.appaccpno eq 1 and loginuser.name eq approval.maccpname }">
+														<select class="form-control form-control-user" name="acceptVal" id="acceptVal">
+															<option value="defVal">승인여부를 선택해주세요</option>
+															<option value="2">중간 승인</option>
+															<option value="4">반려</option>
+														</select>
+														<br>
+			                            				<button type="button" class="btn btn-primary" id="acceptAproval">선택완료</button>		
+													</c:when>
+													<c:when test="${ approval.appaccpno eq 2 and loginuser.name eq approval.faccpname }">
+														<select class="form-control form-control-user" name="acceptVal" id="acceptVal">
+															<option value="defVal">승인여부를 선택해주세요</option>
+															<option value="3">최종 승인</option>
+															<option value="4">반려</option>
+														</select>
+														<br>
+			                            				<button type="button" class="btn btn-primary" id="acceptAproval">선택완료</button>	
+													</c:when>
+													<c:otherwise></c:otherwise>
+												</c:choose>
+												<br><br>
 			                            	</div>
-			                            </div>
+			                            	<div style="text-align: center; width: 50%; margin: 0 auto; float: none;" id="negative">
+				                            	<textarea placeholder="반려사유를 입력하세요" style="resize: none;" name="natReason" id="natReason" class="form-control form-control-user" rows="4"></textarea><br>
+				                            	<button type="button" class="btn btn-primary" id="to-negative">반려처리</button>&nbsp;
+				                            	<button type="button" class="btn btn-primary" id="negativeCancel">반려취소</button>
+				                            	
+				                            	<input type="hidden" name="negContent" id="negContent">
+				                            	
+			                            	</div>
 			                        </div>
 			                    </div>
 			                </div>
 			            </div>
-						
-					</form>
 					
 				</div>
 		
@@ -210,9 +236,6 @@
 
 	<jsp:include page="/WEB-INF/views/modules/common-js.jsp"></jsp:include>
 
-<c:set var="new_line" value="
-" />
-	
 	<script type="text/javascript" src="/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 	<script type='text/javascript'>
 	$(function(){
@@ -223,51 +246,73 @@
 
 		$(".right-menu").css({ "width" : "600" });
 
-		$("#search-maccp").on("click", function(event){
-
-			window.open("/appr/maccpSearch","중간승인자검색","width=600, height=700, resizeable=no");
-
-		});
-
-		$("#search-faccp").on("click", function(event){
-
-			window.open("/appr/faccpSearch","중간승인자검색","width=600, height=700, resizeable=no");
-
-		});
-
-		//전역변수선언
-	    var editor_object = [];
-
-	    var html = '${ fn:replace(appdivname.divfiletype, new_line, ' ') }';
-
-	    $('#smarteditor').val(html);
-	 	     
-	    nhn.husky.EZCreator.createInIFrame({
-	        oAppRef: editor_object,
-	        elPlaceHolder: "smarteditor", // textarea의 id
-	        sSkinURI: "/resources/navereditor/SmartEditor2Skin.html", 
-	        htParams : {
-	            // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-	            bUseToolbar : true,             
-	            // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-	            bUseVerticalResizer : true,     
-	            // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-	            bUseModeChanger : true, 
-	        }
-	    });
-	
-	    //전송버튼 클릭이벤트
-	    $("#registerAproval").click(function(){
-	        //id가 smarteditor인 textarea에 에디터에서 대입
-	        editor_object.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
-	         
-	        // 이부분에 에디터 validation 검증
-	
-	        //폼 submit
-	        $("#registAppr").submit();
-	    })
+		$('#pdfView').hide();
+		$('#negative').hide();
 		
-	    
+		$("#openPdf").on('click', function() {
+
+			$('#pdfView').show('3000');	
+			
+		});
+
+		$("#closePdf").on('click', function() {
+
+			$('#pdfView').hide('3000');	
+			
+		});
+
+		$('#toList').on('click', function() {
+
+			alert('목록으로 돌아갑니다');
+			location.href = "apprlist?appdivno=${ param.appdivno }&pageNo=${ param.pageNo }";
+			
+		});
+
+		$('#acceptAproval').on('click', function() {
+
+			var result = $('#acceptVal').val();
+
+			if(result == "defVal"){
+				alert('승인 여부를 선택해주세요');
+				$('#acceptVal').focus();
+			} else if(result == "4") {
+				$('#negative').show('3000');
+			}
+
+		});
+
+		$('#negativeCancel').on('click', function() {
+
+			var cancel = confirm("취소하고 다시 선택하시겠습니까?");
+
+			if (cancel) {
+
+				alert('다시 선택합니다.');
+				$('#natReason').val('');
+				$('#negative').hide('3000');
+				$("#acceptVal").val('defVal');
+				return;
+			}
+			
+		});
+
+		$('#to-negative').on('click', function() {
+
+			var result = confirm("반려처리 하시겠습니까?");
+
+			if (result) {
+
+				var reason = $('#natReason').val();
+				
+				$('#negContent').val(reason); // 반려사유 hidden input에 저장
+
+				
+				alert('반려처리 ㄱㄱ')
+				
+			}
+
+		});
+		
 	})
 	</script>
 

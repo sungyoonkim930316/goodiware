@@ -180,7 +180,7 @@
 	        //폼 submit
 	        $("#frm").submit();
 	    })
-	    cancel
+	    
 	    $('#cancel').on('click', function() {
 
 			var result = confirm("작성을 취소하시겠습니까?");

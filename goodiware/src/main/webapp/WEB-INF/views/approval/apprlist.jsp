@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>경비지출 결재 리스트</title>
+    <title>휴가 결재 리스트</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/resources/images/favicon.png">
     <!-- Custom Stylesheet -->
@@ -82,7 +82,7 @@
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">결재</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">경비지출 결재 리스트</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">휴가 결재 리스트</a></li>
                     </ol>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-	                                <h4 class="card-title">경비지출 결재</h4>
+	                                <h4 class="card-title">휴가 결재</h4>
 	                                
 							    </div>
 								<br>
@@ -110,17 +110,31 @@
 									    </tr>
 									  </thead>
 									  <tbody>
-										<tr>
-										  <td></td>
-										  <td></td>
-										  <td></td>
-										  <td></td>
-										  <td></td>
-										</tr>
+										<c:forEach items="${ approvals }" var="approval">
+											<tr>
+											  <td>${ approval.type }</td>
+											  <td>
+											  	<c:choose>
+										    		<c:when test="${ approval.deleted eq 'N' }">
+											    		<a href="detail?appdivno=${ param.appdivno }&typeNo=${ approval.type }&pageNo=${ pager.pageNo }">
+															${ approval.title } 
+														</a>
+													</c:when>
+													<c:otherwise>
+														[삭제] ${ approval.title }								
+													</c:otherwise>
+												</c:choose>
+											  	
+											  </td>
+											  <td>${ approval.name }</td>
+											  <td>${ approval.divname }</td>
+											  <td>${ approval.accepname }</td>
+											</tr>
+										</c:forEach>
 									  </tbody>
 									  <tfoot>
 											<tr>
-												<%-- <td colspan="4" style="text-align: center">${ pager }</td> --%>
+												<td colspan="5" style="text-align: center">${ pager }</td>
 											</tr>
 									  </tfoot>
 									</table>

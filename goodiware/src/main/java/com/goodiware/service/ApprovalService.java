@@ -1,5 +1,6 @@
 package com.goodiware.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.goodiware.vo.ApprDiv;
@@ -13,10 +14,18 @@ public interface ApprovalService {
 	void registApproval(Approval approval);
 
 	List<Employee> showMaccp(Employee employee);
-
-	List<Approval> getApprovalList(int appdivno);
-
+	
 	ApprDiv getAppdivname(int appdivno);
+	
+	int findApprCount(HashMap<String, Object> params);
+
+	List<Approval> getApprovalListWithPaging(HashMap<String, Object> params);
+
+	Approval findApprBytypeNo(int typeNo, int appdivno);
+
+	String findMaccpNameByMaccpNo(int typeNo);
+
+	String findFaccpNameByFaccpNo(int typeNo);
 
 
 }

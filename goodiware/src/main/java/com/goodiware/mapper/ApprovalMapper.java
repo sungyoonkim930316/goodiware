@@ -1,8 +1,10 @@
 package com.goodiware.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.goodiware.vo.ApprDiv;
 import com.goodiware.vo.Approval;
@@ -20,5 +22,15 @@ public interface ApprovalMapper {
 	List<Approval> selectApprovalList(int divno);
 
 	ApprDiv selectAppDivName(int appdivno);
+
+	List<Approval> selectApprovalList(HashMap<String, Object> params);
+
+	int selectApprCount(HashMap<String, Object> params);
+	
+	Approval selectApprByTypeNo(@Param("typeNo") int typeNo, @Param("appdivno")int appdivno);
+
+	String selectMaccpNameByMaccpNo(int typeNo);
+
+	String selectFaccpNameByFaccpNo(int typeNo);
 
 }
