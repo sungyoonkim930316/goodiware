@@ -35,4 +35,8 @@ public interface ApprovalMapper {
 
 	Approval selectUploadApprByTypeNo(int typeNo);
 
+	void updateAppaccpno(@Param("typeNo") int typeNo, @Param("appaccpno") int appaccpno);
+
+	void updateCompaion(@Param("typeNo")int typeNo, @Param("appaccpno") int appaccpno, @Param("companion") String companion);
+
 }

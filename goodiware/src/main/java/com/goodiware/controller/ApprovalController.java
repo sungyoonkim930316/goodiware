@@ -196,4 +196,24 @@ public class ApprovalController {
 		fos.close();
 	}
 	
+	// 중간/최종승인자 승인처리
+	@GetMapping(path= {"approvalAccp"})
+	public String approvalMaccp(int appdivno, int typeNo, int pageNo, int appaccpno, Model model) {
+		
+		approvalService.updateAppaccpno(typeNo, appaccpno);
+		
+		return String.format("redirect:/appr/detail?appdivno=%d&typeNo=%d&pageNo=%d", appdivno, typeNo, pageNo);
+	}
+	
+	// 반려 처리
+	@GetMapping(path= {"companion"})
+	public String companion(int appdivno, int typeNo, int pageNo, int appaccpno, String companion, Model model) {
+
+		approvalService.updateCompanion(typeNo, appaccpno, companion);
+		
+		return String.format("redirect:/appr/detail?appdivno=%d&typeNo=%d&pageNo=%d", appdivno, typeNo, pageNo);
+		
+	}
+	
+	
 }

@@ -209,7 +209,8 @@
 				                            	<button type="button" class="btn btn-primary" id="to-negative">반려처리</button>&nbsp;
 				                            	<button type="button" class="btn btn-primary" id="negativeCancel">반려취소</button>
 				                            	
-				                            	<input type="hidden" name="negContent" id="negContent">
+				                            	<!-- <input type="hidden" name="negContent" id="negContent"> -->
+				                            	<input type="hidden" name="companoin" id="companoin">
 				                            	
 			                            	</div>
 			                        </div>
@@ -283,12 +284,19 @@
 		$('#acceptAproval').on('click', function() {
 
 			var result = $('#acceptVal').val();
+			var appaccpno = $('#acceptVal').val();
 
 			if(result == "defVal"){
 				alert('승인 여부를 선택해주세요');
 				$('#acceptVal').focus();
 			} else if(result == "4") {
 				$('#negative').show('3000');
+			} else if(result == "2") {
+				if(!confirm("승인하시겠습니까?"))return;
+				location.href = "approvalAccp?appdivno=${ param.appdivno }&typeNo=${ approval.type }&pageNo=${ param.pageNo }&appaccpno=" + result;
+			} else if(result == "3") {
+				if(!confirm("승인하시겠습니까?"))return;
+				location.href = "approvalAccp?appdivno=${ param.appdivno }&typeNo=${ approval.type }&pageNo=${ param.pageNo }&appaccpno=" + result;
 			}
 
 		});
@@ -315,17 +323,63 @@
 			if (result) {
 
 				var reason = $('#natReason').val();
-				
-				$('#negContent').val(reason); // 반려사유 hidden input에 저장
+				var appaccpno = $('#acceptVal').val();
+				var companion = $('#negContent').val(reason); // 반려사유 hidden input에 저장 
 
+				var form = makeform('companion', ${ param.appdivno }, ${ param.typeNo }, ${ param.pageNo }, appaccpno, companion );
+				
 				
 				alert('반려처리 ㄱㄱ')
 				
 			}
 
 		});
+
+		var mApproval = '${ mApproval }';
+		if( mApproval && !history.state ) {
+			alert("승인이 완료되었습니다");
+		}
+
+
+		/* function makeForm(action, appdivno, typeNo, pageNo, appaccpno, companoin, method="get"){
+
+			var form= $('<form></form>');
+			form.attr({
+				'action' : action,
+				'method' : method
+			});
+			form.append($('<input>').attr({
+				"type" : 'hidden',
+				"name" : 'appdivno',
+				"value" : appdivno
+			});
+			form.append($('<input>').attr({
+				"type" : "hidden",
+				"name" : "typeNo",
+				"value" : typeNo
+			});
+			form.append($('<input>').attr({
+				"type" : "hidden",
+				"name" : "pageNo",
+				"value" : pageNo
+			});
+			form.append($('<input>').attr({
+				"type" : "hidden",
+				"name", "appaccpno",
+				"value", appaccpno
+			});
+			form.append($('<input>').attr({
+				"type" : "hidden",
+				"name", "companoin",
+				"value", companoin
+			});
+			form.appendTo("body");
+			return form;
+
+		};  */
 		
-	})
+		
+	});
 	</script>
 
 

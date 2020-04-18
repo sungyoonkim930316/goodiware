@@ -29,5 +29,9 @@ public interface ApprovalService {
 
 	Approval findUploadFileByTypeNo(int typeNo);
 
+	void updateAppaccpno(int typeNo, int appaccpno);
+
+	void updateCompanion(int typeNo, int appaccpno, String companion);
+
 
 }

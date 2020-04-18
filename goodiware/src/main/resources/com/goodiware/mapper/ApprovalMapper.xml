@@ -76,5 +76,13 @@
 		FROM APPROVAL
 		WHERE type = #{typeNo}
 	</select>
+	
+	<update id="updateAppaccpno" parameterType="map">
+		update APPROVAL set appaccpno = #{ appaccpno } where type = #{ typeNo }
+	</update>
+	
+	<update id="updateCompaion" parameterType="map">
+		update APPROVAL set appaccpno = #{ appaccpno }, companion = #{ companion } where type = #{ typeNo }
+	</update>
 
 </mapper>
