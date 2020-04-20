@@ -113,7 +113,7 @@
 											<tr>
 												<td>${ employee.empno }</td>
 												<td>
-													<a style="cursor: pointer;" class="openModal" data-target="#exampleModalCenter" data-empno="${ employee.empno }">
+													<a style="cursor: pointer;" class="openModal" data-target="#exampleModalCenter" data-empno="${ employee.empno }" data-empName="${ employee.name }">
 														${ employee.name }
 													</a>
 												</td>
@@ -160,6 +160,7 @@
 						                        </div>
                                             </div>
                                             <div class="modal-footer">
+                                            	<button type="button" class="btn btn-info" id="sendMail">메일보내기</button>
                                                 <button type="button" class="btn btn-primary" data-dismiss="modal">닫기</button>
                                             </div>
                                         </div>
@@ -204,8 +205,8 @@
 
 	<script type='text/javascript'>
 	$(function(){
-
-		$('.openModal').on('click', function(index) {
+		
+		$('.openModal').on('click', function(event) {
 
 			var selNo = parseInt($(this).attr('data-empno'));
 						
@@ -243,6 +244,25 @@
 					alert('조회 실패'); }
 			});
 			
+		});
+
+		$('#sendMail').on('click', function() {
+
+			var selName = $('#selName').text();
+			
+			var result = confirm(selName + '님께 메일을 전송하시겠습니까?');
+
+			if(result == false) {
+				return false;
+			} else {
+				
+				var empno = ${ loginuser.empno };
+				var sender = parseInt($('#selEmpno').text());
+								
+				location.href="/message/toReply?empno="+ empno +"&sender=" + sender;
+				alert('메일 전송화면으로 이동합니다');	
+			}
+
 		});	
 			
 	});
