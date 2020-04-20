@@ -90,8 +90,7 @@
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="javascript:void(0)">자유
-								게시판</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">중고장터</a></li>
 						<li class="breadcrumb-item active"><a
 							href="javascript:void(0)">글 쓰기</a></li>
 					</ol>
@@ -109,7 +108,7 @@
 					<form id="write-form" role="form" action="write.action"
 					method="post">
 						
-						<input type="hidden" name="bdivno" value="1">
+						<input type="hidden" name="bdivno" value="2">
 						<input type="hidden" name="empno" value="${ loginuser.empno }">
 						<input type="text" name="title" id="title"
 							class="form-control input-default" placeholder="제목을 입력하세요."><br>
@@ -186,21 +185,20 @@
 
 			//전송버튼 클릭이벤트
 			$("#write-button").click(
-
+					
 					function() {
 						//id가 smarteditor인 textarea에 에디터에서 대입
 						editor_object.getById["smarteditor"].exec(
 								"UPDATE_CONTENTS_FIELD", []);
 
 						// 이부분에 에디터 validation 검증
-						
+
+						//폼 submit
 						if ($('#title').val() == '') {
 							alert('제목을 입력하세요.');
 							$('#title').focus();
 							return;
 						}
-
-						//폼 submit
 						$("#write-form").submit();
 					})
 		})
