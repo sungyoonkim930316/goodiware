@@ -284,7 +284,7 @@
 
 			var rno = $(this).attr('data-rno');
 
-			console.log(rno);
+			/* console.log(rno); */
 
 			if(!confirm("댓글을 삭제할까요?")) return;
 
@@ -307,13 +307,16 @@
 
 		
 
-		/* $(".updateContent").hide();
+		$(".update-content").hide();
 
-		$(".reply-container").on("click", ".updateReply", function(evemt){
+		
+		$("#reply-list-container").on("click", ".updateReply", function(event){
 
-			$(".updateContent").show("3000");
+			/* $(this).attr(".reply-content").hide(1000); */
+			$(this).children("data-rno").hide(1000);
+			/* $(this).attr(".update-content").show(); */
 
-		}) */
+		})
 
 	    
 	});

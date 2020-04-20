@@ -21,7 +21,17 @@
 	                                   	</tr>
 	                                   	<tr>
 	                                   		<td></td>
-	                                   		<td colspan="2">${ reply.rcontent }</td>	                                   	
+	                                   		<td colspan="2" class="reply-content">${ reply.rcontent }</td>
+	                                   		<td colspan="2" class="update-content">
+	                                   		<form id="update-form" class="user">
+												<div class="input-group mb-3">
+												  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id=""  name="" style="height:50px">&nbsp;&nbsp;
+												  <div class="input-group-append">
+												    <button class="btn btn-outline-secondary" type="button" id="replyRegist" style="height:50px;width:80px">수정</button>
+												  </div>
+												</div>
+											</form>
+	                                   		</td>
 	                                   	</tr>
 	                                   <!-- 	<tr class="updateContent">
 	                                   		<td>
