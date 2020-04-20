@@ -1,5 +1,6 @@
 package com.goodiware.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -20,4 +21,7 @@ public interface AdminMapper {
 
 	List<Auth> selectAuths();
 
+	List<Employee> empWithPaging(HashMap<String, Object> params);
+
+	int empListCount(HashMap<String, Object> params);
 }

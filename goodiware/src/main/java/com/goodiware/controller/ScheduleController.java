@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.validator.internal.util.logging.LoggerFactory;
-import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.propertyeditors.CustomDateEditor;

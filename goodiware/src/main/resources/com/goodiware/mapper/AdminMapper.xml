@@ -4,6 +4,22 @@
 
 <mapper namespace="com.goodiware.mapper.AdminMapper">
 
+	<resultMap type="com.goodiware.vo.Auth" id="authMap">
+		<id column="authno" property="authno" />
+		<result column="authname" property="authname" />
+	</resultMap>
+	
+	<resultMap type="com.goodiware.vo.Position" id="posMap">
+		<id column="posno" property="posno" />
+		<result column="posname" property="posname" />
+	</resultMap>
+	
+	<resultMap type="com.goodiware.vo.Department" id="depMap">
+		<id column="depno" property="depno" />
+		<result column="depname" property="depname" />
+	</resultMap>
+	
+
 	<insert id="insertEmployee" parameterType="com.goodiware.vo.Employee" useGeneratedKeys="true" keyColumn="EMPNO" keyProperty="empno">
 		INSERT INTO EMPLOYEE ( ID , NAME, PW, JOINDAY, PHONE, POSNO, DEPNO, AUTHNO ) VALUES ( #{id}, #{name}, #{pw}, NOW(), #{phone}, #{ posno }, #{ depno }, 1 )
 	</insert>
@@ -18,6 +34,33 @@
 	
 	<select id="selectAuths" resultType="com.goodiware.vo.Auth">
 		select * from AUTH
+	</select>
+	
+	<select id ="empList" parameterType="com.goodiware.vo.Employee" resultType="com.goodiware.vo.Employee">
+		SELECT e.empno, e.name, e.posno, e.depno, e.phone, p.posname, d.depname
+		FROM EMPLOYEE e, POSITION p, DEPARTMENT d 
+		where deleted ='N' and e.posno = p.posno and e.depno = d.depno
+		order by empno ASC
+	</select>
+	
+	<select id ="empListCount" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) 
+		FROM EMPLOYEE 
+		where deleted ='N'
+	</select>
+	
+	<select id="empWithPaging" 
+			resultType="com.goodiware.vo.Employee" parameterType="hashmap">
+	
+		SELECT e.empno, e.name, e.posno, e.depno, e.phone, p.posname, d.depname
+		FROM EMPLOYEE e, POSITION p, DEPARTMENT d 
+		WHERE    
+		    e.deleted = 'N'
+		    and e.posno = p.posno and e.depno = d.depno
+		    
+		ORDER BY empno DESC
+		LIMIT #{beginning}, #{end}
+		
 	</select>
 	
 </mapper>
