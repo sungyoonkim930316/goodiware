@@ -102,46 +102,54 @@
 			
 
 			<div class="container-fluid">
-				<h4 class="card-title">글 내용</h4>
-				<br>
-				<div class="form-group row">
-					<div class="col-sm-6 mb-3 mb-sm-0">
-						<label>글 번호</label>
-						<input type="text" name="bno"
-							class="form-control form-control-user" id="bno"
-							value=${ board.bno }>
-					</div>
-					<div class="col-sm-6">
-						<label>글 제목</label>
-						<input type="text" name="title"
-							class="form-control form-control-user" id="title"
-							value="${ board.title }">
-					</div>
-				</div>
-				
-				<div class="form-group row">
-					<div class="col-sm-6 mb-3 mb-sm-0">
-						<label>작성자</label>
-						<input type="text" name="name"
-							class="form-control form-control-user" id="name"
-							value=${ board.name }>
-					</div>
-					<div class="col-sm-6">
-						<label>작성 일자</label>
-						<input type="text" name="regdate"
-							class="form-control form-control-user" id="regdate"
-							value="${ board.regdate }">
-					</div>
-				</div>
-				
-				<div class="form-group">					
-					<label>본문 내용</label>
-					<div>
-						${ board.content }
-					</div>
-					<hr>
-					
-				</div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                            
+	                            <table class="table">
+	                               <thead>
+	                                   <tr>
+	                                       <th scope="col">${ board.title } | 자유게시판</th>
+	                                       <th scope="col">
+	                                       <th scope="col" style="text-align:right"><fmt:formatDate value="${ board.regdate }" pattern="yyyy-MM-dd"/></th>
+	                                   </tr>
+	                               </thead>
+	                               <tbody>
+	                                   <tr>
+	                                       <td colspan="3">${ board.name }</td>
+	                                   </tr>
+	                                   <tr>
+	                                       <td colspan="3"><br><br>${ board.content }<br><br></td>
+	                                   </tr>
+	                                   <tr>
+	                                   		<th colspan="3">댓글<hr></th>
+	                                   	</tr>
+	                                   <tr>
+	                                   		<td colspan="3">
+	                                   		<form id="reply-form" class="user">
+												<div class="input-group mb-3">
+												  <input type="hidden" value="${ loginuser.empno }" name="empno" id="empno">
+												  <input type="hidden" value="${ board.bno }" name="bno" id="bno">
+												  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="rcontent"  name="rcontent" style="height:120px">&nbsp;&nbsp;
+												  <div class="input-group-append">
+												    <button class="btn btn-outline-secondary" type="button" id="replyRegist" style="height:120px;width:80px">등록</button>
+												  </div>
+												</div>
+											</form>
+	                                   		</td>
+	                                   	</tr>
+	                                </tbody>
+	                             </table>
+	                            <div id="reply-list-container" style="width:832px">
+	                            
+	                            	<jsp:include page="reply-list.jsp" />
+	                            
+	                           	</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 				<br>
 				<br>
 				<div style="text-align: center">
@@ -152,8 +160,10 @@
 	        		<button id="tolist-button" type="button" class="btn btn-success">목록</button>
 				</div>
 			</div>
-			<!-- #/ container -->
 		</div>
+		
+		
+		
 		<!--**********************************
             Content body end
         ***********************************-->
@@ -184,7 +194,9 @@
 	<script type='text/javascript'>
 	$(function(){
 
-		$('input').attr({'readonly': 'readonly'})
+		/* $("#reply-list-container").load("/reply/list-by/${ board.bno }"); */
+		
+		/* $('input').attr({'readonly': 'readonly'}) */
 		
 		$('#tolist-button').on('click', function(event) {
 			location.href = "list?pageNo=${ param.pageNo }&searchType=${ param.searchType }&searchKey=${ param.searchKey }";
@@ -239,7 +251,37 @@
 			form.appendTo("body");
 			
 			return form;
-		}
+		};
+
+		$('#replyRegist').on("click", function(event) {
+
+			if ($('#rcontent').val().length == 0) {
+				alert("댓글 내용을 입력하세요")
+				return;
+			}
+
+			$('#reply-form input[name=rno]').val('0');
+			$('#reply-form input[name=action]').val('reply');
+			
+			var values = $('#reply-form').serializeArray();
+			/* console.log(values); return; */
+
+			$.ajax({
+				"url" : "/reply/write",
+				"method" : "post",
+				"data" : values,
+				"success" : function(data, status, xhr) {
+					// 비동기처리 완료 뒤, 리로딩할 영역
+					$("#reply-list-container").load("/reply/list-by/${ board.bno }");
+				},
+				"error" : function(xhr, status, err){
+					alert("댓글 쓰기가 실패해버렸지 뭐얌?")
+				}
+			});
+			 
+		});
+
+
 	    
 	});
 	</script>

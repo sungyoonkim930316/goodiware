@@ -8,10 +8,13 @@ import lombok.Data;
 @Data
 public class Reply {
 
-	private int Rno;
-	private String Rcontent;
-	private Date Rdate;
+	private int rno;
+	private String rcontent;
+	private Date rdate;
 	private boolean brdel;
+	private int empno;
+	private int bno;
+	private String name;
 	
 	private List<Employee> employees;
 	private List<Board> boards;
