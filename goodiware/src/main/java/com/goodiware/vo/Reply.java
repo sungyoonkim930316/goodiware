@@ -13,7 +13,7 @@ public class Reply {
 	private Date rdate;
 	private boolean brdel;
 	private int empno;
-	private int bno;
+	private int bNo;
 	private String name;
 	
 	private List<Employee> employees;

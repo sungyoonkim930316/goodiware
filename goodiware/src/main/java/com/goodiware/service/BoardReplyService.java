@@ -8,6 +8,6 @@ public interface BoardReplyService {
 
 	void writeReply(Reply reply);
 
-	List<Reply> getReplyListByBno(int bno);
+	List<Reply> getReplyListByBno(int bNo);
 
 }

@@ -13,7 +13,7 @@
 		select r.rno, r.empno, r.bno, r.rcontent, r.rdate, e.name
 		from REPLY r, EMPLOYEE e
 		where r.empno = e.empno and r.brdel = 'N' and r.bno=#{ bNo }
-		order by rno DESC 
+		order by r.rno DESC 
 	</select>
 
 

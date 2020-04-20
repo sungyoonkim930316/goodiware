@@ -1,13 +1,35 @@
 <%@ page pageEncoding="utf-8" contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-								 <table>
-	                             	<tbody style="width:832px">
+								 <table style="width:830px">
+	                             	<tbody>
 	                                   	<c:forEach items="${ replies }" var="reply">
 	                                   	<tr>
-	                                   		<td>${ reply.name }</td>
-	                                   		<td>${ reply.rcontent }</td>
-	                                   		<td>${ reply.rdate }</td>
+	                                   		<td></td>
+	                                   		<td scope="col" id="replyContent">
+	                                   		${ reply.name }&nbsp;&nbsp;|&nbsp;&nbsp;
+	                                   		<fmt:formatDate value="${ reply.rdate }" pattern="yyyy.MM.dd. hh:mm"/>
+	                                   		
+	                                   		</td>
+	                                   		<%-- <td scope="col"><fmt:formatDate value="${ reply.rdate }" pattern="yyyy.MM.dd. hh:mm"/></td> --%>
+	                                   		<td scope="col"><a href="#" class="updateReply">수정</a>&nbsp;|&nbsp;<a href="#" class="deleteReply">삭제</a></td>
+	                                   	</tr>
+	                                   	<tr>
+	                                   		<td></td>
+	                                   		<td colspan="2">${ reply.rcontent }</td>	                                   	
+	                                   	</tr>
+	                                   	<tr class="updateContent">
+	                                   		<td>
+	                                   		<form id="update-form" class="user">
+												<div class="input-group mb-3">
+												  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id=""  name="" style="height:50px">&nbsp;&nbsp;
+												  <div class="input-group-append">
+												    <button class="btn btn-outline-secondary" type="button" id="replyRegist" style="height:50px;width:80px">수정</button>
+												  </div>
+												</div>
+											</form>
+	                                   		</td>
 	                                   	</tr>
 	                                   	</c:forEach>
 	                                  	 <tr>

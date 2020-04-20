@@ -130,7 +130,7 @@
 	                                   		<form id="reply-form" class="user">
 												<div class="input-group mb-3">
 												  <input type="hidden" value="${ loginuser.empno }" name="empno" id="empno">
-												  <input type="hidden" value="${ board.bno }" name="bno" id="bno">
+												  <input type="hidden" value="${ board.bno }" name="bNo" id="bno">
 												  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="rcontent"  name="rcontent" style="height:120px">&nbsp;&nbsp;
 												  <div class="input-group-append">
 												    <button class="btn btn-outline-secondary" type="button" id="replyRegist" style="height:120px;width:80px">등록</button>
@@ -259,9 +259,6 @@
 				alert("댓글 내용을 입력하세요")
 				return;
 			}
-
-			$('#reply-form input[name=rno]').val('0');
-			$('#reply-form input[name=action]').val('reply');
 			
 			var values = $('#reply-form').serializeArray();
 			/* console.log(values); return; */
@@ -273,13 +270,17 @@
 				"success" : function(data, status, xhr) {
 					// 비동기처리 완료 뒤, 리로딩할 영역
 					$("#reply-list-container").load("/reply/list-by/${ board.bno }");
+					$('#rcontent').val('');
 				},
 				"error" : function(xhr, status, err){
 					alert("댓글 쓰기가 실패해버렸지 뭐얌?")
 				}
 			});
+
 			 
 		});
+
+		$(".updateContent").hide();
 
 
 	    
