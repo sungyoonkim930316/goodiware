@@ -105,4 +105,9 @@
 		where deleted ='N' and d.depno = #{depno} and e.empno = #{empNo}
 	</select>
 	
+	<select id ="selectUserDetailByEmpno" parameterType="int" resultType="com.goodiware.vo.Employee">
+		SELECT e.empno, e.id, e.name, e.posno, e.depno, e.phone, e.picture, e.intro,p.posname, d.depname
+		FROM EMPLOYEE e, POSITION p, DEPARTMENT d 
+		where deleted ='N' and e.posno = p.posno and e.depno = d.depno and e.empno = #{ empno }
+	</select>
 </mapper>

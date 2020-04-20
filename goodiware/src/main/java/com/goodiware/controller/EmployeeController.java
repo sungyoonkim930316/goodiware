@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -134,7 +135,7 @@ public class EmployeeController {
 	@GetMapping(path = { "/searchEmp" })
 	public String toSearchEmp(@RequestParam(defaultValue = "1") int pageNo,
 			@RequestParam(required = false) String searchType, @RequestParam(required = false) String searchKey,
-			HttpServletRequest req,Model model, Employee employee) {
+			HttpServletRequest req, Model model, Employee employee) {
 
 		int pageSize = 10;
 		int pagerSize = 3;
@@ -154,6 +155,16 @@ public class EmployeeController {
 		
 		return "/employee/searchEmp";
 
+	}
+
+	// 회원 네임카드 보기
+	@GetMapping(path = { "/searchDetail" })
+	@ResponseBody
+	public Employee showUserDetail(HttpSession session, int empno, Model model) {
+		
+		Employee employee = employeeService.findUserDetailByEmpno(empno);
+				
+		return employee;
 	}
 
 	

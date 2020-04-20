@@ -62,6 +62,13 @@ public class EmployeeServiceImple implements EmployeeService {
 		return employeeMapper.selectDepNameByDepNo(depno, empNo);
 		
 	}
+
+	@Override
+	public Employee findUserDetailByEmpno(int empno) {
+		
+		return employeeMapper.selectUserDetailByEmpno(empno);
+		
+	}
 	
 //	@Override
 //	public List<Employee> searchNoByName(Employee employee) {

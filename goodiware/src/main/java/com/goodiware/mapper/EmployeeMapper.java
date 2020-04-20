@@ -28,5 +28,7 @@ public interface EmployeeMapper {
 
 	String selectDepNameByDepNo(@Param("depno") int depno, @Param("empNo") int empNo);
 
+	Employee selectUserDetailByEmpno(int empno);
+
 
 }

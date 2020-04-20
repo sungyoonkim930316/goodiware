@@ -84,9 +84,9 @@
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">홈</a></li>
 						<li class="breadcrumb-item active"><a
-							href="javascript:void(0)">Home</a></li>
+							href="javascript:void(0)">사원검색</a></li>
 					</ol>
 				</div>
 			</div>
@@ -112,7 +112,11 @@
 										<c:forEach items="${ employees }" var="employee">
 											<tr>
 												<td>${ employee.empno }</td>
-												<td>${ employee.name }</td>
+												<td>
+													<a style="cursor: pointer;" class="openModal" data-target="#exampleModalCenter" data-empno="${ employee.empno }">
+														${ employee.name }
+													</a>
+												</td>
 												<td>${ employee.posname }</td>
 												<td>${ employee.depname }</td>
 												<td>${ employee.phone }</td>
@@ -125,6 +129,43 @@
 										</tr>
 									</tfoot>
 								</table>
+								<!-- Modal -->
+                                <div class="modal fade" id="exampleModalCenter">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 id="modal-name" class="modal-title"></h5>
+                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="card">
+						                            <div class="card-body">
+						                                <div class="media align-items-center mb-4">
+						                                    <img id="searchPic" class="mr-3" width="80" height="80" alt="">
+						                                    <div class="media-body">
+						                                        <h3 id="selName" style="text-align: center;" class="mb-0"></h3>
+						                                    </div>
+						                                </div>
+						                                <ul class="card-profile__info">
+						                                    <li class="mb-1"><strong class="text-dark mr-4">사&nbsp;&nbsp;&nbsp;&nbsp;번</strong> <span id="selEmpno"></span></li>
+						                                    <li class="mb-1"><strong class="text-dark mr-4">계정명</strong> <span id="selId"></span></li>
+						                                    <li class="mb-1"><strong class="text-dark mr-4">연락처</strong> <span id="selPhone"></span></li>
+						                                    <li class="mb-1"><strong class="text-dark mr-4">부서명</strong> <span id="selDep"></span></li>
+						                                    <li class="mb-1"><strong class="text-dark mr-4">직급명</strong> <span id="selPos"></span></li>
+						                                </ul>
+						                                <h4>소개</h4>
+						                                <p id="selIntro" class="text-muted"></p>
+						                            </div>
+						                        </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">닫기</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                               	</div>
+                               	<!-- Modal End -->
 							</div>
 						</div>
 					</div>
@@ -160,6 +201,52 @@
         Scripts
     ***********************************-->
 	<jsp:include page="/WEB-INF/views/modules/common-js.jsp"></jsp:include>
+
+	<script type='text/javascript'>
+	$(function(){
+
+		$('.openModal').on('click', function(index) {
+
+			var selNo = parseInt($(this).attr('data-empno'));
+						
+			$.ajax({
+				type : "GET",
+				url : "/employee/searchDetail",
+				data : { "empno" : selNo },
+				success : function(data, status, xhr) {
+					
+					$('#modal-name').text('사원검색 : ' + data.name + "님");
+
+					if(!data.picture) {
+						$('#searchPic').attr("src", "/resources/file/employee/photo/unnamed.jpg");
+					} else {
+						$('#searchPic').attr("src", "/resources/file/employee/photo/" + data.picture);
+					}
+					
+					$('#selName').text(data.name);
+					$('#selEmpno').text(data.empno);
+					$('#selId').text(data.id);
+					$('#selPhone').text(data.phone);
+					$('#selDep').text(data.depname);
+					$('#selPos').text(data.posname);
+
+					if(!data.intro){
+						$('#selIntro').text('등록된 자기소개가 없습니다.');
+					} else {
+						$('#selIntro').text(data.intro);
+					}
+										
+					$('div.modal').modal();
+					
+					$('div.modal').load(); },
+				error : function(xhr, status, err) {
+					alert('조회 실패'); }
+			});
+			
+		});	
+			
+	});
+	</script>
 
 </body>
 

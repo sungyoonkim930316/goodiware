@@ -21,6 +21,8 @@ public interface EmployeeService {
 
 	String findDepNameByDepNo(int depno, int empNo);
 
+	Employee findUserDetailByEmpno(int empno);
+
 //	List<Employee> searchNoByName(Employee employee);
 
 }
