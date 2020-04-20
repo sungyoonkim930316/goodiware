@@ -14,6 +14,6 @@ public interface ScheduleService {
 
 	List<Employee> showEmpno();
 
-	List<Schedule> plans(String id);
+	List<Schedule> showScheduleList();
 
 }

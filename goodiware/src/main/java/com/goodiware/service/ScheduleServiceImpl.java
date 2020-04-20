@@ -34,8 +34,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public List<Schedule> plans(String id) {
-		return scheduleMapper.selectPlans();
+	public List<Schedule> showScheduleList() {
+		return scheduleMapper.showPlans();
 	}
 
 }

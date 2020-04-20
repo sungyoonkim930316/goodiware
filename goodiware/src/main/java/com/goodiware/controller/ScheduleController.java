@@ -8,9 +8,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.validator.internal.util.logging.LoggerFactory;
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -24,9 +27,12 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.goodiware.service.ScheduleService;
 import com.goodiware.vo.Employee;
 import com.goodiware.vo.Position;
@@ -42,27 +48,6 @@ public class ScheduleController {
 	@Qualifier("scheduleService")
 	ScheduleService scheduleService;
 
-	@GetMapping(path= {"/myschedule"})
-	public String getSchedule(Model model) {
-		
-		List<Schdiv> schdivs = scheduleService.showSchdiv();
-		model.addAttribute("schdivs", schdivs);
-		
-		List<Employee> empno = scheduleService.showEmpno();
-		model.addAttribute("empno", empno);
-		
-		return "/schedule/mainschedule";
-		
-	}
-	
-	@PostMapping(path= {"/mainschedule"})
-	public String addSch(Schedule schedule) {
-		
-		scheduleService.plusScd(schedule);
-		
-		return "/schedule/mainschedule";
-	}
-	
 	@InitBinder
 	public void allowEmptyDateBinding(WebDataBinder binder)
 	{
@@ -73,19 +58,36 @@ public class ScheduleController {
 	}
 	
 	
-//	HashMap<String, Object> myPlan(HttpSession session) {
-//		HashMap<String, Object> map = new HashMap<String, Object>();
-//		
-//		String id = (String)session.getAttribute("empno");
-//		
-//		List<Schedule> schedules = scheduleService.plans(id);
-//		map.put("schedules", schedules);
-//		return map;
-//	}
+	@GetMapping(path= {"/myschedule"})
+	public String getSchedule(Model model) {
+		
+		Map<String, Schedule> javaMap = new HashMap<String, Schedule>();
+		javaMap.put("evt1", new Schedule());
+		javaMap.put("evt2", new Schedule());
+		
+		List<Schdiv> schdivs = scheduleService.showSchdiv();
+		model.addAttribute("schdivs", schdivs);
+		
+		List<Employee> empno = scheduleService.showEmpno();
+		model.addAttribute("empno", empno);
+		
+		List<Schedule> schedules = scheduleService.showScheduleList();
+		model.addAttribute("schedules", schedules);
+		
+		System.out.println(schedules);
+		
+		return "/schedule/mainschedule";
+		
+	}
 	
-//	Map<String, Schedule> javaMap = new HashMap<String, Schedule>();
-//	
-//	javaMap.put("evt1", new Schedule("db이벤트1", "2020-04-16", "2020-04-18", "false"));
+	@PostMapping(path= {"/mainschedule"})
+	public String addSch(Schedule schedule) {
+		
+		scheduleService.plusScd(schedule);
+		
+		return "redirect:/schedule/myschedule";
+	}
+	
 	
 //	@PostMapping(path= {"/mainschedule"})
 //	public String addSch(Schedule schedule, BindingResult result, RedirectAttributes attr) {

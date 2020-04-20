@@ -1,6 +1,7 @@
 <%@ page pageEncoding="utf-8" contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html class="no-js" lang="ko">
 
@@ -13,6 +14,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/resources/images/favicon.png">
     <!-- Custom Stylesheet -->
     <link href="/resources/css/style.css" rel="stylesheet">
+    <link href="/resources/css/fullcalendar.min.css" rel="stylesheet" />
     <link href="/resources/plugins/fullcalendar/css/fcmain.css" rel="stylesheet" />
     <link href="/resources/plugins/fullcalendar/css/dgmain.css" rel="stylesheet" />
     <link href="/resources/plugins/fullcalendar/css/tgmain.css" rel="stylesheet" />
@@ -21,6 +23,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.min.css" />
     
+    <script src="/resources/js/fullcalendar.min.js"></script>
     <script src="/resources/plugins/fullcalendar/js/fcmain.js"></script>
     <script src="/resources/plugins/fullcalendar/js/itmain.js"></script>
     <script src="/resources/plugins/fullcalendar/js/dgmain.js"></script>
@@ -73,6 +76,30 @@
                                     <h4>달력</h4>
                                 </div>
                                 <div id='calendar'></div>
+                                <%-- <table class="table table-hover">
+		<thead>
+		<tr>
+			<th>번호</th>
+			<th>유형</th>
+			<th>제목</th>
+			<th>시작</th>
+			<th>끝</th>
+			<th>내용</th>
+		</tr>
+		</thead>
+		<tbody>
+		<c:forEach items="${ schedules }" var="schedule">
+		<tr>
+			<td>${ schedule.scheno }</td>
+			<td>${ schedule.schedivno }</td>
+			<td>${ schedule.title }</td>
+			<td><fmt:formatDate value="${ schedule.startDate }" pattern="yyyy-MM-dd"/></td>
+			<td><fmt:formatDate value="${ schedule.endDate }" pattern="yyyy-MM-dd"/></td>
+			<td>${ schedule.content }</td>
+		</tr>
+		</c:forEach>
+		</tbody>
+	</table> --%>
                                 <!-- <input type="button" id="btnAddTest" value="추가"> -->
                             </div>
                         </div>
@@ -155,6 +182,25 @@
 	</div>
 	<!-- Modal end -->
 	
+	<!-- <div class="container">
+	
+	</div> -->
+	
+	<!-- <div class="container">
+	<table class="table table-hover">
+		<thead>
+		<tr>
+			<th>번호</th>
+			<th>유형</th>
+			<th>제목</th>
+			<th>시작</th>
+			<th>끝</th>
+			<th>내용</th>
+		</tr>
+		</thead>
+	</table>
+	</div> -->
+	
     <!-- Scripts -->
     <jsp:include page="/WEB-INF/views/modules/common-js.jsp"></jsp:include>
     
@@ -176,46 +222,56 @@
 				dateClick: function() {
 					$('#scd-modal').modal('show');
 				},
+				/* events: function(start, end, callback) {
+					var arr = [{title: 'evt1'}, {title: 'evt2'}];
+
+					var viewData = {};
+					viewData["title"] = $("#title").val();
+					viewData["schedivno"] = $("#schedivs").val();
+					viewData["startdate"] = $("#startdate").val();
+					viewData["enddate"] = $("#enddate").val();
+					viewData["content"] = $("#content").val();
+					
+					$.ajax({
+						contentType: 'application/json',
+						url: '/schedule/myschedule',
+						dataType: 'json',
+						type: 'get',
+						async: false,
+						success: function(resp){
+							$.each(schedules, function(){
+								events.push({title:"백&황 면담사무소 방문", start:schedules.schedules[13].date})
+							});
+							console.log(schedules);
+							console.log(schedules.schedules[13].title);
+							callback(resp);
+							/* $.each(resp, function(index, item) {
+								console.log(index + " : " + item);
+								$.each(item, function(iii, ttt) {
+									console.log('inner loop => ' + iii + ':' + ttt);
+								});
+							});
+							arr = resp;
+						},
+						/* success: function(schedules){
+							var events = [];
+							$.each(schedules, function(){
+								events.push({title:"백&황 면담사무소 방문", start:schedules.schedules[13].date})
+							});
+							console.log(schedules);
+							console.log(schedules.schedules[13].title);
+							callback(events);
+						},
+						error: function() {
+							alert('에러');
+						}	
+					});
+					return arr;
+				}, */
 				locale: 'ko'
 			});
 			calendar.render();
 		})
-		
-		function getCalendarEvent() {
-			var arr = { 'title': 'evt4', 'start': '2020-04-16', 'end': '2020-04-18' };
-			return arr;
-		}
-		
-		function getCalendarDataInDB() {
-			var arr = [{title: 'evt1', start:'ssssss'}, {title: 'evt2', start: '123123123'}];
-
-			var viewData = {};
-			viewData["id"] = $('#currId').text().trim();
-			viewData["title"] = $('#title').val();
-			viewData["content"] = $('#content').val();
-
-			$.ajax({
-				contentType: 'application/json',
-				dataType: 'json',
-				url: 'calendar/getall',
-				type: 'post',
-				async: 'false',
-				data: JSON.stringify(viewData),
-				success: function(resp) {
-					$.each(resp, function(index, item){
-						console.log(index + ' : ' + item);
-						$.each(item, function(iii, ttt) {
-							console.log('inner loop => ' + iii + ' : ' + ttt);
-						});
-					});
-					arr = resp;
-				},
-				error: function() {
-					alert('저장 중 에러가 발생했습니다. 다시 시도해 주세요.');
-				}
-			});
-			return arr;
-		}
 		
 		$(function() {
 			$('#modalCloseBtn').on('click', function(event) {
@@ -239,47 +295,12 @@
 				}
 				$('#addscd-form').submit();
 			})
-
-			/* $('#startdate, #enddate').datetimepicker({
-				format: 'YYYY-MM-DD HH:mm'
-			}) */
+			
 			$('#startdate, #enddate').on('click', function(event) {
 				$(this).datetimepicker("show");
 			})
 		})
-
-		/* $(function(){
-			$('#startdate').appendDtpicker();
-		}); */
-
-		/* $(document).on("click", "#startdate", function(){
-			$(this).datetimepicker("show");
-		}); */
-
-		/* var arrTest = getCalendarDataInDB();
-		$.each(arrTest, function(index, item) {
-			console.log('outer loop_in_cal' + index + ' : ' + item);
-			$.each(item, function(iii, ttt) {
-				console.log('inner loop_in_cal => ' + iii + ' : ' + ttt);
-			});
-		});
-
-		$('#btnAddTest').click(function() {
-			var arr = getCalendarDataInDB();
-			$.each(arr, function(index, item) {
-				calendar.addEvent(item);
-				console.log('click evt loop_in_cal' + index + ' : ' + item);
-				$.each(item, function(iii, ttt) {
-					console.log('click evt inner loop_in_cal => ' + iii + ' : ' + ttt);
-				});
-			});
-			calendar.render();
-		}); */
-
-		/* function getCalendarEvent() {
-			var arr = { 'title': 'evt4', 'start': '2020-04-16', 'end': '2020-04-18' };
-			return arr;
-		} */
+		
 
     </script>
 

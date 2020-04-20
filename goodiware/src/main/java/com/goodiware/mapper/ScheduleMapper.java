@@ -17,5 +17,5 @@ public interface ScheduleMapper {
 
 	List<Employee> selectEmpno();
 
-	List<Schedule> selectPlans();
+	List<Schedule> showPlans();
 }

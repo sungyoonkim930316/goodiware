@@ -16,9 +16,18 @@
 		select * from EMPLOYEE
 	</select>
 	
-	<select id="selectPlans" resultType="com.goodiware.vo.Schedule" parameterType="hashmap">
-		select * from Schedule
+	<select id="showPlans" parameterType="int" resultType="com.goodiware.vo.Schedule">
+		<![CDATA[
+		SELECT SCHENO, SCHEDIVNO, EMPNO, TITLE, CONTENT, STARTDATE, ENDDATE
+		FROM SCHEDULE
+		]]>
 	</select>
+	
+	<!-- <select id="selectPlans" resultType="com.goodiware.vo.Schedule">
+		select SCHENO, SCHEDIVNO, EMPNO, TITLE, STARTDATE, ENDDATE, CONTENT
+		from SCHEDULE
+		where SCHENO = #{ scheno }
+	</select> -->
 	
 	
 	
