@@ -27,7 +27,7 @@
 	</select>
 	
 	<select id="selectApprovalList" parameterType="hashmap" resultType="com.goodiware.vo.Approval">
-		select d.divname, a.type, a.title, a.content, a.appdivno, a.maccp, a.faccp, a.APPACCPNO, p.accepname, e.name
+		select d.divname, a.type, a.title, a.content, a.appdivno, a.maccp, a.faccp, a.APPACCPNO, p.accepname, e.name, a.companion
 		from APPRDIV d, APPROVAL a, APPROACCP p, EMPLOYEE e
 		where a.appaccpno = p.appaccpno and a.appdivno = d.appdivno AND a.empno = e.empno AND a.deleted = 'N' and a.appdivno = #{ appdivno }
 		order by a.type DESC;
@@ -47,7 +47,7 @@
 
 	<select id="selectApprByTypeNo" parameterType="map" resultType="com.goodiware.vo.Approval">
 		
-		SELECT d.divname, a.type, a.empno, a.appdivno, a.title, a.content, a.maccp, a.faccp, a.apprfilename, a.filepath, a.deleted, a.APPACCPNO, p.accepname, e.name
+		SELECT d.divname, a.type, a.empno, a.appdivno, a.title, a.content, a.maccp, a.faccp, a.apprfilename, a.filepath, a.deleted, a.APPACCPNO, p.accepname, e.name, a.companion
 		FROM APPRDIV d, APPROVAL a, APPROACCP p, EMPLOYEE e
 		WHERE a.appaccpno = p.appaccpno and a.appdivno = d.appdivno AND a.empno = e.empno AND a.deleted = 'N' and a.appdivno = #{ appdivno } and a.type = #{typeNo} 
 		

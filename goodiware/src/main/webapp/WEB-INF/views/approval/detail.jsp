@@ -120,12 +120,6 @@
 											      </td>
 											    </tr>
 											    <tr>
-											      <th class="left-menu">진행상황</th>
-											      <td class="right-menu">
-											      	<input class="form-control form-control-sm" type="text" name="accepname" value="${ approval.accepname }" readOnly>
-											      </td>
-											    </tr>
-											    <tr>
 											      <th class="left-menu">제목</th>
 											      <td class="right-menu">
 											      	<input class="form-control form-control-sm" type="text" name="title" value="${ approval.title }" readOnly>
@@ -149,6 +143,20 @@
 													</div>
 											      </td>
 											    </tr>
+											    <tr>
+											      <th class="left-menu">진행상황</th>
+											      <td class="right-menu">
+											      	<input class="form-control form-control-sm" type="text" name="accepname" value="${ approval.accepname }" readOnly>
+											      </td>
+											    </tr>
+											    <c:if test="${ not empty approval.companion }">
+											    <tr>
+											      <th class="left-menu">반려사유</th>
+											      <td class="right-menu">
+											      	<input class="form-control form-control-sm" type="text" name="companion" value="${ approval.companion }" readOnly>
+											      </td>
+											    </tr>
+											    </c:if>
 											    <tr>
 											      <th class="left-menu">첨부파일</th>
 											      <td class="right-menu">
@@ -208,11 +216,7 @@
 				                            	<textarea placeholder="반려사유를 입력하세요" style="resize: none;" name="natReason" id="natReason" class="form-control form-control-user" rows="4"></textarea><br>
 				                            	<button type="button" class="btn btn-primary" id="to-negative">반려처리</button>&nbsp;
 				                            	<button type="button" class="btn btn-primary" id="negativeCancel">반려취소</button>
-				                            	
-				                            	<!-- <input type="hidden" name="negContent" id="negContent"> -->
-				                            	<input type="hidden" name="companoin" id="companoin">
-				                            	
-			                            	</div>
+				                            </div>
 			                        </div>
 			                    </div>
 			                </div>
@@ -322,14 +326,20 @@
 
 			if (result) {
 
-				var reason = $('#natReason').val();
+				if($('#natReason').val() == "") {
+					alert('반려사유를 입력해주세요');
+					$('#natReason').focus();
+					return;
+				}
+				
 				var appaccpno = $('#acceptVal').val();
-				var companion = $('#negContent').val(reason); // 반려사유 hidden input에 저장 
+				var companion = $('#natReason').val();
+								
+				var form = makeForm('companion', ${ param.appdivno }, ${ param.typeNo }, ${ param.pageNo }, appaccpno, companion );
 
-				var form = makeform('companion', ${ param.appdivno }, ${ param.typeNo }, ${ param.pageNo }, appaccpno, companion );
+				form.submit();
 				
-				
-				alert('반려처리 ㄱㄱ')
+				alert('반려처리 되었습니다')
 				
 			}
 
@@ -341,7 +351,7 @@
 		}
 
 
-		/* function makeForm(action, appdivno, typeNo, pageNo, appaccpno, companoin, method="get"){
+		function makeForm(action, appdivno, typeNo, pageNo, appaccpno, companion, method="get"){
 
 			var form= $('<form></form>');
 			form.attr({
@@ -351,32 +361,34 @@
 			form.append($('<input>').attr({
 				"type" : 'hidden',
 				"name" : 'appdivno',
-				"value" : appdivno
-			});
+				"value" : appdivno })
+			);
 			form.append($('<input>').attr({
 				"type" : "hidden",
 				"name" : "typeNo",
-				"value" : typeNo
-			});
+				"value" : typeNo })
+			);
 			form.append($('<input>').attr({
 				"type" : "hidden",
 				"name" : "pageNo",
-				"value" : pageNo
-			});
+				"value" : pageNo })
+			);
 			form.append($('<input>').attr({
 				"type" : "hidden",
-				"name", "appaccpno",
-				"value", appaccpno
-			});
+				"name" : "appaccpno",
+				"value" : appaccpno })
+			);
 			form.append($('<input>').attr({
 				"type" : "hidden",
-				"name", "companoin",
-				"value", companoin
-			});
+				"name" : "companion",
+				"value" : companion })
+			);
+			
 			form.appendTo("body");
+
 			return form;
 
-		};  */
+		};
 		
 		
 	});
