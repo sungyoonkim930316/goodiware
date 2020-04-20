@@ -25,4 +25,10 @@ public class BoardReplyServiceImpl implements BoardReplyService {
 		return boardReplyMapper.selectReplyListByBno(bNo);
 	}
 
+	@Override
+	public void deleteReply(int rno) {
+
+		boardReplyMapper.deleteReply(rno);
+	}
+
 }

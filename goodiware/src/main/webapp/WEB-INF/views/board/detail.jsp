@@ -280,8 +280,40 @@
 			 
 		});
 
-		$(".updateContent").hide();
+		$("#reply-list-container").on("click", ".deleteReply", function(evemt){
 
+			var rno = $(this).attr('data-rno');
+
+			console.log(rno);
+
+			if(!confirm("댓글을 삭제할까요?")) return;
+
+			$.ajax({
+				"url": "/reply/delete/" + rno,
+				"method": "delete",
+				"data": { "rno" : rno },
+				"success": function(data, status, xhr) {
+					$("#reply-list-container").load("/reply/list-by/${ board.bno }");
+				},
+				"error": function(xhr, status, err) {
+					alert("삭제에 실패해버렸지뭐얌?");
+				}
+			});
+			
+ 
+		});
+
+
+
+		
+
+		/* $(".updateContent").hide();
+
+		$(".reply-container").on("click", ".updateReply", function(evemt){
+
+			$(".updateContent").show("3000");
+
+		}) */
 
 	    
 	});

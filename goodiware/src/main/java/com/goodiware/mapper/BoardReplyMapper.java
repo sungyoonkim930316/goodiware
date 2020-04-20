@@ -13,4 +13,6 @@ public interface BoardReplyMapper {
 
 	List<Reply> selectReplyListByBno(int bNo);
 
+	void deleteReply(int rno);
+
 }

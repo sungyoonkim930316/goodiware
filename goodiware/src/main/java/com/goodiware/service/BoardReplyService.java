@@ -10,4 +10,6 @@ public interface BoardReplyService {
 
 	List<Reply> getReplyListByBno(int bNo);
 
+	void deleteReply(int rno);
+
 }

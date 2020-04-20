@@ -16,5 +16,8 @@
 		order by r.rno DESC 
 	</select>
 
+	<update id="deleteReply" parameterType="int">
+		update REPLY set brdel = 'Y' where rno = #{ rno }
+	</update>
 
 </mapper>

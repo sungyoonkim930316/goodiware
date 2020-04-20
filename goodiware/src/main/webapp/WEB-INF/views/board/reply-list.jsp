@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-								 <table style="width:830px">
+								 <table style="width:830px" class="reply-container">
 	                             	<tbody>
 	                                   	<c:forEach items="${ replies }" var="reply">
 	                                   	<tr>
@@ -10,16 +10,20 @@
 	                                   		<td scope="col" id="replyContent">
 	                                   		${ reply.name }&nbsp;&nbsp;|&nbsp;&nbsp;
 	                                   		<fmt:formatDate value="${ reply.rdate }" pattern="yyyy.MM.dd. hh:mm"/>
-	                                   		
 	                                   		</td>
-	                                   		<%-- <td scope="col"><fmt:formatDate value="${ reply.rdate }" pattern="yyyy.MM.dd. hh:mm"/></td> --%>
-	                                   		<td scope="col"><a href="#" class="updateReply">수정</a>&nbsp;|&nbsp;<a href="#" class="deleteReply">삭제</a></td>
+	                                   		<td scope="col">
+	                                   		<%-- <p class="button-container" data-rno="${ reply.rno }"> --%>
+	                                   		<a href="#" class="updateReply" data-rno="${ reply.rno }">수정</a>
+	                                   		&nbsp;|&nbsp;
+	                                   		<a href="#" class="deleteReply" data-rno="${ reply.rno }">삭제</a>
+	                                   		<!-- </p> -->
+	                                   		</td>
 	                                   	</tr>
 	                                   	<tr>
 	                                   		<td></td>
 	                                   		<td colspan="2">${ reply.rcontent }</td>	                                   	
 	                                   	</tr>
-	                                   	<tr class="updateContent">
+	                                   <!-- 	<tr class="updateContent">
 	                                   		<td>
 	                                   		<form id="update-form" class="user">
 												<div class="input-group mb-3">
@@ -30,7 +34,7 @@
 												</div>
 											</form>
 	                                   		</td>
-	                                   	</tr>
+	                                   	</tr> -->
 	                                   	</c:forEach>
 	                                  	 <tr>
 	                                   		<td colspan="3" style="text-align: center">pager</td>
