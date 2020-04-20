@@ -144,16 +144,36 @@
 											      </td>
 											    </tr>
 											    <tr>
+											      <th class="left-menu">진행상황</th>
+											      <td class="right-menu">
+											      	<input class="form-control form-control-sm" type="text" name="accepname" value="${ approval.accepname }" readOnly>
+											      </td>
+											    </tr>
+											    <c:if test="${ not empty approval.companion }">
+											    <tr>
+											      <th class="left-menu">반려사유</th>
+											      <td class="right-menu">
+											      	<input class="form-control form-control-sm" type="text" name="companion" value="${ approval.companion }" readOnly>
+											      </td>
+											    </tr>
+											    </c:if>
+											    <tr>
 											      <th class="left-menu">첨부파일</th>
 											      <td class="right-menu">
-												    다운 받기 
+												    <c:if test="${ empty approval.apprfilename }">
+												    	업로드된 파일이 없습니다
+												    </c:if>
+												    <c:if test="${ not empty approval.apprfilename }">
+												    다운 받기
 												    <a href="download?typeNo=${ approval.type }">
 			        									[${ approval.apprfilename }]
 			        								</a>&nbsp;&nbsp;&nbsp;
-			        								<button class="btn btn-primary" id="openPdf">파일 미리보기(pdf 이외의 파일은 미리보기가 지원되지 않습니다)</button>&nbsp;&nbsp;
-			        								<button class="btn btn-primary" id="closePdf">미리보기 닫기</button>
-			        								<br><br>
-			        								<iframe id="pdfView" src="/resources/file/approval/${ approval.apprfilename }" width='100%' height='500' allowfullscreen webkitallowfullscreen></iframe>
+			        								
+				        								<button class="btn btn-primary" id="openPdf">파일 미리보기(pdf 이외의 파일은 미리보기가 지원되지 않습니다)</button>&nbsp;&nbsp;
+				        								<button class="btn btn-primary" id="closePdf">미리보기 닫기</button>
+				        								<br><br>
+				        								<iframe id="pdfView" src="/resources/file/approval/${ approval.apprfilename }" width='100%' height='500' allowfullscreen webkitallowfullscreen></iframe>
+			        								</c:if>
 											      </td> 
 											    </tr>
 											    <tr>
@@ -196,10 +216,7 @@
 				                            	<textarea placeholder="반려사유를 입력하세요" style="resize: none;" name="natReason" id="natReason" class="form-control form-control-user" rows="4"></textarea><br>
 				                            	<button type="button" class="btn btn-primary" id="to-negative">반려처리</button>&nbsp;
 				                            	<button type="button" class="btn btn-primary" id="negativeCancel">반려취소</button>
-				                            	
-				                            	<input type="hidden" name="negContent" id="negContent">
-				                            	
-			                            	</div>
+				                            </div>
 			                        </div>
 			                    </div>
 			                </div>
@@ -271,12 +288,19 @@
 		$('#acceptAproval').on('click', function() {
 
 			var result = $('#acceptVal').val();
+			var appaccpno = $('#acceptVal').val();
 
 			if(result == "defVal"){
 				alert('승인 여부를 선택해주세요');
 				$('#acceptVal').focus();
 			} else if(result == "4") {
 				$('#negative').show('3000');
+			} else if(result == "2") {
+				if(!confirm("승인하시겠습니까?"))return;
+				location.href = "approvalAccp?appdivno=${ param.appdivno }&typeNo=${ approval.type }&pageNo=${ param.pageNo }&appaccpno=" + result;
+			} else if(result == "3") {
+				if(!confirm("승인하시겠습니까?"))return;
+				location.href = "approvalAccp?appdivno=${ param.appdivno }&typeNo=${ approval.type }&pageNo=${ param.pageNo }&appaccpno=" + result;
 			}
 
 		});
@@ -302,18 +326,72 @@
 
 			if (result) {
 
-				var reason = $('#natReason').val();
+				if($('#natReason').val() == "") {
+					alert('반려사유를 입력해주세요');
+					$('#natReason').focus();
+					return;
+				}
 				
-				$('#negContent').val(reason); // 반려사유 hidden input에 저장
+				var appaccpno = $('#acceptVal').val();
+				var companion = $('#natReason').val();
+								
+				var form = makeForm('companion', ${ param.appdivno }, ${ param.typeNo }, ${ param.pageNo }, appaccpno, companion );
 
+				form.submit();
 				
-				alert('반려처리 ㄱㄱ')
+				alert('반려처리 되었습니다')
 				
 			}
 
 		});
+
+		var mApproval = '${ mApproval }';
+		if( mApproval && !history.state ) {
+			alert("승인이 완료되었습니다");
+		}
+
+
+		function makeForm(action, appdivno, typeNo, pageNo, appaccpno, companion, method="get"){
+
+			var form= $('<form></form>');
+			form.attr({
+				'action' : action,
+				'method' : method
+			});
+			form.append($('<input>').attr({
+				"type" : 'hidden',
+				"name" : 'appdivno',
+				"value" : appdivno })
+			);
+			form.append($('<input>').attr({
+				"type" : "hidden",
+				"name" : "typeNo",
+				"value" : typeNo })
+			);
+			form.append($('<input>').attr({
+				"type" : "hidden",
+				"name" : "pageNo",
+				"value" : pageNo })
+			);
+			form.append($('<input>').attr({
+				"type" : "hidden",
+				"name" : "appaccpno",
+				"value" : appaccpno })
+			);
+			form.append($('<input>').attr({
+				"type" : "hidden",
+				"name" : "companion",
+				"value" : companion })
+			);
+			
+			form.appendTo("body");
+
+			return form;
+
+		};
 		
-	})
+		
+	});
 	</script>
 
 

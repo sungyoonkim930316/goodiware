@@ -27,5 +27,11 @@ public interface ApprovalService {
 
 	String findFaccpNameByFaccpNo(int typeNo);
 
+	Approval findUploadFileByTypeNo(int typeNo);
+
+	void updateAppaccpno(int typeNo, int appaccpno);
+
+	void updateCompanion(int typeNo, int appaccpno, String companion);
+
 
 }

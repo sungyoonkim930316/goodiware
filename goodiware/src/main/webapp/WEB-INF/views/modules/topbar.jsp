@@ -178,7 +178,14 @@
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <span class="activity active"></span>
-                                <img src="/resources/images/user/1.png" height="40" width="40" alt="">
+                                <c:choose>
+	                                <c:when test="${ not empty loginuser.picture }">
+	                                	<img src="/resources/file/employee/photo/${ loginuser.picture }" height="40" width="40" alt="">
+	                                </c:when>
+	                                <c:otherwise>
+	                                	<img src="/resources/file/employee/photo/unnamed.jpg" height="40" width="40" alt="">
+	                                </c:otherwise>
+                                </c:choose>
                             </div>
                             <a href="/employee/logout"><span>로그아웃</span></a>
                             <!-- <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">

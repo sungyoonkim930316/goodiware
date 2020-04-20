@@ -77,4 +77,22 @@ public class ApprovalServiceImpl implements ApprovalService {
 		
 	}
 
+	@Override
+	public Approval findUploadFileByTypeNo(int typeNo) {
+		
+		return approvalMapper.selectUploadApprByTypeNo(typeNo);
+	}
+
+	@Override
+	public void updateAppaccpno(int typeNo, int appaccpno) {
+
+		approvalMapper.updateAppaccpno(typeNo, appaccpno);
+	}
+
+	@Override
+	public void updateCompanion(int typeNo, int appaccpno, String companion) {
+
+		approvalMapper.updateCompaion(typeNo, appaccpno,  companion);
+	}
+
 }

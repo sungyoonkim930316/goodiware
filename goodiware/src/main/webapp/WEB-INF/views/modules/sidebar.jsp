@@ -40,7 +40,7 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="/board/list">자유게시판</a></li>
-                            <li><a href="#">중고장터</a></li>
+                            <li><a href="/market/list">중고장터</a></li>
                             <li><a href="/reference/list">자료실</a></li>
                         </ul>
                     </li>
@@ -50,7 +50,7 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="#">출퇴근관리</a></li>
-                            <li><a href="/employee/edit">나의정보수정</a></li>
+                            <li><a href="/employee/edit?empNo=${ loginuser.empno }">나의정보수정</a></li>
                             <!-- <li><a href="/employee/confirmPw">패스워드변경</a></li> -->
                         </ul>
                     </li>

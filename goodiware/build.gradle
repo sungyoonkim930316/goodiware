@@ -36,8 +36,7 @@ dependencies {
 	compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.1.1'
 	compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '9.0.30'
 	compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
-	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.0.rc1'
-	
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.3'
 	
 }
 

@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>글 쓰기</title>
+<title>글 수정</title>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="/resources/images/favicon.png">
@@ -90,43 +90,42 @@
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="javascript:void(0)">자유
-								게시판</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">자유게시판</a></li>
 						<li class="breadcrumb-item active"><a
-							href="javascript:void(0)">글 쓰기</a></li>
+							href="javascript:void(0)">글 수정</a></li>
 					</ol>
 				</div>
 			</div>
 			<!-- row -->
 
-
+			
 
 			<div class="container-fluid">
-				<h4 class="card-title">글 쓰기</h4>
-
+				<h4 class="card-title">글 수정</h4>
+				
 				<div class="form-group">
-
-					<form id="write-form" role="form" action="write.action"
-					method="post">
+					
+					<form id="frm" action="/board/update" method="post" class="user" enctype="multipart/form-data">
 						
-						<input type="hidden" name="bdivno" value="1">
+						<input type="hidden" name="bNo" value="${ board.bno }">
+				        <input type="hidden" name="pageNo" value="${ param.pageNo }">
+				        <input type="hidden" id="searchType" name="searchType" value="${ param.searchType }">
+		  				<input type="hidden" id="searchKey" name="searchKey" value="${ param.searchKey }">
+						
 						<input type="hidden" name="empno" value="${ loginuser.empno }">
-						<input type="text" name="title" id="title"
-							class="form-control input-default" placeholder="제목을 입력하세요."><br>
-						<textarea name="content" id="smarteditor" rows="10" cols="100"
-							style="width: 100%; height: 412px;"></textarea>
-						<br> 
-						<br>
+						
+						<input type="text" name="title" class="form-control input-default" value="${ board.title }"><br>
+						<textarea name="smarteditor" id="smarteditor" rows="10" cols="100" style="width:100%; height:412px;"></textarea><br>
+
+						
 						<div style="text-align: center">
-							<input type="button" class="btn btn-info btn-rounded"
-								id="write-button" value="등록" /> 
-							<input type="button"
-								class="btn btn-success btn-rounded" id="cancel-button" value="취소" />
+							<input type="button" class="btn btn-info btn-rounded" id="savebutton" value="수정" />
+							<input type="button" class="btn btn-success btn-rounded" id="cancel" value="취소" />
 						</div>
 					</form>
-
+					
 				</div>
-
+		
 			</div>
 			<!-- #/ container -->
 		</div>
@@ -155,55 +154,61 @@
     ***********************************-->
 
 	<jsp:include page="/WEB-INF/views/modules/common-js.jsp"></jsp:include>
+	
+<c:set var="new_line" value="
+" />
 
-	<script type="text/javascript"
-		src="/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+	
+	<script type="text/javascript" src="/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 	<script type='text/javascript'>
-		$(function() {
+	$(function(){
+	    //전역변수선언
+	    var editor_object = [];
 
+	    var html = '${ fn:replace(board.content, new_line, ' ') }';
+
+	    $('#smarteditor').val(html);
+	 	     
+	    nhn.husky.EZCreator.createInIFrame({
+	        oAppRef: editor_object,
+	        elPlaceHolder: "smarteditor", // textarea의 id
+	        sSkinURI: "/resources/navereditor/SmartEditor2Skin.html", 
+	        htParams : {
+	            // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+	            bUseToolbar : true,             
+	            // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+	            bUseVerticalResizer : true,     
+	            // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+	            bUseModeChanger : true, 
+	        }
+	    });
+	
+	    //전송버튼 클릭이벤트
+	    $("#savebutton").click(function(){
+	        //id가 smarteditor인 textarea에 에디터에서 대입
+	        editor_object.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
+	         
+	        // 이부분에 에디터 validation 검증
+	
+	        //폼 submit
+	        $("#frm").submit();
+	    })
+	    
+	    $('#cancel').on('click', function() {
+
+			var result = confirm("수정을 취소하시겠습니까?");
+
+			if(!result) {
+				return false;
+			} else {
+				alert('게시글로 돌아갑니다.');
+				location.href = 'detail?BNo=${ board.bno }&pageNo=${ param.pageNo }&searchType=${ param.searchType }&searchKey=${ param.searchKey }';
+			} 
 			
-			
-			//전역변수선언
-			var editor_object = [];
 
-			nhn.husky.EZCreator.createInIFrame({
-				oAppRef : editor_object,
-				elPlaceHolder : "smarteditor", // textarea의 id
-				sSkinURI : "/resources/navereditor/SmartEditor2Skin.html",
-				htParams : {
-					// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-					bUseToolbar : true,
-					// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-					bUseVerticalResizer : true,
-					// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-					bUseModeChanger : true,
-				}
-			});
-
-			
-
-			
-
-			//전송버튼 클릭이벤트
-			$("#write-button").click(
-
-					function() {
-						//id가 smarteditor인 textarea에 에디터에서 대입
-						editor_object.getById["smarteditor"].exec(
-								"UPDATE_CONTENTS_FIELD", []);
-
-						// 이부분에 에디터 validation 검증
-						
-						if ($('#title').val() == '') {
-							alert('제목을 입력하세요.');
-							$('#title').focus();
-							return;
-						}
-
-						//폼 submit
-						$("#write-form").submit();
-					})
-		})
+		});
+	    
+	})
 	</script>
 
 

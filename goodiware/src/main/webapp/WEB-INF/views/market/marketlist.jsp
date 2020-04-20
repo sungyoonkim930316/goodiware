@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>자유게시판</title>
+    <title>중고장터</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/resources/images/favicon.png">
     <!-- Custom Stylesheet -->
@@ -82,8 +82,8 @@
             <div class="row page-titles mx-0">
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">게시판</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">자유게시판</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">중고장터</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">중고장터</a></li>
                     </ol>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-	                                <h4 class="card-title">자유게시판</h4>
+	                                <h4 class="card-title">중고장터</h4>
 	                                
 							    </div>
                                 <div class="row" style="text-align: center">
@@ -131,7 +131,7 @@
 									  </thead>
 									  <tbody>
 									    <c:forEach items="${ boards }" var="board">
-									    	<c:if test="${ board.bdivno eq 1 }">
+									    	<c:if test="${ board.bdivno eq 2 }">
 									    	<tr>
 									    		<td>${ board.bno }</td>
 									    		<td>
@@ -224,7 +224,7 @@
 
 		$("#writeBoard").on("click", function(event){
 
-			location.href="/board/write";
+			location.href="/market/write";
 
 		})
 

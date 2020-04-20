@@ -12,7 +12,7 @@ public class Approval {
 	private String content;
 	private String apprfilename;
 	private String filepath;
-	private String companoin;
+	private String companion;
 	private boolean deleted;
 	
 	private int empno;

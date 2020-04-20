@@ -93,7 +93,33 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-validation">
-                                    <form class="form-valide" action="/employee/edit" method="post">
+                                    <form class="form-valide" action="/employee/edit" method="post" enctype="multipart/form-data">
+                                    	<input type=hidden name="empNo" id="empNo" value=${ param.empNo }>
+                                    	<div class="form-group row">
+                                            <label class="col-lg-4 col-form-label" for="val-username">프로필 사진 <span class="text-danger"></span>
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <div style="width: 150px; height: 180px; overflow: hidden; margin: 0 auto;">
+                                                	
+													<c:choose>
+														<c:when test="${ empty loginuser.picture }">
+															<img id="myfile1" style="width: 100%; height: 100%; object-fit: cover;"
+																src="/resources/file/employee/photo/unnamed.jpg">
+														</c:when>
+														<c:otherwise>
+															<img id="myfile1" style="width: 100%; height: 100%; object-fit: cover;"
+																src="/resources/file/employee/photo/${ loginuser.picture }">
+														</c:otherwise>
+													</c:choose>
+												</div>
+												
+													<h1 style="color: white">&nbsp;</h1>
+													프로필 사진을 선택하세요 <br> 
+													<input type="file" name="profile" data-idx="1" />
+													<input type="hidden" name="profilePicture" value="${ loginuser.picture }">
+																							  
+                                            </div>
+                                        </div>
                                         <div class="form-group row">
                                             <label class="col-lg-4 col-form-label" for="val-username">아이디 <span class="text-danger"></span>
                                             </label>
@@ -112,14 +138,14 @@
                                             <label class="col-lg-4 col-form-label" for="val-username">직급 <span class="text-danger"></span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" id="position" name="position">
+                                                <input type="text" class="form-control" id="position" name="position" value="${ employee.posname }">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-lg-4 col-form-label" for="val-username">부서 <span class="text-danger"></span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" id="department" name="department">
+                                                <input type="text" class="form-control" id="department" name="department" value="${ employee.depname }">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -216,6 +242,20 @@
 	<script type="text/javascript">
 	$(function(){
 
+		$('input[name=profile]').on('change', function(event) {
+			var idx = $(this).attr('data-idx');
+
+			if (this.files && this.files[0]) { // 파일 선택의 파일 선택 확인
+				var reader = new FileReader();
+
+				// 파일을 다 읽었을 때 호출 할 함수 지정
+				reader.onload = function(e) {
+					$('#myfile' + idx).attr('src', e.target.result);
+				}
+				reader.readAsDataURL(this.files[0]); // 파일 읽기
+			}
+		});
+		
 		$("#btn").on("click", function(event) {
 			 new daum.Postcode({
 			        oncomplete: function(data) {
