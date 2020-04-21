@@ -47,5 +47,7 @@ public interface MessageService {
 
 	Message findFileByMno(int mno);
 
+	List<Message> findRecentMessagesByEmpno(int empno);
+
 
 }

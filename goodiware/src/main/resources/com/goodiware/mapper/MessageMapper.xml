@@ -154,6 +154,12 @@
 		select mno, msgfilename, filepath from MESSAGE where mno = #{ mno }
 	</select>
 	
-
+	<select id="selectRecentMessagesByEmpno" parameterType="int" resultType="com.goodiware.vo.Message">
+		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, e.name
+		from MESSAGE m , EMPLOYEE e 
+		where m.receiver = #{ empno } and m.deleted = 'N' and  m.sender = e.empno
+		order by m.mno DESC
+		limit 0,5
+	</select>
  
  </mapper>

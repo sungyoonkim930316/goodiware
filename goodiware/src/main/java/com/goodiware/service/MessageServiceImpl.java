@@ -138,6 +138,12 @@ public class MessageServiceImpl implements MessageService {
 		return messageMapper.selectFileByMno(mno);
 	}
 
+	@Override
+	public List<Message> findRecentMessagesByEmpno(int empno) {
+		
+		return messageMapper.selectRecentMessagesByEmpno(empno);
+	}
+
 
 	
 

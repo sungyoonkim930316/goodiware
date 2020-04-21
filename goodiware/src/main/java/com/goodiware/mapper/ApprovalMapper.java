@@ -39,4 +39,6 @@ public interface ApprovalMapper {
 
 	void updateCompaion(@Param("typeNo")int typeNo, @Param("appaccpno") int appaccpno, @Param("companion") String companion);
 
+	List<Approval> selectRecentApprovalsByEmpno(int empno);
+
 }
