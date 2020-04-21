@@ -16,6 +16,8 @@ public class Board {
 	private int empno;
 	private int bdivno;
 	private String name;
+	private String picture;
+	private String picturepath;
 
 	
 	private List<Employee> employees;

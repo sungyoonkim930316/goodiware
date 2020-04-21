@@ -47,24 +47,7 @@
     ***********************************-->
 	<div id="main-wrapper">
 
-		<!--**********************************
-            Nav header start
-        ***********************************-->
-		<div class="nav-header">
-			<div class="brand-logo">
-				<a href="index.html"> <b class="logo-abbr"><img
-						src="/resources/images/logo.png" alt=""> </b> <span
-					class="logo-compact"><img
-						src="/resources/images/logo-compact.png" alt=""></span> <span
-					class="brand-title"> <img
-						src="/resources/images/logo-text.png" alt="">
-				</span>
-				</a>
-			</div>
-		</div>
-		<!--**********************************
-            Nav header end
-        ***********************************-->
+		
 
 		<!--**********************************
             Header start
@@ -105,15 +88,18 @@
 
 				<div class="form-group">
 
-					<form id="write-form" role="form" action="write.action"
-					method="post">
+					<form id="write-form" action="write.action"
+					method="post" enctype="multipart/form-data">
 						
 						<input type="hidden" name="bdivno" value="2">
 						<input type="hidden" name="empno" value="${ loginuser.empno }">
 						<input type="text" name="title" id="title"
 							class="form-control input-default" placeholder="제목을 입력하세요."><br>
-						<textarea name="content" id="smarteditor" rows="10" cols="100"
+						<textarea name="smarteditor" id="smarteditor" rows="10" cols="100"
 							style="width: 100%; height: 412px;"></textarea>
+						<br>
+						<h4>대표사진</h4>
+						<input type="file" name="filename"/><br>
 						<br> 
 						<br>
 						<div style="text-align: center">

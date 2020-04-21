@@ -47,24 +47,7 @@
     ***********************************-->
 	<div id="main-wrapper">
 
-		<!--**********************************
-            Nav header start
-        ***********************************-->
-		<div class="nav-header">
-			<div class="brand-logo">
-				<a href="index.html"> <b class="logo-abbr"><img
-						src="/resources/images/logo.png" alt=""> </b> <span
-					class="logo-compact"><img
-						src="/resources/images/logo-compact.png" alt=""></span> <span
-					class="brand-title"> <img
-						src="/resources/images/logo-text.png" alt="">
-				</span>
-				</a>
-			</div>
-		</div>
-		<!--**********************************
-            Nav header end
-        ***********************************-->
+		
 
 		<!--**********************************
             Header start
@@ -105,7 +88,7 @@
 				
 				<div class="form-group">
 					
-					<form id="frm" action="/board/update" method="post" class="user" enctype="multipart/form-data">
+					<form id="frm" action="/market/update" method="post" class="user" enctype="multipart/form-data">
 						
 						<input type="hidden" name="bNo" value="${ board.bno }">
 				        <input type="hidden" name="pageNo" value="${ param.pageNo }">
