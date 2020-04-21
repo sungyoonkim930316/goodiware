@@ -48,21 +48,7 @@
     ***********************************-->
 	<div id="main-wrapper">
 
-		<!--**********************************
-            Nav header start
-        ***********************************-->
-		<div class="nav-header">
-			<div class="brand-logo">
-				<a href="index.html"> <b class="logo-abbr"><img
-						src="/resources/images/logo.png" alt=""> </b> <span
-					class="logo-compact"><img
-						src="/resources/images/logo-compact.png" alt=""></span> <span
-					class="brand-title"> <img
-						src="/resources/images/logo-text.png" alt="">
-				</span>
-				</a>
-			</div>
-		</div>
+	
 		<!--**********************************
             Nav header end
         ***********************************-->
@@ -91,7 +77,7 @@
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="javascript:void(0)">자유게시판</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">중고장터</a></li>
 						<li class="breadcrumb-item active"><a
 							href="javascript:void(0)">글 내용</a></li>
 					</ol>

@@ -5,7 +5,7 @@
 		   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- package-name : com.springboard.mapper, class-name : BoardMapper -->
-<mapper namespace="com.goodiware.mapper.BoardMapper">
+<mapper namespace="com.goodiware.mapper.MarketMapper">
 
 	<sql id="searchCondition">
 		<trim suffix="AND">
@@ -30,13 +30,14 @@
 	<select id="selectBoardWithPaging" 
 			resultType="com.goodiware.vo.Board" parameterType="hashmap">
 	
-		SELECT b.bno, b.title, b.content, b.regdate, b.bdel, b.bdivno, e.name
+		SELECT b.bno, b.title, b.content, b.regdate, b.bdel, b.bdivno, b.picture, b.picturepath, e.name
 		FROM BOARD b, EMPLOYEE e
 		WHERE    
 			<include refid="searchCondition" />
 		    b.bdel = 'N'
+		    
 		    and b.empno = e.empno
-		    and b.bdivno = 1
+		    and b.bdivno = 2
 		    
 		    
 		ORDER BY b.bno DESC
@@ -50,7 +51,7 @@
 		FROM BOARD
 		WHERE 
 			<include refid="searchCondition" />
-			bdivno = 1
+			bdivno = 2
 			and bdel = 'N'
 		
 	</select>

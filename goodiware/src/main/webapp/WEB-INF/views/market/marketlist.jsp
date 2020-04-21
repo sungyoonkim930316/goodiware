@@ -40,23 +40,7 @@
     ***********************************-->
     <div id="main-wrapper">
 
-        <!--**********************************
-            Nav header start
-        ***********************************-->
-        <div class="nav-header">
-            <div class="brand-logo">
-                <a href="index.html">
-                    <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
-                    <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
-                    <span class="brand-title">
-                        <img src="images/logo-text.png" alt="">
-                    </span>
-                </a>
-            </div>
-        </div>
-        <!--**********************************
-            Nav header end
-        ***********************************-->
+        
 
         <!--**********************************
             Header start
@@ -124,6 +108,7 @@
 									  <thead>
 									    <tr>
 									      <th scope="col">글 번호</th>
+									      <th scope="col">대표 사진</th>
 									      <th scope="col">글 제목</th>
 									      <th scope="col">작성자</th>
 									      <th scope="col">등록일</th>
@@ -134,6 +119,18 @@
 									    	<c:if test="${ board.bdivno eq 2 }">
 									    	<tr>
 									    		<td>${ board.bno }</td>
+									    		<td>
+									    			<c:choose>
+										    			<c:when test="${ board.bdel eq 'N' }">
+											    			<a href="detail?BNo=${ board.bno }&pageNo=${ pager.pageNo }&searchType=${ empty param.searchType ? '' : param.searchType }&searchKey=${ empty param.searchKey ? '' : param.searchKey }">
+																${ board.picture } 
+															</a>
+														</c:when>
+														<c:otherwise>
+															[삭제] ${ board.title }								
+														</c:otherwise>
+													</c:choose>
+									    		</td>
 									    		<td>
 									    			<c:choose>
 										    			<c:when test="${ board.bdel eq 'N' }">
@@ -154,7 +151,7 @@
 									  </tbody>
 									  <tfoot>
 											<tr>
-												<td colspan="4" style="text-align: center">${ pager }</td>
+												<td colspan="5" style="text-align: center">${ pager }</td>
 											</tr>
 									  </tfoot>
 									</table>
