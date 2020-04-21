@@ -101,4 +101,11 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return approvalMapper.selectRecentApprovalsByEmpno(empno);
 	}
 
+	@Override
+	public Approval findApprPageByTypeNo(int typeNo, int appdivno) {
+		
+		return approvalMapper.selectApprDetailPageByTypeNo(typeNo, appdivno);
+		
+	}
+
 }

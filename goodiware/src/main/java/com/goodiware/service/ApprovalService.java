@@ -35,5 +35,7 @@ public interface ApprovalService {
 
 	List<Approval> findRecentApprovalsByEmpno(int empno);
 
+	Approval findApprPageByTypeNo(int typeNo, int appdivno);
+
 
 }

@@ -41,4 +41,6 @@ public interface ApprovalMapper {
 
 	List<Approval> selectRecentApprovalsByEmpno(int empno);
 
+	Approval selectApprDetailPageByTypeNo(@Param("typeNo") int typeNo, @Param("appdivno") int appdivno);
+
 }

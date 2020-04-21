@@ -135,6 +135,19 @@ public class ApprovalController {
 		
 	}
 	
+	// 홈 Dashboard에서 클릭한 결재 디테일로 이동
+	@GetMapping(path = {"/apprdetail"})
+	public String showApprDetail(int typeNo, int appdivno) {
+		
+		Approval approval = approvalService.findApprPageByTypeNo(typeNo, appdivno);
+		
+		int pageSize = 10;
+				
+		int pageNo = ((approval.getRownum() - 1) / pageSize) + 1;
+		
+		return String.format("redirect:/appr/detail?appdivno=%d&typeNo=%d&pageNo=%d", appdivno, typeNo, pageNo);
+	}
+	
 	// 결재 상세 디테일로이동
 	@GetMapping(path = { "/detail" })
 	public String showDetail(int typeNo, int appdivno, @RequestParam(defaultValue = "1") int pageNo, Model model,

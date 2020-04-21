@@ -146,7 +146,7 @@
 												  <td>
 												  	<c:choose>
 											    		<c:when test="${ approval.deleted eq 'N' }">
-												    		<a style="color: white" href="/appr/detail?appdivno=${ approval.appdivno }&typeNo=${ approval.type }&pageNo=${ pager.pageNo }">
+												    		<a style="color: white" href="/appr/apprdetail?appdivno=${ approval.appdivno }&typeNo=${ approval.type }">
 																${ approval.title } 
 															</a>
 														</c:when>
