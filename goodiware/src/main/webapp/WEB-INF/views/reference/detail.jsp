@@ -48,24 +48,7 @@
     ***********************************-->
 	<div id="main-wrapper">
 
-		<!--**********************************
-            Nav header start
-        ***********************************-->
-		<div class="nav-header">
-			<div class="brand-logo">
-				<a href="index.html"> <b class="logo-abbr"><img
-						src="/resources/images/logo.png" alt=""> </b> <span
-					class="logo-compact"><img
-						src="/resources/images/logo-compact.png" alt=""></span> <span
-					class="brand-title"> <img
-						src="/resources/images/logo-text.png" alt="">
-				</span>
-				</a>
-			</div>
-		</div>
-		<!--**********************************
-            Nav header end
-        ***********************************-->
+		
 
 		<!--**********************************
             Header start
