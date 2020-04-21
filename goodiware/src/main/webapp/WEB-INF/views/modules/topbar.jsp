@@ -7,7 +7,7 @@
             <div class="brand-logo">
                 <a href="/">
                     <b class="logo-abbr"><img src="/resources/images/logo.png" alt=""> </b>
-                    <b class="logo-abbr"><img src="/resources/logo-compact.png alt="> </b>
+                    
                     <span class="logo-compact"><img src="/resources/images/logo-compact.png" alt=""></span>
                     <span class="brand-title">
                         <img src="/resources/images/goodi_logo1.PNG" alt="">
@@ -30,25 +30,12 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
                         </div>
-
-						
-                        <!-- <input type="search" class="form-control" placeholder="사원 검색" aria-label="Search Dashboard">
-                        <button class="btn btn-primary px-3 ml-4" id="searchEmp">검색</button>
- 						-->
- 						
  						<form class="form-inline" action="/employee/searchEmp" id="search-form">
 						  <div class="form-group mx-sm-3 mb-2">
 						    <input name="name" type="text" class="form-control" id="searchName" placeholder="사원 또는 부서 검색">
 						  </div>
 						  <button class="btn btn-primary mb-2" id="searchEmp">검색</button>
 						</form>
- 						
-                      	<!--
-                         <div class="drop-down animated flipInX d-md-none">
-                            <form id="search-form" action="/employee/searchList" method="get">
-                                <input type="text" class="form-control" placeholder="">
-                            </form>
-                        </div> -->
                     </div>
                 </div>
                 <div class="header-right">
@@ -61,66 +48,8 @@
                         </li>
                         </c:when>
                     	<c:otherwise>
-                    	<li class="icons dropdown d-none d-md-flex">
-                            <span>${ loginuser.name }님 환영합니다</span>
-                        </li>
-                        <li class="icons dropdown">
-                        	<%-- <a href="/message/inbox?empno=${ loginuser.empno }" data-toggle="dropdown">
-                                <i class="mdi mdi-email-outline"></i>
-                                <span class="badge gradient-1 badge-pill badge-primary">3</span>
-                            </a> --%>
-                            <!-- <div class="drop-down animated fadeIn dropdown-menu">
-                                <div class="dropdown-content-heading d-flex justify-content-between">
-                                    <span class="">3 New Messages</span>  
-                                    
-                                </div>
-                                <div class="dropdown-content-body">
-                                    <ul>
-                                        <li class="notification-unread">
-                                            <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="images/avatar/1.jpg" alt="">
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">Saiful Islam</div>
-                                                    <div class="notification-timestamp">08 Hours ago</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="notification-unread">
-                                            <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="images/avatar/2.jpg" alt="">
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">Adam Smith</div>
-                                                    <div class="notification-timestamp">08 Hours ago</div>
-                                                    <div class="notification-text">Can you do me a favour?</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="images/avatar/3.jpg" alt="">
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">Barak Obama</div>
-                                                    <div class="notification-timestamp">08 Hours ago</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="images/avatar/4.jpg" alt="">
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">Hilari Clinton</div>
-                                                    <div class="notification-timestamp">08 Hours ago</div>
-                                                    <div class="notification-text">Hello</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    
-                                </div>
-                            
-                            </div> -->
+                    	<li class="icons dropdown">
+                            <span>${ loginuser.name }님</span>
                         </li>
                         <li class="icons dropdown"><a href="javascript:void(0)" data-toggle="dropdown">
                                 <i class="mdi mdi-bell-outline"></i>
@@ -187,25 +116,21 @@
 	                                </c:otherwise>
                                 </c:choose>
                             </div>
-                            <a href="/employee/logout"><span>로그아웃</span></a>
-                            <!-- <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                            <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-body">
                                     <ul>
                                         <li>
-                                            <a href="app-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
+                                            <a href="/employee/edit?empNo=${ loginuser.empno }"><i class="icon-user"></i> <span>내 정보</span></a>
                                         </li>
                                         <li>
-                                            <a href="email-inbox.html"><i class="icon-envelope-open"></i> <span>Inbox</span> <div class="badge gradient-3 badge-pill badge-primary">3</div></a>
+                                            <a href="/message/inbox?empno=${ loginuser.empno }"><i class="icon-envelope-open"></i> <span>받은메일함</span> <div class="badge gradient-3 badge-pill badge-primary">3</div></a>
                                         </li>
                                         
                                         <hr class="my-2">
-                                        <li>
-                                            <a href="page-lock.html"><i class="icon-lock"></i> <span>Lock Screen</span></a>
-                                        </li>
                                         <li><a href="/employee/logout"><i class="icon-key"></i> <span>로그아웃</span></a></li>
                                     </ul>
                                 </div>
-                            </div> -->
+                            </div>
                         </li>
                     	</c:otherwise>
                     	</c:choose>
@@ -213,17 +138,21 @@
                 </div>
             </div>
         </div>
-        
-<jsp:include page="/WEB-INF/views/modules/common-js.jsp"></jsp:include>
    
 <script type="text/javascript">
 	$(function(){
 
-		/* $("#searchEmp").on("click", function(event){
+		/* $(".icon-key").on("click", function(event){
 
-			location.href="/employee/searchEmp";
-
-		}) */
+			var result = confirm('로그아웃 하시겠습니까?');
+			if (!result) {
+				return false;
+			} else {
+				location.href = "/employee/logout";
+				alert('안전하게 로그아웃 되었습니다');
+			}
+			
+		}); */
 
 		$("#searchEmp").on("click", function(event){
 

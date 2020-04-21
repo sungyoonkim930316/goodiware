@@ -43,23 +43,7 @@
     ***********************************-->
 	<div id="main-wrapper">
 
-		<!--**********************************
-            Nav header start
-        ***********************************-->
-		<div class="nav-header">
-			<div class="brand-logo">
-				<a href="index.html"> <b class="logo-abbr"><img
-						src="images/logo.png" alt=""> </b> <span class="logo-compact"><img
-						src="./images/logo-compact.png" alt=""></span> <span
-					class="brand-title"> <img src="images/logo-text.png" alt="">
-				</span>
-				</a>
-			</div>
-		</div>
-		<!--**********************************
-            Nav header end
-        ***********************************-->
-
+		
 		<!--**********************************
             Header start
         ***********************************-->
@@ -113,7 +97,7 @@
 											<tr>
 												<td>${ employee.empno }</td>
 												<td>
-													<a style="cursor: pointer;" class="openModal" data-target="#exampleModalCenter" data-empno="${ employee.empno }">
+													<a style="cursor: pointer;" class="openModal" data-target="#exampleModalCenter" data-empno="${ employee.empno }" data-empName="${ employee.name }">
 														${ employee.name }
 													</a>
 												</td>
@@ -160,6 +144,7 @@
 						                        </div>
                                             </div>
                                             <div class="modal-footer">
+                                            	<button type="button" class="btn btn-info" id="sendMail">메일보내기</button>
                                                 <button type="button" class="btn btn-primary" data-dismiss="modal">닫기</button>
                                             </div>
                                         </div>
@@ -204,8 +189,8 @@
 
 	<script type='text/javascript'>
 	$(function(){
-
-		$('.openModal').on('click', function(index) {
+		
+		$('.openModal').on('click', function(event) {
 
 			var selNo = parseInt($(this).attr('data-empno'));
 						
@@ -243,6 +228,25 @@
 					alert('조회 실패'); }
 			});
 			
+		});
+
+		$('#sendMail').on('click', function() {
+
+			var selName = $('#selName').text();
+			
+			var result = confirm(selName + '님께 메일을 전송하시겠습니까?');
+
+			if(result == false) {
+				return false;
+			} else {
+				
+				var empno = ${ loginuser.empno };
+				var sender = parseInt($('#selEmpno').text());
+								
+				location.href="/message/toReply?empno="+ empno +"&sender=" + sender;
+				alert('메일 전송화면으로 이동합니다');	
+			}
+
 		});	
 			
 	});

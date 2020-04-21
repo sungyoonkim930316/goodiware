@@ -1,5 +1,6 @@
 package com.goodiware.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.goodiware.vo.Auth;
@@ -16,5 +17,9 @@ public interface AdminService {
 	List<Department> showDepartments();
 
 	List<Auth> showAuths();
+
+	List<Employee> empWithPaging(HashMap<String, Object> params);
+
+	int empListCount(HashMap<String, Object> params);
 
 }

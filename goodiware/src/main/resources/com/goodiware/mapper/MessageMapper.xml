@@ -106,7 +106,7 @@
 	</select>
 	
 	<select id="sendMessageContent" parameterType="int" resultType="com.goodiware.vo.Message">
-		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, e.name, e.id
+		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, e.name, e.id, m.msgfilename
 		from MESSAGE m , EMPLOYEE e
 		where m.mno = #{ mno } and m.receiver = e.empno
 	</select>

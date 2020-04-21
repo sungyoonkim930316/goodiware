@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- package-name : com.springboard.mapper, class-name : BoardMapper -->
+<mapper namespace="com.goodiware.mapper.BoardReplyMapper">
+
+	<insert id="insertReply" parameterType="com.goodiware.vo.Reply">
+		insert into REPLY ( empno, bno, rcontent, rdate) values ( #{ empno}, #{ bNo }, #{ rcontent }, NOW() )
+	</insert>
+
+	<select id="selectReplyListByBno" parameterType="int" resultType="com.goodiware.vo.Reply">
+		select r.rno, r.empno, r.bno, r.rcontent, r.rdate, e.name
+		from REPLY r, EMPLOYEE e
+		where r.empno = e.empno and r.brdel = 'N' and r.bno=#{ bNo }
+		order by r.rno DESC 
+	</select>
+
+	<update id="deleteReply" parameterType="int">
+		update REPLY set brdel = 'Y' where rno = #{ rno }
+	</update>
+
+</mapper>

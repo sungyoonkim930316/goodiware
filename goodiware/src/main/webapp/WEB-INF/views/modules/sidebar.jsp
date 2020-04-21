@@ -63,7 +63,7 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="/admin/register">사원 등록</a></li>
-                            <li><a href="#">사원정보수정</a></li>
+                            <li><a href="/admin/empList">사원정보수정</a></li>
                         </ul>
                     </li>
                     </c:when>

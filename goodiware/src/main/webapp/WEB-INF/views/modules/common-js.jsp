@@ -10,10 +10,7 @@
 		<script src="/resources/plugins/chart.js/Chart.bundle.min.js"></script>
 		<!-- Circle progress -->
 		<script src="/resources/plugins/circle-progress/circle-progress.min.js"></script>
-		<!-- Datamap -->
-		<script src="/resources/plugins/d3v3/index.js"></script>
-		<script src="/resources/plugins/topojson/topojson.min.js"></script>
-		<script src="/resources/plugins/datamaps/datamaps.world.min.js"></script>
+
 		<!-- Morrisjs -->
 		<script src="/resources/plugins/raphael/raphael.min.js"></script>
 		<script src="/resources/plugins/morris/morris.min.js"></script>
@@ -27,9 +24,7 @@
 		<script src="/resources/js/dashboard/dashboard-1.js"></script>
 		 
 		<script src="/resources/plugins/jqueryui/js/jquery-ui.min.js"></script>
-	    <script src="/resources/plugins/fullcalendar/js/fullcalendar.min.js"></script>
-	    <script src="/resources/js/plugins-init/fullcalendar-init.js"></script>
-
+	    
 	    <script src="/resources/plugins/validation/jquery.validate.min.js"></script>
     	<script src="/resources/plugins/validation/jquery.validate-init.js"></script>
     	

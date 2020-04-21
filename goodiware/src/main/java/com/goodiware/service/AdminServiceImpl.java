@@ -1,5 +1,6 @@
 package com.goodiware.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,18 @@ public class AdminServiceImpl implements AdminService {
 	public List<Auth> showAuths() {
 
 		return adminMapper.selectAuths();
+	}
+	
+	@Override
+	public List<Employee> empWithPaging(HashMap<String, Object> params) {
+		
+		return adminMapper.empWithPaging(params);
+	}
+
+	@Override
+	public int empListCount(HashMap<String, Object> params) {
+		
+		return adminMapper.empListCount(params);
 	}
 
 }
