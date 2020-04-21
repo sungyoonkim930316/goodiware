@@ -14,4 +14,6 @@ public interface BoardReplyService {
 
 	void editReply(Reply reply);
 
+	void insertReReply(Reply reply);
+
 }

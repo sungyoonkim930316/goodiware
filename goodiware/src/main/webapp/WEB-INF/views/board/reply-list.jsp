@@ -42,7 +42,7 @@
 														<div class="input-group mb-3">
 														  <input type="hidden" value="${ reply.rno }" name="rno">
 														  <input type="text" value="${ reply.rcontent }" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="rcontent-${ reply.rno }" name="rcontent" style="height:50px">&nbsp;&nbsp;
-														  <div class="input-group-append">
+														  <div class="input-group-append" data-empno="${ loginuser.empno }">
 														    <button class="btn btn-outline-secondary edit-button" type="button" data-rno="${ reply.rno }" style="height:50px;width:80px">수정</button>
 														  </div>
 														</div>
@@ -55,9 +55,10 @@
 	                                   		<td></td>
 	                                   		<td>
 	                                   			<div id="rereply-regist-${ reply.rno }" style="display:none">
-		                                   			<form id="rereply-form" class="user">
+		                                   			<form id="rereply-form-${ reply.rno }" class="user">
 														<div class="input-group mb-3">
 														  <input type="hidden" value="${ reply.rno }" name="rno">
+														  <input type="hidden" value="${ loginuser.empno }" name="empno">
 														  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="rercontent-${ reply.rno }" name="rercontent" style="height:50px">&nbsp;&nbsp;
 														  <div class="input-group-append">
 														    <button class="btn btn-outline-secondary rereply-button" type="button" data-rno="${ reply.rno }" style="height:50px;width:80px">등록</button>

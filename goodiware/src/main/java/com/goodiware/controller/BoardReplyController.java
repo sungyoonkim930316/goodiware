@@ -70,7 +70,7 @@ public class BoardReplyController {
 	@ResponseBody
 	public String rewrite(Reply reply) {
 		
-//		boardReplyService.insertReReply();
+		boardReplyService.insertReReply(reply);
 		
 		return "success";
 	}

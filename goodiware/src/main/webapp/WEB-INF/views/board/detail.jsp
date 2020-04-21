@@ -459,19 +459,15 @@
  		$("#reply-list-container").on("click", ".rereply-button", function(event){
 
 			var rno = $(this).attr('data-rno');
-			var rercontent = $("#rercontent-" + rno);
+			var values = $('#rereply-form-'+rno).serializeArray();
+			//var rercontent = $("#rercontent-" + rno);
 			
 			if ($('#rcontent-'+rno).val().length == 0) {
 				alert("댓글 내용을 입력하세요")
 				return;
 			}
 			
-			var data = {
-			"rno" : rno,
-			"rcontent" : rercontent.val()
-			};
-			
-			//console.log(data); return;
+			//console.log(values); return;
 
 			$.ajax({
 				"url" : "/reply/rewrite",
@@ -480,7 +476,6 @@
 				"success" : function(data, status, xhr) {
 					// 비동기처리 완료 뒤, 리로딩할 영역
 					$("#reply-list-container").load("/reply/list-by/${ board.bno }");
-					$('#rcontent').val('');
 				},
 				"error" : function(xhr, status, err){
 					alert("댓글 쓰기가 실패해버렸지 뭐얌?")
