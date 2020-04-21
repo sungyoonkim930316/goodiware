@@ -7,7 +7,7 @@
             <div class="brand-logo">
                 <a href="/">
                     <b class="logo-abbr"><img src="/resources/images/logo.png" alt=""> </b>
-                    <b class="logo-abbr"><img src="/resources/logo-compact.png alt="> </b>
+                    
                     <span class="logo-compact"><img src="/resources/images/logo-compact.png" alt=""></span>
                     <span class="brand-title">
                         <img src="/resources/images/goodi_logo1.PNG" alt="">

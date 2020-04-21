@@ -27,9 +27,7 @@
 		<script src="/resources/js/dashboard/dashboard-1.js"></script>
 		 
 		<script src="/resources/plugins/jqueryui/js/jquery-ui.min.js"></script>
-	    <script src="/resources/plugins/fullcalendar/js/fullcalendar.min.js"></script>
-	    <script src="/resources/js/plugins-init/fullcalendar-init.js"></script>
-
+	    
 	    <script src="/resources/plugins/validation/jquery.validate.min.js"></script>
     	<script src="/resources/plugins/validation/jquery.validate-init.js"></script>
     	
