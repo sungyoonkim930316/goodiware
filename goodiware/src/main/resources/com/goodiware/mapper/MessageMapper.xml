@@ -6,14 +6,14 @@
 
 	<sql id="searchCondition">
 		<trim suffix="AND">
-			<choose>
-				<when test="searchType == 'T'.toString()">
-					title LIKE CONCAT("%",#{searchKey},"%")
-				</when>
-				<when test="searchType == 'C'.toString()">
-					content LIKE CONCAT('%',#{searchKey},'%')
-				</when>
-			</choose>
+	    	<choose>
+	    		<when test="searchType == 'T'.toString()">
+	    			title LIKE CONCAT('%',#{searchKey},'%')
+	    		</when>
+	    		<when test="searchType == 'C'.toString()">
+	    			content LIKE CONCAT('%',#{searchKey},'%')
+	    		</when>
+	    	</choose>
 		</trim>
 	</sql>
 
@@ -35,20 +35,20 @@
 	</select>
 
 	<select id="selectMessageWithPaging" parameterType="hashmap" resultType="com.goodiware.vo.Message">
-		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, e.name
-		from MESSAGE m , EMPLOYEE e 
-		where
-			<include refid="searchCondition" /> 
-			m.receiver = #{ empno } and m.deleted = 'N' and  m.sender = e.empno
-		order by m.senddate DESC
-		limit #{beginning}, #{end}
+		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, e.name, e.empno
+		from MESSAGE m, EMPLOYEE e
+		WHERE
+		<include refid="searchCondition" />
+		m.deleted = 'N' and m.sender = e.empno and m.receiver = #{empno}
+		ORDER BY m.senddate DESC
+		LIMIT #{beginning}, #{end}
 	</select>
 	
 	<select id="selectMessageCountWithpaging" parameterType="hashmap" resultType="int">
-		select count(*) from MESSAGE
-		where 
+		SELECT COUNT(*) from MESSAGE
+		WHERE 
 			<include refid="searchCondition" />
-			 receiver = #{ empno } and deleted ='N'
+			 receiver = #{ empno } AND deleted ='N'
 	</select>
 
 	<select id="selectMessageContent" parameterType="int" resultType="com.goodiware.vo.Message">
