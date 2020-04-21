@@ -60,6 +60,7 @@ public class ScheduleController {
 	
 	@GetMapping(path= {"/myschedule"})
 	public String getSchedule(Model model) {
+	//public List<Schedule> getSchedule(Model model) {
 		
 		Map<String, Schedule> javaMap = new HashMap<String, Schedule>();
 		javaMap.put("evt1", new Schedule());
@@ -77,6 +78,7 @@ public class ScheduleController {
 		System.out.println(schedules);
 		
 		return "/schedule/mainschedule";
+		//return schedules;
 		
 	}
 	

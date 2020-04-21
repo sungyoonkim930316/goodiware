@@ -222,38 +222,49 @@
 				dateClick: function() {
 					$('#scd-modal').modal('show');
 				},
+				events: function(start, end, timezone, callback) {
+					$.ajax({
+						contentType: 'application/json',
+						url: '/schedule/myschedule',
+						dataType: 'json',
+						type: 'GET',
+						async: false,
+						data: {
+							values
+						},
+						success: function(schedules) {
+							var events = [];
+							$(schedules).find('event').each(function() {
+								events.push({
+									title: $(this).attr('title'),
+									start: $(this).attr('start')
+								});
+							});
+							console.log(schedules);
+							callback(events);
+						},
+						error: function() {
+							alert('there was an error while fetching events!')
+						}
+					});
+				},
 				/* events: function(start, end, callback) {
-					var arr = [{title: 'evt1'}, {title: 'evt2'}];
+					/* var arr = [{title: 'evt1'}, {title: 'evt2'}];
 
 					var viewData = {};
 					viewData["title"] = $("#title").val();
 					viewData["schedivno"] = $("#schedivs").val();
 					viewData["startdate"] = $("#startdate").val();
 					viewData["enddate"] = $("#enddate").val();
-					viewData["content"] = $("#content").val();
+					viewData["content"] = $("#content").val(); */
 					
-					$.ajax({
+					/* $.ajax({
 						contentType: 'application/json',
 						url: '/schedule/myschedule',
 						dataType: 'json',
 						type: 'get',
 						async: false,
-						success: function(resp){
-							$.each(schedules, function(){
-								events.push({title:"백&황 면담사무소 방문", start:schedules.schedules[13].date})
-							});
-							console.log(schedules);
-							console.log(schedules.schedules[13].title);
-							callback(resp);
-							/* $.each(resp, function(index, item) {
-								console.log(index + " : " + item);
-								$.each(item, function(iii, ttt) {
-									console.log('inner loop => ' + iii + ':' + ttt);
-								});
-							});
-							arr = resp;
-						},
-						/* success: function(schedules){
+						success: function(schedules){
 							var events = [];
 							$.each(schedules, function(){
 								events.push({title:"백&황 면담사무소 방문", start:schedules.schedules[13].date})
