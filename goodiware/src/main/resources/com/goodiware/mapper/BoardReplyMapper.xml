@@ -19,5 +19,9 @@
 	<update id="deleteReply" parameterType="int">
 		update REPLY set brdel = 'Y' where rno = #{ rno }
 	</update>
+	
+	<update id="updateReply" parameterType="com.goodiware.vo.Reply">
+		update REPLY set rcontent = #{ rcontent } where rno = #{ rno }	
+	</update>
 
 </mapper>
