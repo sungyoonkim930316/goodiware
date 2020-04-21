@@ -12,4 +12,6 @@ public interface BoardReplyService {
 
 	void deleteReply(int rno);
 
+	void editReply(Reply reply);
+
 }

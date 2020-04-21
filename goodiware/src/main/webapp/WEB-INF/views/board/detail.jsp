@@ -123,7 +123,7 @@
 	                                       <td colspan="3"><br><br>${ board.content }<br><br></td>
 	                                   </tr>
 	                                   <tr>
-	                                   		<th colspan="3">댓글<hr></th>
+	                                   		<td colspan="3">댓글</td>
 	                                   	</tr>
 	                                   <tr>
 	                                   		<td colspan="3">
@@ -131,9 +131,9 @@
 												<div class="input-group mb-3">
 												  <input type="hidden" value="${ loginuser.empno }" name="empno" id="empno">
 												  <input type="hidden" value="${ board.bno }" name="bNo" id="bno">
-												  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="rcontent"  name="rcontent" style="height:120px">&nbsp;&nbsp;
+												  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="rcontent"  name="rcontent" style="height:80px">&nbsp;&nbsp;
 												  <div class="input-group-append">
-												    <button class="btn btn-outline-secondary" type="button" id="replyRegist" style="height:120px;width:80px">등록</button>
+												    <button class="btn btn-outline-secondary" type="button" id="replyRegist" style="height:80px;width:80px">등록</button>
 												  </div>
 												</div>
 											</form>
@@ -162,6 +162,33 @@
 			</div>
 		</div>
 		
+								<!-- Modal -->
+                                <%-- <div class="modal fade" id="exampleModalCenter">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 id="modal-name" class="modal-title"></h5>
+                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="card">
+						                            <div class="card-body">
+						                                <div class="media align-items-center mb-4">
+						                                    <div class="media-body">
+						                                    	<textarea rows="2" cols="60">${ reply.content }</textarea>
+						                                    </div>
+						                                </div>
+						                            </div>
+						                        </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            	<button type="button" class="btn btn-info" id="sendMail">수정</button>
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">닫기</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                               	</div> --%>
+                               	<!-- Modal End -->
 		
 		
 		<!--**********************************
@@ -188,8 +215,12 @@
         Main wrapper end
     ***********************************-->
 
-	<jsp:include page="/WEB-INF/views/modules/common-js.jsp"></jsp:include>
-	
+	<script src="/resources/plugins/common/common.min.js" ></script>
+    <script src="/resources/js/custom.min.js"></script>
+    <script src="/resources/js/settings.js"></script>
+    <script src="/resources/js/gleek.js"></script>
+    <script src="/resources/js/styleSwitcher.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<script type="text/javascript" src="/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 	<script type='text/javascript'>
 	$(function(){
@@ -253,6 +284,12 @@
 			return form;
 		};
 
+
+		//////////////////////////////////////
+		//				댓글					//
+		//////////////////////////////////////
+		
+		// 댓글 등록
 		$('#replyRegist').on("click", function(event) {
 
 			if ($('#rcontent').val().length == 0) {
@@ -280,6 +317,7 @@
 			 
 		});
 
+		// 댓글 삭제
 		$("#reply-list-container").on("click", ".deleteReply", function(evemt){
 
 			var rno = $(this).attr('data-rno');
@@ -303,20 +341,78 @@
  
 		});
 
+		$("div[id^=reply-edit]").hide();
+		$("div[id^=reply-cancel]").hide();
 
+		// 댓글 수정
+		var currentRno = null;
+		$("#reply-list-container").on("click", ".editReply", function(event){
+
+			event.preventDefault();
+
+			var rno = $(this).attr('data-rno');
+			if (currentRno != null) {
+				if (rno == currentRno) {
+					return;
+				} else {
+					$("#reply-view-" + currentRno).show();
+					$("#reply-edit-" + currentRno).hide();
+					$("#reply-cancel-" + currentRno).hide();
+					$("#reply-button-" + currentRno).show();
+				}
+			}
+
+			$("#reply-view-" + rno).hide();
+			$("#reply-edit-" + rno).show();
+			$("#reply-button-" + rno).hide();
+			$("#reply-cancel-" + rno).show();
+
+			currentRno = rno;
+
+		});
+
+
+		$("#reply-list-container").on("click", ".cancelReply", function(event){
+
+			event.preventDefault();
+
+			var rno = $(this).attr('data-rno');
+
+			$("#reply-edit-" + rno).hide();
+			$("#reply-view-" + rno).show();
+			$("#reply-button-" + rno).show();
+			$("#reply-cancel-" + rno).hide();
+			
+		});
 
 		
+		$("#reply-list-container").on("click", ".edit-button", function(event){
 
-		$(".update-content").hide();
+			var rno = $(this).attr('data-rno');
+			var rcontent = $("#rcontent-" + rno);
 
-		
-		$("#reply-list-container").on("click", ".updateReply", function(event){
+			//console.log(rno);
+			//console.log($("#rcontent-"+rno));
+			
+			var data = {
+			"rno" : rno,
+			"rcontent" : rcontent.val()
+			};
 
-			/* $(this).attr(".reply-content").hide(1000); */
-			$(this).children("data-rno").hide(1000);
-			/* $(this).attr(".update-content").show(); */
-
-		})
+			$.ajax({
+				"url": "/reply/update/",
+				"method": "put",
+ 				"data" : JSON.stringify(data),
+				"contentType" : "application/json",
+				"success": function(data, status, xhr) {
+					$("#reply-list-container").load("/reply/list-by/${ board.bno }");
+				},
+				"error": function(xhr, status, err) {
+					alert("댓글 수정을 실패했습니다");
+				}
+			});
+			
+		});
 
 	    
 	});

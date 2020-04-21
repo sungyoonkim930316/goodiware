@@ -15,4 +15,6 @@ public interface BoardReplyMapper {
 
 	void deleteReply(int rno);
 
+	void updateReply(Reply reply);
+
 }

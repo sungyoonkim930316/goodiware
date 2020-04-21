@@ -31,4 +31,10 @@ public class BoardReplyServiceImpl implements BoardReplyService {
 		boardReplyMapper.deleteReply(rno);
 	}
 
+	@Override
+	public void editReply(Reply reply) {
+
+		boardReplyMapper.updateReply(reply);
+	}
+
 }

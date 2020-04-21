@@ -107,11 +107,11 @@
                                     <table class="table" style="text-align: center">
 									  <thead>
 									    <tr>
-									      <th scope="col">글 번호</th>
-									      <th scope="col">대표 사진</th>
-									      <th scope="col">글 제목</th>
-									      <th scope="col">작성자</th>
-									      <th scope="col">등록일</th>
+									      <th scope="col" width="180">글 번호</th>
+									      <th scope="col" width="250">대표 사진</th>
+									      <th scope="col" width="500">글 제목</th>
+									      <th scope="col" width="180">작성자</th>
+									      <th scope="col" width="180">등록일</th>
 									    </tr>
 									  </thead>
 									  <tbody>
@@ -123,7 +123,7 @@
 									    			<c:choose>
 										    			<c:when test="${ board.bdel eq 'N' }">
 											    			<a href="detail?BNo=${ board.bno }&pageNo=${ pager.pageNo }&searchType=${ empty param.searchType ? '' : param.searchType }&searchKey=${ empty param.searchKey ? '' : param.searchKey }">
-																${ board.picture } 
+																<img width="200" height="130" src="/resources/file/board/${board.picture}"/>
 															</a>
 														</c:when>
 														<c:otherwise>
