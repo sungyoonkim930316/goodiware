@@ -18,9 +18,11 @@
 	                                   		</td> --%>
 	                                   		<td>
 		                                   		<div id="reply-button-${ reply.rno }">
+		                                   		<c:if test="${ reply.empno == loginuser.empno }">
 			                                   		<a href="#" class="editReply" data-rno="${ reply.rno }">수정</a>
 			                                   		&nbsp;|&nbsp;
 			                                   		<a href="#" class="deleteReply" data-rno="${ reply.rno }">삭제</a>
+			                                   	</c:if>
 		                                   		</div>
 		                                   		<div id="reply-cancel-${ reply.rno }" style="display:none">
 		                                   			<a href="#" class="cancelReply" data-rno="${ reply.rno }">수정취소</a>
