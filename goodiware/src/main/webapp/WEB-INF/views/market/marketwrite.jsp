@@ -99,7 +99,7 @@
 							style="width: 100%; height: 412px;"></textarea>
 						<br>
 						<h4>대표사진</h4>
-						<input type="file" name="filename"/><br>
+						<input type="file" name="filename" id="filename"/><br>
 						<br> 
 						<br>
 						<div style="text-align: center">
@@ -184,6 +184,11 @@
 							alert('제목을 입력하세요.');
 							$('#title').focus();
 							return;
+						}
+						if($('#filename').val() == "") {
+							alert("대표사진을 설정해주세요.");
+						    $("#filename").focus();
+						    return;
 						}
 						$("#write-form").submit();
 					})
