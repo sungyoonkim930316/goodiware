@@ -91,8 +91,7 @@
                                     <table class="table table-hover" style="text-align: center">
                                         <thead>
                                             <tr>
-                                                <th>번호</th>
-                                               	<th>제목</th>
+                                               	<th>제&nbsp;&nbsp;&nbsp;&nbsp;목</th>
                                                 <th>발신인</th>
                                                 <th>수신일</th>
                                             </tr>
@@ -100,8 +99,8 @@
                                         <tbody>
                                             <c:forEach items="${ messages }" var="message">
 									    	<tr>
-									    		<td>${ message.mno }</td>
 									    		<td>
+									    		<input type="hidden" id="mno" value="${ message.mno }">
 									    			<c:choose>
 										    			<c:when test="${ message.deleted eq 'N' }">
 											    			<a style="color: white" href="/message/messageContent?empno=${ loginuser.empno }&mno=${ message.mno }">
@@ -119,40 +118,40 @@
 									    </c:forEach>
 									    <c:if test="${fn:length(messages) eq 1 }">
 												<tr>
-													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="3">&nbsp;</td>
 												</tr>
 												<tr>
-													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="3">&nbsp;</td>
 												</tr>
 												<tr>
-													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="3">&nbsp;</td>
 												</tr>
 												<tr>
-													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="3">&nbsp;</td>
 												</tr>	  	
 											</c:if>
 											<c:if test="${fn:length(messages) eq 2 }">
 												<tr>
-													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="3">&nbsp;</td>
 												</tr>
 												<tr>
-													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="3">&nbsp;</td>
 												</tr>
 												<tr>
-													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="3">&nbsp;</td>
 												</tr>	  	
 											</c:if>
 											<c:if test="${fn:length(messages) eq 3 }">
 												<tr>
-													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="3">&nbsp;</td>
 												</tr>
 												<tr>
-													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="3">&nbsp;</td>
 												</tr>
 											</c:if>
 											<c:if test="${fn:length(messages) eq 4 }">
 												<tr>
-													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="3">&nbsp;</td>
 												</tr>
 											</c:if>
                                         </tbody>
@@ -169,9 +168,8 @@
                                     <table class="table table-hover" style="text-align: center">
                                         <thead>
                                             <tr>
-                                                <th>결재번호</th>
-                                                <th>구분</th>
-                                                <th>제목</th>
+                                                <th>구&nbsp;&nbsp;분</th>
+                                                <th>제&nbsp;&nbsp;&nbsp;&nbsp;목</th>
                                                 <th>최초등록자</th>
                                                 <th>진행현황</th>
                                             </tr>
@@ -179,9 +177,9 @@
                                         <tbody>
                                             <c:forEach items="${ approvals }" var="approval">
                                             	<tr>                                         	
-												  <td>${ approval.type }</td>
 												  <td>${ approval.divname }</td>
 												  <td>
+												  <input type="hidden" id="type" value="${ approval.type }">
 												  	<c:choose>
 											    		<c:when test="${ approval.deleted eq 'N' }">
 												    		<a style="color: white" href="/appr/apprdetail?appdivno=${ approval.appdivno }&typeNo=${ approval.type }">
@@ -216,40 +214,40 @@
 											</c:forEach>
 											<c:if test="${fn:length(approvals) eq 1 }">
 												<tr>
-													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
 												</tr>
 												<tr>
-													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
 												</tr>
 												<tr>
-													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
 												</tr>
 												<tr>
-													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
 												</tr>	  	
 											</c:if>
 											<c:if test="${fn:length(approvals) eq 2 }">
 												<tr>
-													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
 												</tr>
 												<tr>
-													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
 												</tr>
 												<tr>
-													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
 												</tr>	  	
 											</c:if>
 											<c:if test="${fn:length(approvals) eq 3 }">
 												<tr>
-													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
 												</tr>
 												<tr>
-													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
 												</tr>
 											</c:if>
 											<c:if test="${fn:length(approvals) eq 4 }">
 												<tr>
-													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
 												</tr>
 											</c:if>
                                         </tbody>

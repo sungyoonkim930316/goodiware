@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,11 +20,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.goodiware.service.MessageService;
 import com.goodiware.ui.ThePager2;
+import com.goodiware.vo.Employee;
 import com.goodiware.vo.Message;
 
 
@@ -389,6 +392,14 @@ public class MessageController {
 		fis.close();
 		fos.close();
 	}
-	
+
+	@GetMapping(path = { "/get-suggestions" }, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public List<Employee> getSeggestions(String receiveid) {
+				
+		List<Employee> receiveidList = messageService.searchReceiveIdList(receiveid);
+				
+		return receiveidList;
+	}
 	
 }

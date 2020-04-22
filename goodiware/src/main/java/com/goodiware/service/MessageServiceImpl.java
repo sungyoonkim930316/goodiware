@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.goodiware.mapper.MessageMapper;
+import com.goodiware.vo.Employee;
 import com.goodiware.vo.Message;
 
 @Service("messageService")
@@ -142,6 +143,12 @@ public class MessageServiceImpl implements MessageService {
 	public List<Message> findRecentMessagesByEmpno(int empno) {
 		
 		return messageMapper.selectRecentMessagesByEmpno(empno);
+	}
+
+	@Override
+	public List<Employee> searchReceiveIdList(String receiveid) {
+		
+		return messageMapper.selectReceiveIdList(receiveid);
 	}
 
 

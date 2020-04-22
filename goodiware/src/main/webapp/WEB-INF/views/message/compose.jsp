@@ -133,7 +133,7 @@
                                         <form action="/message/sendMessage" method="post" id="send-form" enctype="multipart/form-data">
                                         	<input type="hidden" name="sender" value="${ loginuser.empno }">
                                             <div class="form-group">
-                                                <input type="text" class="form-control bg-transparent" placeholder="받는사람" id="receiveid" name="receiveid">
+                                                <input style="width: 30%" type="text" class="form-control bg-transparent" placeholder="받는사람" id="receiveid" name="receiveid">
                                             </div>
                                             <div class="form-group">
                                                 <input type="text" class="form-control bg-transparent" placeholder="제목" id="title" name="title">                                            </div>
@@ -193,6 +193,109 @@
     <script type="text/javascript">
 		$(function(){
 
+			//////////////ajax 자동검색//////////////////////
+			
+			function getTop() {
+				var	t =	document.getElementById("receiveid");
+		
+				var	topPos = 2 + t.offsetHeight;//현재 요소의 높이
+				while(t.tagName.toLowerCase() != "body" && 
+					  t.tagName.toLowerCase() != "html") {
+					topPos += t.offsetTop;//offsetTop : 상위 요소와의 y축 거리
+					t = t.offsetParent;	//상위 요소를 현재 요소에 대입
+				}
+				return topPos;
+			}
+		  
+			function getLeft() {
+				var	t =	document.getElementById("receiveid");
+		
+				var	leftPos	= 0;
+				while(t.tagName.toLowerCase() != "body" && 
+					  t.tagName.toLowerCase() != "html") {
+					leftPos += t.offsetLeft;//t와 상위 요소 사이의 x축 거리
+					t = t.offsetParent;//t의 부모 요소
+				}
+				return leftPos;
+			}
+		
+		///////////////////////////////////////////////////////
+			var outerBox = $('<div></div>');
+			outerBox.css({
+				"border": "solid 1px",
+				"background-color": "white",
+				"width": "360px",
+				"display": "none",
+				"position": "absolute",
+				"left": getLeft(),
+				"top": getTop()
+			});
+			$('body').append(outerBox);
+			
+			$('body').on('click', function(event) {
+				outerBox.css('display', 'none');
+			})
+
+			$('#receiveid').on('keyup', function(event) {
+				
+				var receiveid = $(this).val();
+
+				if (receiveid.length == 0) {
+					return;
+				}
+				
+				$.ajax({
+					"url": "get-suggestions",
+					"method": "get",
+					"async": true,
+					"dataType": "json",
+					"data": { "receiveid" : receiveid },
+					"success": function(resp, status, xhr) {
+						
+						if (resp.length == 0) {
+							outerBox.css("display", "none");
+							return;
+						}
+						outerBox.empty();
+						
+						for (var i = 0; i < resp.length; i++) {
+							var innerBox = $('<div></div>');
+							innerBox.text(resp[i].name + "<" + resp[i].id + ">");
+							innerBox.css({
+								"padding": "5px"
+							});
+							innerBox.hover(function(event) {
+								$(this).css('background-color', 'lightgray');
+							}, function(event) {
+								$(this).css('background-color', 'white');
+							});
+							innerBox.on('click', function(event) {
+
+								var searchText = $(this).text();
+
+								var firstIndex = searchText.indexOf('<') + 1;								
+
+								var lastIndex = searchText.indexOf('>');
+
+								var result = searchText.substring(firstIndex, lastIndex);
+								
+								$('#receiveid').val(result);
+								outerBox.css('display', 'none');
+							});
+							outerBox.append(innerBox);
+						}
+						
+						outerBox.css("display", "block");
+					},
+					"error": function(xhr, status, err) {
+						console.log(err);
+					}
+				});
+				
+			});
+
+			////////////////// ajax 자동검색 END ///////////////////////
+			
 			$("#send").on("click", function(event){
 
 				if($("#receiver").val() == '' ){

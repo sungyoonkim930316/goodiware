@@ -3,6 +3,7 @@ package com.goodiware.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.goodiware.vo.Employee;
 import com.goodiware.vo.Message;
 
 public interface MessageService {
@@ -48,6 +49,8 @@ public interface MessageService {
 	Message findFileByMno(int mno);
 
 	List<Message> findRecentMessagesByEmpno(int empno);
+
+	List<Employee> searchReceiveIdList(String receiveid);
 
 
 }

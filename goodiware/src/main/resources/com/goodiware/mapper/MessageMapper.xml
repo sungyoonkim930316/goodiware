@@ -162,4 +162,10 @@
 		limit 0,5
 	</select>
  
+ 	<select id="selectReceiveIdList" parameterType="String" resultType="com.goodiware.vo.Employee">
+ 		SELECT id, name
+ 		FROM EMPLOYEE 
+ 		WHERE id LIKE CONCAT(#{receiveid},'%')
+ 	</select>
+ 
  </mapper>

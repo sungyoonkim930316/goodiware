@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.goodiware.vo.Employee;
 import com.goodiware.vo.Message;
 
 
@@ -54,6 +55,8 @@ public interface MessageMapper {
 	Message selectFileByMno(int mno);
 
 	List<Message> selectRecentMessagesByEmpno(int empno);
+
+	List<Employee> selectReceiveIdList(String receiveid);
 
 
 }
