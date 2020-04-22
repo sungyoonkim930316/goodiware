@@ -16,7 +16,13 @@ public class BoardReplyServiceImpl implements BoardReplyService {
 	
 	@Override
 	public void writeReply(Reply reply) {
+		
 		boardReplyMapper.insertReply(reply);
+		
+		System.out.println("gno : "+ reply.getRno());
+		
+		boardReplyMapper.updateReplyByGno(reply.getRno());
+		
 	}
 
 	@Override
@@ -40,7 +46,18 @@ public class BoardReplyServiceImpl implements BoardReplyService {
 	@Override
 	public void insertReReply(Reply reply) {
 
-		boardReplyMapper.updateGno(reply);
+		Reply parent = boardReplyMapper.selectReplyByRno(reply.getRno());
+		reply.setGno(parent.getGno());
+		reply.setSno(parent.getSno()+1);
+		reply.setDepth(1);
+		
+		boardReplyMapper.updateSno(parent);
+		
+		System.out.println("gno : " + reply.getGno());
+		System.out.println("sno : " + reply.getSno());
+		System.out.println("depth : " + reply.getDepth());
+		
+		boardReplyMapper.insertReReply(reply);
 		
 	}
 

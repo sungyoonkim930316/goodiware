@@ -58,8 +58,9 @@
 		                                   			<form id="rereply-form-${ reply.rno }" class="user">
 														<div class="input-group mb-3">
 														  <input type="hidden" value="${ reply.rno }" name="rno">
+														  <input type="hidden" value="${ param.BNo }" name="bNo">
 														  <input type="hidden" value="${ loginuser.empno }" name="empno">
-														  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="rercontent-${ reply.rno }" name="rercontent" style="height:50px">&nbsp;&nbsp;
+														  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="rcontent-${ reply.rno }" name="rcontent" style="height:50px">&nbsp;&nbsp;
 														  <div class="input-group-append">
 														    <button class="btn btn-outline-secondary rereply-button" type="button" data-rno="${ reply.rno }" style="height:50px;width:80px">등록</button>
 														  </div>

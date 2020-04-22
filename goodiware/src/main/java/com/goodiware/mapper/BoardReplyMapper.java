@@ -17,6 +17,12 @@ public interface BoardReplyMapper {
 
 	void updateReply(Reply reply);
 
-	void updateGno(Reply reply);
+	void updateSno(Reply parent);
+
+	void updateReplyByGno(int gno);
+
+	Reply selectReplyByRno(int rno);
+
+	void insertReReply(Reply reply);
 
 }

@@ -66,11 +66,16 @@ public class BoardReplyController {
 		return "success";
 	}
 
-	@PostMapping(path= {"rewrite"})
+	@PostMapping(path= {"/rewrite"})
 	@ResponseBody
 	public String rewrite(Reply reply) {
 		
 		boardReplyService.insertReReply(reply);
+		
+		System.out.println("rno : " + reply.getRno());
+		System.out.println("empno : " + reply.getEmpno());
+		System.out.println("rcontent : " + reply.getRcontent());
+		System.out.println("bno : " + reply.getBNo());
 		
 		return "success";
 	}

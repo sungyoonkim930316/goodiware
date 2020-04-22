@@ -16,6 +16,8 @@ public class Reply {
 	private int bNo;
 	private String name;
 	private int gno;
+	private int sno;
+	private int depth;
 	
 	private List<Employee> employees;
 	private List<Board> boards;

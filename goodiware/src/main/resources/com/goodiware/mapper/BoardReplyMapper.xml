@@ -5,9 +5,22 @@
 <!-- package-name : com.springboard.mapper, class-name : BoardMapper -->
 <mapper namespace="com.goodiware.mapper.BoardReplyMapper">
 
+<!-- 
 	<insert id="insertReply" parameterType="com.goodiware.vo.Reply">
 		insert into REPLY ( empno, bno, rcontent, rdate) values ( #{ empno}, #{ bNo }, #{ rcontent }, NOW() )
 	</insert>
+ -->	
+
+	<insert id="insertReply" parameterType="com.goodiware.vo.Reply">
+		insert into REPLY ( empno, bno, rcontent, rdate) values ( #{ empno}, #{ bNo }, #{ rcontent }, NOW() )
+		<selectKey resultType="int" keyProperty="rno" order="AFTER">
+		    SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<update id="updateReplyByGno" parameterType="int">
+		update REPLY set gno = #{ gno } where rno = #{ gno } 
+	</update>
 
 	<select id="selectReplyListByBno" parameterType="int" resultType="com.goodiware.vo.Reply">
 		select r.rno, r.empno, r.bno, r.rcontent, r.rdate, e.name
@@ -24,8 +37,21 @@
 		update REPLY set rcontent = #{ rcontent } where rno = #{ rno }	
 	</update>
 	
-	<update id="updateGno" parameterType="com.goodiware.vo.Reply">
-		update REPLY set gno = #{ seq_reply.nextval() } where rno = #{ rno }
+	<update id="updateSno" parameterType="com.goodiware.vo.Reply">
+		<![CDATA[
+		UPDATE REPLY
+		SET sno = sno + 1
+		WHERE gno = #{ gno } AND sno > #{ sno }
+		]]>
 	</update>
+	
+	<select id="selectReplyByRno" parameterType="int" resultType="com.goodiware.vo.Reply">
+		select * from REPLY where rno = #{ rno }
+	</select>
+	
+ 	<insert id="insertReReply" parameterType="com.goodiware.vo.Reply">
+		insert into REPLY (bno, empno, rcontent, rdate, gno, sno, depth ) 
+		values ( #{ bNo }, #{ empno }, #{ rcontent }, NOW(), #{ gno }, #{ sno }, #{ depth } )
+	</insert>
 
 </mapper>
