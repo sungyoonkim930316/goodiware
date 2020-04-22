@@ -66,19 +66,14 @@ public class MessageController {
 		params.put("beginning", beginning);
 		params.put("end", beginning + pageSize);
 		params.put("searchType", searchType);
-		params.put("searchkey", searchKey);
+		params.put("searchKey", searchKey);
 		
-		System.out.println(params);
-		
+
 		List<Message> messages = messageService.findMessageWithPaging(params);
 		int messageCount = messageService.findMessageCount(params);
-		
-		System.out.println(messages);
-		System.out.println(messageCount);
-		
+
 		ThePager2 pager = new ThePager2(messageCount, pageNo, pageSize, pagerSize, "inbox", req.getQueryString());
 		
-		System.out.println(pager);
 		
 		model.addAttribute("messages", messages);
 		model.addAttribute("pager", pager);
