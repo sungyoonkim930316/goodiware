@@ -301,8 +301,8 @@
                     <div class="col-lg-6">
                         <div class="card gradient-4">
                             <div class="card-body">
-                                <h3 class="card-title text-white">아햏햏</h3>
-                                
+                                <h4 style="text-align: center; margin-bottom: 0px" class="text-white">${ loginuser.name } 님은 
+                                <span id="joinDate"><fmt:parseDate value='${loginuser.joinday}' var='join_day' pattern='yyyy-MM-dd'/><fmt:formatDate value="${ join_day }" pattern="yyyy-MM-dd"/></span> 일에 입사하셔서 <span id="between"></span>일 째 노동중이십니다.</h4>
                             </div>
                         </div>
                     </div>
@@ -406,12 +406,49 @@
     
 	<script type="text/javascript">
 
+	$(function(){
+	
 		$('#to-mailList').on('click', function() {
 
 			location.href = "/message/inbox?empno=" + ${ loginuser.empno };
 
 		});
-	
+
+		// 날짜보여주기 start
+				
+		var today = new Date();
+		var joinDate = $('#joinDate').text();
+
+		var dateArray = joinDate.split('-');
+
+		var dateObj = new Date(dateArray[0], Number(dateArray[1])-1, dateArray[2]);
+
+		var betweenDay = (today.getTime() - dateObj.getTime())/1000/60/60/24;
+
+		var resultDay = parseInt(betweenDay);
+
+		$('#between').text(resultDay);
+
+		var memberCountConTxt = $('#between').text();
+		  
+		  $({ val : 0 }).animate({ val : memberCountConTxt }, {
+		   duration: 8000,
+		   step: function() {
+		    var num = numberWithCommas(Math.floor(this.val));
+		    $("#between").text(num);
+		  },
+		  complete: function() {
+		    var num = numberWithCommas(Math.floor(this.val));
+		    $("#between").text(num);
+		  }
+		});
+		
+		function numberWithCommas(x) {
+		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+		
+		// 날짜 보여주기 end
+		
 		var editEmployee = '${ editEmployee }';
 		if ( editEmployee && !history.state ) {
 			$('#messageModal .modal-body').text("정보가 수정되었습니다.")
@@ -423,7 +460,7 @@
 			alert("사원 등록이 완료되었습니다.");
 		}
 		history.replaceState({}, null, null);
-				
+	});			
 	</script>
 
 
