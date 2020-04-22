@@ -124,7 +124,7 @@
 													<td style="border-color: transparent;" colspan="3">&nbsp;</td>
 												</tr>
 												<tr>
-													<td style="border-color: transparent;" colspan="3">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="3">받은 메일이 없습니다</td>
 												</tr>
 												<tr>
 													<td style="border-color: transparent;" colspan="3">&nbsp;</td>
@@ -237,7 +237,7 @@
 													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
 												</tr>
 												<tr>
-													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+													<td style="border-color: transparent;" colspan="4">결재가 없습니다</td>
 												</tr>
 												<tr>
 													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
