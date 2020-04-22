@@ -117,6 +117,44 @@
 									    		<td><fmt:formatDate  value="${ message.senddate }" pattern="yyyy-MM-dd"/></td>
 									    	</tr>
 									    </c:forEach>
+									    <c:if test="${fn:length(messages) eq 1 }">
+												<tr>
+													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+												</tr>	  	
+											</c:if>
+											<c:if test="${fn:length(messages) eq 2 }">
+												<tr>
+													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+												</tr>	  	
+											</c:if>
+											<c:if test="${fn:length(messages) eq 3 }">
+												<tr>
+													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+												</tr>
+											</c:if>
+											<c:if test="${fn:length(messages) eq 4 }">
+												<tr>
+													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+												</tr>
+											</c:if>
                                         </tbody>
                                     </table>
                                 </div>
@@ -140,7 +178,7 @@
                                         </thead>
                                         <tbody>
                                             <c:forEach items="${ approvals }" var="approval">
-												<tr>
+                                            	<tr>                                         	
 												  <td>${ approval.type }</td>
 												  <td>${ approval.divname }</td>
 												  <td>
@@ -176,6 +214,44 @@
 												  </td>
 												</tr>
 											</c:forEach>
+											<c:if test="${fn:length(approvals) eq 1 }">
+												<tr>
+													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+												</tr>	  	
+											</c:if>
+											<c:if test="${fn:length(approvals) eq 2 }">
+												<tr>
+													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+												</tr>	  	
+											</c:if>
+											<c:if test="${fn:length(approvals) eq 3 }">
+												<tr>
+													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+												</tr>
+											</c:if>
+											<c:if test="${fn:length(approvals) eq 4 }">
+												<tr>
+													<td style="border-color: transparent;" colspan="5">&nbsp;</td>
+												</tr>
+											</c:if>
                                         </tbody>
                                     </table>
                                 </div>
