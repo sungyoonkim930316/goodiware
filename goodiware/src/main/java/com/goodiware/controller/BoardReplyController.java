@@ -28,13 +28,9 @@ public class BoardReplyController {
 
 	@PostMapping(path= {"/write"})
 	@ResponseBody
-	public String write(Reply reply,String action) {
+	public String write(Reply reply) {
 		
-//		if(action.equals("reply")) {
-			boardReplyService.writeReply(reply);
-//		} else if(action.equals("re-reply")) {
-//			
-//		}
+		boardReplyService.writeReply(reply);
 		
 		return "success";
 	}
@@ -70,7 +66,14 @@ public class BoardReplyController {
 		return "success";
 	}
 
-
+	@PostMapping(path= {"rewrite"})
+	@ResponseBody
+	public String rewrite(Reply reply) {
+		
+		boardReplyService.insertReReply(reply);
+		
+		return "success";
+	}
 	
 	
 }

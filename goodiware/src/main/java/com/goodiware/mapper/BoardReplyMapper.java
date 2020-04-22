@@ -17,4 +17,6 @@ public interface BoardReplyMapper {
 
 	void updateReply(Reply reply);
 
+	void updateGno(Reply reply);
+
 }

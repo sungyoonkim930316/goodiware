@@ -33,5 +33,9 @@ public interface ApprovalService {
 
 	void updateCompanion(int typeNo, int appaccpno, String companion);
 
+	List<Approval> findRecentApprovalsByEmpno(int empno);
+
+	Approval findApprPageByTypeNo(int typeNo, int appdivno);
+
 
 }

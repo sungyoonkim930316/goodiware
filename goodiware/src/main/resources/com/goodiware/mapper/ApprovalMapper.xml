@@ -85,4 +85,24 @@
 		update APPROVAL set appaccpno = #{ appaccpno }, companion = #{ companion } where type = #{ typeNo }
 	</update>
 
+	<select id="selectRecentApprovalsByEmpno" parameterType="int" resultType="com.goodiware.vo.Approval">
+		select d.divname, a.type, a.title, a.content, a.appdivno, a.empno, a.maccp, a.faccp, a.APPACCPNO, p.accepname, e.name, a.companion, e.empno AS '엠플이엠피넘'
+		from APPRDIV d, APPROVAL a, APPROACCP p, EMPLOYEE e
+		where a.appaccpno = p.appaccpno and a.appdivno = d.appdivno AND a.empno = e.empno AND a.deleted = 'N' AND (a.empno = #{ empno } OR a.maccp = #{ empno } OR a.faccp = #{ empno })
+		order by a.type DESC
+		limit 0,5
+	</select>
+	
+	<select id="selectApprDetailPageByTypeNo" parameterType="map" resultType="com.goodiware.vo.Approval">
+		SELECT ROWNUM, (SELECT COUNT(*) FROM APPROVAL WHERE appdivno = #{ appdivno }) AS CNT 
+		FROM 
+			(		
+			SELECT @ROWNUM:=@ROWNUM+1 AS ROWNUM, A.type
+			FROM APPROVAL A, (SELECT @ROWNUM:=0) R
+			WHERE A.appdivno = #{ appdivno }
+			ORDER BY type DESC
+			) T1
+		WHERE type = #{ typeNo };
+	</select>
+
 </mapper>

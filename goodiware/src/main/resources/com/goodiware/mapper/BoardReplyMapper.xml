@@ -23,5 +23,9 @@
 	<update id="updateReply" parameterType="com.goodiware.vo.Reply">
 		update REPLY set rcontent = #{ rcontent } where rno = #{ rno }	
 	</update>
+	
+	<update id="updateGno" parameterType="com.goodiware.vo.Reply">
+		update REPLY set gno = #{ seq_reply.nextval() } where rno = #{ rno }
+	</update>
 
 </mapper>

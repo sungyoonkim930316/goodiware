@@ -95,4 +95,17 @@ public class ApprovalServiceImpl implements ApprovalService {
 		approvalMapper.updateCompaion(typeNo, appaccpno,  companion);
 	}
 
+	@Override
+	public List<Approval> findRecentApprovalsByEmpno(int empno) {
+		
+		return approvalMapper.selectRecentApprovalsByEmpno(empno);
+	}
+
+	@Override
+	public Approval findApprPageByTypeNo(int typeNo, int appdivno) {
+		
+		return approvalMapper.selectApprDetailPageByTypeNo(typeNo, appdivno);
+		
+	}
+
 }

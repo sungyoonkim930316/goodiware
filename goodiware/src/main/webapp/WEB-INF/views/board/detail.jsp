@@ -413,7 +413,77 @@
 			});
 			
 		});
+		
+		$("#reply-list-container").on("click", ".reReply", function(event){
 
+			event.preventDefault();
+
+			var rno = $(this).attr('data-rno');
+
+			//console.log(rno);
+			
+			/* $("#rereply-regist-" + currentRno2).show(); */
+			//$("#rereply-regist-" + rno).show();
+			
+			if (currentRno != null) {
+				if (rno == currentRno) {
+					return;
+				} else {
+					$("#rereply-regist-" + currentRno).hide();
+					$("#rereply-button-" + currentRno).hide();
+				}
+			}
+
+			$("#rereply-regist-" + rno).show();
+			$("#rereply-button-" + rno).hide();
+			$("#cancel-button-" + rno).show();
+
+			currentRno = rno;
+		});
+
+
+		$("#reply-list-container").on("click", ".reReply-cancel", function(event){
+
+			event.preventDefault();
+
+			var rno = $(this).attr('data-rno');
+
+			$("#rereply-regist-" + rno).hide();
+			$("#rereply-button-" + rno).show();
+			$("#cancel-button-" + rno).hide();
+
+			
+		});
+
+		// 대댓글 등록
+ 		$("#reply-list-container").on("click", ".rereply-button", function(event){
+
+			var rno = $(this).attr('data-rno');
+			var values = $('#rereply-form-'+rno).serializeArray();
+			//var rercontent = $("#rercontent-" + rno);
+			
+			if ($('#rcontent-'+rno).val().length == 0) {
+				alert("댓글 내용을 입력하세요")
+				return;
+			}
+			
+			//console.log(values); return;
+
+			$.ajax({
+				"url" : "/reply/rewrite",
+				"method" : "post",
+				"data" : values,
+				"success" : function(data, status, xhr) {
+					// 비동기처리 완료 뒤, 리로딩할 영역
+					$("#reply-list-container").load("/reply/list-by/${ board.bno }");
+				},
+				"error" : function(xhr, status, err){
+					alert("댓글 쓰기가 실패해버렸지 뭐얌?")
+				}
+			});
+			
+		});
+ 
 	    
 	});
 	</script>

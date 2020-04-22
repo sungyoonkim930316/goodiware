@@ -53,5 +53,7 @@ public interface MessageMapper {
 
 	Message selectFileByMno(int mno);
 
+	List<Message> selectRecentMessagesByEmpno(int empno);
+
 
 }

@@ -37,4 +37,11 @@ public class BoardReplyServiceImpl implements BoardReplyService {
 		boardReplyMapper.updateReply(reply);
 	}
 
+	@Override
+	public void insertReReply(Reply reply) {
+
+		boardReplyMapper.updateGno(reply);
+		
+	}
+
 }

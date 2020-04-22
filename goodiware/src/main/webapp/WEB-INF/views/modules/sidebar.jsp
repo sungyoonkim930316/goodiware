@@ -40,8 +40,8 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="/board/list">자유게시판</a></li>
-                            <li><a href="/market/list">중고장터</a></li>
                             <li><a href="/reference/list">자료실</a></li>
+                            <li><a href="/market/list">나눔장터</a></li>
                         </ul>
                     </li>
                     <li>
