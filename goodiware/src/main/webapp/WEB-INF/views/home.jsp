@@ -116,7 +116,24 @@
 									    		<td><fmt:formatDate  value="${ message.senddate }" pattern="yyyy-MM-dd"/></td>
 									    	</tr>
 									    </c:forEach>
-									    <c:if test="${fn:length(messages) eq 1 }">
+									    	<c:if test="${fn:length(messages) eq 0 }">
+												<tr>
+													<td style="border-color: transparent;" colspan="3">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="3">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="3">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="3">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="3">&nbsp;</td>
+												</tr>	  	
+											</c:if>
+									    	<c:if test="${fn:length(messages) eq 1 }">
 												<tr>
 													<td style="border-color: transparent;" colspan="3">&nbsp;</td>
 												</tr>
@@ -212,6 +229,23 @@
 												  </td>
 												</tr>
 											</c:forEach>
+											<c:if test="${fn:length(approvals) eq 0 }">
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>	  	
+											</c:if>
 											<c:if test="${fn:length(approvals) eq 1 }">
 												<tr>
 													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
