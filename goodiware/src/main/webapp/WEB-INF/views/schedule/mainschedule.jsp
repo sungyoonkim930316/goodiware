@@ -182,6 +182,10 @@
 	</div>
 	<!-- Modal end -->
 	
+	<div id="script-warning">
+		실헹 오류 ㅋ
+	</div>
+	
 	<!-- <div class="container">
 	
 	</div> -->
@@ -222,63 +226,18 @@
 				dateClick: function() {
 					$('#scd-modal').modal('show');
 				},
-				events: function(start, end, timezone, callback) {
-					$.ajax({
-						contentType: 'application/json',
-						url: '/schedule/myschedule',
-						dataType: 'json',
-						type: 'GET',
-						async: false,
-						data: {
-							values
-						},
-						success: function(schedules) {
-							var events = [];
-							$(schedules).find('event').each(function() {
-								events.push({
-									title: $(this).attr('title'),
-									start: $(this).attr('start')
-								});
-							});
-							console.log(schedules);
-							callback(events);
-						},
-						error: function() {
-							alert('there was an error while fetching events!')
-						}
-					});
+				eventClick: function() {
+					$('#scd-modal').modal('show');
 				},
-				/* events: function(start, end, callback) {
-					/* var arr = [{title: 'evt1'}, {title: 'evt2'}];
-
-					var viewData = {};
-					viewData["title"] = $("#title").val();
-					viewData["schedivno"] = $("#schedivs").val();
-					viewData["startdate"] = $("#startdate").val();
-					viewData["enddate"] = $("#enddate").val();
-					viewData["content"] = $("#content").val(); */
-					
-					/* $.ajax({
-						contentType: 'application/json',
-						url: '/schedule/myschedule',
-						dataType: 'json',
-						type: 'get',
-						async: false,
-						success: function(schedules){
-							var events = [];
-							$.each(schedules, function(){
-								events.push({title:"백&황 면담사무소 방문", start:schedules.schedules[13].date})
-							});
-							console.log(schedules);
-							console.log(schedules.schedules[13].title);
-							callback(events);
+				events: [
+					<c:forEach items="${ schedules }" var="schedules">
+						{
+							title: '${ schedules.title }',
+							start: '<fmt:formatDate value="${ schedules.startdate }" pattern="yyyy-MM-dd" />',
+							end: '<fmt:formatDate value="${ schedules.enddate }" pattern="yyyy-MM-dd" />'
 						},
-						error: function() {
-							alert('에러');
-						}	
-					});
-					return arr;
-				}, */
+					</c:forEach>
+				],
 				locale: 'ko'
 			});
 			calendar.render();

@@ -61,9 +61,9 @@ public class ScheduleController {
 	public String getSchedule(Model model) {
 	//public List<Schedule> getSchedule(Model model) {
 		
-		Map<String, Schedule> javaMap = new HashMap<String, Schedule>();
-		javaMap.put("evt1", new Schedule());
-		javaMap.put("evt2", new Schedule());
+//		Map<String, Schedule> javaMap = new HashMap<String, Schedule>();
+//		javaMap.put("evt1", new Schedule());
+//		javaMap.put("evt2", new Schedule());
 		
 		List<Schdiv> schdivs = scheduleService.showSchdiv();
 		model.addAttribute("schdivs", schdivs);
@@ -73,6 +73,10 @@ public class ScheduleController {
 		
 		List<Schedule> schedules = scheduleService.showScheduleList();
 		model.addAttribute("schedules", schedules);
+		
+		model.addAttribute("ttitle", "test title");
+		model.addAttribute("tstart", "2020-04-28");
+		model.addAttribute("tend", "2020-04-30");
 		
 		System.out.println(schedules);
 		
