@@ -109,11 +109,11 @@
                                         </div>
                                     </div> -->
                                     <form action="/message/inbox" method="get">
+										<input type="hidden" value="${ param.empno }" name="empno">
 										<select name="searchType" aria-controls="dataTable" class="form-control-sm">
 											<option value="T" ${ param.searchType == 'T' ? 'selected' : '' }>제목</option>
 											<option value="C" ${ param.searchType == 'C' ? 'selected' : '' }>내용</option>
-										</select> 
-										<input type="hidden" value="${ loginuser.empno }" name="empno">
+										</select>
 										<input style="width:200px" type="search" name="searchKey" class="form-control-sm" placeholder="" aria-controls="dataTable" value="${ param.searchKey }"> 
 										<!-- <input type="submit" class="btn btn-success btn-sm" value="검색"> -->
 										  <button type="submit" class="btn btn-primary mb-2">검색</button>
@@ -139,8 +139,6 @@
                                             </a>
                                         </div>
                                         </c:forEach> --%>
-                                        
-                                        
                                          <table class="table">
 	                                        <thead>
 	                                            <tr>
