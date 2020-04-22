@@ -63,4 +63,8 @@
 		
 	</select>
 	
+	<update id="editEmp" parameterType="com.goodiware.vo.Employee" keyColumn="EMPNO" keyProperty="empno">
+		UPDATE EMPLOYEE SET posno = #{ posno }, depno = #{ depno } 
+		WHERE empno = #{ empno }
+	</update>
 </mapper>

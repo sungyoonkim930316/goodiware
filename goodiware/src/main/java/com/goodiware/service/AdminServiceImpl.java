@@ -60,4 +60,10 @@ public class AdminServiceImpl implements AdminService {
 		return adminMapper.empListCount(params);
 	}
 
+	@Override
+	public void editEmployee(Employee employee) {
+
+		adminMapper.editEmp(employee);
+	}
+
 }

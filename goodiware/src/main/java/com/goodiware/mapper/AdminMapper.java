@@ -24,4 +24,6 @@ public interface AdminMapper {
 	List<Employee> empWithPaging(HashMap<String, Object> params);
 
 	int empListCount(HashMap<String, Object> params);
+
+	void editEmp(Employee employee);
 }

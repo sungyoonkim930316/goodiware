@@ -22,4 +22,6 @@ public interface AdminService {
 
 	int empListCount(HashMap<String, Object> params);
 
+	void editEmployee(Employee employee);
+
 }
