@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>중고장터</title>
+    <title>무료 나눔</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/resources/images/favicon.png">
     <!-- Custom Stylesheet -->
@@ -66,8 +66,8 @@
             <div class="row page-titles mx-0">
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">중고장터</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">중고장터</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">무료 나눔</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">무료 나눔</a></li>
                     </ol>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-	                                <h4 class="card-title">중고장터</h4>
+	                                <h4 class="card-title">무료 나눔</h4>
 	                                
 							    </div>
                                 <div class="row" style="text-align: center">
@@ -108,7 +108,7 @@
 									  <thead>
 									    <tr>
 									      <th scope="col" width="180">글 번호</th>
-									      <th scope="col" width="250">대표 사진</th>
+									      <th scope="col" width="250">나눔 물품</th>
 									      <th scope="col" width="500">글 제목</th>
 									      <th scope="col" width="180">작성자</th>
 									      <th scope="col" width="180">등록일</th>

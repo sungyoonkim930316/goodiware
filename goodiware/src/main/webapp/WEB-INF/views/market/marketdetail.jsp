@@ -48,7 +48,21 @@
     ***********************************-->
 	<div id="main-wrapper">
 
-	
+		<!--**********************************
+            Nav header start
+        ***********************************-->
+		<div class="nav-header">
+			<div class="brand-logo">
+				<a href="index.html"> <b class="logo-abbr"><img
+						src="/resources/images/logo.png" alt=""> </b> <span
+					class="logo-compact"><img
+						src="/resources/images/logo-compact.png" alt=""></span> <span
+					class="brand-title"> <img
+						src="/resources/images/logo-text.png" alt="">
+				</span>
+				</a>
+			</div>
+		</div>
 		<!--**********************************
             Nav header end
         ***********************************-->
@@ -77,9 +91,9 @@
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="javascript:void(0)">중고장터</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">무료 나눔</a></li>
 						<li class="breadcrumb-item active"><a
-							href="javascript:void(0)">글 내용</a></li>
+							href="javascript:void(0)">무료 나눔</a></li>
 					</ol>
 				</div>
 			</div>
@@ -88,46 +102,54 @@
 			
 
 			<div class="container-fluid">
-				<h4 class="card-title">글 내용</h4>
-				<br>
-				<div class="form-group row">
-					<div class="col-sm-6 mb-3 mb-sm-0">
-						<label>글 번호</label>
-						<input type="text" name="bno"
-							class="form-control form-control-user" id="bno"
-							value=${ board.bno }>
-					</div>
-					<div class="col-sm-6">
-						<label>글 제목</label>
-						<input type="text" name="title"
-							class="form-control form-control-user" id="title"
-							value="${ board.title }">
-					</div>
-				</div>
-				
-				<div class="form-group row">
-					<div class="col-sm-6 mb-3 mb-sm-0">
-						<label>작성자</label>
-						<input type="text" name="name"
-							class="form-control form-control-user" id="name"
-							value=${ board.name }>
-					</div>
-					<div class="col-sm-6">
-						<label>작성 일자</label>
-						<input type="text" name="regdate"
-							class="form-control form-control-user" id="regdate"
-							value="${ board.regdate }">
-					</div>
-				</div>
-				
-				<div class="form-group">					
-					<label>본문 내용</label>
-					<div>
-						${ board.content }
-					</div>
-					<hr>
-					
-				</div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                            
+	                            <table class="table">
+	                               <thead>
+	                                   <tr>
+	                                       <th scope="col">${ board.title } | 무료나눔</th>
+	                                       <th scope="col">
+	                                       <th scope="col" style="text-align:right"><fmt:formatDate value="${ board.regdate }" pattern="yyyy-MM-dd"/></th>
+	                                   </tr>
+	                               </thead>
+	                               <tbody>
+	                                   <tr>
+	                                       <td colspan="3">${ board.name }</td>
+	                                   </tr>
+	                                   <tr>
+	                                       <td colspan="3"><br><br>${ board.content }<br><br></td>
+	                                   </tr>
+	                                   <tr>
+	                                   		<td colspan="3">댓글</td>
+	                                   	</tr>
+	                                   <tr>
+	                                   		<td colspan="3">
+	                                   		<form id="reply-form" class="user">
+												<div class="input-group mb-3">
+												  <input type="hidden" value="${ loginuser.empno }" name="empno" id="empno">
+												  <input type="hidden" value="${ board.bno }" name="bNo" id="bno">
+												  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="rcontent"  name="rcontent" style="height:80px">&nbsp;&nbsp;
+												  <div class="input-group-append">
+												    <button class="btn btn-outline-secondary" type="button" id="replyRegist" style="height:80px;width:80px">등록</button>
+												  </div>
+												</div>
+											</form>
+	                                   		</td>
+	                                   	</tr>
+	                                </tbody>
+	                             </table>
+	                           <%--  <div id="reply-list-container" style="width:832px">
+	                            
+	                            	<jsp:include page="reply-list.jsp" />
+	                            
+	                           	</div> --%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 				<br>
 				<br>
 				<div style="text-align: center">
@@ -138,8 +160,37 @@
 	        		<button id="tolist-button" type="button" class="btn btn-success">목록</button>
 				</div>
 			</div>
-			<!-- #/ container -->
 		</div>
+		
+								<!-- Modal -->
+                                <%-- <div class="modal fade" id="exampleModalCenter">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 id="modal-name" class="modal-title"></h5>
+                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="card">
+						                            <div class="card-body">
+						                                <div class="media align-items-center mb-4">
+						                                    <div class="media-body">
+						                                    	<textarea rows="2" cols="60">${ reply.content }</textarea>
+						                                    </div>
+						                                </div>
+						                            </div>
+						                        </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            	<button type="button" class="btn btn-info" id="sendMail">수정</button>
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">닫기</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                               	</div> --%>
+                               	<!-- Modal End -->
+		
+		
 		<!--**********************************
             Content body end
         ***********************************-->
@@ -164,13 +215,19 @@
         Main wrapper end
     ***********************************-->
 
-	<jsp:include page="/WEB-INF/views/modules/common-js.jsp"></jsp:include>
-	
+	<script src="/resources/plugins/common/common.min.js" ></script>
+    <script src="/resources/js/custom.min.js"></script>
+    <script src="/resources/js/settings.js"></script>
+    <script src="/resources/js/gleek.js"></script>
+    <script src="/resources/js/styleSwitcher.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<script type="text/javascript" src="/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 	<script type='text/javascript'>
 	$(function(){
 
-		$('input').attr({'readonly': 'readonly'})
+		/* $("#reply-list-container").load("/reply/list-by/${ board.bno }"); */
+		
+		/* $('input').attr({'readonly': 'readonly'}) */
 		
 		$('#tolist-button').on('click', function(event) {
 			location.href = "list?pageNo=${ param.pageNo }&searchType=${ param.searchType }&searchKey=${ param.searchKey }";
@@ -225,10 +282,211 @@
 			form.appendTo("body");
 			
 			return form;
-		}
+		};
+
+
+		<!-- //////////////////////////////////////
+		//				댓글					//
+		//////////////////////////////////////
+		
+		// 댓글 등록
+		$('#replyRegist').on("click", function(event) {
+
+			if ($('#rcontent').val().length == 0) {
+				alert("댓글 내용을 입력하세요")
+				return;
+			}
+			
+			var values = $('#reply-form').serializeArray();
+			/* console.log(values); return; */
+
+			$.ajax({
+				"url" : "/reply/write",
+				"method" : "post",
+				"data" : values,
+				"success" : function(data, status, xhr) {
+					// 비동기처리 완료 뒤, 리로딩할 영역
+					$("#reply-list-container").load("/reply/list-by/${ board.bno }");
+					$('#rcontent').val('');
+				},
+				"error" : function(xhr, status, err){
+					alert("댓글 쓰기가 실패해버렸지 뭐얌?")
+				}
+			});
+
+			 
+		});
+
+		// 댓글 삭제
+		$("#reply-list-container").on("click", ".deleteReply", function(evemt){
+
+			var rno = $(this).attr('data-rno');
+
+			/* console.log(rno); */
+
+			if(!confirm("댓글을 삭제할까요?")) return;
+
+			$.ajax({
+				"url": "/reply/delete/" + rno,
+				"method": "delete",
+				"data": { "rno" : rno },
+				"success": function(data, status, xhr) {
+					$("#reply-list-container").load("/reply/list-by/${ board.bno }");
+				},
+				"error": function(xhr, status, err) {
+					alert("삭제에 실패해버렸지뭐얌?");
+				}
+			});
+			
+ 
+		});
+
+		$("div[id^=reply-edit]").hide();
+		$("div[id^=reply-cancel]").hide();
+
+		// 댓글 수정
+		var currentRno = null;
+		$("#reply-list-container").on("click", ".editReply", function(event){
+
+			event.preventDefault();
+
+			var rno = $(this).attr('data-rno');
+			if (currentRno != null) {
+				if (rno == currentRno) {
+					return;
+				} else {
+					$("#reply-view-" + currentRno).show();
+					$("#reply-edit-" + currentRno).hide();
+					$("#reply-cancel-" + currentRno).hide();
+					$("#reply-button-" + currentRno).show();
+				}
+			}
+
+			$("#reply-view-" + rno).hide();
+			$("#reply-edit-" + rno).show();
+			$("#reply-button-" + rno).hide();
+			$("#reply-cancel-" + rno).show();
+
+			currentRno = rno;
+
+		});
+
+
+		$("#reply-list-container").on("click", ".cancelReply", function(event){
+
+			event.preventDefault();
+
+			var rno = $(this).attr('data-rno');
+
+			$("#reply-edit-" + rno).hide();
+			$("#reply-view-" + rno).show();
+			$("#reply-button-" + rno).show();
+			$("#reply-cancel-" + rno).hide();
+			
+		});
+
+		
+		$("#reply-list-container").on("click", ".edit-button", function(event){
+
+			var rno = $(this).attr('data-rno');
+			var rcontent = $("#rcontent-" + rno);
+
+			//console.log(rno);
+			//console.log($("#rcontent-"+rno));
+			
+			var data = {
+			"rno" : rno,
+			"rcontent" : rcontent.val()
+			};
+
+			$.ajax({
+				"url": "/reply/update/",
+				"method": "put",
+ 				"data" : JSON.stringify(data),
+				"contentType" : "application/json",
+				"success": function(data, status, xhr) {
+					$("#reply-list-container").load("/reply/list-by/${ board.bno }");
+				},
+				"error": function(xhr, status, err) {
+					alert("댓글 수정을 실패했습니다");
+				}
+			});
+			
+		});
+		
+		$("#reply-list-container").on("click", ".reReply", function(event){
+
+			event.preventDefault();
+
+			var rno = $(this).attr('data-rno');
+
+			//console.log(rno);
+			
+			/* $("#rereply-regist-" + currentRno2).show(); */
+			//$("#rereply-regist-" + rno).show();
+			
+			if (currentRno != null) {
+				if (rno == currentRno) {
+					return;
+				} else {
+					$("#rereply-regist-" + currentRno).hide();
+					$("#rereply-button-" + currentRno).hide();
+				}
+			}
+
+			$("#rereply-regist-" + rno).show();
+			$("#rereply-button-" + rno).hide();
+			$("#cancel-button-" + rno).show();
+
+			currentRno = rno;
+		});
+
+
+		$("#reply-list-container").on("click", ".reReply-cancel", function(event){
+
+			event.preventDefault();
+
+			var rno = $(this).attr('data-rno');
+
+			$("#rereply-regist-" + rno).hide();
+			$("#rereply-button-" + rno).show();
+			$("#cancel-button-" + rno).hide();
+
+			
+		});
+
+		// 대댓글 등록
+ 		$("#reply-list-container").on("click", ".rereply-button", function(event){
+
+			var rno = $(this).attr('data-rno');
+			var values = $('#rereply-form-'+rno).serializeArray();
+			//var rercontent = $("#rercontent-" + rno);
+			
+			if ($('#rcontent-'+rno).val().length == 0) {
+				alert("댓글 내용을 입력하세요")
+				return;
+			}
+			
+			//console.log(values); return;
+
+			$.ajax({
+				"url" : "/reply/rewrite",
+				"method" : "post",
+				"data" : values,
+				"success" : function(data, status, xhr) {
+					// 비동기처리 완료 뒤, 리로딩할 영역
+					$("#reply-list-container").load("/reply/list-by/${ board.bno }");
+				},
+				"error" : function(xhr, status, err){
+					alert("댓글 쓰기가 실패해버렸지 뭐얌?")
+				}
+			});
+			
+		});
+ 
 	    
-	});
-	</script>
+	}); -->
+	</script> 
 
 
 </body>
