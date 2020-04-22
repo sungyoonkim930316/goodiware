@@ -92,8 +92,8 @@
                                         <thead>
                                             <tr>
                                                	<th>제&nbsp;&nbsp;&nbsp;&nbsp;목</th>
-                                                <th>발신인</th>
-                                                <th>수신일</th>
+                                                <th>발 신 자</th>
+                                                <th>수 신 일</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -187,8 +187,8 @@
                                             <tr>
                                                 <th>구&nbsp;&nbsp;분</th>
                                                 <th>제&nbsp;&nbsp;&nbsp;&nbsp;목</th>
-                                                <th>최초등록자</th>
-                                                <th>진행현황</th>
+                                                <th>최 초 등 록 자</th>
+                                                <th>진 행 현 황</th>
                                             </tr>
                                         </thead>
                                         <tbody>
