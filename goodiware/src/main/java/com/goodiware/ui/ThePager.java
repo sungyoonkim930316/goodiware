@@ -43,8 +43,9 @@ public class ThePager {
 		
 		//2. 페이지 번호 Link 만들기
 		int pagerBlock = (pageNo - 1) / pagerSize;
-		int start = (pagerBlock * pagerSize) + 1;
+		int start = (pagerBlock * pagerSize) + 1;		
 		int end = start + pagerSize;
+		
 		for (int i = start; i < end; i++) {
 			if (i > pageCount) break;
 			linkString.append("&nbsp;");
@@ -52,20 +53,29 @@ public class ThePager {
 				linkString.append(String.format("[%d]", i));
 			} else { 
 				linkString.append(String.format(
-					"<a href='%s&pageNo=%d'>%d</a>", linkUrl, i, i));
+					"<a href='%s/%d'>%d</a>", linkUrl, i, i));
 			}
 			linkString.append("&nbsp;");
 		}
 		
 		//3. 다음, 마지막 항목 만들기
+//		if (pageNo < pageCount) {
+//			linkString.append("&nbsp;");
+//			linkString.append(String.format(
+//				"[<a href='%s&pageNo=%d'>다음</a>]",linkUrl, pageNo + 1));
+//			linkString.append("&nbsp;");
+//			linkString.append("&nbsp;");
+//			linkString.append(String.format(
+//				"[<a href='%s&pageNo=%d'>마지막</a>]", linkUrl, pageCount));
+//		}
 		if (pageNo < pageCount) {
 			linkString.append("&nbsp;");
 			linkString.append(String.format(
-				"[<a href='%s&pageNo=%d'>다음</a>]",linkUrl, pageNo + 1));
+					"[<a href='%s/%d'>다음</a>]",linkUrl, pageNo + 1));
 			linkString.append("&nbsp;");
 			linkString.append("&nbsp;");
 			linkString.append(String.format(
-				"[<a href='%s&pageNo=%d'>마지막</a>]", linkUrl, pageCount));
+					"[<a href='%s/%d'>마지막</a>]", linkUrl, pageCount));
 		}
 		
 		return linkString.toString();

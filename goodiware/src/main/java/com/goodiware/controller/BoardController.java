@@ -1,6 +1,7 @@
 package com.goodiware.controller;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.goodiware.service.BoardReplyService;
 import com.goodiware.service.BoardService;
+import com.goodiware.ui.Page;
 import com.goodiware.ui.ThePager;
 import com.goodiware.ui.ThePager2;
 import com.goodiware.vo.Board;
@@ -105,7 +107,7 @@ public class BoardController {
 		Board board = boardService.findBoardByBNo(bNo);
 
 		// 댓글 조회
-		int pageSize = 10;
+		int pageSize = 3;
 		int pagerSize = 3;
 		HashMap<String, Object> params = new HashMap<>();
 		int beginning = (RpageNo - 1) * pageSize;
@@ -116,10 +118,31 @@ public class BoardController {
 		List<Reply> replies = boardReplyService.getReplyWithPagingByBno(params);
 		int replyCount = boardReplyService.getReplyCount(params);
 
-		ThePager pager = new ThePager(replyCount, RpageNo, pageSize, pagerSize, "/reply/page");
-		model.addAttribute("pager", pager);
+//		ThePager pager = new ThePager(replyCount, RpageNo, pageSize, pagerSize, "/reply/page");
+//		model.addAttribute("pager", pager);
+		
+		///////////////////////////////////////////////////////////
+		/// 페이징 맹글기
+		int pageCount = ( replyCount / pageSize ) + (( replyCount % pageSize ) > 0 ? 1 : 0 );
+		int pagerBlock = ( RpageNo -1 ) / pagerSize;
+		int start = (pagerBlock * pagerSize ) + 1;
+		int end = start + pagerSize;
+		String url = "list-by";
+
+		HashMap<String, Object> pages = new HashMap<>();
+		
+		for (int i=start; i<end; i++) {
+			if (i > pageCount) break;
+			if(i == RpageNo) {
+				pages.put("current", i);
+			} else {
+				pages.put("url", String.format("/reply/%s/%d/%d", url, bNo, i));
+			}
+			System.out.println(pages);
+			model.addAttribute("pagess", pages);
+		}
+		
 		model.addAttribute("replies", replies);
-//		System.out.println("replies : " + replies);
 		
 		if (board == null) {
 			return "redirect:list";

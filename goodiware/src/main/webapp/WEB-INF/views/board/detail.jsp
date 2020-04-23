@@ -145,9 +145,22 @@
 	                            
 	                            	<jsp:include page="reply-list2.jsp" />
 	                            	<br>
-	                            	<div style="text-align:center">
-						            	${ pager }
-	                            	</div>
+	                            	
+	                            	
+	                            	
+	                            	<hr>
+					            	 <ul class="pagination">
+                                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a>
+                                        </li>
+                                        <li class="page-item active"><a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">Next</a>
+                                        </li>
+                                    </ul>
 	                           	</div>
                             </div>
                         </div>
@@ -336,7 +349,6 @@
 					$("#rereply-regist-" + currentRno).hide();
 					$("#rereply-button-" + currentRno).show();
 					$("#cancel-button-" + currentRno).hide();
-					
 				}
 			} 
 			
@@ -385,7 +397,7 @@
  				"data" : JSON.stringify(data),
 				"contentType" : "application/json",
 				"success": function(data, status, xhr) {
-					$("#reply-list-container").load("/reply/list-by/${ board.bno }");
+					$("#reply-list-container").load("/reply/list-by/${ board.bno }/2");
 				},
 				"error": function(xhr, status, err) {
 					alert("댓글 수정을 실패했습니다");
@@ -417,8 +429,6 @@
 					$("#cancel-button-" + currentRno).hide();
 					$("#reply-cancel-" + currentRno).hide();
 					$("#reply-button-" + currentRno).show();
-					
-					
 				}
 			} 
 

@@ -1,5 +1,6 @@
 package com.goodiware.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.goodiware.service.BoardReplyService;
+import com.goodiware.ui.ThePager;
 import com.goodiware.vo.Reply;
 
 @Controller
@@ -35,15 +37,40 @@ public class BoardReplyController {
 		return "success";
 	}
 	
-	@GetMapping(path= {"/list-by/{bno}"})
-	public String listByBno(@PathVariable int bno, Model model) {
+	// 리스트 로드 백업
+//	@GetMapping(path= {"/list-by/{bno}"})
+//	public String listByBno(@PathVariable int bno, Model model) {
+//		
+//		List<Reply> replies = boardReplyService.getReplyListByBno(bno);
+//		model.addAttribute("replies", replies);
+//		
+//		
+//		
+//		return "/board/reply-list2";
+//		
+//	} 
+
+	@GetMapping(path= {"/list-by/{bno}/{pageNo}"})
+	public String listByBno(@PathVariable int bno, @PathVariable int pageNo, Model model) {
 		
-		List<Reply> replies = boardReplyService.getReplyListByBno(bno);
-		model.addAttribute("replies", replies);
+		int pageSize = 3;
+		int pagerSize = 3;
+		HashMap<String, Object> params = new HashMap<>();
+		int beginning = (pageNo - 1) * pageSize;
+		params.put("beginning", beginning);
+		params.put("end", beginning + pageSize);
+		params.put("bno", bno);
 		
-		return "/board/reply-list2";
+		List<Reply> replies = boardReplyService.getReplyWithPagingByBno(params);
+//		int replyCount = boardReplyService.getReplyCount(params);
 		
-	}
+//		ThePager pager = new ThePager(replyCount, pageNo, pageSize, pagerSize, "/reply/list-by/{pageNo}");
+//		model.addAttribute("pager", pager);
+		
+//		return "/board/reply-list2";
+		return String.format("/board/reply-list?pageNo=%d", pageNo);
+		
+	} 
 	
 	@DeleteMapping(path= {"delete/{rno}"})
 	@ResponseBody
@@ -78,6 +105,15 @@ public class BoardReplyController {
 		boardReplyService.insertReReply(reply);
 		
 		return "success";
+	}
+	
+	@GetMapping(path= {"/page/{rPageNo}"})
+	@ResponseBody
+	public String replyPage() {
+		
+		
+		
+		return "/board/reply-list2";
 	}
 	
 	
