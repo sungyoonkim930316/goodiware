@@ -21,7 +21,12 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		
 		HttpSession session = request.getSession();
 
-		if(uri.equals("/") || uri.contains("/admin/") || uri.contains("/board/") || uri.contains("/home/") || uri.contains("/message/") || uri.contains("/schedule/") || uri.contains("/reference/") || uri.contains("/appr/") || uri.equals("/employee/searchEmp") ) {
+		if(uri.equals("/") || uri.contains("/admin/") 
+				|| uri.contains("/board/") || uri.contains("/home/") 
+				|| uri.contains("/message/") || uri.contains("/schedule/") 
+				|| uri.contains("/reference/") || uri.contains("/appr/") 
+				|| uri.equals("/employee/searchEmp") || uri.contains("/chat/")) {
+			
 			if(session.getAttribute("loginuser") == null) {
 				response.sendRedirect("/employee/login");
 				return false;

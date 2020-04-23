@@ -2,6 +2,7 @@ package com.goodiware.vo;
 
 import java.util.List;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
@@ -28,6 +29,14 @@ public class Employee {
 		
 	private String posname;
 	private String depname; 
+	
+	private String token; // 채팅방 토큰
+	
+	@Builder
+	public Employee(String name, String token) {
+		this.name = name;
+		this.token = token;
+	}
 	
 	private List<Position> positions;
 	private List<Department> departments;

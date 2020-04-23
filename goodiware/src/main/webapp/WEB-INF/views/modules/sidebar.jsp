@@ -50,10 +50,10 @@
                     </li>
                      <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-menu menu-icon"></i><span class="nav-text">회의방</span>
+                            <i class="mdi mdi-bell-outline"></i><span class="nav-text">회의</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/board/list">대화하기</a></li>
+                            <li><a href="/chat/room">회의실 목록</a></li>
                         </ul>
                     </li>
                     <li>
