@@ -30,6 +30,10 @@
     <script src="/resources/plugins/fullcalendar/js/tgmain.js"></script>
     <script src="/resources/plugins/fullcalendar/js/ko.js"></script>
     <script src="/resources/js/jquery.datetimepicker.full.min.js"></script>
+    
+    <style>
+    	.fc-event{cursor: pointer;}
+    </style>
 
 </head>
 
@@ -76,6 +80,7 @@
                                     <h4>달력</h4>
                                 </div>
                                 <div id='calendar'></div>
+                                <!-- <div id='datetimepicker'></div> -->
                             </div>
                         </div>
                     </div>
@@ -164,12 +169,12 @@
 	                    <div class="row">
 	                    
 	                    	<div class="col-md-12 form-group">
-	                    		<input type="hidden" value="${ scheduleDetail.scheno }" name="scheno" id="scheno" />
+	                    		<input class="scheno" type="hidden" value="${ scheduleDetail.scheno }" name="scheno" id="scheno" />
 	                    	</div>
 	                    
 	                    	<div class="col-md-6 form-group">
 	                            <label class="control-label">일정이름</label>
-	                            <input class="form-control form-white" value="${ scheduleDetail.title }" required="required" type="text" id="title" name="title" />
+	                            <input class="form-control form-white title" value="${ scheduleDetail.title }" required="required" type="text" id="title" name="title" />
 	                        </div>
 	                        
 	                        <div class="col-md-6 form-group">
@@ -181,9 +186,9 @@
 	                            </select>
 	                        </div>
 	                        
-	                        <div class="col-md-6 form-group">
+	                        <div class="col-md-6 form-group startdate">
 	                        	<label class="control-label">일정시작</label>
-	                        	<input class="form-control form-white" type="text" id="startdate" name="startdate" value="${ scheduleDetail.startdate }" />
+	                        	<input class="form-control form-white startdate" type="text" id="startdate" name="startdate" value="${ scheduleDetail.startdate }" />
 	                        </div>
 	                        
 	                        <div class="col-md-6 form-group">
@@ -206,9 +211,9 @@
 	                </form>
 	            </div>
 	            <div class="modal-footer modalBtnContainer-editScd">
-	                <button id='modalUpdateBtn' type="button" class="btn btn-success save-event waves-effect waves-light">저장</button>
-	                <button id="modalCloseBtn" type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">닫기</button>
+	                <button id='modalUpdateBtn' type="button" class="btn btn-success save-event waves-effect waves-light">수정</button>
 	                <button id="modalDeleteBtn" type="button" class="btn btn-danger delete-event waves-effect waves-light">삭제</button>
+	                <button id="modalCloseBtn" type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">닫기</button>
 	            </div> 
 	        </div>
 	    </div>
@@ -237,9 +242,13 @@
 					$('#scd-modal').modal('show');
 				},
 				eventClick: function(eventClickInfo) {
-					alert(eventClickInfo.event.id + "\n" + eventClickInfo.event.title);
 
 					$('#scdedit-modal').modal('show');
+					$('#scdedit-modal').find('#title').val(eventClickInfo.event.title);
+					$('#scdedit-modal').find('#startdate').val(eventClickInfo.event.start);
+					$('#scdedit-modal').find('#enddate').val(eventClickInfo.event.end);
+					$('#scdedit-modal').find('#content').val(eventClickInfo.event.content);
+					/* $('#scdedit-modal .modal-body').text(eventClickInfo.event.title + "\n\n" + eventClickInfo.event.start + "\n\n" + eventClickInfo.event.end); */
 
 					/* var values = $('#addscd-form').serialize();
 					
@@ -255,6 +264,11 @@
 					    }
 			        }); */
 				},
+				/* eventMouseEnter: function(mouseEnterInfo, event) {
+					alert(eventClickInfo.event.title);
+				},
+				eventMouseLeave: function(mouseLeaveInfo){
+				}, */
 				eventLimit: true,
 				views: {
 					timeGrid: {
@@ -270,7 +284,31 @@
 							start: '<fmt:formatDate value="${ schedules.startdate }" pattern="yyyy-MM-dd" />',
 							end: '<fmt:formatDate value="${ schedules.enddate }" pattern="yyyy-MM-dd" />',
 							textColor: 'black',
-							backgroundColor: 'palegreen',
+							<c:choose>
+								<c:when test="${ schedules.schedivno eq 1 }">
+									backgroundColor: '#ffc0cb'
+								</c:when>
+
+								<c:when test="${ schedules.schedivno eq 2 }">
+									backgroundColor: 'lightgray'
+								</c:when>
+
+								<c:when test="${ schedules.schedivno eq 3 }">
+									backgroundColor: '#8977AD'
+								</c:when>
+
+								<c:when test="${ schedules.schedivno eq 4 }">
+									backgroundColor: 'palegreen'
+								</c:when>
+
+								<c:when test="${ schedules.schedivno eq 5 }">
+									backgroundColor: '#50bcdf'
+								</c:when>
+
+								<c:otherwise>
+									backgroundColor: 'lightgray'
+								</c:otherwise>
+							</c:choose>,
 							borderColor: 'white'
 						},
 					</c:forEach>
@@ -321,9 +359,10 @@
 				});
 			});
 			
-			$('#startdate, #enddate').on('click', function(event) {
+			/* $('#startdate, #enddate').on('click', function(event) {
 				$(this).datetimepicker("show");
-			})
+			}) */
+			/* $('#startdate, #enddate').datetimepicker(); */
 		})
 		
 
