@@ -41,7 +41,7 @@ public class BoardReplyController {
 		List<Reply> replies = boardReplyService.getReplyListByBno(bno);
 		model.addAttribute("replies", replies);
 		
-		return "/board/reply-list";
+		return "/board/reply-list2";
 		
 	}
 	
@@ -70,12 +70,12 @@ public class BoardReplyController {
 	@ResponseBody
 	public String rewrite(Reply reply) {
 		
-		boardReplyService.insertReReply(reply);
-		
 		System.out.println("rno : " + reply.getRno());
 		System.out.println("empno : " + reply.getEmpno());
 		System.out.println("rcontent : " + reply.getRcontent());
 		System.out.println("bno : " + reply.getBNo());
+
+		boardReplyService.insertReReply(reply);
 		
 		return "success";
 	}

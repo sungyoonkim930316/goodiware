@@ -289,7 +289,7 @@
 		//				댓글					//
 		//////////////////////////////////////
 		
-		// 댓글 등록
+		// 댓글 등록 처리
 		$('#replyRegist').on("click", function(event) {
 
 			if ($('#rcontent').val().length == 0) {
@@ -317,7 +317,7 @@
 			 
 		});
 
-		// 댓글 삭제
+		// 댓글 삭제 처리
 		$("#reply-list-container").on("click", ".deleteReply", function(evemt){
 
 			var rno = $(this).attr('data-rno');
@@ -344,7 +344,7 @@
 		$("div[id^=reply-edit]").hide();
 		$("div[id^=reply-cancel]").hide();
 
-		// 댓글 수정
+		// 댓글 수정 버튼 클릭
 		var currentRno = null;
 		$("#reply-list-container").on("click", ".editReply", function(event){
 
@@ -359,23 +359,22 @@
 					$("#reply-edit-" + currentRno).hide();
 					$("#reply-cancel-" + currentRno).hide();
 					$("#reply-button-" + currentRno).show();
-
+					$("#rereply-regist-" + currentRno).hide();
 					
 				}
-			}
-
+			} 
+			
 			$("#reply-view-" + rno).hide();
 			$("#reply-edit-" + rno).show();
 			$("#reply-button-" + rno).hide();
 			$("#reply-cancel-" + rno).show();
-
-			
+			$("#rereply-regist-" + rno).hide();
 
 			currentRno = rno;
 
 		});
 
-
+		// 댓글 취소 버튼 클릭
 		$("#reply-list-container").on("click", ".cancelReply", function(event){
 
 			event.preventDefault();
@@ -386,10 +385,11 @@
 			$("#reply-view-" + rno).show();
 			$("#reply-button-" + rno).show();
 			$("#reply-cancel-" + rno).hide();
-			
+
+			currentRno = null;
 		});
 
-		
+		// 댓글 수정 처리
 		$("#reply-list-container").on("click", ".edit-button", function(event){
 
 			var rno = $(this).attr('data-rno');
@@ -417,7 +417,8 @@
 			});
 			
 		});
-		
+
+		// 대댓글 버튼 클릭
 		$("#reply-list-container").on("click", ".reReply", function(event){
 
 			event.preventDefault();
@@ -434,28 +435,36 @@
 					return;
 				} else {
 					$("#rereply-regist-" + currentRno).hide();
-					$("#rereply-button-" + currentRno).hide();
+					$("#rereply-button-" + currentRno).show();
+					$("#reply-view-" + currentRno).show();
+					$("#reply-edit-" + currentRno).hide();
+					$("#cancel-button-" + currentRno).hide();
+					
 				}
-			}
+			} 
 
 			$("#rereply-regist-" + rno).show();
 			$("#rereply-button-" + rno).hide();
 			$("#cancel-button-" + rno).show();
-
+			$("#reply-view-" + rno).show();
+			$("#reply-edit-" + rno).hide();
+			
 			currentRno = rno;
 		});
 
 
+		// 대댓글 취소버튼
 		$("#reply-list-container").on("click", ".reReply-cancel", function(event){
 
 			event.preventDefault();
 
 			var rno = $(this).attr('data-rno');
-
+			
+			$("#cancel-button-" + rno).hide();
 			$("#rereply-regist-" + rno).hide();
 			$("#rereply-button-" + rno).show();
-			$("#cancel-button-" + rno).hide();
 
+			currentRno = null;
 			
 		});
 
@@ -485,6 +494,8 @@
 					alert("댓글 쓰기가 실패해버렸지 뭐얌?")
 				}
 			});
+
+			currentRno = null;
 			 
 		});
  
