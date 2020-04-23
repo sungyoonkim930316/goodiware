@@ -1,5 +1,6 @@
 package com.goodiware.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,18 @@ public class BoardReplyServiceImpl implements BoardReplyService {
 		
 		boardReplyMapper.insertReReply(reply);
 		
+	}
+
+	@Override
+	public List<Reply> getReplyWithPagingByBno(HashMap<String, Object> params) {
+
+		return boardReplyMapper.selectReplyWithPagingByBno(params);
+	}
+
+	@Override
+	public int getReplyCount(HashMap<String, Object> params) {
+
+		return boardReplyMapper.selectReplyCount(params);
 	}
 
 }

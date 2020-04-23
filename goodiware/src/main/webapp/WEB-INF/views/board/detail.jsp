@@ -141,10 +141,13 @@
 	                                   	</tr>
 	                                </tbody>
 	                             </table>
-	                            <div id="reply-list-container" style="width:832px">
+	                            <div id="reply-list-container">
 	                            
 	                            	<jsp:include page="reply-list2.jsp" />
-	                            
+	                            	<br>
+	                            	<div style="text-align:center">
+						            	${ pager }
+	                            	</div>
 	                           	</div>
                             </div>
                         </div>
@@ -161,35 +164,6 @@
 				</div>
 			</div>
 		</div>
-		
-								<!-- Modal -->
-                                <%-- <div class="modal fade" id="exampleModalCenter">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 id="modal-name" class="modal-title"></h5>
-                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="card">
-						                            <div class="card-body">
-						                                <div class="media align-items-center mb-4">
-						                                    <div class="media-body">
-						                                    	<textarea rows="2" cols="60">${ reply.content }</textarea>
-						                                    </div>
-						                                </div>
-						                            </div>
-						                        </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                            	<button type="button" class="btn btn-info" id="sendMail">수정</button>
-                                                <button type="button" class="btn btn-primary" data-dismiss="modal">닫기</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                               	</div> --%>
-                               	<!-- Modal End -->
-		
 		
 		<!--**********************************
             Content body end
@@ -360,6 +334,8 @@
 					$("#reply-cancel-" + currentRno).hide();
 					$("#reply-button-" + currentRno).show();
 					$("#rereply-regist-" + currentRno).hide();
+					$("#rereply-button-" + currentRno).show();
+					$("#cancel-button-" + currentRno).hide();
 					
 				}
 			} 
@@ -368,8 +344,8 @@
 			$("#reply-edit-" + rno).show();
 			$("#reply-button-" + rno).hide();
 			$("#reply-cancel-" + rno).show();
-			$("#rereply-regist-" + rno).hide();
-
+			//$("#rereply-regist-" + rno).hide();
+			
 			currentRno = rno;
 
 		});
@@ -439,6 +415,9 @@
 					$("#reply-view-" + currentRno).show();
 					$("#reply-edit-" + currentRno).hide();
 					$("#cancel-button-" + currentRno).hide();
+					$("#reply-cancel-" + currentRno).hide();
+					$("#reply-button-" + currentRno).show();
+					
 					
 				}
 			} 
@@ -448,6 +427,8 @@
 			$("#cancel-button-" + rno).show();
 			$("#reply-view-" + rno).show();
 			$("#reply-edit-" + rno).hide();
+			$("#reply-cancel-" + rno).hide();
+			
 			
 			currentRno = rno;
 		});
@@ -471,6 +452,8 @@
 		// 대댓글 등록
  		$("#reply-list-container").on("click", ".rereply-button", function(event){
 
+ 			event.preventDefault();
+ 			
 			var rno = $(this).attr('data-rno');
 			var values = $('#rereply-form-'+rno).serializeArray();
 			//var rercontent = $("#rercontent-" + rno);

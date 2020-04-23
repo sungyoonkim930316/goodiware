@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.goodiware.service.BoardReplyService;
 import com.goodiware.service.BoardService;
+import com.goodiware.ui.ThePager;
 import com.goodiware.ui.ThePager2;
 import com.goodiware.vo.Board;
 import com.goodiware.vo.Reply;
@@ -75,23 +76,57 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
+	// 디테일  백업
+//	@GetMapping(path = { "/detail" })
+//	public String showDetail(@RequestParam("BNo") int bNo, Model model){
+// 
+//		Board board = boardService.findBoardByBNo(bNo);
+//		
+//		List<Reply> replies = boardReplyService.getReplyListByBno(bNo);
+//		model.addAttribute("replies", replies);
+//		
+//		if (board == null) {
+//			return "redirect:list";
+//		}
+//		
+//
+//		// 2. 조회된 데이터를 View에서 사용할 수 있도록 저장
+//		model.addAttribute("board", board);
+//
+//		// 3. View로 이동
+//		return "board/detail";
+//	}
+	
+	// 게시판 디테일 + 댓글 페이징 
 	@GetMapping(path = { "/detail" })
-	public String showDetail(@RequestParam("BNo") int bNo, Model model){
- 
-		Board board = boardService.findBoardByBNo(bNo);
+	public String showDetail(@RequestParam(defaultValue="1") int RpageNo,@RequestParam("BNo") int bNo, Model model){
 		
-		List<Reply> replies = boardReplyService.getReplyListByBno(bNo);
+		// 게시글 디테일 조회
+		Board board = boardService.findBoardByBNo(bNo);
+
+		// 댓글 조회
+		int pageSize = 10;
+		int pagerSize = 3;
+		HashMap<String, Object> params = new HashMap<>();
+		int beginning = (RpageNo - 1) * pageSize;
+		params.put("beginning", beginning);
+		params.put("end", beginning + pageSize);
+		params.put("bno", bNo);
+		
+		List<Reply> replies = boardReplyService.getReplyWithPagingByBno(params);
+		int replyCount = boardReplyService.getReplyCount(params);
+
+		ThePager pager = new ThePager(replyCount, RpageNo, pageSize, pagerSize, "/reply/page");
+		model.addAttribute("pager", pager);
 		model.addAttribute("replies", replies);
+//		System.out.println("replies : " + replies);
 		
 		if (board == null) {
 			return "redirect:list";
 		}
 		
-
-		// 2. 조회된 데이터를 View에서 사용할 수 있도록 저장
 		model.addAttribute("board", board);
-
-		// 3. View로 이동
+		
 		return "board/detail";
 	}
 	

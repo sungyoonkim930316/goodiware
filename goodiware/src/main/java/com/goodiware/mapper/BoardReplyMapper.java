@@ -1,5 +1,6 @@
 package com.goodiware.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -24,5 +25,9 @@ public interface BoardReplyMapper {
 	Reply selectReplyByRno(int rno);
 
 	void insertReReply(Reply reply);
+
+	List<Reply> selectReplyWithPagingByBno(HashMap<String, Object> params);
+
+	int selectReplyCount(HashMap<String, Object> params);
 
 }

@@ -54,4 +54,16 @@
 		values ( #{ bNo }, #{ empno }, #{ rcontent }, NOW(), #{ gno }, #{ sno }, #{ depth } )
 	</insert>
 
+	<select id="selectReplyWithPagingByBno" parameterType="hashmap" resultType="com.goodiware.vo.Reply">
+		select r.rno, r.empno, r.bno, r.rcontent, r.rdate, r.gno, r.sno, r.depth ,e.name
+		from REPLY r, EMPLOYEE e
+		where r.empno = e.empno and r.bno=#{ bno }
+		ORDER BY gno DESC, sno ASC
+		LIMIT #{ beginning }, #{ end }
+	</select>
+	
+	<select id="selectReplyCount" parameterType="hashmap" resultType="int">
+		select count(*) from REPLY where bno = #{ bno }  
+	</select>
+
 </mapper>
