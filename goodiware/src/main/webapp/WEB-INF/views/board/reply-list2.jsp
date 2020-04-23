@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%-- 
 								 <table style="width:830px" class="reply-container">
 	                             	<tbody>
 	                                   	<c:forEach items="${ replies }" var="reply">
@@ -76,7 +77,7 @@
 	                                   	</tr>
 	                            	</tbody>
 	                           	</table>
-
+ --%>
 
 
 <!--  ***************************************************************************************************** -->
@@ -97,9 +98,25 @@
 									<div>
 									<c:choose>
 									<c:when test="${ not reply.brdel }">
-									<p>
-									${ reply.rcontent }
-									</p>
+										<div>
+											<p id="reply-view-${ reply.rno }">
+											${ reply.rcontent }
+											</p>
+										</div>
+										<div id="reply-edit-${ reply.rno }" style="display:none">
+	                                   		<form id="rereply-form" class="user">
+												<div class="input-group mb-3">
+												  <input type="hidden" value="${ reply.rno }" name="rno">
+												  <input type="text" value="${ reply.rcontent }" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="rcontent-${ reply.rno }" name="rcontent" style="height:50px">&nbsp;&nbsp;
+												  <div class="input-group-append" data-empno="${ loginuser.empno }">
+												    <button class="btn btn-outline-secondary edit-button" type="button" data-rno="${ reply.rno }" style="height:50px;width:80px">수정</button>
+												  </div>
+												</div>
+											</form>
+										</div>
+										
+									
+									
 									</c:when>
 									<c:otherwise>
 									[삭제된 글입니다.]									
@@ -111,7 +128,7 @@
 										<c:if test="${ reply.empno == loginuser.empno }">
 										<button data-rno="${ reply.rno }" class="btn btn-primary btn-sm editReply">수정</button>
 										<button data-rno="${ reply.rno }" class="btn btn-primary btn-sm deleteReply">삭제</button>
-										
+										<button data-rno="${ reply.rno }" class="btn btn-primary btn-sm cancelReply">수정취소</button>
 										</c:if>
 										<button data-rno='${ reply.rno }' class="btn btn-primary btn-sm reReply">댓글</button>
 										<button data-rno='${ reply.rno }' style="display:none" class="btn btn-primary btn-sm reReply-cancel">댓글취소</button>
@@ -134,7 +151,7 @@
 											</form>
 										</div>
 										<!-- 댓글 수정 -->
-										<div id="reply-edit-${ reply.rno }" style="display:none">
+										<div id="rereply-regist-${ reply.rno }" style="display:none">
 	                                   		<form id="rereply-form" class="user">
 												<div class="input-group mb-3">
 												  <input type="hidden" value="${ reply.rno }" name="rno">

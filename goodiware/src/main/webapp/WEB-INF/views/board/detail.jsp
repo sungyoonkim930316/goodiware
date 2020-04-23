@@ -355,6 +355,7 @@
 				if (rno == currentRno) {
 					return;
 				} else {
+					$("#reply-view-" + currentRno).show();
 					$("#reply-edit-" + currentRno).hide();
 					$("#reply-cancel-" + currentRno).hide();
 					$("#reply-button-" + currentRno).show();
@@ -363,6 +364,7 @@
 				}
 			}
 
+			$("#reply-view-" + rno).hide();
 			$("#reply-edit-" + rno).show();
 			$("#reply-button-" + rno).hide();
 			$("#reply-cancel-" + rno).show();
