@@ -12,23 +12,28 @@
 		select * from SCHDIV
 	</select>
 	
-	<select id="selectEmpno" resultType="com.goodiware.vo.Employee">
+	<!-- <select id="selectEmpno" resultType="com.goodiware.vo.Employee">
 		select * from EMPLOYEE
-	</select>
+	</select> -->
 	
 	<select id="showPlans" parameterType="int" resultType="com.goodiware.vo.Schedule">
 		<![CDATA[
 		SELECT SCHENO, SCHEDIVNO, EMPNO, TITLE, CONTENT, STARTDATE, ENDDATE
 		FROM SCHEDULE
+		WHERE EMPNO = #{empno}
 		]]>
 	</select>
 	
-	<!-- <select id="selectPlans" resultType="com.goodiware.vo.Schedule">
-		select SCHENO, SCHEDIVNO, EMPNO, TITLE, STARTDATE, ENDDATE, CONTENT
-		from SCHEDULE
-		where SCHENO = #{ scheno }
-	</select> -->
+	<select id="selectScheduleDetailByScheNo" parameterType="int" resultType="com.goodiware.vo.Schedule">
+		<![CDATA[
+		SELECT SCHENO, TITLE, SCHEDIVNO, STARTDATE, ENDDATE, CONTENT, EMPNO
+		FROM SCHEDULE
+		WHERE SCHENO = #{scheno}
+		]]>
+	</select>
 	
-	
+	<!-- <delete id="deleteSchedule" parameterType="int">
+		DELETE FROM SCHEDULE WHERE scheno=#{scheno}
+	</delete> -->
 	
 </mapper>

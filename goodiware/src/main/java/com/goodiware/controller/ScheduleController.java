@@ -21,8 +21,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -58,7 +60,7 @@ public class ScheduleController {
 	
 	
 	@GetMapping(path= {"/myschedule"})
-	public String getSchedule(Model model) {
+	public String getSchedule(Model model, int empno) {
 	//public List<Schedule> getSchedule(Model model) {
 		
 //		Map<String, Schedule> javaMap = new HashMap<String, Schedule>();
@@ -68,29 +70,52 @@ public class ScheduleController {
 		List<Schdiv> schdivs = scheduleService.showSchdiv();
 		model.addAttribute("schdivs", schdivs);
 		
-		List<Employee> empno = scheduleService.showEmpno();
-		model.addAttribute("empno", empno);
+//		List<Employee> empno2 = scheduleService.showEmpno();
+//		model.addAttribute("empno2", empno2);
 		
-		List<Schedule> schedules = scheduleService.showScheduleList();
+		List<Schedule> schedules = scheduleService.showScheduleList(empno);
 		model.addAttribute("schedules", schedules);
 		
 		model.addAttribute("ttitle", "test title");
 		model.addAttribute("tstart", "2020-04-28");
 		model.addAttribute("tend", "2020-04-30");
 		
-		System.out.println(schedules);
+		//System.out.println(schedules);
 		
 		return "/schedule/mainschedule";
 		//return schedules;
 		
 	}
 	
+	@GetMapping(path= {"/schedule/detail"})
+	public String showSchedule(Model model, int scheno) {
+		
+		Schedule scheduleDetail = scheduleService.findScheduleDetailByScheNo(scheno);
+		if (scheduleDetail == null) {
+			return String.format("redirect:/schedule/myschedule");
+//			return String.format("redirect:/schedule/myschedule?empno=%d", empno);
+		}
+		model.addAttribute("scheduleDetail", scheduleDetail);
+		
+		return "success";
+		
+	}
+	
 	@PostMapping(path= {"/mainschedule"})
-	public String addSch(Schedule schedule) {
+	public String addSch(Schedule schedule, int empno) {
 		
 		scheduleService.plusScd(schedule);
 		
-		return "redirect:/schedule/myschedule";
+		return String.format("redirect:/schedule/myschedule?empno=%d", empno);
+	}
+	
+	@DeleteMapping(path = { "/schedule/delete" }) // path string의 {} -> 데이터
+	@ResponseBody
+	public String deleteSchedule(@PathVariable int scheno) {
+		
+		scheduleService.deleteSchedule(scheno);
+		
+		return "success";
 	}
 	
 	

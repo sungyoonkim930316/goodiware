@@ -31,7 +31,7 @@
                             <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">일정관리</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/schedule/myschedule">나의일정</a></li>
+                            <li><a href="/schedule/myschedule?empno=${ loginuser.empno }">나의일정</a></li>
                         </ul>
                     </li>
                      <li>

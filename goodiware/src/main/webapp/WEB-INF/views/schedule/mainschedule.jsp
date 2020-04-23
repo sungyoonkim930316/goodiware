@@ -76,31 +76,6 @@
                                     <h4>달력</h4>
                                 </div>
                                 <div id='calendar'></div>
-                                <%-- <table class="table table-hover">
-		<thead>
-		<tr>
-			<th>번호</th>
-			<th>유형</th>
-			<th>제목</th>
-			<th>시작</th>
-			<th>끝</th>
-			<th>내용</th>
-		</tr>
-		</thead>
-		<tbody>
-		<c:forEach items="${ schedules }" var="schedule">
-		<tr>
-			<td>${ schedule.scheno }</td>
-			<td>${ schedule.schedivno }</td>
-			<td>${ schedule.title }</td>
-			<td><fmt:formatDate value="${ schedule.startDate }" pattern="yyyy-MM-dd"/></td>
-			<td><fmt:formatDate value="${ schedule.endDate }" pattern="yyyy-MM-dd"/></td>
-			<td>${ schedule.content }</td>
-		</tr>
-		</c:forEach>
-		</tbody>
-	</table> --%>
-                                <!-- <input type="button" id="btnAddTest" value="추가"> -->
                             </div>
                         </div>
                     </div>
@@ -120,7 +95,7 @@
     </div>
     <!-- Main wrapper end -->
     
-    <!-- Modal -->
+    <!-- 일정추가Modal -->
     <div class="modal fade none-border" role="dialog" id="scd-modal">
 	    <div class="modal-dialog" role="document">
 	        <div class="modal-content">
@@ -138,8 +113,8 @@
 	                        <div class="col-md-6 form-group">
 	                            <label class="control-label">일정유형</label>
 	                            <select class="form-control form-white" data-placeholder="일정유형을 선택하세요" id="schdivs" name="schedivno">
-	                            	<c:forEach items="${ schdivs }" var="schdivs">
-	                                <option value="${ schdivs.schedivno }">${ schdivs.sctitle }</option>
+	                            	<c:forEach items="${ schdivs }" var="schdiv">
+	                                <option value="${ schdiv.schedivno }">${ schdiv.sctitle }</option>
 	                                </c:forEach>
 	                            </select>
 	                        </div>
@@ -172,38 +147,73 @@
 	                <button id='modalRegisterBtn' type="button" class="btn btn-success save-event waves-effect waves-light">저장</button>
 	                <button id="modalCloseBtn" type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">닫기</button>
 	            </div>
-	            <!-- <div class="modal-footer modalBtnContainer-editScd">
-	                <button id='modalUpdateBtn' type="button" class="btn btn-success save-event waves-effect waves-light">저장</button>
-	                <button id="modalCloseBtn" type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">닫기</button>
-	                <button id="modalDeleteBtn" type="button" class="btn btn-danger delete-event waves-effect waves-light">삭제</button>
-	            </div> -->
 	        </div>
 	    </div>
 	</div>
 	<!-- Modal end -->
 	
-	<div id="script-warning">
-		실헹 오류 ㅋ
+	<!-- 일정편집Modal -->
+    <div class="modal fade none-border" role="dialog" id="scdedit-modal">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h4 class="modal-title"><strong>일정편집</strong></h4>
+	            </div>
+	            <div class="modal-body">
+	            	<form id="addscd-form" action="/schedule/mainschedule" method="post">
+	                    <div class="row">
+	                    
+	                    	<div class="col-md-12 form-group">
+	                    		<input type="hidden" value="${ scheduleDetail.scheno }" name="scheno" id="scheno" />
+	                    	</div>
+	                    
+	                    	<div class="col-md-6 form-group">
+	                            <label class="control-label">일정이름</label>
+	                            <input class="form-control form-white" value="${ scheduleDetail.title }" required="required" type="text" id="title" name="title" />
+	                        </div>
+	                        
+	                        <div class="col-md-6 form-group">
+	                            <label class="control-label">일정유형</label>
+	                            <select class="form-control form-white" data-placeholder="일정유형을 선택하세요" id="schdivs" name="schedivno">
+	                            	<c:forEach items="${ schdivs }" var="schdiv">
+	                                <option value="${ schdiv.schedivno }">${ schdiv.sctitle }</option>
+	                                </c:forEach>
+	                            </select>
+	                        </div>
+	                        
+	                        <div class="col-md-6 form-group">
+	                        	<label class="control-label">일정시작</label>
+	                        	<input class="form-control form-white" type="text" id="startdate" name="startdate" value="${ scheduleDetail.startdate }" />
+	                        </div>
+	                        
+	                        <div class="col-md-6 form-group">
+	                        	<label class="control-label">일정끝</label>
+	                        	<input class="form-control form-white" type="text" id="enddate" name="enddate" value="${ scheduleDetail.enddate }" />
+	                        </div>
+	                        
+	                        <br>
+	                        
+	                        <div class="col-md-12 form-group">
+	                            <label class="control-label">내용</label>
+	                            <textarea class="form-control form-white" id="content" name="content">${ scheduleDetail.content }</textarea>
+	                        </div>
+	                        
+	                        <div class="col-md-12 form-group">
+	                    		<input type="hidden" id="empno" name='empno' value='${ loginuser.empno }' />
+	                    	</div>
+	                        
+	                    </div>
+	                </form>
+	            </div>
+	            <div class="modal-footer modalBtnContainer-editScd">
+	                <button id='modalUpdateBtn' type="button" class="btn btn-success save-event waves-effect waves-light">저장</button>
+	                <button id="modalCloseBtn" type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">닫기</button>
+	                <button id="modalDeleteBtn" type="button" class="btn btn-danger delete-event waves-effect waves-light">삭제</button>
+	            </div> 
+	        </div>
+	    </div>
 	</div>
-	
-	<!-- <div class="container">
-	
-	</div> -->
-	
-	<!-- <div class="container">
-	<table class="table table-hover">
-		<thead>
-		<tr>
-			<th>번호</th>
-			<th>유형</th>
-			<th>제목</th>
-			<th>시작</th>
-			<th>끝</th>
-			<th>내용</th>
-		</tr>
-		</thead>
-	</table>
-	</div> -->
+	<!-- Modal end -->
 	
     <!-- Scripts -->
     <jsp:include page="/WEB-INF/views/modules/common-js.jsp"></jsp:include>
@@ -222,19 +232,46 @@
 					center: 'title',
 					right: 'dayGridMonth,timeGridWeek,timeGridDay'
 				},
-				editable: true,
+				editable: false,
 				dateClick: function() {
 					$('#scd-modal').modal('show');
 				},
-				eventClick: function() {
-					$('#scd-modal').modal('show');
+				eventClick: function(eventClickInfo) {
+					alert(eventClickInfo.event.id + "\n" + eventClickInfo.event.title);
+
+					$('#scdedit-modal').modal('show');
+
+					/* var values = $('#addscd-form').serialize();
+					
+					$.ajax({
+			            method: "get",
+			            url: "/schedule/detail",
+			            data: values,
+			            success: function (response) {
+			            	$('#scdedit-modal').modal('show');
+			            },
+			            error: function(xhr, status, err) {
+							alert('error');
+					    }
+			        }); */
+				},
+				eventLimit: true,
+				views: {
+					timeGrid: {
+						eventLimit: 6
+					}
 				},
 				events: [
 					<c:forEach items="${ schedules }" var="schedules">
 						{
+							id: '${ schedules.scheno }',
+							resourceId: '${ schedules.schedivno }',
 							title: '${ schedules.title }',
 							start: '<fmt:formatDate value="${ schedules.startdate }" pattern="yyyy-MM-dd" />',
-							end: '<fmt:formatDate value="${ schedules.enddate }" pattern="yyyy-MM-dd" />'
+							end: '<fmt:formatDate value="${ schedules.enddate }" pattern="yyyy-MM-dd" />',
+							textColor: 'black',
+							backgroundColor: 'palegreen',
+							borderColor: 'white'
 						},
 					</c:forEach>
 				],
@@ -265,6 +302,24 @@
 				}
 				$('#addscd-form').submit();
 			})
+			
+			$('#modalDeleteBtn').on('click', function(event) {
+				var scheno = $(this).attr('scheno');
+				var yes = confirm("일정을 삭제하시겠습니까?");
+				if (!yes) return;
+
+				$.ajax({
+					url: "/delete",
+					method: "delete",
+					data: { "scheno" : scheno },
+					success: function(data, status, xhr) {
+						$('.content-body').load("/schedule/myschedule?empno=${empno}");
+					},
+					error: function(xhr, status, err) {
+						alert('실패')
+					}
+				});
+			});
 			
 			$('#startdate, #enddate').on('click', function(event) {
 				$(this).datetimepicker("show");

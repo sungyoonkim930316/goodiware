@@ -28,14 +28,26 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return scheduleMapper.selectSchdiv();
 	}
 
+//	@Override
+//	public List<Employee> showEmpno() {
+//		return scheduleMapper.selectEmpno();
+//	}
+
 	@Override
-	public List<Employee> showEmpno() {
-		return scheduleMapper.selectEmpno();
+	public List<Schedule> showScheduleList(int empno) {
+		return scheduleMapper.showPlans(empno);
 	}
 
 	@Override
-	public List<Schedule> showScheduleList() {
-		return scheduleMapper.showPlans();
+	public void deleteSchedule(int scheno) {
+		
+		scheduleMapper.deleteSchedule(scheno);
+		
+	}
+
+	@Override
+	public Schedule findScheduleDetailByScheNo(int scheno) {
+		return scheduleMapper.selectScheduleDetailByScheNo(scheno);
 	}
 
 }
