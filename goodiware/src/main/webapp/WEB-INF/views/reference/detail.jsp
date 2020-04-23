@@ -160,7 +160,7 @@
 				<br>
 				<br>
 				<div style="text-align: center">
-					<c:if test="${ loginuser.empno eq board.empno }">
+					<c:if test="${ loginuser.empno eq reference.empno }">
 						<button id="edit-button" type="button" class="btn btn-success">수정</button>
 			    		<button id="delete-button" type="button" class="btn btn-success">삭제</button>
             		</c:if>
@@ -231,35 +231,29 @@
 	<script type="text/javascript" src="/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 	<script type='text/javascript'>
 	$(function(){
-
-		/* $("#reply-list-container").load("/reply/list-by/${ board.bno }"); */
-		
-		/* $('input').attr({'readonly': 'readonly'}) */
+		$('input').attr({'readonly': 'readonly'})
 		
 		$('#tolist-button').on('click', function(event) {
 			location.href = "list?pageNo=${ param.pageNo }&searchType=${ param.searchType }&searchKey=${ param.searchKey }";
 		});
-
 		$('#delete-button').on('click', function(event) {
 			
-			var yes = confirm("${ board.bno }번 글을 삭제할까요?");
+			var yes = confirm("${ reference.refno }번 글을 삭제할까요?");
 			if (!yes) {
 				return;
 			}
 								
 			var form =
-				makeForm('delete', ${ board.bno }, ${ param.pageNo }, '${ param.searchType }', '${ param.searchKey }');
+				makeForm('delete', ${ reference.refno }, ${ param.pageNo }, '${ param.searchType }', '${ param.searchKey }');
 			form.submit();
 			alert('정상적으로 삭제되었습니다.');
 		});
-
 		$('#edit-button').on('click', function(event) {
 			var form =
-				makeForm('update', ${ board.bno }, ${ param.pageNo }, '${ param.searchType }', '${ param.searchKey }');
+				makeForm('update', ${ reference.refno }, ${ param.pageNo }, '${ param.searchType }', '${ param.searchKey }');
 			form.submit();
 		});
-
-		function makeForm(action, bNo, pageNo, searchType, searchKey, method="get") {
+		function makeForm(action, refno, pageNo, searchType, searchKey, method="get") {
 			var form = $('<form></form>');
 			form.attr({
 				'action': action,
@@ -267,8 +261,8 @@
 			});
 			form.append($('<input>').attr({
 				"type": "hidden",
-				"name": "bNo",
-				"value" : bNo })
+				"name": "refNo",
+				"value" : refno })
 			);
 			form.append($('<input>').attr({
 				"type": "hidden",
@@ -289,10 +283,10 @@
 			form.appendTo("body");
 			
 			return form;
-		};
+		}
 
 
-<!--     //////////////////////////////////////
+  /*    //////////////////////////////////////
 		//				댓글					//
 		//////////////////////////////////////
 		
@@ -305,7 +299,7 @@
 			}
 			
 			var values = $('#reply-form').serializeArray();
-			/* console.log(values); return; */
+			
 
 			$.ajax({
 				"url" : "/reply/write",
@@ -329,7 +323,7 @@
 
 			var rno = $(this).attr('data-rno');
 
-			/* console.log(rno); */
+			
 
 			if(!confirm("댓글을 삭제할까요?")) return;
 
@@ -398,8 +392,7 @@
 			var rno = $(this).attr('data-rno');
 			var rcontent = $("#rcontent-" + rno);
 
-			//console.log(rno);
-			//console.log($("#rcontent-"+rno));
+			
 			
 			var data = {
 			"rno" : rno,
@@ -427,10 +420,7 @@
 
 			var rno = $(this).attr('data-rno');
 
-			//console.log(rno);
 			
-			/* $("#rereply-regist-" + currentRno2).show(); */
-			//$("#rereply-regist-" + rno).show();
 			
 			if (currentRno != null) {
 				if (rno == currentRno) {
@@ -487,12 +477,12 @@
 				"error" : function(xhr, status, err){
 					alert("댓글 쓰기가 실패해버렸지 뭐얌?")
 				}
-			});
+			}); 
 			 
-		});
+		});  */
  
 	    
-	}); -->
+	}); 
 	</script>
 
 
