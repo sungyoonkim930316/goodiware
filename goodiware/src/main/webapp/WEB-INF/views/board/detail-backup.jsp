@@ -359,8 +359,6 @@
 					$("#reply-edit-" + currentRno).hide();
 					$("#reply-cancel-" + currentRno).hide();
 					$("#reply-button-" + currentRno).show();
-
-					
 				}
 			}
 
@@ -368,8 +366,6 @@
 			$("#reply-edit-" + rno).show();
 			$("#reply-button-" + rno).hide();
 			$("#reply-cancel-" + rno).show();
-
-			
 
 			currentRno = rno;
 

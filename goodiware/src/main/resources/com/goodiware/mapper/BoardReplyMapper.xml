@@ -23,10 +23,10 @@
 	</update>
 
 	<select id="selectReplyListByBno" parameterType="int" resultType="com.goodiware.vo.Reply">
-		select r.rno, r.empno, r.bno, r.rcontent, r.rdate, e.name
+		select r.rno, r.empno, r.bno, r.rcontent, r.rdate, r.gno, r.sno, r.depth ,e.name
 		from REPLY r, EMPLOYEE e
 		where r.empno = e.empno and r.brdel = 'N' and r.bno=#{ bNo }
-		order by r.rno DESC 
+		ORDER BY gno DESC, sno ASC
 	</select>
 
 	<update id="deleteReply" parameterType="int">

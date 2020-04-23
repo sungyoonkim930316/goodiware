@@ -18,12 +18,16 @@
                             <i class="icon-globe-alt menu-icon"></i><span class="nav-text">전자결재</span>
                         </a>
                         <ul aria-expanded="false">
-                            <!-- <li><a href="/appr/regist">결재등록</a></li> -->
-                            <li><a href="/appr/apprlist?appdivno=1">업무</a></li>
+                            <!-- <li><a href="/appr/apprlist?appdivno=1">업무</a></li>
                             <li><a href="/appr/apprlist?appdivno=2">파견</a></li>
                             <li><a href="/appr/apprlist?appdivno=3">경비지출</a></li>
                             <li><a href="/appr/apprlist?appdivno=4">초과근무</a></li>
-                            <li><a href="/appr/apprlist?appdivno=5">휴가</a></li>
+                            <li><a href="/appr/apprlist?appdivno=5">휴가</a></li> -->
+                            <li><a href="#">업무</a></li>
+                            <li><a href="#">파견</a></li>
+                            <li><a href="#">경비지출</a></li>
+                            <li><a href="#">초과근무</a></li>
+                            <li><a href="#">휴가</a></li>
                         </ul>
                     </li>
                     <li>
@@ -44,12 +48,19 @@
                             <li><a href="/market/list">나눔장터</a></li>
                         </ul>
                     </li>
+                     <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-menu menu-icon"></i><span class="nav-text">회의방</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/board/list">대화하기</a></li>
+                        </ul>
+                    </li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-notebook menu-icon"></i><span class="nav-text">마이페이지</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="#">출퇴근관리</a></li>
                             <li><a href="/employee/edit?empNo=${ loginuser.empno }">나의정보수정</a></li>
                             <!-- <li><a href="/employee/confirmPw">패스워드변경</a></li> -->
                         </ul>
