@@ -58,26 +58,22 @@
         ***********************************-->
         <div class="content-body">
 			<div style="margin-top: 100px" class="container" id="app" v-cloak>
-		        <div class="row">
-		            <div class="col-md-6">
-		                <h3>채팅방 리스트</h3>
-		            </div>
-		            <div class="col-md-6 text-right">
-		                
-		            </div>
+		        <div>
+		            <h3 style="text-align: center">◈&nbsp;회의방 리스트&nbsp;◈</h3>
 		        </div>
+		        <hr>
 		        <div class="input-group">
 		            <div class="input-group-prepend">
 		                <label class="input-group-text">방제목</label>
 		            </div>
-		            <input type="text" class="form-control" v-model="room_name" v-on:keyup.enter="createRoom">
+		            <input type="text" placeholder="회의방 제목을 입력하세요"  class="form-control" v-model="room_name" v-on:keyup.enter="createRoom">
 		            <div class="input-group-append">
 		                <button class="btn btn-primary" type="button" @click="createRoom">회의방 개설</button>
 		            </div>
 		        </div>
 		        <ul class="list-group">
 		            <li class="list-group-item list-group-item-action" v-for="item in chatrooms" v-bind:key="item.roomId" v-on:click="enterRoom(item.roomId, item.name)">
-		                <h6>{{item.name}} <span class="badge badge-info badge-pill">{{item.userCount}}</span></h6>
+		                <h6 style="margin-bottom: 0px">◈&nbsp;회의방 이름 : {{item.name}}&nbsp;◈<span class="badge badge-info badge-pill" style="float:right;">{{item.userCount}}명 참가중</span></h6>
 		            </li>
 		        </ul>
 		    </div>        
@@ -111,7 +107,7 @@
                 },
                 createRoom: function() {
                     if("" === this.room_name) {
-                        alert("방 제목을 입력해 주십시요.");
+                        alert("회의방 제목을 입력해 주십시요.");
                         return;
                     } else {
                         var params = new URLSearchParams();
@@ -119,12 +115,12 @@
                         axios.post('/chat/room', params)
                         .then(
                             response => {
-                                alert(response.data.name+"방 개설에 성공하였습니다.")
+                                alert("\"" + response.data.name + "\"" +"방 개설에 성공하였습니다.")
                                 this.room_name = '';
                                 this.findAllRoom();
                             }
                         )
-                        .catch( response => { alert("채팅방 개설에 실패하였습니다."); } );
+                        .catch( response => { alert("회의방 개설에 실패하였습니다."); } );
                     }
                 },
                 enterRoom: function(roomId, roomName) {

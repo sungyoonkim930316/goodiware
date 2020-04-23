@@ -52,7 +52,7 @@ public class StompHandler implements ChannelInterceptor {
 			
 			// 채팅방의 인원수를 +1한다.
             chatRoomRepository.plusUserCount(roomId);
-            
+            System.out.println("get header simpuser : " + message.getHeaders().get("simpUser"));
             // 클라이언트 입장 메시지를 채팅방에 발송한다.(redis publish)
             String name = Optional.ofNullable((Principal) message.getHeaders().get("simpUser")).map(Principal::getName).orElse("UnknownUser");
             chatService.sendChatMessage(ChatMessage.builder().type(ChatMessage.MessageType.ENTER).roomId(roomId).sender(name).build());

@@ -60,12 +60,13 @@
 			<div style="margin-top: 100px" class="container" id="app" v-cloak>
 		        <div class="row">
 		            <div class="col-md-6">
-		                <h4>{{roomName}} <span class="badge badge-info badge-pill">{{userCount}}</span></h4>
+		                <h4>&nbsp;◈&nbsp;{{roomName}}&nbsp;◈ <span class="badge badge-info badge-pill">&nbsp;&nbsp;{{userCount}}명 참가중</span></h4>
 		            </div>
 		            <div class="col-md-6 text-right">
 		                <a class="btn btn-info btn-sm" href="/chat/room">회의방 나가기</a>
 		            </div>
 		        </div>
+		        <hr>
 		        <div class="input-group">
 		            <div class="input-group-prepend">
 		                <label class="input-group-text">내용</label>
