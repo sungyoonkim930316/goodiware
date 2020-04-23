@@ -20,7 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.goodiware.service.BoardReplyService;
 import com.goodiware.service.BoardService;
-import com.goodiware.ui.Page;
 import com.goodiware.ui.ThePager;
 import com.goodiware.ui.ThePager2;
 import com.goodiware.vo.Board;
