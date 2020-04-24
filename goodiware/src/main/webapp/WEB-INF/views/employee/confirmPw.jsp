@@ -1,6 +1,8 @@
 <%@ page pageEncoding="utf-8" contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html class="no-js" lang="ko">
 
@@ -60,7 +62,7 @@
             Content body start
         ***********************************-->
         <div class="content-body">
-
+			<sec:authentication property="principal" var="auth"/>
             <div class="row page-titles mx-0">
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
@@ -82,7 +84,7 @@
                                     <form class="form-inline" method="post" action="/employee/confirmPw" id="confirm-form">
                                         <div class="form-group mb-2">
                                             <label class="sr-only">Email</label>
-                                            <input type="text" readonly="readonly" class="form-control-plaintext" value="${ loginuser.id }" name="${ loginuser.id }" id="id">
+                                            <input type="text" readonly="readonly" class="form-control-plaintext" value="${ auth.employee.id }" name="" id="id">
                                         </div>
                                         <div class="form-group mx-sm-3 mb-2">
                                             <label class="sr-only">Password</label>

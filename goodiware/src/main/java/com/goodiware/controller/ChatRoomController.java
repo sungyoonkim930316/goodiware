@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,11 +72,11 @@ public class ChatRoomController {
 		
 	@GetMapping("/user")
 	@ResponseBody
-	public Employee getUserInfo(HttpSession session) {
+	public Employee getUserInfo() {
 		
-		Employee employee = (Employee)session.getAttribute("loginuser");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
-		String name = employee.getName();
+		String name = auth.getName();
 
 		return Employee.builder().name(name)
 				.token(jwtTokenProvider.generateToken(name)).build();

@@ -19,6 +19,7 @@
 		<result column="picture" property="picture" />
 		<result column="intro" property="intro" />
 		<result column="deleted" property="deleted" />
+		<result column="rolename" property="rolename" />
 		<association property="auth" column="authno" resultMap="authMap"></association>
 	</resultMap>
 	
@@ -110,4 +111,13 @@
 		FROM EMPLOYEE e, POSITION p, DEPARTMENT d 
 		where deleted ='N' and e.posno = p.posno and e.depno = d.depno and e.empno = #{ empno }
 	</select>
+	
+	<select id="selectEmployeeById" parameterType="String" resultMap="employeeMap" resultType="com.goodiware.vo.Employee">
+		SELECT e.*, a.* 
+		FROM EMPLOYEE e 
+		inner join AUTH a
+		on a.authno = e.authno 
+		where e.id = #{id}
+	</select>
+	
 </mapper>

@@ -1,6 +1,8 @@
 <%@ page pageEncoding="utf-8" contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html class="no-js" lang="ko">
 
@@ -64,7 +66,7 @@
             Content body start
         ***********************************-->
 		<div class="content-body">
-
+			<sec:authentication property="principal" var="auth"/>
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
@@ -240,7 +242,7 @@
 				return false;
 			} else {
 				
-				var empno = ${ loginuser.empno };
+				var empno = ${ auth.employee.empno };
 				var sender = parseInt($('#selEmpno').text());
 								
 				location.href="/message/toReply?empno="+ empno +"&sender=" + sender;

@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html class="no-js" lang="ko">
 
@@ -87,7 +89,7 @@
             Content body start
         ***********************************-->
 		<div class="content-body">
-
+		<sec:authentication property="principal" var="auth"/>
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
@@ -136,7 +138,7 @@
 	                                   		<td colspan="3">
 	                                   		<form id="reply-form" class="user">
 												<div class="input-group mb-3">
-												  <input type="hidden" value="${ loginuser.empno }" name="empno" id="empno">
+												  <input type="hidden" value="${ auth.employee.empno }" name="empno" id="empno">
 												  <input type="hidden" value="${ board.bno }" name="bNo" id="bno">
 												  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="rcontent"  name="rcontent" style="height:80px">&nbsp;&nbsp;
 												  <div class="input-group-append">
@@ -160,7 +162,7 @@
 				<br>
 				<br>
 				<div style="text-align: center">
-					<c:if test="${ loginuser.empno eq reference.empno }">
+					<c:if test="${ auth.employee.empno eq reference.empno }">
 						<button id="edit-button" type="button" class="btn btn-success">수정</button>
 			    		<button id="delete-button" type="button" class="btn btn-success">삭제</button>
             		</c:if>

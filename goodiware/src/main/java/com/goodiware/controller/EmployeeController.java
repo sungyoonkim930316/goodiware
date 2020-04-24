@@ -6,10 +6,14 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,27 +42,33 @@ public class EmployeeController {
 		return "/employee/login";
 	}
 
-	// 로그인 처리
-	@PostMapping(path = { "/login" })
-	public String userLogin(Employee employee, HttpSession session, RedirectAttributes attr, Model model) {
-			
-		Employee employee2 = employeeService.userLogin(employee);
-						
-		if (employee2 == null) {
-			attr.addFlashAttribute("loginFalse", employee2);
-			return "redirect:/employee/login";
-		} else {
-			
-			session.setAttribute("loginuser", employee2);
-			model.addAttribute("employee", employee2);
-			return "redirect:/";
-		}
-	}
+//	// 로그인 처리 시큐리티 사용 안함
+//	@PostMapping(path = { "/login" })
+//	public String userLogin(Employee employee, HttpSession session, RedirectAttributes attr, Model model) {
+//			
+//		Employee employee2 = employeeService.userLogin(employee);
+//						
+//		if (employee2 == null) {
+//			attr.addFlashAttribute("loginFalse", employee2);
+//			return "redirect:/employee/login";
+//		} else {
+//			
+//			session.setAttribute("logsinuser", employee2);
+//			model.addAttribute("employee", employee2);
+//			return "redirect:/";
+//		}
+//	}
 
 	// 로그아웃 처리
 	@GetMapping(path = { "/logout" })
-	public String userLogout(HttpSession session) {
-		session.removeAttribute("loginuser");
+	public String userLogout(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		if(auth != null) {
+			new SecurityContextLogoutHandler().logout(req, resp, auth);
+		}
+		
 		return "redirect:/";
 	}
 

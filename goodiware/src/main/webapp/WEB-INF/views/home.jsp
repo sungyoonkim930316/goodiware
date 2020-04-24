@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html class="no-js" lang="ko">
 
@@ -75,7 +77,7 @@
 
             <div class="container-fluid mt-3">
                 <div class="row">
-                	
+                	<sec:authentication property="principal" var="auth"/>
                     <div class="col-lg-6">
                         <div class="card gradient-1">
                             <div class="card-body">
@@ -103,7 +105,7 @@
 									    		<input type="hidden" id="mno" value="${ message.mno }">
 									    			<c:choose>
 										    			<c:when test="${ message.deleted eq 'N' }">
-											    			<a style="color: white" href="/message/messageContent?empno=${ loginuser.empno }&mno=${ message.mno }">
+											    			<a style="color: white" href="/message/messageContent?empno=${ auth.employee.empno }&mno=${ message.mno }">
 																${ message.title } 
 															</a>
 														</c:when>
@@ -301,8 +303,8 @@
                     <div class="col-lg-6">
                         <div class="card gradient-4">
                             <div class="card-body">
-                                <h4 style="text-align: center; margin-bottom: 0px" class="text-white">${ loginuser.name } 님은 
-                                <span id="joinDate"><fmt:parseDate value='${loginuser.joinday}' var='join_day' pattern='yyyy-MM-dd'/><fmt:formatDate value="${ join_day }" pattern="yyyy-MM-dd"/></span> 일에 입사하셔서 <span id="between"></span>일 째 노동중이십니다.</h4>
+                                <h4 style="text-align: center; margin-bottom: 0px" class="text-white">${ auth.employee.name } 님은 
+                                <span id="joinDate"><fmt:parseDate value='${auth.employee.joinday}' var='join_day' pattern='yyyy-MM-dd'/><fmt:formatDate value="${ join_day }" pattern="yyyy-MM-dd"/></span> 일에 입사하셔서 <span id="between"></span>일 째 노동중이십니다.</h4>
                             </div>
                         </div>
                     </div>
@@ -410,7 +412,7 @@
 	
 		$('#to-mailList').on('click', function() {
 
-			location.href = "/message/inbox?empno=" + ${ loginuser.empno };
+			location.href = "/message/inbox?empno=" + ${ auth.employee.empno };
 
 		});
 

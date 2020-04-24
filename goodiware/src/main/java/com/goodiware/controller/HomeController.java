@@ -6,9 +6,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.goodiware.mapper.EmployeeMapper;
 import com.goodiware.service.ApprovalService;
 import com.goodiware.service.MessageService;
 import com.goodiware.vo.Approval;
@@ -26,12 +29,17 @@ public class HomeController {
 	@Qualifier("approvalService")
 	ApprovalService approvalService;
 	
+	@Autowired
+	EmployeeMapper employeeMapper;
+	
 	@GetMapping(path= {"/", "/home"})
-	public String home(Model model, HttpSession session) {
+	public String home(Model model, HttpSession session, Authentication auth) {
 		
-		Employee employee2 = (Employee)session.getAttribute("loginuser");
+		String name = auth.getName();
+				
+		Employee employee = employeeMapper.selectEmployeeById(name); 
 		
-		int empno = employee2.getEmpno();
+		int empno = employee.getEmpno();
 		
 		List<Message> messages = messageService.findRecentMessagesByEmpno(empno);
 		List<Approval> approvals = approvalService.findRecentApprovalsByEmpno(empno);

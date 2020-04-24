@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html class="no-js" lang="ko">
 
@@ -62,7 +64,7 @@
             Content body start
         ***********************************-->
         <div class="content-body">
-
+			<sec:authentication property="principal" var="auth"/>
             <div class="row page-titles mx-0">
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
@@ -141,7 +143,7 @@
 									  </tfoot>
 									</table>
 									<c:choose>
-		                				<c:when test="${ loginuser.auth.authno eq 2 or loginuser.auth.authno eq 3 }">
+		                				<c:when test="${ auth.employee.auth.authno eq 2 or auth.employee.auth.authno eq 3 }">
 								      		<button type="button" class="btn btn-primary" style="float: right;" id="writeBoard">업로드</button>	
 								      	</c:when>
 								    </c:choose>

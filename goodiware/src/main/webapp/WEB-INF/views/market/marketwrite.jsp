@@ -1,6 +1,8 @@
 <%@ page pageEncoding="utf-8" contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html class="no-js" lang="ko">
 
@@ -69,7 +71,7 @@
             Content body start
         ***********************************-->
 		<div class="content-body">
-
+			<sec:authentication property="principal" var="auth"/>
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
@@ -92,7 +94,7 @@
 					method="post" enctype="multipart/form-data">
 						
 						<input type="hidden" name="bdivno" value="2">
-						<input type="hidden" name="empno" value="${ loginuser.empno }">
+						<input type="hidden" name="empno" value="${ auth.employee.empno }">
 						<input type="text" name="title" id="title"
 							class="form-control input-default" placeholder="제목을 입력하세요."><br>
 						<textarea name="smarteditor" id="smarteditor" rows="10" cols="100"

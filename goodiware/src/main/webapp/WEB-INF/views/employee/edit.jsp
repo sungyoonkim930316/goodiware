@@ -1,6 +1,8 @@
 <%@ page pageEncoding="utf-8" contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html class="no-js" lang="ko">
 
@@ -60,7 +62,7 @@
             Content body start
         ***********************************-->
         <div class="content-body">
-
+			<sec:authentication property="principal" var="auth"/>
             <div class="row page-titles mx-0">
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
@@ -86,13 +88,13 @@
                                                 <div style="width: 150px; height: 180px; overflow: hidden; margin: 0 auto;">
                                                 	
 													<c:choose>
-														<c:when test="${ empty loginuser.picture }">
+														<c:when test="${ empty auth.employee.picture }">
 															<img id="myfile1" style="width: 100%; height: 100%; object-fit: cover;"
 																src="/resources/file/employee/photo/unnamed.jpg">
 														</c:when>
 														<c:otherwise>
 															<img id="myfile1" style="width: 100%; height: 100%; object-fit: cover;"
-																src="/resources/file/employee/photo/${ loginuser.picture }">
+																src="/resources/file/employee/photo/${ auth.employee.picture }">
 														</c:otherwise>
 													</c:choose>
 												</div>
@@ -100,7 +102,7 @@
 													<h1 style="color: white">&nbsp;</h1>
 													프로필 사진을 선택하세요 <br> 
 													<input type="file" name="profile" data-idx="1" />
-													<input type="hidden" name="profilePicture" value="${ loginuser.picture }">
+													<input type="hidden" name="profilePicture" value="${ auth.employee.picture }">
 																							  
                                             </div>
                                         </div>
@@ -108,14 +110,14 @@
                                             <label class="col-lg-4 col-form-label" for="val-username">아이디 <span class="text-danger"></span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" id="id" name="id" value="${ loginuser.id }">
+                                                <input type="text" class="form-control" id="id" name="id" value="${ auth.employee.id }">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-lg-4 col-form-label" for="val-username">이름 <span class="text-danger"></span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" id="name" name="name" value="${ loginuser.name }">
+                                                <input type="text" class="form-control" id="name" name="name" value="${ auth.employee.name }">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -136,21 +138,21 @@
                                             <label class="col-lg-4 col-form-label" for="val-email">핸드폰번호<span class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" id="phone" name="phone" placeholder="-빼고 입력" value="${ loginuser.phone}">
+                                                <input type="text" class="form-control" id="phone" name="phone" placeholder="-빼고 입력" value="${ auth.employee.phone}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-lg-4 col-form-label" for="val-password">생년월일 <span class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" id="birth" name="birth" placeholder="6자리 입력" value="${ loginuser.birth }">
+                                                <input type="text" class="form-control" id="birth" name="birth" placeholder="6자리 입력" value="${ auth.employee.birth }">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-lg-4 col-form-label" for="val-confirm-password">주소 <span class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" id="add1" name="add1" value="${ loginuser.add1 }">
+                                                <input type="text" class="form-control" id="add1" name="add1" value="${ auth.employee.add1 }">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -164,14 +166,14 @@
                                         	<label class="col-lg-4 col-form-label" for="val-confirm-password"> <span class="text-danger"></span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" id="add2" name="add2" value="${ loginuser.add2 }">
+                                                <input type="text" class="form-control" id="add2" name="add2" value="${ auth.employee.add2 }">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                         	<label class="col-lg-4 col-form-label" for="val-confirm-password">상세주소<span class="text-danger">*</span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" id="add3" name="add3" value="${ loginuser.add3 }">
+                                                <input type="text" class="form-control" id="add3" name="add3" value="${ auth.employee.add3 }">
                                             </div>
                                         </div>
                                         
@@ -179,7 +181,7 @@
                                             <label class="col-lg-4 col-form-label" for="val-suggestions">인사말 <span class="text-danger"></span>
                                             </label>
                                             <div class="col-lg-6">
-                                                <textarea class="form-control" id="intro" name="intro" rows="5">${ loginuser.intro }</textarea>
+                                                <textarea class="form-control" id="intro" name="intro" rows="5">${ auth.employee.intro }</textarea>
                                             </div>
                                         </div>
                                         <div class="form-group row">

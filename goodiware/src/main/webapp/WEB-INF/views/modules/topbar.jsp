@@ -1,5 +1,6 @@
- <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <% request.setCharacterEncoding("utf-8"); %>
 
@@ -40,23 +41,22 @@
                 </div>
                 <div class="header-right">
                     <ul class="clearfix">
-                    	
-                    	<c:choose>
-                    	<c:when test="${empty sessionScope.loginuser }">
-                        <li class="icons dropdown d-none d-md-flex">
+                    	<sec:authorize access="isAnonymous()">
+                    	<li class="icons dropdown d-none d-md-flex">
                             <a href="/employee/login"><span>로그인</span></a>
                         </li>
-                        </c:when>
-                    	<c:otherwise>
+                        </sec:authorize>
+                    	<sec:authorize access="isAuthenticated()">
+                    	<sec:authentication property="principal" var="auth"/>
                     	<li class="icons dropdown">
-                            <span>${ loginuser.name }님 환영합니다</span>
+                            <span>${ auth.employee.name }님 환영합니다</span>
                         </li>
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <span class="activity active"></span>
                                 <c:choose>
-	                                <c:when test="${ not empty loginuser.picture }">
-	                                	<img src="/resources/file/employee/photo/${ loginuser.picture }" height="40" width="40" alt="">
+	                                <c:when test="${ not empty auth.employee.picture }">
+	                                	<img src="/resources/file/employee/photo/${ auth.employee.picture }" height="40" width="40" alt="">
 	                                </c:when>
 	                                <c:otherwise>
 	                                	<img src="/resources/file/employee/photo/unnamed.jpg" height="40" width="40" alt="">
@@ -67,10 +67,10 @@
                                 <div class="dropdown-content-body">
                                     <ul>
                                         <li>
-                                            <a href="/employee/edit?empNo=${ loginuser.empno }"><i class="icon-user"></i> <span>내 정보</span></a>
+                                            <a href="/employee/edit?empNo=${ auth.employee.empno }"><i class="icon-user"></i> <span>내 정보</span></a>
                                         </li>
                                         <li>
-                                            <a href="/message/inbox?empno=${ loginuser.empno }"><i class="icon-envelope-open"></i> <span>받은메일함</span></a>
+                                            <a href="/message/inbox?empno=${ auth.employee.empno }"><i class="icon-envelope-open"></i> <span>받은메일함</span></a>
                                         </li>
                                         
                                         <hr class="my-2">
@@ -79,8 +79,7 @@
                                 </div>
                             </div>
                         </li>
-                    	</c:otherwise>
-                    	</c:choose>
+                    	</sec:authorize>
                     </ul>
                 </div>
             </div>

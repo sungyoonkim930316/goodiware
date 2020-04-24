@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!doctype html>
 <html class="no-js" lang="ko">
 <head>
@@ -65,7 +67,7 @@
             Content body start
         ***********************************-->
         <div class="content-body">
-
+			<sec:authentication property="principal" var="auth"/>
             <div class="row page-titles mx-0">
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
@@ -82,12 +84,12 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="email-left-box"><!-- <a href="email-compose.html" class="btn btn-primary btn-block">Compose</a> -->
-                                    <div class="mail-list mt-4" data-empno="${ loginuser.empno }" data-mno="${ message.mno }">
-                                    	<a href="/message/inbox?empno=${ loginuser.empno }" class="list-group-item border-0 p-r-0"><i class="fa fa-inbox font-18 align-middle mr-2"></i> <b>받은메일함</b> <span class="badge badge-primary badge-sm float-right m-t-5">${ unreadCount }</span> </a>
-                                        <a href="/message/compose?empno=${ loginuser.empno }" class="list-group-item border-0 p-r-0"><i class="fa fa-paper-plane font-18 align-middle mr-2"></i>메일쓰기</a>  
-                                        <a href="/message/sendMessage?empno=${ loginuser.empno }" class="list-group-item border-0 text-primary p-r-0"><i class="mdi mdi-file-document-box font-18 align-middle mr-2"></i>보낸메일함</a>
+                                    <div class="mail-list mt-4" data-empno="${ auth.employee.empno }" data-mno="${ message.mno }">
+                                    	<a href="/message/inbox?empno=${ auth.employee.empno }" class="list-group-item border-0 p-r-0"><i class="fa fa-inbox font-18 align-middle mr-2"></i> <b>받은메일함</b> <span class="badge badge-primary badge-sm float-right m-t-5">${ unreadCount }</span> </a>
+                                        <a href="/message/compose?empno=${ auth.employee.empno }" class="list-group-item border-0 p-r-0"><i class="fa fa-paper-plane font-18 align-middle mr-2"></i>메일쓰기</a>  
+                                        <a href="/message/sendMessage?empno=${ auth.employee.empno }" class="list-group-item border-0 text-primary p-r-0"><i class="mdi mdi-file-document-box font-18 align-middle mr-2"></i>보낸메일함</a>
                                         <a href="#" class="list-group-item border-0 p-r-0"><i class="fa fa-star-o font-18 align-middle mr-2"></i>중요메일함 </a>
-                                        <a href="/message/trashcan?empno=${ loginuser.empno }" class="list-group-item border-0 p-r-0"><i class="fa fa-trash font-18 align-middle mr-2"></i>휴지통 <span class="badge badge-danger badge-sm float-right m-t-5">${ trashMessage }</span></a>
+                                        <a href="/message/trashcan?empno=${ auth.employee.empno }" class="list-group-item border-0 p-r-0"><i class="fa fa-trash font-18 align-middle mr-2"></i>휴지통 <span class="badge badge-danger badge-sm float-right m-t-5">${ trashMessage }</span></a>
                                     </div>
                                    <!--  <h5 class="mt-5 m-b-10">Categories</h5>
                                     <div class="list-group mail-list"><a href="#" class="list-group-item border-0"><span class="fa fa-briefcase f-s-14 mr-2"></span>Work</a>  <a href="#" class="list-group-item border-0"><span class="fa fa-sellsy f-s-14 mr-2"></span>Private</a>  <a href="#"
@@ -196,7 +198,7 @@
 		$("#trash").on("click", function(event){
 			if (!confirm("메일을 삭제하시겠습니까?")) return;
 
-			var empno = ${ loginuser.empno };
+			var empno = ${ auth.employee.empno };
 			console.log(empno);
 			var mno = ${ message.mno };
 			console.log(mno);
@@ -208,7 +210,7 @@
 		$("#reply").on("click", function(event){
 			if (!confirm("답장을 보내시겠습니까?")) return;
 
-			var empno = ${ loginuser.empno };
+			var empno = ${ auth.employee.empno };
 			console.log(empno);
 			var sender = ${ message.sender };
 			console.log(sender);

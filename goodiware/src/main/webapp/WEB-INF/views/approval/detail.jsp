@@ -1,6 +1,8 @@
 <%@ page pageEncoding="utf-8" contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html class="no-js" lang="ko">
 
@@ -67,7 +69,7 @@
             Content body start
         ***********************************-->
 		<div class="content-body">
-
+			<sec:authentication property="principal" var="auth"/>
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
@@ -92,7 +94,7 @@
 			                        <div class="card">
 			                            <div class="card-body">
 			                            	
-			                            	<input type="hidden" name="empno" value="${ loginuser.empno }">
+			                            	<input type="hidden" name="empno" value="${ auth.employee.empno }">
 			                            	<table class="table table-bordered">
 											  <tbody>
 											    <tr>
@@ -173,7 +175,7 @@
 											
 											<div style="text-align: center; width: 30%; margin: 0 auto">
 												<c:choose>
-													<c:when test="${ approval.appaccpno eq 1 and loginuser.name eq approval.maccpname }">
+													<c:when test="${ approval.appaccpno eq 1 and auth.employee.name eq approval.maccpname }">
 														<select class="form-control form-control-user" name="acceptVal" id="acceptVal">
 															<option value="defVal">승인여부를 선택해주세요</option>
 															<option value="2">중간 승인</option>
@@ -182,7 +184,7 @@
 														<br>
 			                            				<button type="button" class="btn btn-primary" id="acceptAproval">선택완료</button>		
 													</c:when>
-													<c:when test="${ approval.appaccpno eq 2 and loginuser.name eq approval.faccpname }">
+													<c:when test="${ approval.appaccpno eq 2 and auth.employee.name eq approval.faccpname }">
 														<select class="form-control form-control-user" name="acceptVal" id="acceptVal">
 															<option value="defVal">승인여부를 선택해주세요</option>
 															<option value="3">최종 승인</option>

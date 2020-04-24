@@ -95,6 +95,7 @@
         // websocket & stomp initialize
         var sock = new SockJS("/ws-stomp");
         var ws = Stomp.over(sock);
+        
         // vue.js
         var vm = new Vue({
             el: '#app',
@@ -107,6 +108,7 @@
                 userCount: 0
             },
             created() {
+                debugger;
                 this.roomId = localStorage.getItem('wschat.roomId');
                 this.roomName = localStorage.getItem('wschat.roomName');
                 var _this = this;

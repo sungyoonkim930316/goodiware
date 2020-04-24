@@ -26,7 +26,9 @@ public class Employee {
 	private int posno;
 	private int depno;
 	private int authno;
-		
+	
+	private String rolename;
+	
 	private String posname;
 	private String depname; 
 	

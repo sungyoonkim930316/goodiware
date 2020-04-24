@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.goodiware.common.Util;
@@ -18,13 +19,16 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	AdminMapper adminMapper;
-
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Override 
 	public void registerEmployee(Employee employee) {
-		  
+					
 		String plainPasswd = employee.getPw(); 
 		String hashedPasswd = Util.getHashedString(plainPasswd, "SHA-256"); employee.setPw(hashedPasswd);
+		//String hashedPasswd = passwordEncoder.encode(employee.getPw());
 			  
 		adminMapper.insertEmployee(employee);
 		  

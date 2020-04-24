@@ -1,6 +1,8 @@
 <%@ page pageEncoding="utf-8" contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html class="no-js" lang="ko">
 
@@ -67,7 +69,7 @@
             Content body start
         ***********************************-->
 		<div class="content-body">
-
+			<sec:authentication property="principal" var="auth"/>
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
@@ -94,7 +96,7 @@
 			                        <div class="card">
 			                            <div class="card-body">
 			                            	
-			                            	<input type="hidden" name="empno" value="${ loginuser.empno }">
+			                            	<input type="hidden" name="empno" value="${ auth.employee.empno }">
 			                            	<table class="table table-bordered">
 											  <tbody>
 											    <tr>

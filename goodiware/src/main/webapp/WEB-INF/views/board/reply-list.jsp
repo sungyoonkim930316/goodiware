@@ -1,7 +1,9 @@
 <%@ page pageEncoding="utf-8" contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+								<sec:authentication property="principal" var="auth"/>
 								 <table style="width:830px" class="reply-container">
 	                             	<tbody>
 	                                   	<c:forEach items="${ replies }" var="reply">
@@ -21,7 +23,7 @@
 	                                   		</td>
 	                                   		<td>
 		                                   		<div id="reply-button-${ reply.rno }">
-		                                   		<c:if test="${ reply.empno == loginuser.empno }">
+		                                   		<c:if test="${ reply.empno == auth.employee.empno }">
 			                                   		<a href="#" class="editReply" data-rno="${ reply.rno }">수정</a>
 			                                   		&nbsp;|&nbsp;
 			                                   		<a href="#" class="deleteReply" data-rno="${ reply.rno }">삭제</a>
@@ -42,7 +44,7 @@
 														<div class="input-group mb-3">
 														  <input type="hidden" value="${ reply.rno }" name="rno">
 														  <input type="text" value="${ reply.rcontent }" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="rcontent-${ reply.rno }" name="rcontent" style="height:50px">&nbsp;&nbsp;
-														  <div class="input-group-append" data-empno="${ loginuser.empno }">
+														  <div class="input-group-append" data-empno="${ auth.employee.empno }">
 														    <button class="btn btn-outline-secondary edit-button" type="button" data-rno="${ reply.rno }" style="height:50px;width:80px">수정</button>
 														  </div>
 														</div>
@@ -59,7 +61,7 @@
 														<div class="input-group mb-3">
 														  <input type="hidden" value="${ reply.rno }" name="rno">
 														  <input type="hidden" value="${ param.BNo }" name="bNo">
-														  <input type="hidden" value="${ loginuser.empno }" name="empno">
+														  <input type="hidden" value="${ auth.employee.empno }" name="empno">
 														  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="rcontent-${ reply.rno }" name="rcontent" style="height:50px">&nbsp;&nbsp;
 														  <div class="input-group-append">
 														    <button class="btn btn-outline-secondary rereply-button" type="button" data-rno="${ reply.rno }" style="height:50px;width:80px">등록</button>

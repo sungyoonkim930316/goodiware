@@ -1,6 +1,8 @@
 <%@ page pageEncoding="utf-8" contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html class="no-js" lang="ko">
 
@@ -86,7 +88,7 @@
             Content body start
         ***********************************-->
 		<div class="content-body">
-
+			<sec:authentication property="principal" var="auth"/>
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
@@ -112,7 +114,7 @@
 				        <input type="hidden" id="searchType" name="searchType" value="${ param.searchType }">
 		  				<input type="hidden" id="searchKey" name="searchKey" value="${ param.searchKey }">
 						
-						<input type="hidden" name="empno" value="${ loginuser.empno }">
+						<input type="hidden" name="empno" value="${ auth.employee.empno }">
 						
 						<input type="text" name="title" class="form-control input-default" value="${ board.title }"><br>
 						<textarea name="smarteditor" id="smarteditor" rows="10" cols="100" style="width:100%; height:412px;"></textarea><br>

@@ -30,5 +30,7 @@ public interface EmployeeMapper {
 
 	Employee selectUserDetailByEmpno(int empno);
 
+	Employee selectEmployeeById(String username);
+
 
 }

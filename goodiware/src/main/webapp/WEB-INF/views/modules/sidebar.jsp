@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
   		        <div class="nk-sidebar">           
             <div class="nk-nav-scroll">
+            	<sec:authentication var="auth" property="principal" />
                 <ul class="metismenu" id="menu">
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-envelope menu-icon"></i> <span class="nav-text">메일</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/message/inbox?empno=${ loginuser.empno }">받은메일함</a></li>
-                            <li><a href="/message/compose?empno=${ loginuser.empno }">메일쓰기</a></li>
+                            <li><a href="/message/inbox?empno=${ auth.employee.empno }">받은메일함</a></li>
+                            <li><a href="/message/compose?empno=${ auth.employee.empno }">메일쓰기</a></li>
                         </ul>
                     </li>
                     <li class="mega-menu mega-menu-sm">
@@ -35,7 +37,7 @@
                             <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">일정관리</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/schedule/myschedule?empno=${ loginuser.empno }">나의일정</a></li>
+                            <li><a href="/schedule/myschedule?empno=${ auth.employee.empno }">나의일정</a></li>
                         </ul>
                     </li>
                      <li>
@@ -61,13 +63,13 @@
                             <i class="icon-notebook menu-icon"></i><span class="nav-text">마이페이지</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/employee/edit?empNo=${ loginuser.empno }">나의정보수정</a></li>
+                            <li><a href="/employee/edit?empNo=${ auth.employee.empno }">나의정보수정</a></li>
                             <!-- <li><a href="/employee/confirmPw">패스워드변경</a></li> -->
                         </ul>
                     </li>
                     
                     <c:choose>
-                    <c:when test="${ loginuser.auth.authno eq 2 or loginuser.auth.authno eq 3 }">
+                    <c:when test="${ auth.employee.auth.authno eq 2 or auth.employee.auth.authno eq 3 }">
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-note menu-icon"></i><span class="nav-text">관리자페이지</span>
