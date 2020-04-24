@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!doctype html>
 <html class="no-js" lang="ko">
 
@@ -18,19 +20,8 @@
     <link href="/resources/plugins/fullcalendar/css/fcmain.css" rel="stylesheet" />
     <link href="/resources/plugins/fullcalendar/css/dgmain.css" rel="stylesheet" />
     <link href="/resources/plugins/fullcalendar/css/tgmain.css" rel="stylesheet" />
-    <link href="/resources/css/jquery.datetimepicker.css" rel="stylesheet" />
-    
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.min.css" />
-    
-    <script src="/resources/js/fullcalendar.min.js"></script>
-    <script src="/resources/plugins/fullcalendar/js/fcmain.js"></script>
-    <script src="/resources/plugins/fullcalendar/js/itmain.js"></script>
-    <script src="/resources/plugins/fullcalendar/js/dgmain.js"></script>
-    <script src="/resources/plugins/fullcalendar/js/tgmain.js"></script>
-    <script src="/resources/plugins/fullcalendar/js/ko.js"></script>
-    <script src="/resources/js/jquery.datetimepicker.full.min.js"></script>
-    <script src="/resources/js/jquery.tooltip.js"></script>
+    <link href="/resources/css/jquery.datetimepicker.min.css" rel="stylesheet" />
+
     
     <style>
     	.fc-event{cursor: pointer;}
@@ -53,7 +44,7 @@
     
     <!-- Main wrapper start -->
     <div id="main-wrapper">
-
+		<sec:authentication property="principal" var="auth"/>
         <!-- Header start -->
 		<jsp:include page="/WEB-INF/views/modules/topbar.jsp"></jsp:include>
         <!-- Header end ti-comment-alt -->
@@ -81,7 +72,6 @@
                                     <h4>달력</h4>
                                 </div>
                                 <div id='calendar'></div>
-                                <!-- <div id='datetimepicker'></div> -->
                             </div>
                         </div>
                     </div>
@@ -125,14 +115,18 @@
 	                            </select>
 	                        </div>
 	                        
-	                        <div class="col-md-6 form-group">
+	                        <div class="col-md-6 form-group has-feedback">
 	                        	<label class="control-label">일정시작</label>
-	                        	<input class="form-control form-white" type="text" id="startdate" name="startdate" placeholder="yyyy-MM-dd" />
+	                        	<input class="form-control form-white" autocomplete="off" type="text" id="startdate" name="startdate" placeholder="yyyy-MM-dd" readOnly/>
+	                        	<!-- <span class="input-group-addon">
+				                    <span class="fa fa-calendar">
+				                    </span>
+				                </span>   -->                   	
 	                        </div>
 	                        
 	                        <div class="col-md-6 form-group">
 	                        	<label class="control-label">일정끝</label>
-	                        	<input class="form-control form-white" type="text" id="enddate" name="enddate" placeholder="yyyy-MM-dd" />
+	                        	<input class="form-control form-white" autocomplete="off" type="text" id="enddate" name="enddate" placeholder="yyyy-MM-dd" readOnly />
 	                        </div>
 	                        
 	                        <br>
@@ -143,7 +137,7 @@
 	                        </div>
 	                        
 	                        <div class="col-md-12 form-group">
-	                    		<input type="hidden" id="empno" name='empno' value='${ loginuser.empno }' />
+	                    		<input type="hidden" id="empno" name='empno' value='${ auth.employee.empno }' />
 	                    	</div>
 	                        
 	                    </div>
@@ -189,12 +183,12 @@
 	                        
 	                        <div class="col-md-6 form-group startdate">
 	                        	<label class="control-label">일정시작</label>
-	                        	<input class="form-control form-white startdate" type="text" id="startdate" name="startdate" />
+	                        	<input class="form-control form-white startdate" autocomplete="off" type="text" id="startdate" name="startdate" readOnly/>
 	                        </div>
 	                        
 	                        <div class="col-md-6 form-group">
 	                        	<label class="control-label">일정끝</label>
-	                        	<input class="form-control form-white" type="text" id="enddate" name="enddate" />
+	                        	<input class="form-control form-white" autocomplete="off" type="text" id="enddate" name="enddate" readOnly/>
 	                        </div>
 	                        
 	                        <br>
@@ -219,6 +213,14 @@
 	
     <!-- Scripts -->
     <jsp:include page="/WEB-INF/views/modules/common-js.jsp"></jsp:include>
+        
+    <script src="/resources/js/fullcalendar.min.js"></script>
+    <script src="/resources/plugins/fullcalendar/js/fcmain.js"></script>
+    <script src="/resources/plugins/fullcalendar/js/itmain.js"></script>
+    <script src="/resources/plugins/fullcalendar/js/dgmain.js"></script>
+    <script src="/resources/plugins/fullcalendar/js/tgmain.js"></script>
+    <script src="/resources/plugins/fullcalendar/js/ko.js"></script>
+    <script src="/resources/js/jquery.datetimepicker.full.js"></script>
     
      <script type="text/javascript">
 		document.addEventListener('DOMContentLoaded', function() {
@@ -242,6 +244,7 @@
 
 					$('#scdedit-modal').modal('show');
 					$('#scdedit-modal').find('#scheno').val(eventClickInfo.event.id);
+					$('#scdedit-modal').find('#schdivs').val(eventClickInfo.event.extendedProps.resourceId);
 					$('#scdedit-modal').find('#title').val(eventClickInfo.event.title);
 					$('#scdedit-modal').find('#startdate').val(eventClickInfo.event.start);
 					$('#scdedit-modal').find('#enddate').val(eventClickInfo.event.end);
@@ -250,10 +253,6 @@
 					$('#modalDeleteBtn').attr('data-scheno', eventClickInfo.event.id);
 
 					$('#modalUpdateBtn').attr('data-scheno', eventClickInfo.event.id);
-					/* $('#modalUpdateBtn').attr('data-scheno', eventClickInfo.event.title);
-					$('#modalUpdateBtn').attr('data-scheno', eventClickInfo.event.start);
-					$('#modalUpdateBtn').attr('data-scheno', eventClickInfo.event.end);
-					$('#modalUpdateBtn').attr('data-scheno', eventClickInfo.event.extendedProps.description); */
 				},
 				eventRender: function(info) {
 
@@ -289,7 +288,7 @@
 								</c:when>
 
 								<c:when test="${ schedules.schedivno eq 2 }">
-									backgroundColor: 'lightgray'
+									backgroundColor: '#ffdc37'
 								</c:when>
 
 								<c:when test="${ schedules.schedivno eq 3 }">
@@ -297,7 +296,7 @@
 								</c:when>
 
 								<c:when test="${ schedules.schedivno eq 4 }">
-									backgroundColor: 'palegreen'
+									backgroundColor: '#98fb98'
 								</c:when>
 
 								<c:when test="${ schedules.schedivno eq 5 }">
@@ -384,8 +383,8 @@
 						location.reload();
 					},
 					error: function(xhr, status, err) {
-						alert(err);
-						alert('실패')
+						alert('어버버버버버버버버');
+						alert('실패ㅋ')
 					}
 				});
 			})
@@ -411,6 +410,15 @@
 				$(this).datetimepicker("show");
 			}) */
 			/* $('#startdate, #enddate').datetimepicker(); */
+
+			$("#startdate, #enddate").datetimepicker({
+				icons: {
+					time: "fa fa-clock-o",
+					date: "fa fa-calendar",
+					up: "fa fa-arrow-up",
+					down: "fa fa-arrow-down"
+				}
+			});
 		})
 		
 

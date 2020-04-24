@@ -12,8 +12,6 @@ public interface ScheduleService {
 	
 	List<Schdiv> showSchdiv();
 
-//	List<Employee> showEmpno();
-
 	List<Schedule> showScheduleList(int empno);
 
 	void deleteSchedule(int scheno);

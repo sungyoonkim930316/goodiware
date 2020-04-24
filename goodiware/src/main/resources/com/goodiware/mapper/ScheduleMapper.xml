@@ -12,10 +12,6 @@
 		select * from SCHDIV
 	</select>
 	
-	<!-- <select id="selectEmpno" resultType="com.goodiware.vo.Employee">
-		select * from EMPLOYEE
-	</select> -->
-	
 	<select id="showPlans" parameterType="int" resultType="com.goodiware.vo.Schedule">
 		<![CDATA[
 		SELECT SCHENO, SCHEDIVNO, EMPNO, TITLE, CONTENT, STARTDATE, ENDDATE

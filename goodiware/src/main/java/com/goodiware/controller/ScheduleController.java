@@ -55,7 +55,7 @@ public class ScheduleController {
 	public void allowEmptyDateBinding(WebDataBinder binder)
 	{
 		binder.registerCustomEditor( String.class, new StringTrimmerEditor( true ));
-		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		simpleDateFormat.setLenient(false);
 		binder.registerCustomEditor( Date.class, new CustomDateEditor( simpleDateFormat,false));	   
 	}

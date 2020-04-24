@@ -15,8 +15,6 @@ public interface ScheduleMapper {
 
 	List<Schdiv> selectSchdiv();
 
-//	List<Employee> selectEmpno();
-
 	List<Schedule> showPlans(int empno);
 
 	void deleteSchedule(int scheno);
