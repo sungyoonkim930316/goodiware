@@ -19,7 +19,13 @@ public interface ScheduleMapper {
 
 	List<Schedule> showPlans(int empno);
 
-	Object deleteSchedule(int scheno);
+	void deleteSchedule(int scheno);
 
 	Schedule selectScheduleDetailByScheNo(int scheno);
+
+	void deleteScheduleByNo(int scheno);
+
+	void updateSchedule(Schedule schedule);
+
+	void updateSch(Schedule schedule);
 }

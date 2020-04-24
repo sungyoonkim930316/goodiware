@@ -30,6 +30,7 @@
     <script src="/resources/plugins/fullcalendar/js/tgmain.js"></script>
     <script src="/resources/plugins/fullcalendar/js/ko.js"></script>
     <script src="/resources/js/jquery.datetimepicker.full.min.js"></script>
+    <script src="/resources/js/jquery.tooltip.js"></script>
     
     <style>
     	.fc-event{cursor: pointer;}
@@ -165,16 +166,16 @@
 	                <h4 class="modal-title"><strong>일정편집</strong></h4>
 	            </div>
 	            <div class="modal-body">
-	            	<form id="addscd-form" action="/schedule/mainschedule" method="post">
+	            	<form id="editscd-form" action="/schedule/mainschedule" method="post">
 	                    <div class="row">
 	                    
 	                    	<div class="col-md-12 form-group">
-	                    		<input class="scheno" type="hidden" value="${ scheduleDetail.scheno }" name="scheno" id="scheno" />
+	                    		<input class="scheno" type="hidden" name="scheno" id="scheno" />
 	                    	</div>
 	                    
 	                    	<div class="col-md-6 form-group">
 	                            <label class="control-label">일정이름</label>
-	                            <input class="form-control form-white title" value="${ scheduleDetail.title }" required="required" type="text" id="title" name="title" />
+	                            <input class="form-control form-white title" required="required" type="text" id="title" name="title" />
 	                        </div>
 	                        
 	                        <div class="col-md-6 form-group">
@@ -188,31 +189,27 @@
 	                        
 	                        <div class="col-md-6 form-group startdate">
 	                        	<label class="control-label">일정시작</label>
-	                        	<input class="form-control form-white startdate" type="text" id="startdate" name="startdate" value="${ scheduleDetail.startdate }" />
+	                        	<input class="form-control form-white startdate" type="text" id="startdate" name="startdate" />
 	                        </div>
 	                        
 	                        <div class="col-md-6 form-group">
 	                        	<label class="control-label">일정끝</label>
-	                        	<input class="form-control form-white" type="text" id="enddate" name="enddate" value="${ scheduleDetail.enddate }" />
+	                        	<input class="form-control form-white" type="text" id="enddate" name="enddate" />
 	                        </div>
 	                        
 	                        <br>
 	                        
 	                        <div class="col-md-12 form-group">
 	                            <label class="control-label">내용</label>
-	                            <textarea class="form-control form-white" id="content" name="content">${ scheduleDetail.content }</textarea>
+	                            <textarea class="form-control form-white" id="content" name="content"></textarea>
 	                        </div>
-	                        
-	                        <div class="col-md-12 form-group">
-	                    		<input type="hidden" id="empno" name='empno' value='${ loginuser.empno }' />
-	                    	</div>
 	                        
 	                    </div>
 	                </form>
 	            </div>
 	            <div class="modal-footer modalBtnContainer-editScd">
-	                <button id='modalUpdateBtn' type="button" class="btn btn-success save-event waves-effect waves-light">수정</button>
-	                <button id="modalDeleteBtn" type="button" class="btn btn-danger delete-event waves-effect waves-light">삭제</button>
+	                <button data-scheno="${ scheduleDetail.scheno }" id='modalUpdateBtn' type="button" class="btn btn-success save-event waves-effect waves-light">수정</button>
+	                <button data-scheno="${ scheduleDetail.scheno }" id="modalDeleteBtn" type="button" class="btn btn-danger delete-event waves-effect waves-light">삭제</button>
 	                <button id="modalCloseBtn" type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">닫기</button>
 	            </div> 
 	        </div>
@@ -244,31 +241,30 @@
 				eventClick: function(eventClickInfo) {
 
 					$('#scdedit-modal').modal('show');
+					$('#scdedit-modal').find('#scheno').val(eventClickInfo.event.id);
 					$('#scdedit-modal').find('#title').val(eventClickInfo.event.title);
 					$('#scdedit-modal').find('#startdate').val(eventClickInfo.event.start);
 					$('#scdedit-modal').find('#enddate').val(eventClickInfo.event.end);
-					$('#scdedit-modal').find('#content').val(eventClickInfo.event.content);
-					/* $('#scdedit-modal .modal-body').text(eventClickInfo.event.title + "\n\n" + eventClickInfo.event.start + "\n\n" + eventClickInfo.event.end); */
-
-					/* var values = $('#addscd-form').serialize();
+					$('#scdedit-modal').find('#content').val(eventClickInfo.event.extendedProps.description);
 					
-					$.ajax({
-			            method: "get",
-			            url: "/schedule/detail",
-			            data: values,
-			            success: function (response) {
-			            	$('#scdedit-modal').modal('show');
-			            },
-			            error: function(xhr, status, err) {
-							alert('error');
-					    }
-			        }); */
+					$('#modalDeleteBtn').attr('data-scheno', eventClickInfo.event.id);
+
+					$('#modalUpdateBtn').attr('data-scheno', eventClickInfo.event.id);
+					/* $('#modalUpdateBtn').attr('data-scheno', eventClickInfo.event.title);
+					$('#modalUpdateBtn').attr('data-scheno', eventClickInfo.event.start);
+					$('#modalUpdateBtn').attr('data-scheno', eventClickInfo.event.end);
+					$('#modalUpdateBtn').attr('data-scheno', eventClickInfo.event.extendedProps.description); */
 				},
-				/* eventMouseEnter: function(mouseEnterInfo, event) {
-					alert(eventClickInfo.event.title);
-				},
-				eventMouseLeave: function(mouseLeaveInfo){
-				}, */
+				eventRender: function(info) {
+
+					/* $('#fc-event').tooltip({align: 'top'});
+			      var tooltip = new Tooltip(info.el, {
+			        title: info.eventClickInfo.event.title,
+			        placement: 'top',
+			        trigger: 'hover',
+			        container: 'body'
+			      }); */
+			    },
 				eventLimit: true,
 				views: {
 					timeGrid: {
@@ -283,6 +279,9 @@
 							title: '${ schedules.title }',
 							start: '<fmt:formatDate value="${ schedules.startdate }" pattern="yyyy-MM-dd" />',
 							end: '<fmt:formatDate value="${ schedules.enddate }" pattern="yyyy-MM-dd" />',
+							extendedProps: {
+								description: '${ schedules.content }'
+							},
 							textColor: 'black',
 							<c:choose>
 								<c:when test="${ schedules.schedivno eq 1 }">
@@ -342,22 +341,71 @@
 			})
 			
 			$('#modalDeleteBtn').on('click', function(event) {
-				var scheno = $(this).attr('scheno');
+				
+				var scheno = $(this).attr('data-scheno');
 				var yes = confirm("일정을 삭제하시겠습니까?");
 				if (!yes) return;
 
+				console.log(scheno);
+				
 				$.ajax({
-					url: "/delete",
+					url: "/schedule/delete",
 					method: "delete",
 					data: { "scheno" : scheno },
 					success: function(data, status, xhr) {
-						$('.content-body').load("/schedule/myschedule?empno=${empno}");
+						$('#scdedit-modal').modal('hide');
+						location.reload();
 					},
 					error: function(xhr, status, err) {
+						alert(err);
 						alert('실패')
 					}
 				});
 			});
+
+			$('#modalUpdateBtn').on('click', function(event) {
+				
+				var data = {
+						"scheno": $("#editscd-form input[name=scheno]").val(),
+						"title": $("#editscd-form input[name=title]").val(),
+						"schedivno": $("#editscd-form select[name=schedivno]").val(),
+						"startdate": $("#editscd-form input[name=startdate]").val(),
+						"enddate": $("#editscd-form input[name=enddate]").val(),
+						"content": $("#editscd-form textarea[name=content]").val()
+							};
+				
+				$.ajax({
+					url: "/schedule/update",
+					method: "put",
+					data: JSON.stringify(data),
+					contentType: "application/json",
+					success: function(result, status, xhr) {
+						$('#scdedit-modal').modal('hide');
+						location.reload();
+					},
+					error: function(xhr, status, err) {
+						alert(err);
+						alert('실패')
+					}
+				});
+			})
+			
+			function makeForm(action, scheno, method="get") {
+				var form = $('<form></form>');
+				form.attr({
+					'action': action,
+					'method': method
+				});
+				form.append($('<input>').attr({
+					"type": "hidden",
+					"name": "scheno",
+					"value" : scheno })
+				);
+				
+				form.appendTo("body");
+				
+				return form;
+			};
 			
 			/* $('#startdate, #enddate').on('click', function(event) {
 				$(this).datetimepicker("show");

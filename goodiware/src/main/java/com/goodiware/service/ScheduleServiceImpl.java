@@ -50,4 +50,21 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return scheduleMapper.selectScheduleDetailByScheNo(scheno);
 	}
 
+	@Override
+	public void deleteScheduleByNo(int scheno) {
+		scheduleMapper.deleteScheduleByNo(scheno);
+		
+	}
+
+	@Override
+	public void updateSchedule(Schedule schedule) {
+		scheduleMapper.updateSchedule(schedule);
+		
+	}
+
+	@Override
+	public void updateSch(Schedule schedule) {
+		scheduleMapper.updateSch(schedule);
+	}
+
 }

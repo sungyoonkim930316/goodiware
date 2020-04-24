@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -80,8 +82,6 @@ public class ScheduleController {
 		model.addAttribute("tstart", "2020-04-28");
 		model.addAttribute("tend", "2020-04-30");
 		
-		//System.out.println(schedules);
-		
 		return "/schedule/mainschedule";
 		//return schedules;
 		
@@ -93,7 +93,6 @@ public class ScheduleController {
 		Schedule scheduleDetail = scheduleService.findScheduleDetailByScheNo(scheno);
 		if (scheduleDetail == null) {
 			return String.format("redirect:/schedule/myschedule");
-//			return String.format("redirect:/schedule/myschedule?empno=%d", empno);
 		}
 		model.addAttribute("scheduleDetail", scheduleDetail);
 		
@@ -109,23 +108,30 @@ public class ScheduleController {
 		return String.format("redirect:/schedule/myschedule?empno=%d", empno);
 	}
 	
-	@DeleteMapping(path = { "/schedule/delete" }) // path string의 {} -> 데이터
+//	@PostMapping(path = { "/mainschedule" })
+//	public String updateSch(Schedule schedule, int empno) {
+//		
+//		scheduleService.updateSch(schedule);
+//		
+//		return String.format("redirect:/schedule/myschedule?empno=%d", empno);
+//	}
+	
+	@DeleteMapping(path = { "/delete" })
 	@ResponseBody
-	public String deleteSchedule(@PathVariable int scheno) {
+	public String deleteSchedule(int scheno) {
 		
 		scheduleService.deleteSchedule(scheno);
 		
 		return "success";
 	}
 	
-	
-//	@PostMapping(path= {"/mainschedule"})
-//	public String addSch(Schedule schedule, BindingResult result, RedirectAttributes attr) {
-//		
-//		scheduleService.plusScd(schedule);
-//		
-//		return "/schedule/mainschedule";
-//	}
-	
+	@PutMapping(path = { "/update" }, consumes = "application/json")
+	@ResponseBody
+	public String update(@RequestBody Schedule schedule) { //@RequestBody : 요청 본문을 직접 읽어서 객체 매핑
+		
+		scheduleService.updateSchedule(schedule);
+		
+		return "successs";
+	}
 	
 }

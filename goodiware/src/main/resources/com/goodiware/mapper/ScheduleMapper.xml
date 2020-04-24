@@ -32,8 +32,20 @@
 		]]>
 	</select>
 	
-	<!-- <delete id="deleteSchedule" parameterType="int">
-		DELETE FROM SCHEDULE WHERE scheno=#{scheno}
-	</delete> -->
+	<delete id="deleteSchedule" parameterType="int">
+		DELETE FROM SCHEDULE WHERE SCHENO=#{scheno}
+	</delete>
+	
+	<update id="updateSchedule" parameterType="com.goodiware.vo.Schedule">
+		UPDATE SCHEDULE
+		SET TITLE = #{title}, SCHEDIVNO = #{schedivno}, STARTDATE = #{startdate}, ENDDATE = #{enddate}, CONTENT = #{content}
+		WHERE scheno = #{ scheno }
+	</update>
+	
+	<update id="updateSch" parameterType="com.goodiware.vo.Schedule">
+		UPDATE SCHEDULE
+		SET TITLE = #{title}, SCHEDIVNO = #{schedivno}, CONTENT = #{content}, STARTDATE = #{startdate}, ENDDATE = #{enddate} 
+		WHERE SCHENO = #{scheno}
+	</update>
 	
 </mapper>

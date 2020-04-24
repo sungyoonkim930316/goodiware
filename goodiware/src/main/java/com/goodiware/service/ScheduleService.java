@@ -20,4 +20,10 @@ public interface ScheduleService {
 
 	Schedule findScheduleDetailByScheNo(int scheno);
 
+	void deleteScheduleByNo(int scheno);
+
+	void updateSchedule(Schedule schedule);
+
+	void updateSch(Schedule schedule);
+
 }
