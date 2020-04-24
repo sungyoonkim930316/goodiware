@@ -57,14 +57,13 @@
 		WHERE    
 		    e.deleted = 'N'
 		    and e.posno = p.posno and e.depno = d.depno
-		    
 		ORDER BY empno DESC
 		LIMIT #{beginning}, #{end}
 		
 	</select>
 	
-	<update id="editEmp" parameterType="com.goodiware.vo.Employee" keyColumn="EMPNO" keyProperty="empno">
+	<update id="editEmp" parameterType="com.goodiware.vo.Employee">
 		UPDATE EMPLOYEE SET posno = #{ posno }, depno = #{ depno } 
-		WHERE empno = #{ empno }
+		WHERE id = #{ id }
 	</update>
 </mapper>

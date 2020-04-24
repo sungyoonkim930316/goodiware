@@ -1,5 +1,6 @@
 package com.goodiware.controller;
 
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
@@ -69,9 +70,10 @@ public class AdminController {
 		int pagerSize = 5;
 		HashMap<String, Object> params = new HashMap<>();
 		int beginning = (pageNo - 1) * pageSize;
+		
 		params.put("beginning", beginning);
 		params.put("end", beginning + pageSize);
-//			params.put("name", employee.getName());
+//		params.put("name", employee.getName());
 //			
 		List<Employee> employees = adminService.empWithPaging(params);
 		int boardCount = adminService.empListCount(params); // 전체 사원수
@@ -87,12 +89,12 @@ public class AdminController {
 
 	// 정보 수정 처리
 	@PostMapping(path = { "/edit" })
-	public String editEmployee( Employee employee, RedirectAttributes attr ) {
+	public String editEmployee( Employee employee,Model model,@RequestParam(defaultValue = "1") int pageNo, @RequestParam(required = false) String searchType,
+								@RequestParam(required = false) String searchKey, RedirectAttributes attr, HttpServletRequest req, int empNo) {
 
 		adminService.editEmployee(employee);
-		attr.addAttribute("editEmp", employee);
 
-		return "/admin/edit";
+		return "redirect:/admin/empList";
 	}
 
 	@Autowired
@@ -123,29 +125,33 @@ public class AdminController {
 	}
 	
 	// 사원 검색 결과 페이지 이동
-		@GetMapping(path = { "/empSearchResult" })
-		public String toSearchEmp(@RequestParam(defaultValue = "1") int pageNo,
-				@RequestParam(required = false) String searchType, @RequestParam(required = false) String searchKey,
-				HttpServletRequest req, Model model, Employee employee) {
+	@GetMapping(path = { "/empSearchResult" })
+	public String toSearchEmp(@RequestParam(defaultValue = "1") int pageNo,
+							@RequestParam(required = false) String searchType, @RequestParam(required = false) String searchKey,
+							HttpServletRequest req, Model model, Employee employee) {
 
-			int pageSize = 5;
-			int pagerSize = 5;
-			HashMap<String, Object> params = new HashMap<>();
-			int beginning = (pageNo - 1) * pageSize;
-			params.put("beginning", beginning);
-			params.put("end", beginning + pageSize);
-			params.put("name", employee.getName());
-			
-			List<Employee> employees = employeeService.searchEmp(params);
-			int boardCount = employeeService.searchEmpCount(params); // 전체 글 개수
+		int pageSize = 5;
+		int pagerSize = 5;
+		HashMap<String, Object> params = new HashMap<>();
+		int beginning = (pageNo - 1) * pageSize;
+		params.put("beginning", beginning);
+		params.put("end", beginning + pageSize);
+		params.put("name", employee.getName());
+		params.put("searchKey", searchKey);
+		
+		System.out.println("employee.name : " + employee.getName());
+		System.out.println(params);
+		
+		List<Employee> employees = employeeService.searchEmp(params);
+		int boardCount = employeeService.searchEmpCount(params); // 전체 글 개수
 
-			ThePager2 pager = new ThePager2(boardCount, pageNo, pageSize, pagerSize, "searchEmp", req.getQueryString());
-			
-			model.addAttribute("employees", employees);
-			model.addAttribute("pager", pager);
-			
-			return "/admin/empSearchResult";
+		ThePager2 pager = new ThePager2(boardCount, pageNo, pageSize, pagerSize, "searchEmp", req.getQueryString());
+		
+		model.addAttribute("employees", employees);
+		model.addAttribute("pager", pager);
+		
+		return "/admin/empSearchResult";
 
-		}
+	}
 
 }
