@@ -25,6 +25,8 @@ public class EmbeddedRedisConfig {
 	@PostConstruct
 	public void redisServer() throws IOException {
 
+		System.out.println("start function redisServer");
+		
 		redisServer = new RedisServer(redisPort);
 		redisServer.start();
 
@@ -33,6 +35,8 @@ public class EmbeddedRedisConfig {
 	@PreDestroy
 	public void stopRedis() {
 
+		System.out.println("start function stopRedis");
+		
 		if (redisServer != null) {
 			redisServer.stop();
 		}

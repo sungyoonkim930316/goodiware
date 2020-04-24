@@ -21,6 +21,8 @@ public class WebSockConfig implements WebSocketMessageBrokerConfigurer {
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry config) {
 		
+		System.out.println("start function configureMessageBroker");
+		
 		config.enableSimpleBroker("/sub");
 		config.setApplicationDestinationPrefixes("/pub");
 		
@@ -29,12 +31,16 @@ public class WebSockConfig implements WebSocketMessageBrokerConfigurer {
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 		
+		System.out.println("start function registerStompEndpoints");
+		
 		registry.addEndpoint("/ws-stomp").setAllowedOrigins("*").withSockJS();
 		
 	}
 
 	@Override
 	public void configureClientInboundChannel(ChannelRegistration registration) {
+		
+		System.out.println("start function configureClientInboundChannel");
 		
 		registration.interceptors(stompHandler);
 		

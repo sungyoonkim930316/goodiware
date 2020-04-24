@@ -24,7 +24,7 @@ public class ChatService {
 	
 	// destination 정보에서 roomId 추출
 	public String getRoomId(String destination) {
-		
+		System.out.println("start function getRoomId destination is : " + destination);
 		int lastIndex = destination.lastIndexOf("/");
 		if(lastIndex != -1) 
 			return destination.substring(lastIndex + 1);
@@ -36,6 +36,8 @@ public class ChatService {
 	
 	// 채팅방에 메세지 발송
 	public void sendChatMessage(ChatMessage chatMessage) {
+		System.out.println("start function sendChatMessage ChatMessage is : " + chatMessage);
+		
         chatMessage.setUserCount(chatRoomRepository.getUserCount(chatMessage.getRoomId()));
         if (ChatMessage.MessageType.ENTER.equals(chatMessage.getType())) {
         	System.out.println("들어온 놈 : " + chatMessage.getSender());

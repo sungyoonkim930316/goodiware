@@ -22,7 +22,7 @@ public class RedisSubscriber {
 	
 	// redis에서 메시지가 발행(publish)되면 대기하고있던 onMessage가 해당 메세지를 받아서 처리
 	public void sendMessage(String publishMessage) {
-		
+		System.out.println("start function sendMessage");
 		try {
 			
 			// ChatMessage 객체로 맵핑

@@ -27,7 +27,8 @@ public class JwtTokenProvider {
 	// 이름으로 Jwt Token 생성
 	
 	public String generateToken(String name) {
-		
+		System.out.println("start function generateToken");
+		System.out.println("jwt secretKey by generateToken : " + secretKey);
 		Date now = new Date();
         return Jwts.builder()
                 .setId(name)
@@ -40,16 +41,19 @@ public class JwtTokenProvider {
 	
 	// Jwt Token 복호화 해서 이름 얻기
 	public String getUserNameFromJwt(String jwt) {
+		System.out.println("start function getUserNameFromJwt");
 		return getClaims(jwt).getBody().getId();
 	}
 	
 	// Jwt Token 유효성 체크
 	public boolean validateToken(String jwt) {
+		System.out.println("start function validateToken");
 		return this.getClaims(jwt) != null;
 	}
 	
 	private Jws<Claims> getClaims(String jwt) {
-		
+		System.out.println("start function getClaims");
+		System.out.println("jwt secretKey by getClaims : " + secretKey);
 		try {
             return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwt);
         } catch (SignatureException ex) {

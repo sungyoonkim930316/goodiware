@@ -34,6 +34,9 @@ public class RedisConfig {
 	// 단일 topic 사용을 위한 Bean설정
 	@Bean
 	public ChannelTopic channelTopic() {
+		
+		System.out.println("start function channelTopic");
+		
 		return new ChannelTopic("chatroom");
 	}
 	
@@ -41,6 +44,8 @@ public class RedisConfig {
 	@Bean
 	public RedisMessageListenerContainer redisMessageListener(RedisConnectionFactory connectionFactory,
 			MessageListenerAdapter listenerAdapter, ChannelTopic channelTopic) {
+		
+		System.out.println("start function redisMessageListener");
 		
 		RedisMessageListenerContainer container = new RedisMessageListenerContainer();
 				
@@ -55,6 +60,8 @@ public class RedisConfig {
 	@Bean
 	public MessageListenerAdapter listenerAdapter(RedisSubscriber subscriber) {
 		
+		System.out.println("start function listenerAdapter");
+		
 		return new MessageListenerAdapter(subscriber, "sendMessage");
 		
 	}
@@ -62,12 +69,17 @@ public class RedisConfig {
 	//new
 	@Bean
     public RedisConnectionFactory redisConnectionFactory() {
+		
+		System.out.println("start function redisConnectionFactory");
+		
         return new LettuceConnectionFactory(redisHost, redisPort);
 	}
 	
 	// 앱에서 사용할 레디스템플릿 set
 	@Bean
 	public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
+		
+		System.out.println("start function RedisTemplate");
 		
 		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
 		
