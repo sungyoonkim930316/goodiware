@@ -7,9 +7,8 @@ import lombok.Data;
 
 @Data
 public class ChatRoom implements Serializable {
-	
-	public static final long serialVersionUID = 6494678977089006639L;
-	
+		
+	private static final long serialVersionUID = 3804627931209171476L;
 	private String roomId;
 	private String name;
 	private long userCount;

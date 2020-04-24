@@ -29,12 +29,12 @@ public class JwtTokenProvider {
 	public String generateToken(String name) {
 		
 		Date now = new Date();
-		return Jwts.builder()
-				.setId(name)
-				.setIssuedAt(now) // 토큰 발행일자
-				.setExpiration(new Date(now.getTime() + tokenValidMilisecond)) // 유효시간 set
-				.signWith(SignatureAlgorithm.HS256, secretKey) // 암호화 알고리즘, secret값 set
-				.compact();
+        return Jwts.builder()
+                .setId(name)
+                .setIssuedAt(now) // 토큰 발행일자
+                .setExpiration(new Date(now.getTime() + tokenValidMilisecond)) // 유효시간 설정
+                .signWith(SignatureAlgorithm.HS256, secretKey) // 암호화 알고리즘, secret값 세팅
+                .compact();
 		
 	}
 	

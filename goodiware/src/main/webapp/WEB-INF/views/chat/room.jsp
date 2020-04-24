@@ -15,7 +15,11 @@
     <!-- Custom Stylesheet -->
     <link href="/resources/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="/resources/css/style.css" rel="stylesheet">
-
+	<style>
+      [v-cloak] {
+          display: none;
+      }
+    </style>
 </head>
 <body>
 <!--*******************
@@ -115,7 +119,7 @@
                         axios.post('/chat/room', params)
                         .then(
                             response => {
-                                alert("\"" + response.data.name + "\"" +"방 개설에 성공하였습니다.")
+                                alert("\"" + response.data.name + "\"" +" 개설에 성공하였습니다.")
                                 this.room_name = '';
                                 this.findAllRoom();
                             }

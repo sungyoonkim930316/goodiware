@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
-@Service
+@Service("chatService")
 public class ChatService {
 
 	private final ChannelTopic channelTopic;
@@ -26,11 +26,11 @@ public class ChatService {
 	public String getRoomId(String destination) {
 		
 		int lastIndex = destination.lastIndexOf("/");
-		if(lastIndex != -1) {
+		if(lastIndex != -1) 
 			return destination.substring(lastIndex + 1);
-		} else {
+		else 
 			return "";
-		}
+		
 		
 	}
 	
@@ -39,12 +39,10 @@ public class ChatService {
         chatMessage.setUserCount(chatRoomRepository.getUserCount(chatMessage.getRoomId()));
         if (ChatMessage.MessageType.ENTER.equals(chatMessage.getType())) {
         	System.out.println("들어온 놈 : " + chatMessage.getSender());
-        	
             chatMessage.setMessage(chatMessage.getSender() + "님이 방에 입장했습니다.");
             chatMessage.setSender("[알림]");
         } else if (ChatMessage.MessageType.QUIT.equals(chatMessage.getType())) {
         	System.out.println("나간 놈 : " + chatMessage.getSender());
-           		
         	chatMessage.setMessage(chatMessage.getSender() + "님이 방에서 나갔습니다.");
             chatMessage.setSender("[알림]");
         }

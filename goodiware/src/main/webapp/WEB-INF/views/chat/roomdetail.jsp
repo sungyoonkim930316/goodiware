@@ -15,7 +15,11 @@
     <!-- Custom Stylesheet -->
     <link href="/resources/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="/resources/css/style.css" rel="stylesheet">
-
+	<style>
+      [v-cloak] {
+          display: none;
+      }
+    </style>
 </head>
 <body>
 <!--*******************
@@ -63,7 +67,7 @@
 		                <h4>&nbsp;◈&nbsp;{{roomName}}&nbsp;◈ <span class="badge badge-info badge-pill">&nbsp;&nbsp;{{userCount}}명 참가중</span></h4>
 		            </div>
 		            <div class="col-md-6 text-right">
-		                <a class="btn btn-info btn-sm" href="/chat/room">회의방 나가기</a>
+		                <a class="btn btn-info btn-sm" id="to-chatlist">회의방 나가기</a>
 		            </div>
 		        </div>
 		        <hr>
@@ -91,11 +95,23 @@
     <script src="/webjars/axios/0.17.1/dist/axios.min.js"></script>
     <script src="/webjars/sockjs-client/1.1.2/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/2.3.3-1/stomp.min.js"></script>
+    <script type="text/javascript">
+	$(function() {
+		$('#to-chatlist').on('click', function(event) {
+			var result = confirm('회의방에서 나가시겠습니까?');
+			if(!result) {
+				return false;
+			} else {
+				alert('회의방 목록으로 이동합니다.');
+				location.href = "/chat/room";
+			}
+		});
+	});
+    </script>
     <script>
         // websocket & stomp initialize
         var sock = new SockJS("/ws-stomp");
         var ws = Stomp.over(sock);
-        
         // vue.js
         var vm = new Vue({
             el: '#app',
@@ -108,7 +124,6 @@
                 userCount: 0
             },
             created() {
-                debugger;
                 this.roomId = localStorage.getItem('wschat.roomId');
                 this.roomName = localStorage.getItem('wschat.roomName');
                 var _this = this;
