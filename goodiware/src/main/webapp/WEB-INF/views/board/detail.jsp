@@ -144,23 +144,7 @@
 	                            <div id="reply-list-container">
 	                            
 	                            	<jsp:include page="reply-list2.jsp" />
-	                            	<br>
 	                            	
-	                            	
-	                            	
-	                            	<hr>
-					            	 <ul class="pagination">
-                                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a>
-                                        </li>
-                                        <li class="page-item active"><a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
 	                           	</div>
                             </div>
                         </div>
@@ -293,7 +277,7 @@
 				"data" : values,
 				"success" : function(data, status, xhr) {
 					// 비동기처리 완료 뒤, 리로딩할 영역
-					$("#reply-list-container").load("/reply/list-by/${ board.bno }");
+					$("#reply-list-container").load("/reply/list-by/${ board.bno }/${ pager.pageNo }");
 					$('#rcontent').val('');
 				},
 				"error" : function(xhr, status, err){
@@ -318,7 +302,7 @@
 				"method": "delete",
 				"data": { "rno" : rno },
 				"success": function(data, status, xhr) {
-					$("#reply-list-container").load("/reply/list-by/${ board.bno }");
+					$("#reply-list-container").load("/reply/list-by/${ board.bno }/${ pager.pageNo }");
 				},
 				"error": function(xhr, status, err) {
 					alert("삭제에 실패해버렸지뭐얌?");
@@ -397,7 +381,7 @@
  				"data" : JSON.stringify(data),
 				"contentType" : "application/json",
 				"success": function(data, status, xhr) {
-					$("#reply-list-container").load("/reply/list-by/${ board.bno }/2");
+					$("#reply-list-container").load("/reply/list-by/${ board.bno }/${ pager.pageNo }");
 				},
 				"error": function(xhr, status, err) {
 					alert("댓글 수정을 실패했습니다");
@@ -481,7 +465,7 @@
 				"data" : values,
 				"success" : function(data, status, xhr) {
 					// 비동기처리 완료 뒤, 리로딩할 영역
-					$("#reply-list-container").load("/reply/list-by/${ board.bno }");
+					$("#reply-list-container").load("/reply/list-by/${ board.bno }/${ pager.pageNo }");
 				},
 				"error" : function(xhr, status, err){
 					alert("댓글 쓰기가 실패해버렸지 뭐얌?")
@@ -491,7 +475,19 @@
 			currentRno = null;
 			 
 		});
- 
+
+		$('#reply-list-container').on('click', '.pagination a[id^=page-no]', function(event) {
+
+			event.preventDefault();
+
+			var bno = $(this).attr('data-bno');
+			var pageNo = $(this).attr('data-pageno');
+
+			$("#reply-list-container").load("/reply/list-by/" + bno + "/" + pageNo);
+			
+		});
+
+
 	    
 	});
 	</script>

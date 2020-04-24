@@ -100,46 +100,46 @@ public class BoardController {
 	
 	// 게시판 디테일 + 댓글 페이징 
 	@GetMapping(path = { "/detail" })
-	public String showDetail(@RequestParam(defaultValue="1") int RpageNo,@RequestParam("BNo") int bNo, Model model){
+	public String showDetail(@RequestParam(value="RpageNo", defaultValue="1") int pageNo,@RequestParam("BNo") int bNo, Model model){
 		
 		// 게시글 디테일 조회
 		Board board = boardService.findBoardByBNo(bNo);
 
 		// 댓글 조회
-		int pageSize = 3;
+		int pageSize = 5;
 		int pagerSize = 3;
 		HashMap<String, Object> params = new HashMap<>();
-		int beginning = (RpageNo - 1) * pageSize;
+		int beginning = (pageNo - 1) * pageSize;
 		params.put("beginning", beginning);
 		params.put("end", beginning + pageSize);
 		params.put("bno", bNo);
+		params.put("pageSize", pageSize);
 		
 		List<Reply> replies = boardReplyService.getReplyWithPagingByBno(params);
 		int replyCount = boardReplyService.getReplyCount(params);
-
-//		ThePager pager = new ThePager(replyCount, RpageNo, pageSize, pagerSize, "/reply/page");
-//		model.addAttribute("pager", pager);
 		
 		///////////////////////////////////////////////////////////
 		/// 페이징 맹글기
 		int pageCount = ( replyCount / pageSize ) + (( replyCount % pageSize ) > 0 ? 1 : 0 );
-		int pagerBlock = ( RpageNo -1 ) / pagerSize;
+		int pagerBlock = ( pageNo -1 ) / pagerSize;
 		int start = (pagerBlock * pagerSize ) + 1;
 		int end = start + pagerSize;
-		String url = "list-by";
 
-		HashMap<String, Object> pages = new HashMap<>();
+		HashMap<String, Integer> pager = new HashMap<String, Integer>();
 		
-		for (int i=start; i<end; i++) {
-			if (i > pageCount) break;
-			if(i == RpageNo) {
-				pages.put("current", i);
-			} else {
-				pages.put("url", String.format("/reply/%s/%d/%d", url, bNo, i));
-			}
-			System.out.println(pages);
-			model.addAttribute("pagess", pages);
-		}
+		pager.put("pageNo", pageNo);
+		pager.put("replyCount", replyCount);
+		pager.put("pageCount", pageCount);
+		pager.put("pageBlock", pagerBlock);
+		pager.put("start", start);
+		pager.put("end", end);
+		model.addAttribute("pager", pager);
+		
+		System.out.println("replyCount : " + replyCount);
+		System.out.println("pageCount : " + pageCount);
+		System.out.println("pageBlock : " + pagerBlock);
+		System.out.println("start : " + start);
+		System.out.println("end : " + end);
 		
 		model.addAttribute("replies", replies);
 		

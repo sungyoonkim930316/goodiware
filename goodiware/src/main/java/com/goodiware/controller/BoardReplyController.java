@@ -53,22 +53,37 @@ public class BoardReplyController {
 	@GetMapping(path= {"/list-by/{bno}/{pageNo}"})
 	public String listByBno(@PathVariable int bno, @PathVariable int pageNo, Model model) {
 		
-		int pageSize = 3;
+		int pageSize = 5;
 		int pagerSize = 3;
 		HashMap<String, Object> params = new HashMap<>();
 		int beginning = (pageNo - 1) * pageSize;
 		params.put("beginning", beginning);
 		params.put("end", beginning + pageSize);
 		params.put("bno", bno);
+		params.put("pageSize", pageSize);
 		
 		List<Reply> replies = boardReplyService.getReplyWithPagingByBno(params);
-//		int replyCount = boardReplyService.getReplyCount(params);
+		int replyCount = boardReplyService.getReplyCount(params);
+
+		int pageCount = ( replyCount / pageSize ) + (( replyCount % pageSize ) > 0 ? 1 : 0 );
+		int pagerBlock = ( pageNo -1 ) / pagerSize;
+		int start = (pagerBlock * pagerSize ) + 1;
+		int end = start + pagerSize;
+
+		HashMap<String, Integer> pager = new HashMap<String, Integer>();
 		
-//		ThePager pager = new ThePager(replyCount, pageNo, pageSize, pagerSize, "/reply/list-by/{pageNo}");
-//		model.addAttribute("pager", pager);
+		pager.put("pageNo", pageNo);
+		pager.put("replyCount", replyCount);
+		pager.put("pageCount", pageCount);
+		pager.put("pageBlock", pagerBlock);
+		pager.put("start", start);
+		pager.put("end", end);
+		model.addAttribute("pager", pager);
 		
-//		return "/board/reply-list2";
-		return String.format("/board/reply-list?pageNo=%d", pageNo);
+		model.addAttribute("replies", replies);
+		
+		return "/board/reply-list2";
+//		return String.format("/board/reply-list?pageNo=%d", pageNo);
 		
 	} 
 	

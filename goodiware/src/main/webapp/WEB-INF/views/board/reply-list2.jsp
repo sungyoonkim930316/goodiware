@@ -90,3 +90,38 @@
 							</c:forEach>
 														
 						</ul>
+						
+						<br>
+						<div>
+						<div style="text-align:center">
+                        <c:if test="${ not empty replies }">
+		            	<ul class="pagination">
+							
+							<li class="page-item ${ pager.pageBlock == 0 ? 'disabled' : '' }">
+								<a id="page-no-${ pager.start - 1}" data-pageno="${ pager.start - 1 }" data-bno="${ replies[0].BNo }" class="page-link" href="#">Previous</a>
+							</li>
+							
+							<c:forEach var="idx" begin="${ pager.start }" end="${ pager.end - 1 }">
+							<li class="page-item ${ pager.pageNo == idx ? 'active' : '' }">
+								<c:choose>
+								<c:when test="${ pager.pageCount > idx }">
+									<a id="page-no-${ idx }" data-pageno="${ idx }" data-bno="${ replies[0].BNo }" class="page-link" href="javascript:">${ idx }</a>
+								</c:when>
+								<c:otherwise>
+									<!-- <a class="page-link" href="javascript:">&nbsp;</a> -->
+								</c:otherwise>
+								</c:choose>
+							</li>
+							</c:forEach>
+							
+							<li class="page-item ${ pager.pageCount < pager.end ? 'disabled' : '' }">
+								<a id="page-no-${ pager.end }" data-pageno="${ pager.end }" data-bno="${ replies[0].BNo }" class="page-link" href="#" id="next">Next</a>
+							</li>
+						</ul>
+						</c:if>
+						</div>
+						</div>
+						
+						
+						
+						
