@@ -93,8 +93,8 @@
 						</ul>
 						
 						<br>
-						<div>
-						<div style="text-align:center">
+						<div style="margin:auto; text-align:center">
+						<div style="display:inline-block">
                         <c:if test="${ not empty replies }">
 		            	<ul class="pagination">
 							
@@ -102,10 +102,10 @@
 								<a id="page-no-${ pager.start - 1}" data-pageno="${ pager.start - 1 }" data-bno="${ replies[0].BNo }" class="page-link" href="#">Previous</a>
 							</li>
 							
-							<c:forEach var="idx" begin="${ pager.start }" end="${ pager.end - 1 }">
+							<c:forEach var="idx" begin="${ pager.start }" end="${ pager.end - 1 }"> 
 							<li class="page-item ${ pager.pageNo == idx ? 'active' : '' }">
 								<c:choose>
-								<c:when test="${ pager.pageCount > idx }">
+								<c:when test="${ pager.pageCount >= idx }">
 									<a id="page-no-${ idx }" data-pageno="${ idx }" data-bno="${ replies[0].BNo }" class="page-link" href="javascript:">${ idx }</a>
 								</c:when>
 								<c:otherwise>

@@ -33,7 +33,7 @@
 		    and r.empno = e.empno
 		    
 		ORDER BY r.refno DESC
-		LIMIT #{beginning}, #{end}
+		LIMIT #{beginning}, #{pageSize}
 		
 	</select>
 	<select id="selectRefCount" parameterType="hashmap" resultType="int">

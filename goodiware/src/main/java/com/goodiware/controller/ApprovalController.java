@@ -111,7 +111,31 @@ public class ApprovalController {
 		return "/approval/searchPopup2";
 	}
 	
-	// 업무 페이지 이동
+	// 업무 페이지 이동 - 백업
+//	@GetMapping(path= {"/apprlist"})
+//	public String getApprList(@RequestParam(defaultValue = "1") int pageNo, HttpServletRequest req, Model model, int appdivno) {
+//		
+//		int pageSize = 10;
+//		int pagerSize = 10;
+//		HashMap<String, Object> params = new HashMap<>();
+//		int beginning = (pageNo - 1) * pageSize;
+//		params.put("beginning", beginning);
+//		params.put("end", beginning + pageSize);
+//		params.put("appdivno", appdivno);
+//				
+//		List<Approval> approvals = approvalService.getApprovalListWithPaging(params);
+//		int boardCount = approvalService.findApprCount(params); // 전체 글 개수
+//		
+//		ThePager2 pager = new ThePager2(boardCount, pageNo, pageSize, pagerSize, "apprlist", req.getQueryString());
+//		
+//		model.addAttribute("approvals", approvals);
+//		model.addAttribute("pager", pager);
+//		
+//		return "/approval/apprlist";
+//		
+//	}
+
+	// 업무 페이지 수정
 	@GetMapping(path= {"/apprlist"})
 	public String getApprList(@RequestParam(defaultValue = "1") int pageNo, HttpServletRequest req, Model model, int appdivno) {
 		
@@ -122,13 +146,27 @@ public class ApprovalController {
 		params.put("beginning", beginning);
 		params.put("end", beginning + pageSize);
 		params.put("appdivno", appdivno);
-				
+		params.put("pageSize", pageSize);
+		
 		List<Approval> approvals = approvalService.getApprovalListWithPaging(params);
 		int boardCount = approvalService.findApprCount(params); // 전체 글 개수
 		
-		ThePager2 pager = new ThePager2(boardCount, pageNo, pageSize, pagerSize, "apprlist", req.getQueryString());
-		
 		model.addAttribute("approvals", approvals);
+		
+		///////////////////////////////////////////////////////////
+		int pageCount = ( boardCount / pageSize ) + (( boardCount % pageSize ) > 0 ? 1 : 0 );
+		int pagerBlock = ( pageNo -1 ) / pagerSize;
+		int start = (pagerBlock * pagerSize ) + 1;
+		int end = start + pagerSize;
+		
+		HashMap<String, Integer> pager = new HashMap<String, Integer>();
+		
+		pager.put("pageNo", pageNo);
+		pager.put("boardCount", boardCount);
+		pager.put("pageCount", pageCount);
+		pager.put("pageBlock", pagerBlock);
+		pager.put("start", start);
+		pager.put("end", end);
 		model.addAttribute("pager", pager);
 		
 		return "/approval/apprlist";

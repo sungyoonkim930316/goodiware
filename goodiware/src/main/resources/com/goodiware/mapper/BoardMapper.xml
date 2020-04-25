@@ -40,7 +40,7 @@
 		    
 		    
 		ORDER BY b.bno DESC
-		LIMIT #{beginning}, #{end}
+		LIMIT #{beginning}, #{pageSize}
 		
 	</select>
 	

@@ -82,7 +82,7 @@
 		from EMPLOYEE e, DEPARTMENT d, POSITION p
 		where e.depno = d.depno and e.posno = p.posno and deleted ='N' and
 				(e.name LIKE CONCAT('%',#{name},'%') OR d.depname LIKE CONCAT('%',#{name},'%'))
-		LIMIT #{beginning}, #{end}
+		LIMIT #{beginning}, #{pageSize}
 	</select>
 	
 	<select id="selectEmpCount" parameterType="hashmap" resultType="int">

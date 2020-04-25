@@ -38,11 +38,31 @@ public class MessageController {
 	@Qualifier("messageService")
 	MessageService messageService;
 
-	// 받은메일함 페이지로 이동
-//	public String showMail(int empno, Model model ) {
+	// 페이징받은메일함 페이지로 이동 - 백업
+//	@GetMapping(path= {"/inbox"})
+//	public String getMail(int empno, Model model, @RequestParam(defaultValue="1")int pageNo, 
+//					@RequestParam(required = false) String searchType, @RequestParam(required=false)String searchKey, HttpServletRequest req) {
 //		
-//		List<Message> messages = messageService.showMessages(empno);
+//		int pageSize = 10;
+//		int pagerSize = 3;
+//		int beginning = (pageNo -1)* pageSize;
+//		
+//		HashMap<String, Object> params = new HashMap<>();
+//		params.put("empno", empno);
+//		params.put("beginning", beginning);
+//		params.put("end", beginning + pageSize);
+//		params.put("searchType", searchType);
+//		params.put("searchKey", searchKey);
+//		
+//
+//		List<Message> messages = messageService.findMessageWithPaging(params);
+//		int messageCount = messageService.findMessageCount(params);
+//
+//		ThePager2 pager = new ThePager2(messageCount, pageNo, pageSize, pagerSize, "inbox", req.getQueryString());
+//		
+//		
 //		model.addAttribute("messages", messages);
+//		model.addAttribute("pager", pager);
 //		
 //		// 안읽은메일 카운트
 //		int unreadCount = messageService.lookupOpendate(empno);
@@ -52,16 +72,16 @@ public class MessageController {
 //		int trashMessage = messageService.trashCount(empno);
 //		model.addAttribute("trashMessage", trashMessage);
 //		
-//		return "/message/inbox";
+//		return "message/inbox";
 //	}
-	
-	// 페이징받은메일함 페이지로 이동
+
+	// 페이징받은메일함 페이지로 이동 - 페이징 수정
 	@GetMapping(path= {"/inbox"})
 	public String getMail(int empno, Model model, @RequestParam(defaultValue="1")int pageNo, 
-					@RequestParam(required = false) String searchType, @RequestParam(required=false)String searchKey, HttpServletRequest req) {
+			@RequestParam(required = false) String searchType, @RequestParam(required=false)String searchKey, HttpServletRequest req) {
 		
 		int pageSize = 10;
-		int pagerSize = 3;
+		int pagerSize = 5;
 		int beginning = (pageNo -1)* pageSize;
 		
 		HashMap<String, Object> params = new HashMap<>();
@@ -70,15 +90,26 @@ public class MessageController {
 		params.put("end", beginning + pageSize);
 		params.put("searchType", searchType);
 		params.put("searchKey", searchKey);
+		params.put("pageSize", pageSize);
 		
-
 		List<Message> messages = messageService.findMessageWithPaging(params);
 		int messageCount = messageService.findMessageCount(params);
-
-		ThePager2 pager = new ThePager2(messageCount, pageNo, pageSize, pagerSize, "inbox", req.getQueryString());
-		
-		
 		model.addAttribute("messages", messages);
+
+		///////////////////////////////////////////////////////////
+		int pageCount = ( messageCount / pageSize ) + (( messageCount % pageSize ) > 0 ? 1 : 0 );
+		int pagerBlock = ( pageNo -1 ) / pagerSize;
+		int start = (pagerBlock * pagerSize ) + 1;
+		int end = start + pagerSize;
+		
+		HashMap<String, Integer> pager = new HashMap<String, Integer>();
+		
+		pager.put("pageNo", pageNo);
+		pager.put("boardCount", messageCount);
+		pager.put("pageCount", pageCount);
+		pager.put("pageBlock", pagerBlock);
+		pager.put("start", start);
+		pager.put("end", end);
 		model.addAttribute("pager", pager);
 		
 		// 안읽은메일 카운트
@@ -131,7 +162,6 @@ public class MessageController {
 			File file = new File(path, fileName);
 			msg.transferTo(file);
 		} catch (Exception e) {
-			e.printStackTrace();
 			System.out.println("파일이 없읍니다");
 		}
 		
@@ -253,24 +283,6 @@ public class MessageController {
 		return "/message/reply";
 	}
 	
-	// 보낸메일함 페이지로 이동
-//	@GetMapping(path= {"sendMessage"})
-//	public String sendMessgaePage(int empno, Model model) {
-//		
-//		List<Message> messages = messageService.showMessagesByMe(empno);
-//		model.addAttribute("messages", messages);
-//		
-//		// 안읽은메일 카운트
-//		int unreadCount = messageService.lookupOpendate(empno);
-//		model.addAttribute("unreadCount", unreadCount);
-//		
-//		// 휴지통 메일 카운트
-//		int trashMessage = messageService.trashCount(empno);
-//		model.addAttribute("trashMessage", trashMessage);
-//		
-//		return "/message/sendMessage";
-//	}
-
 	// 페이징 보낸메일함 페이지로 이동
 	@GetMapping(path= {"sendMessage"})
 	public String sendMessgaePage(int empno, Model model, @RequestParam(defaultValue="1")int pageNo, 
@@ -284,15 +296,28 @@ public class MessageController {
 		params.put("beginning", beginning);
 		params.put("end", beginning + pageSize);
 		params.put("searchType", searchType);
-		params.put("searchkey", searchKey);
+		params.put("searchKey", searchKey);
 		params.put("empno", empno);
+		params.put("pageSize", pageSize);
 		
 		List<Message> messages = messageService.findMessageByMeWithPaging(params);
 		int messageCount = messageService.findSendMessageCount(params);
 		
-		ThePager2 pager = new ThePager2(messageCount, pageNo, pageSize, pagerSize, "inbox", req.getQueryString());
-		
 		model.addAttribute("messages", messages);
+		
+		int pageCount = ( messageCount / pageSize ) + (( messageCount % pageSize ) > 0 ? 1 : 0 );
+		int pagerBlock = ( pageNo -1 ) / pagerSize;
+		int start = (pagerBlock * pagerSize ) + 1;
+		int end = start + pagerSize;
+		
+		HashMap<String, Integer> pager = new HashMap<String, Integer>();
+		
+		pager.put("pageNo", pageNo);
+		pager.put("boardCount", messageCount);
+		pager.put("pageCount", pageCount);
+		pager.put("pageBlock", pagerBlock);
+		pager.put("start", start);
+		pager.put("end", end);
 		model.addAttribute("pager", pager);
 		
 		// 안읽은메일 카운트
@@ -340,15 +365,28 @@ public class MessageController {
 		params.put("beginning", beginning);
 		params.put("end", beginning + pageSize);
 		params.put("searchType", searchType);
-		params.put("searchkey", searchKey);
+		params.put("searchKey", searchKey);
 		params.put("empno", empno);
+		params.put("pageSize", pageSize);
 		
 		List<Message> messages = messageService.findTrashMessageWithPaging(params);
 		int messageCount = messageService.findTrashMessageCount(params);
 		
-		ThePager2 pager = new ThePager2(messageCount, pageNo, pageSize, pagerSize, "inbox", req.getQueryString());
-		
 		model.addAttribute("messages", messages);
+		///////////////////////////////////////////////////////////
+		int pageCount = ( messageCount / pageSize ) + (( messageCount % pageSize ) > 0 ? 1 : 0 );
+		int pagerBlock = ( pageNo -1 ) / pagerSize;
+		int start = (pagerBlock * pagerSize ) + 1;
+		int end = start + pagerSize;
+		
+		HashMap<String, Integer> pager = new HashMap<String, Integer>();
+		
+		pager.put("pageNo", pageNo);
+		pager.put("boardCount", messageCount);
+		pager.put("pageCount", pageCount);
+		pager.put("pageBlock", pagerBlock);
+		pager.put("start", start);
+		pager.put("end", end);
 		model.addAttribute("pager", pager);
 		
 		///////////////////////////////////////////////////////////

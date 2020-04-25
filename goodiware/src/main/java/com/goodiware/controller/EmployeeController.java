@@ -141,30 +141,69 @@ public class EmployeeController {
 
 	}
 
-	// 사원 리스트 조회 페이지 이동
-	@GetMapping(path = { "/searchEmp" })
-	public String toSearchEmp(@RequestParam(defaultValue = "1") int pageNo,
-			@RequestParam(required = false) String searchType, @RequestParam(required = false) String searchKey,
-			HttpServletRequest req, Model model, Employee employee) {
+	// 사원 리스트 조회 페이지 이동 - 백업
+//	@GetMapping(path = { "/searchEmp" })
+//	public String toSearchEmp(@RequestParam(defaultValue = "1") int pageNo,
+//			@RequestParam(required = false) String searchType, @RequestParam(required = false) String searchKey,
+//			HttpServletRequest req, Model model, Employee employee) {
+//
+//		int pageSize = 10;
+//		int pagerSize = 3;
+//		HashMap<String, Object> params = new HashMap<>();
+//		int beginning = (pageNo - 1) * pageSize;
+//		params.put("beginning", beginning);
+//		params.put("end", beginning + pageSize);
+//		params.put("name", employee.getName());
+//		
+//		List<Employee> employees = employeeService.searchEmp(params);
+//		int boardCount = employeeService.searchEmpCount(params); // 전체 글 개수
+//
+//		ThePager2 pager = new ThePager2(boardCount, pageNo, pageSize, pagerSize, "searchEmp", req.getQueryString());
+//		
+//		model.addAttribute("employees", employees);
+//		model.addAttribute("pager", pager);
+//		
+//		return "/employee/searchEmp";
+//
+//	}
 
+	// 사원 리스트 조회 페이지 이동 - 페이징 수정
+	@GetMapping(path = { "/searchEmp" })
+	public String toSearchEmp(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(required = false) String searchKey,
+			HttpServletRequest req, Model model, Employee employee) {
+		
 		int pageSize = 10;
-		int pagerSize = 3;
+		int pagerSize = 5;
 		HashMap<String, Object> params = new HashMap<>();
 		int beginning = (pageNo - 1) * pageSize;
 		params.put("beginning", beginning);
 		params.put("end", beginning + pageSize);
 		params.put("name", employee.getName());
+		params.put("pageSize", pageSize);
 		
 		List<Employee> employees = employeeService.searchEmp(params);
 		int boardCount = employeeService.searchEmpCount(params); // 전체 글 개수
-
-		ThePager2 pager = new ThePager2(boardCount, pageNo, pageSize, pagerSize, "searchEmp", req.getQueryString());
 		
 		model.addAttribute("employees", employees);
+		
+		///////////////////////////////////////////////////////////
+		int pageCount = ( boardCount / pageSize ) + (( boardCount % pageSize ) > 0 ? 1 : 0 );
+		int pagerBlock = ( pageNo -1 ) / pagerSize;
+		int start = (pagerBlock * pagerSize ) + 1;
+		int end = start + pagerSize;
+		
+		HashMap<String, Integer> pager = new HashMap<String, Integer>();
+		
+		pager.put("pageNo", pageNo);
+		pager.put("boardCount", boardCount);
+		pager.put("pageCount", pageCount);
+		pager.put("pageBlock", pagerBlock);
+		pager.put("start", start);
+		pager.put("end", end);
 		model.addAttribute("pager", pager);
 		
 		return "/employee/searchEmp";
-
+		
 	}
 
 	// 회원 네임카드 보기

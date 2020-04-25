@@ -30,14 +30,15 @@
 		select d.divname, a.type, a.title, a.content, a.appdivno, a.maccp, a.faccp, a.APPACCPNO, p.accepname, e.name, a.companion
 		from APPRDIV d, APPROVAL a, APPROACCP p, EMPLOYEE e
 		where a.appaccpno = p.appaccpno and a.appdivno = d.appdivno AND a.empno = e.empno AND a.deleted = 'N' and a.appdivno = #{ appdivno }
-		order by a.type DESC;
+		order by a.type DESC
+		limit #{ beginning }, #{ pageSize }
 	</select>
 	
 	<select id="selectApprCount" parameterType="hashmap" resultType="int">
 		
 		SELECT COUNT(*) 
 		FROM APPROVAL
-		WHERE deleted = 'N'
+		WHERE appdivno = #{appdivno} and deleted = 'N'
 		
 	</select>
 	

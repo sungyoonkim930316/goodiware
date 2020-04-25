@@ -67,9 +67,9 @@
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">관리자페이지</a></li>
 						<li class="breadcrumb-item active"><a
-							href="javascript:void(0)">Home</a></li>
+							href="javascript:void(0)">사원정보수정</a></li>
 					</ol>
 				</div>
 			</div>
@@ -81,11 +81,10 @@
 						<div class="card">
 							<div class="card-body">
 								<h4 class="card-title">사원정보 수정</h4>
-								<form class="form-inline" action="/admin/empSearchResult"
+ 								<form class="form-inline" action="/admin/empList"
 									id="search-form">
 									<div class="form-group mx-sm-3 mb-2">
-										<input name="name" type="text" class="form-control"
-											id="searchName" placeholder="사원 또는 부서 검색">
+										<input name="name" type="text" class="form-control" id="searchName" placeholder="사원 또는 부서 검색">
 									</div>
 									<button class="btn btn-primary mb-2" id="searchEmp">검색</button>
 								</form>
@@ -114,10 +113,33 @@
 									</tbody>
 									<tfoot>
 										<tr>
-											<td colspan="5" style="text-align: center">${ pager }</td>
+											<%-- <td colspan="5" style="text-align: center">${ pager }</td> --%>
 										</tr>
 									</tfoot>
 								</table>
+								<div class="bootstrap-pagination">
+                                    <nav>
+                                    <c:if test="${ not empty employees }">
+                                        <ul class="pagination justify-content-center">
+                                        
+                                            <li class="page-item ${ pager.pageBlock == 0 ? 'disabled' : '' }"><a class="page-link" href="/admin/empList?name=${ param.name }&pageNo=${ pager.start -1 }" tabindex="-1">Previous</a></li>
+                                            
+                                            <c:forEach var="idx" begin="${ pager.start }" end="${ pager.end -1 }">
+                                            <li class="page-item ${ pager.pageNo == idx ? 'active' : '' }">
+                                            	<c:choose>
+                                            	<c:when test="${ pager.pageCount >= idx }">
+                                            	<a class="page-link" href="/admin/empList?name=${ param.name }&pageNo=${ idx }">${ idx }</a>
+                                            	</c:when>
+                                            	</c:choose>
+                                            </li>
+                                            </c:forEach>
+                                            
+                                            <li class="page-item ${ pager.pageCount < pager.end ? 'disabled' : '' }"><a class="page-link" href="/admnin/empList?name=${ param.name }&pageNo=${ pager.start -1 }">Next</a></li>
+                                            
+                                        </ul>
+                                     </c:if>
+                                    </nav>
+                                </div>  
 							</div>
 						</div>
 					</div>

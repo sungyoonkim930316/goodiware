@@ -91,7 +91,7 @@
                                     	<a href="/message/inbox?empno=${ auth.employee.empno }" class="list-group-item border-0 text-primary p-r-0"><i class="fa fa-inbox font-18 align-middle mr-2"></i> <b>받은메일함</b> <span class="badge badge-primary badge-sm float-right m-t-5">${ unreadCount }</span> </a>
                                         <a href="/message/compose?empno=${ auth.employee.empno }" class="list-group-item border-0 p-r-0"><i class="fa fa-paper-plane font-18 align-middle mr-2"></i>메일쓰기</a>  
                                         <a href="/message/sendMessage?empno=${ auth.employee.empno }" class="list-group-item border-0 p-r-0"><i class="mdi mdi-file-document-box font-18 align-middle mr-2"></i>보낸메일함</a>
-                                        <a href="#" class="list-group-item border-0 p-r-0"><i class="fa fa-star-o font-18 align-middle mr-2"></i>중요메일함</a>
+                                        <!-- <a href="#" class="list-group-item border-0 p-r-0"><i class="fa fa-star-o font-18 align-middle mr-2"></i>중요메일함</a> -->
                                         <a href="/message/trashcan?empno=${ auth.employee.empno }" class="list-group-item border-0 p-r-0"><i class="fa fa-trash font-18 align-middle mr-2"></i>휴지통 <span class="badge badge-danger badge-sm float-right m-t-5">${ trashMessage }</span> </a>
                                     </div>
                                     <!-- <h5 class="mt-5 m-b-10">Categories</h5>
@@ -162,88 +162,40 @@
 	                                        </tbody>
 	                                    </table>
                                         
-                                        
-                                       <!--  <div class="message">
-                                            <a href="email-read.html">
-                                                <div class="col-mail col-mail-1">
-                                                    <div class="email-checkbox">
-                                                        <input type="checkbox" id="chk3">
-                                                        <label class="toggle" for="chk3"></label>
-                                                    </div><span class="star-toggle ti-star"></span>
-                                                </div>
-                                                <div class="col-mail col-mail-2">
-                                                    <div class="subject">Almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</div>
-                                                    <div class="date">11:49 am</div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="message">
-                                            <a href="email-read.html">
-                                                <div class="col-mail col-mail-1">
-                                                    <div class="email-checkbox">
-                                                        <input type="checkbox" id="chk4">
-                                                        <label class="toggle" for="chk4"></label>
-                                                    </div><span class="star-toggle ti-star"></span>
-                                                </div>
-                                                <div class="col-mail col-mail-2">
-                                                    <div class="subject">Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of</div>
-                                                    <div class="date">11:49 am</div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="message unread">
-                                            <a href="email-read.html">
-                                                <div class="col-mail col-mail-1">
-                                                    <div class="email-checkbox">
-                                                        <input type="checkbox" id="chk9">
-                                                        <label class="toggle" for="chk9"></label>
-                                                    </div><span class="star-toggle ti-star"></span>
-                                                </div>
-                                                <div class="col-mail col-mail-2">
-                                                    <div class="subject">Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of</div>
-                                                    <div class="date">11:49 am</div>
-                                                </div>
-                                            </a>
-                                        </div> -->
-                                    </div><br>
-                                     
-                                    <!-- panel -->
-                                    <!-- <div class="row">
-                                        <div class="col-7">
-                                            <div class="text-left">1 - 20 of 568</div>
-                                        </div>
-                                        <div class="col-5">
-                                            <div class="btn-group float-right">
-                                                <button class="btn btn-gradient" type="button"><i class="fa fa-angle-left"></i>
-                                                </button>
-                                                <button class="btn btn-dark" type="button"><i class="fa fa-angle-right"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div> -->
                                 </div>
                             </div>
                             <div class="table-responsive">
                                     <table class="table" style="text-align: center">
                                     	<tfoot>
 											<tr>
-												<td colspan="4" style="text-align: center">${ pager }</td>
+												<%-- <td colspan="4" style="text-align: center">${ pager }</td> --%>
 											</tr>
 									  </tfoot>
                                     </table>
+                                  <div class="bootstrap-pagination">
+                                    <nav>
+                                    <c:if test="${ not empty messages }">
+                                        <ul class="pagination justify-content-center">
+                                        
+                                            <li class="page-item ${ pager.pageBlock == 0 ? 'disabled' : '' }"><a class="page-link" href="/message/inbox?empno=${ auth.employee.empno }&pageNo=${ pager.start -1 }&searchType=${ param.searchType }&searchKey=${param.searchKey}" tabindex="-1">Previous</a></li>
+                                            
+                                            <c:forEach var="idx" begin="${ pager.start }" end="${ pager.end -1 }">
+                                            <li class="page-item ${ pager.pageNo == idx ? 'active' : '' }">
+                                            	<c:choose>
+                                            	<c:when test="${ pager.pageCount >= idx }">
+                                            	<a class="page-link" href="/message/inbox?empno=${ auth.employee.empno }&pageNo=${ idx }&searchType=${ param.searchType }&searchKey=${param.searchKey}">${ idx }</a>
+                                            	</c:when>
+                                            	</c:choose>
+                                            </li>
+                                            </c:forEach>
+                                            
+                                            <li class="page-item ${ pager.pageCount < pager.end ? 'disabled' : '' }"><a class="page-link" href="/message/inbox?empno=${ auth.employee.empno }&pageNo=${ pager.end }&searchType=${ param.searchType }&searchKey=${param.searchKey}">Next</a></li>
+                                            
+                                        </ul>
+                                     </c:if>
+                                    </nav>
+                                </div>  
                             </div>
-                        		<!-- <ul class="pagination justify-content-center">
-                                    <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul> -->
                         </div>
                     </div>
                 </div>

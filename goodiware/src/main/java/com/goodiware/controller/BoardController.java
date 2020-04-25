@@ -37,27 +37,65 @@ public class BoardController {
 	@Qualifier("boardReplyService")
 	BoardReplyService boardReplyService;
 
-	// 자료실 목록으로 이동
+	// 자료실 목록으로 이동 - 게시판 리스트 백업
+//	@GetMapping(path = { "/list" })
+//	public String toList(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(required = false) String searchType, 
+//						@RequestParam(required = false) String searchKey, HttpServletRequest req, Model model) {
+//		
+//		int pageSize = 5;
+//		int pagerSize = 10;
+//		HashMap<String, Object> params = new HashMap<>();
+//		int beginning = (pageNo - 1) * pageSize;
+//		params.put("beginning", beginning);
+//		params.put("end", beginning + pageSize);
+//		params.put("searchType", searchType);
+//		params.put("searchKey", searchKey);
+//
+//		// 
+//		List<Board> boards = boardService.findBoardWithPaging(params);
+//		int boardCount = boardService.findBoardCount(params); // 전체 글 개수
+//
+//		ThePager2 pager = new ThePager2(boardCount, pageNo, pageSize, pagerSize, "list", req.getQueryString());
+//
+//		model.addAttribute("boards", boards);
+//		model.addAttribute("pager", pager);
+//		
+//		return "board/boardList";
+//	}
+
+	// 게시판 리스트 페이징 수정
 	@GetMapping(path = { "/list" })
 	public String toList(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(required = false) String searchType, 
-						@RequestParam(required = false) String searchKey, HttpServletRequest req, Model model) {
+			@RequestParam(required = false) String searchKey, HttpServletRequest req, Model model) {
 		
-		int pageSize = 5;
-		int pagerSize = 10;
+		int pageSize = 10;
+		int pagerSize = 5;
 		HashMap<String, Object> params = new HashMap<>();
 		int beginning = (pageNo - 1) * pageSize;
 		params.put("beginning", beginning);
 		params.put("end", beginning + pageSize);
 		params.put("searchType", searchType);
 		params.put("searchKey", searchKey);
-
-		// 
+		params.put("pageSize", pageSize);
+		
 		List<Board> boards = boardService.findBoardWithPaging(params);
 		int boardCount = boardService.findBoardCount(params); // 전체 글 개수
-
-		ThePager2 pager = new ThePager2(boardCount, pageNo, pageSize, pagerSize, "list", req.getQueryString());
-
 		model.addAttribute("boards", boards);
+
+		///////////////////////////////////////////////////////////
+		int pageCount = ( boardCount / pageSize ) + (( boardCount % pageSize ) > 0 ? 1 : 0 );
+		int pagerBlock = ( pageNo -1 ) / pagerSize;
+		int start = (pagerBlock * pagerSize ) + 1;
+		int end = start + pagerSize;
+
+		HashMap<String, Integer> pager = new HashMap<String, Integer>();
+		
+		pager.put("pageNo", pageNo);
+		pager.put("boardCount", boardCount);
+		pager.put("pageCount", pageCount);
+		pager.put("pageBlock", pagerBlock);
+		pager.put("start", start);
+		pager.put("end", end);
 		model.addAttribute("pager", pager);
 		
 		return "board/boardList";
@@ -106,8 +144,8 @@ public class BoardController {
 		Board board = boardService.findBoardByBNo(bNo);
 
 		// 댓글 조회
-		int pageSize = 5;
-		int pagerSize = 3;
+		int pageSize = 10;
+		int pagerSize = 5;
 		HashMap<String, Object> params = new HashMap<>();
 		int beginning = (pageNo - 1) * pageSize;
 		params.put("beginning", beginning);
@@ -119,7 +157,6 @@ public class BoardController {
 		int replyCount = boardReplyService.getReplyCount(params);
 		
 		///////////////////////////////////////////////////////////
-		/// 페이징 맹글기
 		int pageCount = ( replyCount / pageSize ) + (( replyCount % pageSize ) > 0 ? 1 : 0 );
 		int pagerBlock = ( pageNo -1 ) / pagerSize;
 		int start = (pagerBlock * pagerSize ) + 1;
@@ -135,11 +172,11 @@ public class BoardController {
 		pager.put("end", end);
 		model.addAttribute("pager", pager);
 		
-		System.out.println("replyCount : " + replyCount);
-		System.out.println("pageCount : " + pageCount);
-		System.out.println("pageBlock : " + pagerBlock);
-		System.out.println("start : " + start);
-		System.out.println("end : " + end);
+//		System.out.println("replyCount : " + replyCount);
+//		System.out.println("pageCount : " + pageCount);
+//		System.out.println("pageBlock : " + pagerBlock);
+//		System.out.println("start : " + start);
+//		System.out.println("end : " + end);
 		
 		model.addAttribute("replies", replies);
 		

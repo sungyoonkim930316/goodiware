@@ -53,8 +53,8 @@ public class BoardReplyController {
 	@GetMapping(path= {"/list-by/{bno}/{pageNo}"})
 	public String listByBno(@PathVariable int bno, @PathVariable int pageNo, Model model) {
 		
-		int pageSize = 5;
-		int pagerSize = 3;
+		int pageSize = 10;
+		int pagerSize = 5;
 		HashMap<String, Object> params = new HashMap<>();
 		int beginning = (pageNo - 1) * pageSize;
 		params.put("beginning", beginning);

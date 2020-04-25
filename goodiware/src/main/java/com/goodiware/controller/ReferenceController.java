@@ -38,28 +38,68 @@ public class ReferenceController {
 	@Qualifier("referenceService")
 	private ReferenceService referenceService;
 	
-	// 자료실 목록으로 이동
+	// 자료실 목록으로 이동 - 자료실 리스트 백업
+//	@GetMapping(path = { "/list" })
+//	public String toList(@RequestParam(defaultValue = "1") int pageNo,
+//			@RequestParam(required = false) String searchType, @RequestParam(required = false) String searchKey,
+//			HttpServletRequest req, Model model) {
+//		
+//		int pageSize = 5;
+//		int pagerSize = 10;
+//		HashMap<String, Object> params = new HashMap<>();
+//		int beginning = (pageNo - 1) * pageSize;
+//		params.put("beginning", beginning);
+//		params.put("end", beginning + pageSize);
+//		params.put("searchType", searchType);
+//		params.put("searchKey", searchKey);
+//
+//		// 
+//		List<Reference> references = referenceService.findRefWithPaging(params);
+//		int boardCount = referenceService.findRefCount(params); // 전체 글 개수
+//
+//		ThePager2 pager = new ThePager2(boardCount, pageNo, pageSize, pagerSize, "list", req.getQueryString());
+//
+//		model.addAttribute("references", references);
+//		model.addAttribute("pager", pager);
+//		
+//		return "/reference/list";
+//	}
+	
+	// 자료실 리스트 페이징 수정
 	@GetMapping(path = { "/list" })
 	public String toList(@RequestParam(defaultValue = "1") int pageNo,
 			@RequestParam(required = false) String searchType, @RequestParam(required = false) String searchKey,
 			HttpServletRequest req, Model model) {
 		
-		int pageSize = 5;
-		int pagerSize = 10;
+		int pageSize = 10;
+		int pagerSize = 5;
 		HashMap<String, Object> params = new HashMap<>();
 		int beginning = (pageNo - 1) * pageSize;
 		params.put("beginning", beginning);
 		params.put("end", beginning + pageSize);
 		params.put("searchType", searchType);
 		params.put("searchKey", searchKey);
-
+		params.put("pageSize", pageSize);
+		
 		// 
 		List<Reference> references = referenceService.findRefWithPaging(params);
 		int boardCount = referenceService.findRefCount(params); // 전체 글 개수
-
-		ThePager2 pager = new ThePager2(boardCount, pageNo, pageSize, pagerSize, "list", req.getQueryString());
-
 		model.addAttribute("references", references);
+		
+		///////////////////////////////////////////////////////////
+		int pageCount = ( boardCount / pageSize ) + (( boardCount % pageSize ) > 0 ? 1 : 0 );
+		int pagerBlock = ( pageNo -1 ) / pagerSize;
+		int start = (pagerBlock * pagerSize ) + 1;
+		int end = start + pagerSize;
+		
+		HashMap<String, Integer> pager = new HashMap<String, Integer>();
+		
+		pager.put("pageNo", pageNo);
+		pager.put("boardCount", boardCount);
+		pager.put("pageCount", pageCount);
+		pager.put("pageBlock", pagerBlock);
+		pager.put("start", start);
+		pager.put("end", end);
 		model.addAttribute("pager", pager);
 		
 		return "/reference/list";

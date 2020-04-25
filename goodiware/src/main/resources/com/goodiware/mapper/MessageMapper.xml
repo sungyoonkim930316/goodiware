@@ -41,7 +41,7 @@
 		<include refid="searchCondition" />
 		m.deleted = 'N' and m.sender = e.empno and m.receiver = #{empno}
 		ORDER BY m.senddate DESC
-		LIMIT #{beginning}, #{end}
+		LIMIT #{beginning}, #{pageSize}
 	</select>
 	
 	<select id="selectMessageCountWithpaging" parameterType="hashmap" resultType="int">

@@ -138,10 +138,33 @@
 									  </tbody>
 									  <tfoot>
 											<tr>
-												<td colspan="4" style="text-align: center">${ pager }</td>
+												<%-- <td colspan="4" style="text-align: center">${ pager }</td> --%>
 											</tr>
 									  </tfoot>
 									</table>
+										<div class="bootstrap-pagination">
+		                                    <nav>
+		                                    <c:if test="${ not empty references }">
+		                                        <ul class="pagination justify-content-center">
+		                                        
+		                                            <li class="page-item ${ pager.pageBlock == 0 ? 'disabled' : '' }"><a class="page-link" href="/reference/list?pageNo=${ pager.start -1 }&searchType=${ param.searchType }&searchKey=${param.searchKey}" tabindex="-1">Previous</a></li>
+		                                            
+		                                            <c:forEach var="idx" begin="${ pager.start }" end="${ pager.end -1 }">
+		                                            <li class="page-item ${ pager.pageNo == idx ? 'active' : '' }">
+		                                            	<c:choose>
+		                                            	<c:when test="${ pager.pageCount >= idx }">
+		                                            	<a class="page-link" href="/reference/list?pageNo=${ idx }&searchType=${ param.searchType }&searchKey=${param.searchKey}">${ idx }</a>
+		                                            	</c:when>
+		                                            	</c:choose>
+		                                            </li>
+		                                            </c:forEach>
+		                                            
+		                                            <li class="page-item ${ pager.pageCount < pager.end ? 'disabled' : '' }"><a class="page-link" href="/reference/list?pageNo=${ pager.end }&searchType=${ param.searchType }&searchKey=${param.searchKey}">Next</a></li>
+		                                            
+		                                        </ul>
+		                                     </c:if>
+		                                    </nav>
+		                                </div>									
 									<c:choose>
 		                				<c:when test="${ auth.employee.auth.authno eq 2 or auth.employee.auth.authno eq 3 }">
 								      		<button type="button" class="btn btn-primary" style="float: right;" id="writeBoard">업로드</button>	

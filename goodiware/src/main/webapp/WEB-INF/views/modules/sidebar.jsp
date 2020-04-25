@@ -20,16 +20,11 @@
                             <i class="icon-globe-alt menu-icon"></i><span class="nav-text">전자결재</span>
                         </a>
                         <ul aria-expanded="false">
-                            <!-- <li><a href="/appr/apprlist?appdivno=1">업무</a></li>
+                            <li><a href="/appr/apprlist?appdivno=1">업무</a></li>
                             <li><a href="/appr/apprlist?appdivno=2">파견</a></li>
                             <li><a href="/appr/apprlist?appdivno=3">경비지출</a></li>
                             <li><a href="/appr/apprlist?appdivno=4">초과근무</a></li>
-                            <li><a href="/appr/apprlist?appdivno=5">휴가</a></li> -->
-                            <li><a href="#">업무</a></li>
-                            <li><a href="#">파견</a></li>
-                            <li><a href="#">경비지출</a></li>
-                            <li><a href="#">초과근무</a></li>
-                            <li><a href="#">휴가</a></li>
+                            <li><a href="/appr/apprlist?appdivno=5">휴가</a></li>
                         </ul>
                     </li>
                     <li>

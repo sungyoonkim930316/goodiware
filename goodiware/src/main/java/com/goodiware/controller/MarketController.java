@@ -27,9 +27,6 @@ import com.goodiware.service.MarketService;
 import com.goodiware.ui.ThePager2;
 import com.goodiware.vo.Board;
 
-
-
-
 @Controller
 @RequestMapping(path= {"/market"})
 public class MarketController {
@@ -39,36 +36,74 @@ public class MarketController {
 	private MarketService marketService;
 
 	// 자료실 목록으로 이동
-		@GetMapping(path = { "/list" })
-		public String toList(@RequestParam(defaultValue = "1") int pageNo,
-				@RequestParam(required = false) String searchType, @RequestParam(required = false) String searchKey,
-				HttpServletRequest req, Model model) {
-			
-			int pageSize = 5;
-			int pagerSize = 10;
-			HashMap<String, Object> params = new HashMap<>();
-			int beginning = (pageNo - 1) * pageSize;
-			params.put("beginning", beginning);
-			params.put("end", beginning + pageSize);
-			params.put("searchType", searchType);
-			params.put("searchKey", searchKey);
+//	@GetMapping(path = { "/list" })
+//	public String toList(@RequestParam(defaultValue = "1") int pageNo,
+//			@RequestParam(required = false) String searchType, @RequestParam(required = false) String searchKey,
+//			HttpServletRequest req, Model model) {
+//		
+//		int pageSize = 5;
+//		int pagerSize = 10;
+//		HashMap<String, Object> params = new HashMap<>();
+//		int beginning = (pageNo - 1) * pageSize;
+//		params.put("beginning", beginning);
+//		params.put("end", beginning + pageSize);
+//		params.put("searchType", searchType);
+//		params.put("searchKey", searchKey);
+//
+//		// 
+//		List<Board> boards = marketService.findBoardWithPaging(params);
+//		int boardCount = marketService.findBoardCount(params); // 전체 글 개수
+//
+//		ThePager2 pager = new ThePager2(boardCount, pageNo, pageSize, pagerSize, "list", req.getQueryString());
+//
+//		model.addAttribute("boards", boards);
+//		model.addAttribute("pager", pager);
+//		
+//		
+//		return "market/marketlist";
+//	}
 
-			// 
-			List<Board> boards = marketService.findBoardWithPaging(params);
-			int boardCount = marketService.findBoardCount(params); // 전체 글 개수
-
-			ThePager2 pager = new ThePager2(boardCount, pageNo, pageSize, pagerSize, "list", req.getQueryString());
-
-			model.addAttribute("boards", boards);
-			model.addAttribute("pager", pager);
-			
-			
-			return "market/marketlist";
-		}
+	// 리스트 페이징 수정
+	@GetMapping(path = { "/list" })
+	public String toList(@RequestParam(defaultValue = "1") int pageNo,
+			@RequestParam(required = false) String searchType, @RequestParam(required = false) String searchKey,
+			HttpServletRequest req, Model model) {
 		
-
-
-
+		int pageSize = 5;
+		int pagerSize = 10;
+		HashMap<String, Object> params = new HashMap<>();
+		int beginning = (pageNo - 1) * pageSize;
+		params.put("beginning", beginning);
+		params.put("end", beginning + pageSize);
+		params.put("searchType", searchType);
+		params.put("searchKey", searchKey);
+		params.put("pageSize", pageSize);
+		
+		// 
+		List<Board> boards = marketService.findBoardWithPaging(params);
+		int boardCount = marketService.findBoardCount(params); // 전체 글 개수
+		
+		model.addAttribute("boards", boards);
+		
+		///////////////////////////////////////////////////////////
+		int pageCount = ( boardCount / pageSize ) + (( boardCount % pageSize ) > 0 ? 1 : 0 );
+		int pagerBlock = ( pageNo -1 ) / pagerSize;
+		int start = (pagerBlock * pagerSize ) + 1;
+		int end = start + pagerSize;
+		
+		HashMap<String, Integer> pager = new HashMap<String, Integer>();
+		
+		pager.put("pageNo", pageNo);
+		pager.put("boardCount", boardCount);
+		pager.put("pageCount", pageCount);
+		pager.put("pageBlock", pagerBlock);
+		pager.put("start", start);
+		pager.put("end", end);
+		model.addAttribute("pager", pager);
+		
+		return "market/marketlist";
+	}
+		
 	// 게시판 글쓰기로 이동
 	@GetMapping(path= {"/write"})
 	public String toWrite() {
@@ -103,81 +138,81 @@ public class MarketController {
 	}
 	
 	// 스마트 에디터 이미지 업로드
-		@RequestMapping(path = "/galleryimageupload")
-		public String imageUpload(MultipartFile Filedata, String callback, String callback_func, HttpServletRequest req) throws Exception {
-			
-			String return1 = callback;
-			String return2 = "?callback_func=" + callback_func;
-			String return3 = "";
-			String fileName = "";
-			
-			if (Filedata != null) {
-						
-				fileName = Filedata.getOriginalFilename();
-	            String ext = fileName.substring(fileName.lastIndexOf(".")+1);
-	            //파일 기본경로
-	            String defaultPath = req.getServletContext().getRealPath("/");
-	            //파일 기본경로 _ 상세경로
-	            String path = defaultPath + "resources" + File.separator + "upload" + File.separator;
-	             
-	            File file = new File(path);
-	             
-	            //디렉토리 존재하지 않을경우 디렉토리 생성
-	            if(!file.exists()) {
-	                file.mkdirs();
-	            }
-	            
-	            //서버에 업로드 할 파일명(한글문제로 인해 원본파일은 올리지 않는것이 좋음)
-	            String realname = UUID.randomUUID().toString() + "." + ext;
-	            ///////////////// 서버에 파일쓰기 ///////////////// 
-	            Filedata.transferTo(new File(path + realname));
-	            
-	            System.out.println("경로 : " + path);
-	    		System.out.println("파일네임 : " + fileName);
-	    		System.out.println("리얼네임 : " + realname);
-
-	            return3 += "&bNewLine=true&sFileName="+fileName+"&sFileURL=/resources/upload/"+realname;
-	        }else {
-	            return3 += "&errstr=error";
-	        }
-			
-			return "redirect:" + return1+return2+return3;
-		}
+	@RequestMapping(path = "/galleryimageupload")
+	public String imageUpload(MultipartFile Filedata, String callback, String callback_func, HttpServletRequest req) throws Exception {
 		
-		@RequestMapping(path = "/galleryimageupload2")
-		@ResponseBody
-		public String imageUpload2(HttpServletRequest req) throws Exception {
-			String sFileInfo = "";
-			//파일명 - 싱글파일업로드와 다르게 멀티파일업로드는 HEADER로 넘어옴 
-			String name = req.getHeader("file-name");
-			String ext = name.substring(name.lastIndexOf(".")+1);
-			//파일 기본경로
-			String defaultPath = req.getServletContext().getRealPath("/");
-			//파일 기본경로 _ 상세경로
-			String path = defaultPath + "upload" + File.separator;
-			File file = new File(path);
-			if(!file.exists()) {
-			    file.mkdirs();
-			}
-			String realname = UUID.randomUUID().toString() + "." + ext;
-			InputStream is = req.getInputStream();
-			OutputStream os=new FileOutputStream(path + realname);
-			int numRead;
-			// 파일쓰기
-			byte b[] = new byte[Integer.parseInt(req.getHeader("file-size"))];
-			while((numRead = is.read(b,0,b.length)) != -1){
-			    os.write(b,0,numRead);
-			}
-			if(is != null) {
-			    is.close();
-			}
-			os.flush();
-			os.close();
-			sFileInfo += "&bNewLine=true&sFileName="+ name+"&sFileURL="+"/goodiware/upload/"+realname;
-			
-			return sFileInfo;
-			
+		String return1 = callback;
+		String return2 = "?callback_func=" + callback_func;
+		String return3 = "";
+		String fileName = "";
+		
+		if (Filedata != null) {
+					
+			fileName = Filedata.getOriginalFilename();
+            String ext = fileName.substring(fileName.lastIndexOf(".")+1);
+            //파일 기본경로
+            String defaultPath = req.getServletContext().getRealPath("/");
+            //파일 기본경로 _ 상세경로
+            String path = defaultPath + "resources" + File.separator + "upload" + File.separator;
+             
+            File file = new File(path);
+             
+            //디렉토리 존재하지 않을경우 디렉토리 생성
+            if(!file.exists()) {
+                file.mkdirs();
+            }
+            
+            //서버에 업로드 할 파일명(한글문제로 인해 원본파일은 올리지 않는것이 좋음)
+            String realname = UUID.randomUUID().toString() + "." + ext;
+            ///////////////// 서버에 파일쓰기 ///////////////// 
+            Filedata.transferTo(new File(path + realname));
+            
+            System.out.println("경로 : " + path);
+    		System.out.println("파일네임 : " + fileName);
+    		System.out.println("리얼네임 : " + realname);
+
+            return3 += "&bNewLine=true&sFileName="+fileName+"&sFileURL=/resources/upload/"+realname;
+        }else {
+            return3 += "&errstr=error";
+        }
+		
+		return "redirect:" + return1+return2+return3;
+	}
+		
+	@RequestMapping(path = "/galleryimageupload2")
+	@ResponseBody
+	public String imageUpload2(HttpServletRequest req) throws Exception {
+		String sFileInfo = "";
+		//파일명 - 싱글파일업로드와 다르게 멀티파일업로드는 HEADER로 넘어옴 
+		String name = req.getHeader("file-name");
+		String ext = name.substring(name.lastIndexOf(".")+1);
+		//파일 기본경로
+		String defaultPath = req.getServletContext().getRealPath("/");
+		//파일 기본경로 _ 상세경로
+		String path = defaultPath + "upload" + File.separator;
+		File file = new File(path);
+		if(!file.exists()) {
+		    file.mkdirs();
 		}
+		String realname = UUID.randomUUID().toString() + "." + ext;
+		InputStream is = req.getInputStream();
+		OutputStream os=new FileOutputStream(path + realname);
+		int numRead;
+		// 파일쓰기
+		byte b[] = new byte[Integer.parseInt(req.getHeader("file-size"))];
+		while((numRead = is.read(b,0,b.length)) != -1){
+		    os.write(b,0,numRead);
+		}
+		if(is != null) {
+		    is.close();
+		}
+		os.flush();
+		os.close();
+		sFileInfo += "&bNewLine=true&sFileName="+ name+"&sFileURL="+"/goodiware/upload/"+realname;
+		
+		return sFileInfo;
+		
+	}
 	
 	@GetMapping(path = { "/detail" })
 	public String showDetail(@RequestParam("BNo") int bNo, Model model){

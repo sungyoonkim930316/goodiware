@@ -111,10 +111,35 @@
 									</tbody>
 									<tfoot>
 										<tr>
-											<td colspan="5" style="text-align: center">${ pager }</td>
+											<%-- <td colspan="5" style="text-align: center">${ pager }</td> --%>
 										</tr>
 									</tfoot>
 								</table>
+								
+								 <div class="bootstrap-pagination">
+                                    <nav>
+                                    <c:if test="${ not empty employees }">
+                                        <ul class="pagination justify-content-center">
+                                        
+                                            <li class="page-item ${ pager.pageBlock == 0 ? 'disabled' : '' }"><a class="page-link" href="/employee/searchEmp?name=${ auth.employee.name }&pageNo=${ pager.start -1 }" tabindex="-1">Previous</a></li>
+                                            
+                                            <c:forEach var="idx" begin="${ pager.start }" end="${ pager.end -1 }">
+                                            <li class="page-item ${ pager.pageNo == idx ? 'active' : '' }">
+                                            	<c:choose>
+                                            	<c:when test="${ pager.pageCount >= idx }">
+                                            	<a class="page-link" href="/employee/searchEmp?name=${ param.name }&pageNo=${ idx }">${ idx }</a>
+                                            	</c:when>
+                                            	</c:choose>
+                                            </li>
+                                            </c:forEach>
+                                            
+                                            <li class="page-item ${ pager.pageCount < pager.end ? 'disabled' : '' }"><a class="page-link" href="/employee/searchEmp?name=${ auth.employee.name }&pageNo=${ pager.end }">Next</a></li>
+                                            
+                                        </ul>
+                                     </c:if>
+                                    </nav>
+                                </div>  
+                                
 								<!-- Modal -->
                                 <div class="modal fade" id="exampleModalCenter">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
