@@ -34,6 +34,7 @@ public class StompHandler implements ChannelInterceptor {
     	System.out.println("start function preSend channel is : " + channel);
     	
         StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
+        System.out.println("start function preSend StompHeaderAccessor Command is : " + accessor.getCommand());
         
         if (StompCommand.CONNECT == accessor.getCommand()) { // websocket 연결요청
             

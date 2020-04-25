@@ -67,7 +67,7 @@
 		                <h4>&nbsp;◈&nbsp;{{roomName}}&nbsp;◈ <span class="badge badge-info badge-pill">&nbsp;&nbsp;{{userCount}}명 참가중</span></h4>
 		            </div>
 		            <div class="col-md-6 text-right">
-		                <a class="btn btn-info btn-sm" id="to-chatlist">회의방 나가기</a>
+		                <a style="color: white;" class="btn btn-info btn-sm" id="to-chatlist">회의방 나가기</a>
 		            </div>
 		        </div>
 		        <hr>

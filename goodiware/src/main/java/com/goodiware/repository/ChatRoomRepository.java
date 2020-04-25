@@ -33,7 +33,7 @@ public class ChatRoomRepository {
 	 
 	// 모든 채팅방 조회
     public List<ChatRoom> findAllRoom() {
-    	System.out.println("start function findAllRoom");
+    	System.out.println("start function findAllRoom hashOpsChatRoom Value : " + hashOpsChatRoom.values(CHAT_ROOMS));
         return hashOpsChatRoom.values(CHAT_ROOMS);
     }
     

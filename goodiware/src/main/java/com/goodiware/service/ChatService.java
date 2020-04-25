@@ -1,14 +1,11 @@
 package com.goodiware.service;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.stereotype.Service;
 
 import com.goodiware.repository.ChatRoomRepository;
 import com.goodiware.vo.ChatMessage;
-import com.goodiware.vo.Employee;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ChatService {
 
 	private final ChannelTopic channelTopic;
-	private final RedisTemplate redisTemplate;
+	private final RedisTemplate<String, Object> redisTemplate;
 	private final ChatRoomRepository chatRoomRepository;
 	
 	// destination 정보에서 roomId 추출
@@ -40,15 +37,23 @@ public class ChatService {
 		
         chatMessage.setUserCount(chatRoomRepository.getUserCount(chatMessage.getRoomId()));
         if (ChatMessage.MessageType.ENTER.equals(chatMessage.getType())) {
+        	
         	System.out.println("들어온 놈 : " + chatMessage.getSender());
+        	
             chatMessage.setMessage(chatMessage.getSender() + "님이 방에 입장했습니다.");
             chatMessage.setSender("[알림]");
+            
         } else if (ChatMessage.MessageType.QUIT.equals(chatMessage.getType())) {
+        	
         	System.out.println("나간 놈 : " + chatMessage.getSender());
+        	
         	chatMessage.setMessage(chatMessage.getSender() + "님이 방에서 나갔습니다.");
             chatMessage.setSender("[알림]");
+            
         }
+        
         redisTemplate.convertAndSend(channelTopic.getTopic(), chatMessage);
+        
     }
 	
 	
