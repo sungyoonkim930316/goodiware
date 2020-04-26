@@ -95,10 +95,16 @@
                                 <div class="email-right-box">
                                     <div class="read-content">
                                         <div class="media pt-5">
-                                            <img class="mr-3 rounded-circle" src="/resources/images/avatar/1.jpg">
+                                            <c:choose>
+				                                <c:when test="${ not empty message.picture }">
+				                                	<img class="mr-3 rounded-circle" src="/resources/file/employee/photo/${ message.picture }" height="40" width="40" alt="">
+				                                </c:when>
+				                                <c:otherwise>
+				                                	<img src="/resources/file/employee/photo/unnamed.jpg" height="40" width="40" alt="">
+				                                </c:otherwise>
+			                                </c:choose>
                                             <div class="media-body">
                                                 <h5 class="m-b-3">${ message.name } [${ message.id }]</h5>
-                                                
                                             </div>
                                             
                                         </div>

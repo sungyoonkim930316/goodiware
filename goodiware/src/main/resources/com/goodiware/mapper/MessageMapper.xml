@@ -52,7 +52,7 @@
 	</select>
 
 	<select id="selectMessageContent" parameterType="int" resultType="com.goodiware.vo.Message">
-		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, m.msgfilename, m.filepath, e.name, e.id
+		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, m.msgfilename, m.filepath, e.name, e.id, e.picture
 		from MESSAGE m , EMPLOYEE e
 		where m.mno = #{ mno } and m.sender = e.empno
 	</select>
@@ -99,14 +99,14 @@
 	</select>
 	
 	<select id="selectSendMessageByMe" parameterType="int" resultType="com.goodiware.vo.Message">
-		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, m.receiver, e.name, e.id 
+		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, m.receiver, e.name, e.id
 		from MESSAGE m , EMPLOYEE e
 		where sender = #{ empno } and m.receiver = e.empno and m.deleted ='N'
 		order by senddate DESC
 	</select>
 	
 	<select id="sendMessageContent" parameterType="int" resultType="com.goodiware.vo.Message">
-		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, e.name, e.id, m.msgfilename
+		select m.mno, m.title, m.content, m.opendate, m.senddate, m.sender, e.name, e.id, m.msgfilename, e.picture 
 		from MESSAGE m , EMPLOYEE e
 		where m.mno = #{ mno } and m.receiver = e.empno
 	</select>

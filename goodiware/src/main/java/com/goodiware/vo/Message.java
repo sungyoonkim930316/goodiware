@@ -26,4 +26,6 @@ public class Message {
 	private String name;
 	private String id;
 	
+	private String picture;
+	
 }

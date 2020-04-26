@@ -94,22 +94,9 @@
                                         <!-- <a href="#" class="list-group-item border-0 p-r-0"><i class="fa fa-star-o font-18 align-middle mr-2"></i>중요메일함</a> -->
                                         <a href="/message/trashcan?empno=${ auth.employee.empno }" class="list-group-item border-0 p-r-0"><i class="fa fa-trash font-18 align-middle mr-2"></i>휴지통 <span class="badge badge-danger badge-sm float-right m-t-5">${ trashMessage }</span> </a>
                                     </div>
-                                    <!-- <h5 class="mt-5 m-b-10">Categories</h5>
-                                    <div class="list-group mail-list"><a href="#" class="list-group-item border-0"><span class="fa fa-briefcase f-s-14 mr-2"></span>Work</a>  <a href="#" class="list-group-item border-0"><span class="fa fa-sellsy f-s-14 mr-2"></span>Private</a>  <a href="#"
-                                        class="list-group-item border-0"><span class="fa fa-ticket f-s-14 mr-2"></span>Support</a>  <a href="#" class="list-group-item border-0"><span class="fa fa-tags f-s-14 mr-2"></span>Social</a>
-                                    </div> -->
                                     
                                 </div>
                                 <div class="email-right-box">
-                                    <!-- <div role="toolbar" class="toolbar">
-                                        <div class="btn-group">
-                                            <button aria-expanded="false" data-toggle="dropdown" class="btn btn-dark dropdown-toggle" type="button">More <span class="caret m-l-5"></span>
-                                            </button>
-                                            <div class="dropdown-menu"><span class="dropdown-header">More Option :</span>  <a href="javascript: void(0);" class="dropdown-item">Mark as Unread</a>  <a href="javascript: void(0);" class="dropdown-item">Add to Tasks</a>  <a href="javascript: void(0);"
-                                                class="dropdown-item">Add Star</a>  <a href="javascript: void(0);" class="dropdown-item">Mute</a>
-                                            </div>
-                                        </div>
-                                    </div> -->
                                     <form action="/message/inbox" method="get">
 										<input type="hidden" value="${ param.empno }" name="empno">
 										<select name="searchType" aria-controls="dataTable" class="form-control-sm">
@@ -122,25 +109,6 @@
 									</form>
                                     <hr>
                                     <div class="email-list m-t-15">
-                                    	<%-- <c:forEach items="${ messages }" var="message">
-                                    	<input type="hidden" name="mno" value="${ message.mno }">
-                                        <div class="message unread">
-                                            <div class="col-mail col-mail-1">
-                                                <div class="email-checkbox" style="width:50px">
-                                                    <!-- <input type="checkbox" id="chk2">
-                                                    <label class="toggle" for="chk2"></label> -->
-                                                    <span>${ message.name }</span>
-                                                </div>
-                                            </div>
-                                            <a href="/message/messageContent?empno=${ auth.employee.empno }&mno=${ message.mno }">
-                                                <div class="col-mail col-mail-2">
-                                                    <div class="subject">${ message.title }</div>
-                                                    <div class="date">
-                                                    <fmt:formatDate value="${ message.senddate }" pattern="yyyy-MM-dd"/></div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        </c:forEach> --%>
                                          <table class="table">
 	                                        <thead>
 	                                            <tr>
