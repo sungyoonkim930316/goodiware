@@ -74,4 +74,52 @@
 		WHERE refno = #{ refno } 
 	</update>
 	
+	<select id="selectReplyWithPagingByRefNo" parameterType="hashmap" resultType="com.goodiware.vo.Refreply">
+		select r.refrno, r.refno, r.empno, r.replycontent, r.replydate, r.refrdel, r.gno, r.sno, r.depth, e.name 
+		from REFREPLY r, EMPLOYEE e
+		where r.empno = e.empno and r.refno = #{ refno } and r.refrdel = 'N'
+		ORDER BY gno DESC, sno ASC
+		limit #{ beginning } , #{ pageSize }
+	</select>
+	
+	<select id="selectReplyCount" parameterType="hashmap" resultType="int">
+		select count(*) from REFREPLY where refno = #{ refno } and refrdel = 'N'
+	</select>
+	
+	<insert id="insertReply" parameterType="com.goodiware.vo.Refreply">
+		insert into REFREPLY ( empno, refno, replycontent, replydate ) values ( #{ empno }, #{ refno }, #{ replycontent }, NOW() )
+		<selectKey resultType="int" keyProperty="refrno" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<update id="updateReplyRno" parameterType="int">
+		update REFREPLY set gno = #{ refrno } where refrno = #{ refrno }
+	</update>
+	
+	<update id="deleteReply" parameterType="int">
+		update REFREPLY set refrdel = 'Y' where refrno = #{ refrno }
+	</update>
+	
+	<update id="updateReply" parameterType="com.goodiware.vo.Refreply">
+		update REFREPLY set replycontent = #{ replycontent } where refno = #{ refno }
+	</update>
+	
+	<select id="selectRefreplyByRefrno" parameterType="int" resultType="com.goodiware.vo.Refreply">
+		select * from REFREPLY where refrno = #{ refrno }
+	</select>
+	
+	<update id="updateSno" parameterType="com.goodiware.vo.Reply">
+		<![CDATA[
+		UPDATE REFREPLY
+		SET sno = sno + 1
+		WHERE gno = #{ gno } AND sno > #{ sno }
+		]]>
+	</update>
+	
+	<insert id="insertReReply">
+		insert into REFREPLY ( refno, empno, replycontent, replydate, gno, sno, depth ) 
+		value ( #{ refno }, #{ empno }, #{ replycontent }, NOW(), #{ gno }, #{ sno }, #{ depth } ) 
+	</insert>
+	
 </mapper>

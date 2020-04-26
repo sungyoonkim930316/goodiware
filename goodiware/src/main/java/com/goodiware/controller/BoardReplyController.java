@@ -122,14 +122,5 @@ public class BoardReplyController {
 		return "success";
 	}
 	
-	@GetMapping(path= {"/page/{rPageNo}"})
-	@ResponseBody
-	public String replyPage() {
-		
-		
-		
-		return "/board/reply-list2";
-	}
-	
 	
 }

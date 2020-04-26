@@ -19,8 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.goodiware.service.ReferenceService;
 import com.goodiware.vo.Reference;
+import com.goodiware.vo.Refreply;
 import com.goodiware.ui.ThePager2;
 
 @Controller
@@ -229,6 +234,37 @@ public class ReferenceController {
 		// 2. 조회된 데이터를 View에서 사용할 수 있도록 저장
 		model.addAttribute("reference", reference);
 
+		// 댓글 조회
+		int pageSize = 10;
+		int pagerSize = 5;
+		HashMap<String, Object> params = new HashMap<>();
+		int beginning = (pageNo - 1) * pageSize;
+		params.put("beginning", beginning);
+		params.put("end", beginning + pageSize);
+		params.put("refno", refNo);
+		params.put("pageSize", pageSize);
+		
+		List<Reference> replies = referenceService.getReplyWithPagingByRefNo(params);
+		int replyCount = referenceService.getReplyCount(params);
+		
+		model.addAttribute("replies", replies);
+		
+		///////////////////////////////////////////////////////////
+		int pageCount = ( replyCount / pageSize ) + (( replyCount % pageSize ) > 0 ? 1 : 0 );
+		int pagerBlock = ( pageNo -1 ) / pagerSize;
+		int start = (pagerBlock * pagerSize ) + 1;
+		int end = start + pagerSize;
+		
+		HashMap<String, Integer> pager = new HashMap<String, Integer>();
+		
+		pager.put("pageNo", pageNo);
+		pager.put("replyCount", replyCount);
+		pager.put("pageCount", pageCount);
+		pager.put("pageBlock", pagerBlock);
+		pager.put("start", start);
+		pager.put("end", end);
+		model.addAttribute("pager", pager);
+		
 		// 3. View로 이동
 		return "reference/detail";
 	}
@@ -355,6 +391,84 @@ public class ReferenceController {
 		return String.format(
 				"redirect:detail?refNo=%d&pageNo=%d&searchType=%s&searchKey=%s", 
 				reference.getRefno(), pageNo, searchType, encodedKey);
+	}
+	
+	//////////////////////////////////////////////////////////////
+	
+	// 댓글 영역
+	@RequestMapping(path= {"replyWrite"})
+	@ResponseBody
+	public String replyWrite(Refreply refreply) {
+		
+		referenceService.writeReply(refreply);
+		
+		return "success";
+		
+	}
+	
+	@GetMapping(path= {"/list-by/{refno}/{pageNo}"})
+	public String listByRefno(@PathVariable int refno, @PathVariable int pageNo, Model model) {
+		
+		int pageSize = 10;
+		int pagerSize = 5;
+		HashMap<String, Object> params = new HashMap<>();
+		int beginning = (pageNo - 1) * pageSize;
+		params.put("beginning", beginning);
+		params.put("end", beginning + pageSize);
+		params.put("refno", refno);
+		params.put("pageSize", pageSize);
+		
+		List<Reference> replies = referenceService.getReplyWithPagingByRefNo(params);
+		int replyCount = referenceService.getReplyCount(params);
+		
+		model.addAttribute("replies", replies);
+		
+		///////////////////////////////////////////////////////////
+		int pageCount = ( replyCount / pageSize ) + (( replyCount % pageSize ) > 0 ? 1 : 0 );
+		int pagerBlock = ( pageNo -1 ) / pagerSize;
+		int start = (pagerBlock * pagerSize ) + 1;
+		int end = start + pagerSize;
+		
+		HashMap<String, Integer> pager = new HashMap<String, Integer>();
+		
+		pager.put("pageNo", pageNo);
+		pager.put("replyCount", replyCount);
+		pager.put("pageCount", pageCount);
+		pager.put("pageBlock", pagerBlock);
+		pager.put("start", start);
+		pager.put("end", end);
+		model.addAttribute("pager", pager);
+		
+		return "/reference/reply-list";
+	}
+	
+	@DeleteMapping(path= {"/delete/{refrno}"})
+	@ResponseBody
+	public String deleteReply(@PathVariable int refrno ) {
+		
+		referenceService.deleteReply(refrno);
+		
+		return "success";
+	}
+	
+	@PutMapping(path= {"/update/"}, consumes="application/json")
+	@ResponseBody
+	public String editReply(@RequestBody Refreply refreply) {
+		
+		System.out.println("content : " +refreply.getReplycontent());
+		
+		referenceService.editReply(refreply);
+		
+		return "success";
+	}
+	
+	@PostMapping(path= {"rewrite"})
+	@ResponseBody
+	public String rewrite(Refreply refreply) {
+		
+		referenceService.insertReReply(refreply);
+		
+		return "success";
 	}
 	
 }

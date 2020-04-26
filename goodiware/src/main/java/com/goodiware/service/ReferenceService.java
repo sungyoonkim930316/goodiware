@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.goodiware.vo.Reference;
+import com.goodiware.vo.Refreply;
 
 public interface ReferenceService {
 
@@ -20,5 +21,17 @@ public interface ReferenceService {
 	void deleteReference(int refNo);
 	
 	void updateRef(Reference reference);
+
+	List<Reference> getReplyWithPagingByRefNo(HashMap<String, Object> params);
+
+	int getReplyCount(HashMap<String, Object> params);
+
+	void writeReply(Refreply refreply);
+
+	void deleteReply(int refrno);
+
+	void editReply(Refreply refreply);
+
+	void insertReReply(Refreply refreply);
 
 }

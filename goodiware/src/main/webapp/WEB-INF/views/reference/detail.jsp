@@ -139,8 +139,8 @@
 	                                   		<form id="reply-form" class="user">
 												<div class="input-group mb-3">
 												  <input type="hidden" value="${ auth.employee.empno }" name="empno" id="empno">
-												  <input type="hidden" value="${ board.bno }" name="bNo" id="bno">
-												  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="rcontent"  name="rcontent" style="height:80px">&nbsp;&nbsp;
+												  <input type="hidden" value="${ reference.refno }" name="refno" id="refno">
+												  <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2" id="replycontent"  name="replycontent" style="height:80px">&nbsp;&nbsp;
 												  <div class="input-group-append">
 												    <button class="btn btn-outline-secondary" type="button" id="replyRegist" style="height:80px;width:80px">등록</button>
 												  </div>
@@ -150,11 +150,11 @@
 	                                   	</tr>
 	                                </tbody>
 	                             </table>
-	                            <%-- <div id="reply-list-container" style="width:832px">
+	                            <div id="reply-list-container">
 	                            
 	                            	<jsp:include page="reply-list.jsp" />
 	                            
-	                           	</div> --%>
+	                           	</div>
                             </div>
                         </div>
                     </div>
@@ -170,34 +170,6 @@
 				</div>
 			</div>
 		</div>
-		
-								<!-- Modal -->
-                                <%-- <div class="modal fade" id="exampleModalCenter">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 id="modal-name" class="modal-title"></h5>
-                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="card">
-						                            <div class="card-body">
-						                                <div class="media align-items-center mb-4">
-						                                    <div class="media-body">
-						                                    	<textarea rows="2" cols="60">${ reply.content }</textarea>
-						                                    </div>
-						                                </div>
-						                            </div>
-						                        </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                            	<button type="button" class="btn btn-info" id="sendMail">수정</button>
-                                                <button type="button" class="btn btn-primary" data-dismiss="modal">닫기</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                               	</div> --%>
-                               	<!-- Modal End -->
 		
 		
 		<!--**********************************
@@ -233,7 +205,7 @@
 	<script type="text/javascript" src="/resources/navereditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 	<script type='text/javascript'>
 	$(function(){
-		$('input').attr({'readonly': 'readonly'})
+		/* $('input').attr({'readonly': 'readonly'}) */
 		
 		$('#tolist-button').on('click', function(event) {
 			location.href = "list?pageNo=${ param.pageNo }&searchType=${ param.searchType }&searchKey=${ param.searchKey }";
@@ -288,29 +260,30 @@
 		}
 
 
-  /*    //////////////////////////////////////
+  	    //////////////////////////////////////
 		//				댓글					//
 		//////////////////////////////////////
 		
 		// 댓글 등록
 		$('#replyRegist').on("click", function(event) {
 
-			if ($('#rcontent').val().length == 0) {
+			if ($('#replycontent').val().length == 0) {
 				alert("댓글 내용을 입력하세요")
 				return;
 			}
 			
 			var values = $('#reply-form').serializeArray();
-			
+
+			//console.log(values);
 
 			$.ajax({
-				"url" : "/reply/write",
+				"url" : "/reference/replyWrite",
 				"method" : "post",
 				"data" : values,
 				"success" : function(data, status, xhr) {
 					// 비동기처리 완료 뒤, 리로딩할 영역
-					$("#reply-list-container").load("/reply/list-by/${ board.bno }");
-					$('#rcontent').val('');
+					$("#reply-list-container").load("/reference/list-by/${ reference.refno }/${ pager.pageNo}");
+					$('#replycontent').val('');
 				},
 				"error" : function(xhr, status, err){
 					alert("댓글 쓰기가 실패해버렸지 뭐얌?")
@@ -319,22 +292,20 @@
 
 			 
 		});
-
+		
 		// 댓글 삭제
 		$("#reply-list-container").on("click", ".deleteReply", function(evemt){
 
 			var rno = $(this).attr('data-rno');
 
-			
-
 			if(!confirm("댓글을 삭제할까요?")) return;
 
 			$.ajax({
-				"url": "/reply/delete/" + rno,
+				"url": "/reference/delete/" + rno,
 				"method": "delete",
 				"data": { "rno" : rno },
 				"success": function(data, status, xhr) {
-					$("#reply-list-container").load("/reply/list-by/${ board.bno }");
+					$("#reply-list-container").load("/reference/list-by/${ reference.refno }/${ pager.pageNo}");
 				},
 				"error": function(xhr, status, err) {
 					alert("삭제에 실패해버렸지뭐얌?");
@@ -347,7 +318,7 @@
 		$("div[id^=reply-edit]").hide();
 		$("div[id^=reply-cancel]").hide();
 
-		// 댓글 수정
+		// 댓글 수정 버튼 클릭
 		var currentRno = null;
 		$("#reply-list-container").on("click", ".editReply", function(event){
 
@@ -362,19 +333,23 @@
 					$("#reply-edit-" + currentRno).hide();
 					$("#reply-cancel-" + currentRno).hide();
 					$("#reply-button-" + currentRno).show();
+					$("#rereply-regist-" + currentRno).hide();
+					$("#rereply-button-" + currentRno).show();
+					$("#cancel-button-" + currentRno).hide();
 				}
-			}
-
+			} 
+			
 			$("#reply-view-" + rno).hide();
 			$("#reply-edit-" + rno).show();
 			$("#reply-button-" + rno).hide();
 			$("#reply-cancel-" + rno).show();
-
+			//$("#rereply-regist-" + rno).hide();
+			
 			currentRno = rno;
 
 		});
 
-
+		// 댓글 취소 버튼 클릭
 		$("#reply-list-container").on("click", ".cancelReply", function(event){
 
 			event.preventDefault();
@@ -385,29 +360,33 @@
 			$("#reply-view-" + rno).show();
 			$("#reply-button-" + rno).show();
 			$("#reply-cancel-" + rno).hide();
-			
-		});
 
+			currentRno = null;
+		});
 		
+		// 댓글 수정 처리
 		$("#reply-list-container").on("click", ".edit-button", function(event){
 
 			var rno = $(this).attr('data-rno');
 			var rcontent = $("#rcontent-" + rno);
 
-			
+			//console.log(rno);
+			//console.log($("#rcontent-"+rno));
 			
 			var data = {
 			"rno" : rno,
-			"rcontent" : rcontent.val()
+			"replycontent" : rcontent.val()
 			};
 
+			//console.log(data);
+			
 			$.ajax({
-				"url": "/reply/update/",
+				"url": "/reference/update/",
 				"method": "put",
  				"data" : JSON.stringify(data),
 				"contentType" : "application/json",
 				"success": function(data, status, xhr) {
-					$("#reply-list-container").load("/reply/list-by/${ board.bno }");
+					$("#reply-list-container").load("/reference/list-by/${ reference.refno }/${ pager.pageNo}");
 				},
 				"error": function(xhr, status, err) {
 					alert("댓글 수정을 실패했습니다");
@@ -415,48 +394,65 @@
 			});
 			
 		});
-		
+
+		// 대댓글 버튼 클릭
 		$("#reply-list-container").on("click", ".reReply", function(event){
 
 			event.preventDefault();
 
 			var rno = $(this).attr('data-rno');
 
+			//console.log(rno);
 			
+			/* $("#rereply-regist-" + currentRno2).show(); */
+			//$("#rereply-regist-" + rno).show();
 			
 			if (currentRno != null) {
 				if (rno == currentRno) {
 					return;
 				} else {
 					$("#rereply-regist-" + currentRno).hide();
-					$("#rereply-button-" + currentRno).hide();
+					$("#rereply-button-" + currentRno).show();
+					$("#reply-view-" + currentRno).show();
+					$("#reply-edit-" + currentRno).hide();
+					$("#cancel-button-" + currentRno).hide();
+					$("#reply-cancel-" + currentRno).hide();
+					$("#reply-button-" + currentRno).show();
 				}
-			}
+			} 
 
 			$("#rereply-regist-" + rno).show();
 			$("#rereply-button-" + rno).hide();
 			$("#cancel-button-" + rno).show();
-
+			$("#reply-view-" + rno).show();
+			$("#reply-edit-" + rno).hide();
+			$("#reply-cancel-" + rno).hide();
+			
+			
 			currentRno = rno;
 		});
 
 
+		// 대댓글 취소버튼
 		$("#reply-list-container").on("click", ".reReply-cancel", function(event){
 
 			event.preventDefault();
 
 			var rno = $(this).attr('data-rno');
-
+			
+			$("#cancel-button-" + rno).hide();
 			$("#rereply-regist-" + rno).hide();
 			$("#rereply-button-" + rno).show();
-			$("#cancel-button-" + rno).hide();
 
+			currentRno = null;
 			
 		});
 
 		// 대댓글 등록
  		$("#reply-list-container").on("click", ".rereply-button", function(event){
 
+ 			event.preventDefault();
+ 			
 			var rno = $(this).attr('data-rno');
 			var values = $('#rereply-form-'+rno).serializeArray();
 			//var rercontent = $("#rercontent-" + rno);
@@ -469,19 +465,32 @@
 			//console.log(values); return;
 
 			$.ajax({
-				"url" : "/reply/rewrite",
+				"url" : "/reference/rewrite",
 				"method" : "post",
 				"data" : values,
 				"success" : function(data, status, xhr) {
 					// 비동기처리 완료 뒤, 리로딩할 영역
-					$("#reply-list-container").load("/reply/list-by/${ board.bno }");
+					$("#reply-list-container").load("/reference/list-by/${ reference.refno }/${ pager.pageNo}");
 				},
 				"error" : function(xhr, status, err){
 					alert("댓글 쓰기가 실패해버렸지 뭐얌?")
 				}
-			}); 
+			});
+ 
+			currentRno = null;
 			 
-		});  */
+		});
+
+		$('#reply-list-container').on('click', '.pagination a[id^=page-no]', function(event) {
+
+			event.preventDefault();
+
+			var refno = $(this).attr('data-bno');
+			var pageNo = $(this).attr('data-pageno');
+
+			$("#reply-list-container").load("/reference/list-by/" + refno + "/" + pageNo);
+			
+		});
  
 	    
 	}); 

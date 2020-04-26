@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.goodiware.mapper.ReferenceMapper;
 import com.goodiware.vo.Reference;
+import com.goodiware.vo.Refreply;
 
 @Service("referenceService")
 public class ReferenceServiceImpl implements ReferenceService {
@@ -60,6 +61,52 @@ public class ReferenceServiceImpl implements ReferenceService {
 	public void updateRef(Reference reference) {
 		
 		referenceMapper.updateReference(reference);
+		
+	}
+
+	@Override
+	public List<Reference> getReplyWithPagingByRefNo(HashMap<String, Object> params) {
+		
+		return referenceMapper.selectReplyWithPagingByRefNo(params);
+	}
+
+	@Override
+	public int getReplyCount(HashMap<String, Object> params) {
+
+		return referenceMapper.selectReplyCount(params);
+	}
+
+	@Override
+	public void writeReply(Refreply refreply) {
+
+		referenceMapper.insertReply(refreply);
+		referenceMapper.updateReplyRno(refreply.getRefrno());
+	}
+
+	@Override
+	public void deleteReply(int refrno) {
+
+		referenceMapper.deleteReply(refrno);
+	}
+
+	@Override
+	public void editReply(Refreply refreply) {
+
+		referenceMapper.updateReply(refreply);
+		
+	}
+
+	@Override
+	public void insertReReply(Refreply refreply) {
+		
+		Refreply parent = referenceMapper.selectRefreplyByRefrno(refreply.getRefrno());
+		refreply.setGno(parent.getGno());
+		refreply.setSno(parent.getSno());
+		refreply.setDepth(1);
+		
+		referenceMapper.updateSno(parent);
+		
+		referenceMapper.insertReReply(refreply);
 		
 	}
 
