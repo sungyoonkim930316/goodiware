@@ -137,7 +137,8 @@ public class ApprovalController {
 
 	// 업무 페이지 수정
 	@GetMapping(path= {"/apprlist"})
-	public String getApprList(@RequestParam(defaultValue = "1") int pageNo, HttpServletRequest req, Model model, int appdivno) {
+	public String getApprList(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(required = false) String searchType, @RequestParam(required = false) String searchKey,
+								HttpServletRequest req, Model model, int appdivno) {
 		
 		int pageSize = 10;
 		int pagerSize = 10;
@@ -147,6 +148,8 @@ public class ApprovalController {
 		params.put("end", beginning + pageSize);
 		params.put("appdivno", appdivno);
 		params.put("pageSize", pageSize);
+		params.put("searchType", searchType);
+		params.put("searchKey", searchKey);
 		
 		List<Approval> approvals = approvalService.getApprovalListWithPaging(params);
 		int boardCount = approvalService.findApprCount(params); // 전체 글 개수
@@ -170,6 +173,7 @@ public class ApprovalController {
 		model.addAttribute("pager", pager);
 		
 		return "/approval/apprlist";
+//		return String.format("redirect:/appr/apprlist?appdivno=%d&searchType=%s&searchKey=%s", appdivno, searchType, searchKey);
 		
 	}
 	

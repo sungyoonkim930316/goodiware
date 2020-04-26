@@ -4,6 +4,19 @@
 
 <mapper namespace="com.goodiware.mapper.ApprovalMapper">
 
+	<sql id="searchCondition">
+		<trim suffix="AND">
+	    	<choose>
+	    		<when test="searchType == 'W'.toString()">
+	    			name LIKE CONCAT('%',#{searchKey},'%')
+	    		</when>
+	    		<when test="searchType == 'T'.toString()">
+	    			title LIKE CONCAT('%',#{searchKey},'%')
+	    		</when>
+	    	</choose>
+		</trim>
+	</sql>
+
 	<select id="selectApprDivs" resultType="com.goodiware.vo.ApprDiv">
 		select * from APPRDIV
 	</select>
@@ -29,7 +42,9 @@
 	<select id="selectApprovalList" parameterType="hashmap" resultType="com.goodiware.vo.Approval">
 		select d.divname, a.type, a.title, a.content, a.appdivno, a.maccp, a.faccp, a.APPACCPNO, p.accepname, e.name, a.companion
 		from APPRDIV d, APPROVAL a, APPROACCP p, EMPLOYEE e
-		where a.appaccpno = p.appaccpno and a.appdivno = d.appdivno AND a.empno = e.empno AND a.deleted = 'N' and a.appdivno = #{ appdivno }
+		where
+		<include refid="searchCondition" /> 
+		a.appaccpno = p.appaccpno and a.appdivno = d.appdivno AND a.empno = e.empno AND a.deleted = 'N' and a.appdivno = #{ appdivno }
 		order by a.type DESC
 		limit #{ beginning }, #{ pageSize }
 	</select>
