@@ -53,7 +53,9 @@
 		
 		SELECT COUNT(*) 
 		FROM APPROVAL
-		WHERE appdivno = #{appdivno} and deleted = 'N'
+		WHERE 
+			<include refid="searchCondition" />
+			appdivno = #{appdivno} and deleted = 'N'
 		
 	</select>
 	

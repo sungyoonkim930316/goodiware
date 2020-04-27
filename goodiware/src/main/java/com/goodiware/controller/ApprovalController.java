@@ -164,6 +164,12 @@ public class ApprovalController {
 		
 		HashMap<String, Integer> pager = new HashMap<String, Integer>();
 		
+		System.out.println("pageNo : " + pageNo);
+		System.out.println("boardCount : " + boardCount);
+		System.out.println("pageCount : " + pageCount);
+		System.out.println("pageBlock : " + pagerBlock);
+		System.out.println("=========================");
+		
 		pager.put("pageNo", pageNo);
 		pager.put("boardCount", boardCount);
 		pager.put("pageCount", pageCount);
@@ -173,7 +179,6 @@ public class ApprovalController {
 		model.addAttribute("pager", pager);
 		
 		return "/approval/apprlist";
-//		return String.format("redirect:/appr/apprlist?appdivno=%d&searchType=%s&searchKey=%s", appdivno, searchType, searchKey);
 		
 	}
 	

@@ -38,43 +38,6 @@ public class MessageController {
 	@Qualifier("messageService")
 	MessageService messageService;
 
-	// 페이징받은메일함 페이지로 이동 - 백업
-//	@GetMapping(path= {"/inbox"})
-//	public String getMail(int empno, Model model, @RequestParam(defaultValue="1")int pageNo, 
-//					@RequestParam(required = false) String searchType, @RequestParam(required=false)String searchKey, HttpServletRequest req) {
-//		
-//		int pageSize = 10;
-//		int pagerSize = 3;
-//		int beginning = (pageNo -1)* pageSize;
-//		
-//		HashMap<String, Object> params = new HashMap<>();
-//		params.put("empno", empno);
-//		params.put("beginning", beginning);
-//		params.put("end", beginning + pageSize);
-//		params.put("searchType", searchType);
-//		params.put("searchKey", searchKey);
-//		
-//
-//		List<Message> messages = messageService.findMessageWithPaging(params);
-//		int messageCount = messageService.findMessageCount(params);
-//
-//		ThePager2 pager = new ThePager2(messageCount, pageNo, pageSize, pagerSize, "inbox", req.getQueryString());
-//		
-//		
-//		model.addAttribute("messages", messages);
-//		model.addAttribute("pager", pager);
-//		
-//		// 안읽은메일 카운트
-//		int unreadCount = messageService.lookupOpendate(empno);
-//		model.addAttribute("unreadCount", unreadCount);
-//		
-//		// 휴지통 메일 카운트
-//		int trashMessage = messageService.trashCount(empno);
-//		model.addAttribute("trashMessage", trashMessage);
-//		
-//		return "message/inbox";
-//	}
-
 	// 페이징받은메일함 페이지로 이동 - 페이징 수정
 	@GetMapping(path= {"/inbox"})
 	public String getMail(int empno, Model model, @RequestParam(defaultValue="1")int pageNo, 
@@ -112,6 +75,12 @@ public class MessageController {
 		pager.put("end", end);
 		model.addAttribute("pager", pager);
 		
+		System.out.println("pageNo : " + pageNo);
+		System.out.println("boardCount : " + messageCount);
+		System.out.println("pageCount : " + pageCount);
+		System.out.println("pageBlock : " + pagerBlock);
+		System.out.println("=========================");
+		
 		// 안읽은메일 카운트
 		int unreadCount = messageService.lookupOpendate(empno);
 		model.addAttribute("unreadCount", unreadCount);
@@ -139,17 +108,6 @@ public class MessageController {
 		
 	}
 	
-	// 메세지 전송 처리
-//	@PostMapping(path= {"/sendMessage"})
-//	public String sendMessage(Message message, RedirectAttributes attr) {
-//		
-//		messageService.sendMessage(message);
-//		attr.addAttribute("success", message.getMno());
-//		
-//		return String.format("redirect:/message/inbox?empno=%d", message.getSender());
-//		
-//	}
-
 	// 메세지 전송 처리 - 첨부파일
 	@PostMapping(path= {"/sendMessage"})
 	public String sendMessage(Message message, RedirectAttributes attr, @RequestParam("filename")MultipartFile msg, HttpServletRequest req) {
@@ -209,24 +167,6 @@ public class MessageController {
 		return String.format("redirect:/message/inbox?empno=%d", empno);
 
 	}
-	
-//	// 휴지통으로 이동
-//	@GetMapping(path= {"/trashcan"})
-//	public String trashCan(int empno, Model model) {
-//		
-//		List<Message> messages = messageService.showTrashMessage(empno);
-//		model.addAttribute("messages", messages);
-//		
-//		// 안읽은메일 카운트
-//		int unreadCount = messageService.lookupOpendate(empno);
-//		model.addAttribute("unreadCount", unreadCount);
-//		
-//		// 휴지통 메일 카운트
-//		int trashMessage = messageService.trashCount(empno);
-//		model.addAttribute("trashMessage", trashMessage);
-//		
-//		return "/message/trashCan";
-//	}
 	
 	// 휴지통 메세지 상세보기
 	@GetMapping(path= {"/trashContent"})

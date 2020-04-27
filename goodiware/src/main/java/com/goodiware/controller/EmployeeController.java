@@ -42,23 +42,6 @@ public class EmployeeController {
 		return "/employee/login";
 	}
 
-//	// 로그인 처리 시큐리티 사용 안함
-//	@PostMapping(path = { "/login" })
-//	public String userLogin(Employee employee, HttpSession session, RedirectAttributes attr, Model model) {
-//			
-//		Employee employee2 = employeeService.userLogin(employee);
-//						
-//		if (employee2 == null) {
-//			attr.addFlashAttribute("loginFalse", employee2);
-//			return "redirect:/employee/login";
-//		} else {
-//			
-//			session.setAttribute("logsinuser", employee2);
-//			model.addAttribute("employee", employee2);
-//			return "redirect:/";
-//		}
-//	}
-
 	// 로그아웃 처리
 	@GetMapping(path = { "/logout" })
 	public String userLogout(HttpServletRequest req, HttpServletResponse resp) throws Exception {
