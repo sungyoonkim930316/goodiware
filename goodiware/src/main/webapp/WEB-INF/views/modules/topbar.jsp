@@ -5,13 +5,13 @@
 <% request.setCharacterEncoding("utf-8"); %>
 
 		<div class="nav-header">
-            <div class="brand-logo">
+            <div class="brand-logo" style="height:80px;">
                 <a href="/">
                     <b class="logo-abbr"><img src="/resources/images/logo.png" alt=""> </b>
                     
                     <span class="logo-compact"><img src="/resources/images/logo-compact.png" alt=""></span>
                     <span class="brand-title">
-                        <img src="/resources/images/goodi_logo1.PNG" alt="">
+                        <img src="/resources/images/linkedin_banner_image_1.png" style="height:80px;" alt="" >
                     </span>
                 </a>
             </div>
@@ -114,5 +114,5 @@
 			
 		});
 	});
-   
+
 </script>           
