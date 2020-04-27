@@ -91,8 +91,8 @@ public class AdminController {
 	public String showEmpList(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(required = false) String searchKey,
 								HttpServletRequest req, Model model, Employee employee) {
 		
-		int pageSize = 5;
-		int pagerSize = 3;
+		int pageSize = 10;
+		int pagerSize = 5;
 		HashMap<String, Object> params = new HashMap<>();
 		int beginning = (pageNo - 1) * pageSize;
 		

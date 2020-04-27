@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html class="no-js" lang="ko">
 
@@ -19,7 +21,7 @@
 </head>
 
 <body>
-
+	<sec:authentication var="auth" property="principal" />
     <!--*******************
         Preloader start
     ********************-->
@@ -66,8 +68,8 @@
             <div class="row page-titles mx-0">
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">무료 나눔</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">무료 나눔</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">게시판</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">공지사항</a></li>
                     </ol>
                 </div>
             </div>
@@ -79,7 +81,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-	                                <h4 class="card-title">무료 나눔</h4>
+	                                <h4 class="card-title">공지사항</h4>
 	                                
 							    </div>
                                 <div class="row" style="text-align: center">
@@ -108,7 +110,6 @@
 									  <thead>
 									    <tr>
 									      <th scope="col" width="180">글 번호</th>
-									      <th scope="col" width="250">나눔 물품</th>
 									      <th scope="col" width="500">글 제목</th>
 									      <th scope="col" width="180">작성자</th>
 									      <th scope="col" width="180">등록일</th>
@@ -119,18 +120,6 @@
 									    	<c:if test="${ board.bdivno eq 2 }">
 									    	<tr>
 									    		<td>${ board.bno }</td>
-									    		<td>
-									    			<c:choose>
-										    			<c:when test="${ board.bdel eq 'N' }">
-											    			<a href="detail?BNo=${ board.bno }&pageNo=${ pager.pageNo }&searchType=${ empty param.searchType ? '' : param.searchType }&searchKey=${ empty param.searchKey ? '' : param.searchKey }">
-																<img width="200" height="130" src="/resources/file/board/${board.picture}"/>
-															</a>
-														</c:when>
-														<c:otherwise>
-															[삭제] ${ board.title }								
-														</c:otherwise>
-													</c:choose>
-									    		</td>
 									    		<td>
 									    			<c:choose>
 										    			<c:when test="${ board.bdel eq 'N' }">
@@ -178,32 +167,13 @@
 		                                     </c:if>
 		                                    </nav>
 		                                </div>
-								      		<button type="button" class="btn btn-primary" style="float: right;" id="writeBoard">글 쓰기</button>	
+		                                <c:choose>
+		                                <c:when test="${ auth.employee.auth.authno eq 2 or auth.employee.auth.authno eq 3 }">
+								      		<button type="button" class="btn btn-primary" style="float: right;" id="writeBoard">글 쓰기</button>
+								      	</c:when>
+								      	</c:choose>	
+								      		<!-- <button type="button" class="btn btn-primary" style="float: right;" id="writeBoard">글 쓰기</button> -->
 
-									<!-- <table class="table">
-										<tbody>
-										    <tr>
-										      <td colspan="4">
-												<div class="bootstrap-pagination">
-				                                    <nav>
-				                                        <ul class="pagination justify-content-center">
-				                                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">◀</a>
-				                                            </li>
-				                                            <li class="page-item"><a class="page-link" href="#">1</a>
-				                                            </li>
-				                                            <li class="page-item"><a class="page-link" href="#">2</a>
-				                                            </li>
-				                                            <li class="page-item"><a class="page-link" href="#">3</a>
-				                                            </li>
-				                                            <li class="page-item"><a class="page-link" href="#">▶</a>
-				                                            </li>
-				                                        </ul>
-				                                    </nav>
-				                                </div>
-										      </td>
-										      </tr>
-										</tbody>
-									</table> -->
                                 </div>
                             </div>
                         </div>

@@ -96,6 +96,27 @@
 		                                </c:when>
 	                                </c:choose>
 							    </div>
+								 <div class="row" style="text-align: center">
+									<div class="col-sm-12 col-md-12">
+										<div class="dataTables_length" id="dataTable_length"
+											style="margin-bottom: 15px">
+											<form action="apprlist" method="get">
+												<input type="hidden" value="${ param.appdivno }" name="appdivno">
+												<select name="searchType" aria-controls="dataTable"
+													class="form-control-sm">
+													<option value="W"
+														${ param.searchType == 'W' ? 'selected' : '' }>작성자</option>
+													<option value="T"
+														${ param.searchType == 'T' ? 'selected' : '' }>제목</option>
+												</select> 
+												<input style="width:470px" type="search" name="searchKey" class="form-control-sm"
+													placeholder="" aria-controls="dataTable"
+													value="${ param.searchKey }"> 
+												<input type="submit" class="btn btn-success btn-sm" value="검색">
+											</form>
+										</div>
+									</div>
+								</div>
 								<br>
                                 <div class="table-responsive">
                                     <table class="table" style="text-align: center">
@@ -160,26 +181,6 @@
 		                                     </c:if>
 		                                    </nav>
 		                                </div>
-		                                 <div class="row" style="text-align: center">
-											<div class="col-sm-12 col-md-12">
-												<div class="dataTables_length" id="dataTable_length"
-													style="margin-bottom: 15px">
-													<form action="apprlist" method="get">
-														<select name="searchType" aria-controls="dataTable"
-															class="form-control-sm">
-															<option value="W"
-																${ param.searchType == 'W' ? 'selected' : '' }>작성자</option>
-															<option value="T"
-																${ param.searchType == 'T' ? 'selected' : '' }>제목</option>
-														</select> 
-														<input style="width:470px" type="search" name="searchKey" class="form-control-sm"
-															placeholder="" aria-controls="dataTable"
-															value="${ param.searchKey }"> 
-														<input type="submit" class="btn btn-success btn-sm" value="검색">
-													</form>
-												</div>
-											</div>
-										</div>
 								      		<button type="button" class="btn btn-primary" style="float: right;" id="taskRegist">결재등록</button>	
 									<!-- <table class="table">
 										<tbody>

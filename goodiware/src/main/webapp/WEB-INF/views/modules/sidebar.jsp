@@ -40,9 +40,9 @@
                             <i class="icon-menu menu-icon"></i><span class="nav-text">게시판</span>
                         </a>
                         <ul aria-expanded="false">
+                            <li><a href="/market/list">공지사항</a></li>
                             <li><a href="/board/list">자유게시판</a></li>
                             <li><a href="/reference/list">자료실</a></li>
-                            <li><a href="/market/list">나눔장터</a></li>
                         </ul>
                     </li>
                      <li>

@@ -112,7 +112,7 @@
 	                            <table class="table">
 	                               <thead>
 	                                   <tr>
-	                                       <th scope="col">${ board.title } | 무료나눔</th>
+	                                       <th scope="col">${ board.title } | 공지사항</th>
 	                                       <th scope="col">
 	                                       <th scope="col" style="text-align:right"><fmt:formatDate value="${ board.regdate }" pattern="yyyy-MM-dd"/></th>
 	                                   </tr>
@@ -124,7 +124,7 @@
 	                                   <tr>
 	                                       <td colspan="3"><br><br>${ board.content }<br><br></td>
 	                                   </tr>
-	                                   <tr>
+<%-- 	                                   <tr>
 	                                   		<td colspan="3">댓글</td>
 	                                   	</tr>
 	                                   <tr>
@@ -141,7 +141,7 @@
 											</form>
 	                                   		</td>
 	                                   	</tr>
-	                                </tbody>
+ --%>	                                </tbody>
 	                             </table>
 	                           <%--  <div id="reply-list-container" style="width:832px">
 	                            

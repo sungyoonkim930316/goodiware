@@ -23,7 +23,7 @@
 		<trim prefix="AND">
 			<choose>
 				<when test="name">
-					(e.name LIKE CONCAT('%',#{name},'%') OR d.depname LIKE CONCAT('%',#{name},'%'))
+					(name LIKE CONCAT('%',#{name},'%') OR depname LIKE CONCAT('%',#{name},'%'))
 				</when>
 			</choose>
 		</trim>
@@ -54,13 +54,12 @@
 	
 	<select id ="empListCount" parameterType="hashmap" resultType="int">
 		SELECT COUNT(*) 
-		FROM EMPLOYEE 
+		FROM EMPLOYEE
 		where deleted ='N'
 	</select>
 	
 	<select id="empWithPaging" 
 			resultType="com.goodiware.vo.Employee" parameterType="hashmap">
-	
 		SELECT e.empno, e.name, e.posno, e.depno, e.phone, p.posname, d.depname
 		FROM EMPLOYEE e, POSITION p, DEPARTMENT d 
 		WHERE
