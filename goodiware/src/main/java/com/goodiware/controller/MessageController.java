@@ -75,12 +75,6 @@ public class MessageController {
 		pager.put("end", end);
 		model.addAttribute("pager", pager);
 		
-		System.out.println("pageNo : " + pageNo);
-		System.out.println("boardCount : " + messageCount);
-		System.out.println("pageCount : " + pageCount);
-		System.out.println("pageBlock : " + pagerBlock);
-		System.out.println("=========================");
-		
 		// 안읽은메일 카운트
 		int unreadCount = messageService.lookupOpendate(empno);
 		model.addAttribute("unreadCount", unreadCount);
