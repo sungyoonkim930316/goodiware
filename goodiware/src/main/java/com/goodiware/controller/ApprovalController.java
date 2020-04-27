@@ -164,12 +164,6 @@ public class ApprovalController {
 		
 		HashMap<String, Integer> pager = new HashMap<String, Integer>();
 		
-		System.out.println("pageNo : " + pageNo);
-		System.out.println("boardCount : " + boardCount);
-		System.out.println("pageCount : " + pageCount);
-		System.out.println("pageBlock : " + pagerBlock);
-		System.out.println("=========================");
-		
 		pager.put("pageNo", pageNo);
 		pager.put("boardCount", boardCount);
 		pager.put("pageCount", pageCount);

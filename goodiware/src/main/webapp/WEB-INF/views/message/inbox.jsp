@@ -162,7 +162,8 @@
                                         </ul>
                                      </c:if>
                                     </nav>
-                                </div>  
+                                	</div>  
+                                </div>
                             </div>
                         </div>
                     </div>
