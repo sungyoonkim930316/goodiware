@@ -249,8 +249,8 @@
 					$('#scdedit-modal').find('#scheno').val(calEvent.event.id);
 					$('#scdedit-modal').find('#schdivs').val(calEvent.event.extendedProps.resourceId);
 					$('#scdedit-modal').find('#title').val(calEvent.event.title);
-					$('#scdedit-modal').find('#startdate').val(moment(calEvent.event.start).format('YYYY-MM-DD HH:mm'));
-					$('#scdedit-modal').find('#enddate').val(moment(calEvent.event.end).format('YYYY-MM-DD HH:mm'));
+					$('#scdedit-modal').find('#startdate').val(moment(calEvent.event.start).format('YYYY/MM/DD HH:mm'));
+					$('#scdedit-modal').find('#enddate').val(moment(calEvent.event.end).format('YYYY/MM/DD HH:mm'));
 					$('#scdedit-modal').find('#content').val(calEvent.event.extendedProps.description);
 					
 					$('#modalDeleteBtn').attr('data-scheno', calEvent.event.id);
