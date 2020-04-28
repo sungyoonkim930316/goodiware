@@ -75,7 +75,7 @@
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="javascript:void(0)">중고장터</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">공지사항</a></li>
 						<li class="breadcrumb-item active"><a
 							href="javascript:void(0)">글 쓰기</a></li>
 					</ol>
