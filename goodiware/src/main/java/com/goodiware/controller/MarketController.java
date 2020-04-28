@@ -35,34 +35,6 @@ public class MarketController {
 	@Qualifier("marketService")
 	private MarketService marketService;
 
-	// 자료실 목록으로 이동
-//	@GetMapping(path = { "/list" })
-//	public String toList(@RequestParam(defaultValue = "1") int pageNo,
-//			@RequestParam(required = false) String searchType, @RequestParam(required = false) String searchKey,
-//			HttpServletRequest req, Model model) {
-//		
-//		int pageSize = 5;
-//		int pagerSize = 10;
-//		HashMap<String, Object> params = new HashMap<>();
-//		int beginning = (pageNo - 1) * pageSize;
-//		params.put("beginning", beginning);
-//		params.put("end", beginning + pageSize);
-//		params.put("searchType", searchType);
-//		params.put("searchKey", searchKey);
-//
-//		// 
-//		List<Board> boards = marketService.findBoardWithPaging(params);
-//		int boardCount = marketService.findBoardCount(params); // 전체 글 개수
-//
-//		ThePager2 pager = new ThePager2(boardCount, pageNo, pageSize, pagerSize, "list", req.getQueryString());
-//
-//		model.addAttribute("boards", boards);
-//		model.addAttribute("pager", pager);
-//		
-//		
-//		return "market/marketlist";
-//	}
-
 	// 리스트 페이징 수정
 	@GetMapping(path = { "/list" })
 	public String toList(@RequestParam(defaultValue = "1") int pageNo,
@@ -110,30 +82,39 @@ public class MarketController {
 		return "/market/marketwrite";
 	}
 	
+//	@PostMapping(path = { "/write.action" })
+//	public String write(@RequestParam("filename") MultipartFile ref, HttpServletRequest req,
+//			String smarteditor, Board board) { // 글쓰기 처리
+//		
+//		ServletContext application = req.getServletContext();
+//		String path = application.getRealPath("resources/file/board");
+//		String fileName = ref.getOriginalFilename();
+//		try {
+//			File file = new File(path, fileName);
+//			ref.transferTo(file);
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//			System.out.println("파일이 없습니다.");
+//		}
+//		
+//		System.out.println("스마트 에디터 본문 : " + smarteditor);
+//		System.out.println("파일 경로 : " + path);
+//		System.out.println("업로드 파일 : " + fileName);
+//		board.setContent(smarteditor);
+//		board.setPicture(fileName);
+//		board.setPicturepath(path);
+//
+//		marketService.writeBoard(board);
+//
+//		return "redirect:/market/list";
+//	}
+	
 	@PostMapping(path = { "/write.action" })
-	public String write(@RequestParam("filename") MultipartFile ref, HttpServletRequest req,
-			String smarteditor, Board board) { // 글쓰기 처리
+	public String write(String smarteditor, Board board) { // 글쓰기 처리
 		
-		ServletContext application = req.getServletContext();
-		String path = application.getRealPath("resources/file/board");
-		String fileName = ref.getOriginalFilename();
-		try {
-			File file = new File(path, fileName);
-			ref.transferTo(file);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			System.out.println("파일이 없습니다.");
-		}
-		
-		System.out.println("스마트 에디터 본문 : " + smarteditor);
-		System.out.println("파일 경로 : " + path);
-		System.out.println("업로드 파일 : " + fileName);
 		board.setContent(smarteditor);
-		board.setPicture(fileName);
-		board.setPicturepath(path);
-
 		marketService.writeBoard(board);
-
+		
 		return "redirect:/market/list";
 	}
 	

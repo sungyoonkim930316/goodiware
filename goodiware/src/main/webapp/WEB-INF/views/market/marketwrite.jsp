@@ -99,9 +99,6 @@
 							class="form-control input-default" placeholder="제목을 입력하세요."><br>
 						<textarea name="smarteditor" id="smarteditor" rows="10" cols="100"
 							style="width: 100%; height: 412px;"></textarea>
-						<br>
-						<h4>대표사진</h4>
-						<input type="file" name="filename" id="filename"/><br>
 						<br> 
 						<br>
 						<div style="text-align: center">

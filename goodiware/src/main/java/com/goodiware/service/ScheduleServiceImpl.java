@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.goodiware.mapper.ScheduleMapper;
-import com.goodiware.vo.Employee;
 import com.goodiware.vo.Schdiv;
 import com.goodiware.vo.Schedule;
 
