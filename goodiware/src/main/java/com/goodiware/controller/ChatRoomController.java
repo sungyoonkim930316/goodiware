@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.goodiware.provider.JwtTokenProvider;
 import com.goodiware.repository.ChatRoomRepository;
+import com.goodiware.security.GoodiwareUserDetails;
 import com.goodiware.vo.ChatRoom;
 import com.goodiware.vo.Employee;
 
@@ -76,7 +77,11 @@ public class ChatRoomController {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
-		String name = auth.getName();
+		System.out.println("start function getUserInfo auth is : " + auth);
+		
+		Employee employee = ((GoodiwareUserDetails)auth.getPrincipal()).getEmployee();
+					
+		String name = employee.getName();
 
 		return Employee.builder().name(name)
 				.token(jwtTokenProvider.generateToken(name)).build();
