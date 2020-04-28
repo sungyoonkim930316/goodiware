@@ -24,4 +24,6 @@ public interface ScheduleService {
 
 	void updateSch(Schedule schedule);
 
+	List<Schedule> findAllScheduleByEmpno(int empno);
+
 }

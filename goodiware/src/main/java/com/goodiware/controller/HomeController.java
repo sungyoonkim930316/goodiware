@@ -13,10 +13,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.goodiware.mapper.EmployeeMapper;
 import com.goodiware.service.ApprovalService;
+import com.goodiware.service.MarketService;
 import com.goodiware.service.MessageService;
+import com.goodiware.service.ScheduleService;
 import com.goodiware.vo.Approval;
+import com.goodiware.vo.Board;
 import com.goodiware.vo.Employee;
 import com.goodiware.vo.Message;
+import com.goodiware.vo.Schedule;
 
 @Controller
 public class HomeController {
@@ -28,6 +32,14 @@ public class HomeController {
 	@Autowired
 	@Qualifier("approvalService")
 	ApprovalService approvalService;
+	
+	@Autowired
+	@Qualifier("scheduleService")
+	ScheduleService scheduleService;
+	
+	@Autowired
+	@Qualifier("marketService")
+	MarketService marketService;
 	
 	@Autowired
 	EmployeeMapper employeeMapper;
@@ -43,11 +55,16 @@ public class HomeController {
 		
 		List<Message> messages = messageService.findRecentMessagesByEmpno(empno);
 		List<Approval> approvals = approvalService.findRecentApprovalsByEmpno(empno);
-	
+		List<Schedule> schedules = scheduleService.findAllScheduleByEmpno(empno);
+		List<Board> boards = marketService.findAllNotice();		
+		
 		model.addAttribute("messages", messages);
 		model.addAttribute("approvals", approvals);
+		model.addAttribute("schedules", schedules);
+		model.addAttribute("boards", boards);
 		
 		return "home";
 	}
 	
 }
+

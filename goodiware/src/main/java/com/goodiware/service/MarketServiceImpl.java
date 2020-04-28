@@ -58,6 +58,12 @@ public class MarketServiceImpl implements MarketService{
 		
 	}
 
+	@Override
+	public List<Board> findAllNotice() {
+		
+		return marketMapper.selectAllNotice();
+	}
+
 
 
 }

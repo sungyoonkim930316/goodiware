@@ -26,4 +26,6 @@ public interface ScheduleMapper {
 	void updateSchedule(Schedule schedule);
 
 	void updateSch(Schedule schedule);
+
+	List<Schedule> selectAllSchedulesByEmpno(int empno);
 }

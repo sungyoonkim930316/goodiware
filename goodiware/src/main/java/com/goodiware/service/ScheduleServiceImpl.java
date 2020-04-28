@@ -62,4 +62,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 		scheduleMapper.updateSch(schedule);
 	}
 
+	@Override
+	public List<Schedule> findAllScheduleByEmpno(int empno) {
+		
+		return scheduleMapper.selectAllSchedulesByEmpno(empno);
+	}
+
 }

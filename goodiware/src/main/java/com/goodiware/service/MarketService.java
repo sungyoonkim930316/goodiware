@@ -20,6 +20,8 @@ public interface MarketService {
 	void deleteBoard(int bNo);
 
 	void updateBoard(Board board);
+
+	List<Board> findAllNotice();
 	
 	
 }

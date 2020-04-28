@@ -74,10 +74,20 @@
             Content body start
         ***********************************-->
         <div class="content-body">
-
+		<sec:authentication property="principal" var="auth"/>
             <div class="container-fluid mt-3">
+            	<div class="row">
+	            	<div class="col-12">
+		            	<div class="card">
+		            		<div class="card-body">
+			                	<h4 style="text-align: center; margin-bottom: 0px" class="text-black">${ auth.employee.name } 님은 
+			                    <span id="joinDate"><fmt:parseDate value='${auth.employee.joinday}' var='join_day' pattern='yyyy-MM-dd'/><fmt:formatDate value="${ join_day }" pattern="yyyy-MM-dd"/></span> 일에 입사하셔서 <span id="between"></span>일 째 노동중이십니다.</h4>
+			                </div>
+		            	</div>
+	            	</div>
+            	</div>
                 <div class="row">
-                	<sec:authentication property="principal" var="auth"/>
+                	
                     <div class="col-lg-6">
                         <div class="card gradient-1">
                             <div class="card-body">
@@ -295,72 +305,195 @@
                     <div class="col-lg-6">
                         <div class="card gradient-3">
                             <div class="card-body">
-                                <h3 class="card-title text-white">나의 일정&nbsp;&nbsp;<i class="fa fa-users"></i></h3>
-                                
+                                <div class="row">
+                            		<div class="col">
+                                	<h3 class="card-title text-white">나의 일정&nbsp;&nbsp;<i class="icon-envelope-open"></i></h3>
+                                	</div>
+                                	<div class="col">
+                                	<h5 id="to-scheList" style="float: right; color: white; font-size: 14px; cursor: pointer;">일정페이지 이동</h5>
+                                	</div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover" style="text-align: center">
+                                        <thead>
+                                            <tr>
+                                                <th>구&nbsp;&nbsp;분</th>
+                                                <th>제&nbsp;&nbsp;&nbsp;&nbsp;목</th>
+                                                <th>시작날짜</th>
+                                                <th>종료날짜</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach items="${ schedules }" var="schedule">
+                                            	<tr>                                         	
+												  <td>${ schedule.sctitle }</td>
+												  <td>${ schedule.title }</td>
+												  <td><fmt:formatDate value="${ schedule.startdate }" pattern="yyyy-MM-dd"/></td>
+												  <td><fmt:formatDate value="${ schedule.enddate }" pattern="yyyy-MM-dd"/></td>
+												</tr>
+											</c:forEach>
+											<c:if test="${fn:length(schedules) eq 0 }">
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">등록된 일정이 없습니다</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>	  	
+											</c:if>
+											<c:if test="${fn:length(schedules) eq 1 }">
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>	  	
+											</c:if>
+											<c:if test="${fn:length(schedules) eq 2 }">
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>	  	
+											</c:if>
+											<c:if test="${fn:length(schedules) eq 3 }">
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+											</c:if>
+											<c:if test="${fn:length(schedules) eq 4 }">
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+											</c:if>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="card gradient-4">
                             <div class="card-body">
-                                <h4 style="text-align: center; margin-bottom: 0px" class="text-white">${ auth.employee.name } 님은 
-                                <span id="joinDate"><fmt:parseDate value='${auth.employee.joinday}' var='join_day' pattern='yyyy-MM-dd'/><fmt:formatDate value="${ join_day }" pattern="yyyy-MM-dd"/></span> 일에 입사하셔서 <span id="between"></span>일 째 노동중이십니다.</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        
-                
-                <div class="row">
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="text-center">
-                                    <img src="/resources/images/users/8.jpg" class="rounded-circle" alt="">
-                                    <h5 class="mt-3 mb-1">Ana Liem</h5>
-                                    <p class="m-0">Senior Manager</p>
-                                    <!-- <a href="javascript:void()" class="btn btn-sm btn-warning">Send Message</a> -->
+                                <div class="row">
+                            		<div class="col">
+                                	<h3 class="card-title text-white">공지사항&nbsp;&nbsp;<i class="icon-envelope-open"></i></h3>
+                                	</div>
+                                	<div class="col">
+                                	<h5 id="to-notiList" style="float: right; color: white; font-size: 14px; cursor: pointer;">공지사항 이동</h5>
+                                	</div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover" style="text-align: center">
+                                        <thead>
+                                            <tr>
+                                                <th>제&nbsp;&nbsp;목</th>
+                                                <th>작성자</th>
+                                                <th>등록일</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach items="${ boards }" var="board">
+                                            	<tr>                                         	
+												  <td>
+												  	<input type="hidden" id="type" value="${ board.bno }">
+												  	<c:choose>
+											    		<c:when test="${ board.bdel eq 'N' }">
+												    		<a id="to-noti-detail" style="color: white" href="/market/detail?BNo=${ board.bno }">
+																${ board.title } 
+															</a>
+														</c:when>
+														<c:otherwise>
+															[삭제] ${ board.title }								
+														</c:otherwise>
+													</c:choose>
+												  </td>
+												  <td>${ board.name }</td>
+												  <td><fmt:formatDate value="${ board.regdate }" pattern="yyyy-MM-dd"/></td>
+												</tr>
+											</c:forEach>
+											<c:if test="${fn:length(boards) eq 0 }">
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">등록된 공지사항이 없습니다</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>	  	
+											</c:if>
+											<c:if test="${fn:length(boards) eq 1 }">
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>	  	
+											</c:if>
+											<c:if test="${fn:length(boards) eq 2 }">
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>	  	
+											</c:if>
+											<c:if test="${fn:length(boards) eq 3 }">
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+											</c:if>
+											<c:if test="${fn:length(boards) eq 4 }">
+												<tr>
+													<td style="border-color: transparent;" colspan="4">&nbsp;</td>
+												</tr>
+											</c:if>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="text-center">
-                                    <img src="/resources/images/users/5.jpg" class="rounded-circle" alt="">
-                                    <h5 class="mt-3 mb-1">John Abraham</h5>
-                                    <p class="m-0">Store Manager</p>
-                                    <!-- <a href="javascript:void()" class="btn btn-sm btn-warning">Send Message</a> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="text-center">
-                                    <img src="/resources/images/users/7.jpg" class="rounded-circle" alt="">
-                                    <h5 class="mt-3 mb-1">John Doe</h5>
-                                    <p class="m-0">Sales Man</p>
-                                    <!-- <a href="javascript:void()" class="btn btn-sm btn-warning">Send Message</a> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="text-center">
-                                    <img src="/resources/images/users/1.jpg" class="rounded-circle" alt="">
-                                    <h5 class="mt-3 mb-1">Mehedi Titas</h5>
-                                    <p class="m-0">Online Marketer</p>
-                                    <!-- <a href="javascript:void()" class="btn btn-sm btn-warning">Send Message</a> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
             <!-- #/ container -->
@@ -413,6 +546,18 @@
 		$('#to-mailList').on('click', function() {
 
 			location.href = "/message/inbox?empno=" + ${ auth.employee.empno };
+
+		});
+
+		$('#to-scheList').on('click', function() {
+
+			location.href = "/schedule/myschedule?empno=" + ${ auth.employee.empno };
+
+		});
+
+		$('#to-notiList').on('click', function() {
+
+			location.href = "/market/list";
 
 		});
 

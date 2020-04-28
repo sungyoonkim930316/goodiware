@@ -24,6 +24,8 @@ public interface MarketMapper {
 
 	void updateBoard(Board board);
 
+	List<Board> selectAllNotice();
+
 
 
 

@@ -44,4 +44,15 @@
 		WHERE SCHENO = #{scheno}
 	</update>
 	
+	<select id="selectAllSchedulesByEmpno" parameterType="int" resultType="com.goodiware.vo.Schedule">
+	
+		SELECT sc.*, sd.*, e.empno
+		FROM SCHEDULE sc, SCHDIV sd, EMPLOYEE e
+		WHERE sc.EMPNO = #{empno} 
+		AND sc.SCHEDIVNO = sd.SCHEDIVNO
+		AND sc.EMPNO = e.EMPNO
+		ORDER BY sc.SCHENO DESC
+		LIMIT 0,5
+	
+	</select>
 </mapper>

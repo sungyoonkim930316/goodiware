@@ -77,7 +77,16 @@
 		WHERE bno = #{ bno } 
 	</update>	
 	
-
+	<select id="selectAllNotice" resultType="com.goodiware.vo.Board">
+		SELECT b.bno, b.title, b.content, b.regdate, b.bdel, b.bdivno, b.picture, b.picturepath, e.name
+		FROM BOARD b, EMPLOYEE e
+		WHERE    
+			b.bdel = 'N'
+		    and b.empno = e.empno
+		    and b.bdivno = 2
+		ORDER BY b.bno DESC
+		LIMIT 0, 5
+	</select>
 
 
 </mapper>
