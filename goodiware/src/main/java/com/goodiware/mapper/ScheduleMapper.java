@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.goodiware.vo.Employee;
 import com.goodiware.vo.Schdiv;
 import com.goodiware.vo.Schedule;
 

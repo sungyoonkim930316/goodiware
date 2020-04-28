@@ -240,7 +240,7 @@
 				dateClick: function() {
 					$('#scd-modal').modal('show');
 				},
-				eventClick: function(eventClickInfo) {
+				eventClick: function(eventClickInfo, format) {
 
 					$('#scdedit-modal').modal('show');
 					$('#scdedit-modal').find('#scheno').val(eventClickInfo.event.id);
@@ -254,16 +254,32 @@
 
 					$('#modalUpdateBtn').attr('data-scheno', eventClickInfo.event.id);
 				},
-				eventRender: function(info) {
+				/* eventRender: function (event, element, view, eventClickInfo) {
 
-					/* $('#fc-event').tooltip({align: 'top'});
-			      var tooltip = new Tooltip(info.el, {
-			        title: info.eventClickInfo.event.title,
-			        placement: 'top',
-			        trigger: 'hover',
-			        container: 'body'
-			      }); */
-			    },
+				    element.popover({
+				      title: $('<div />', {
+				        class: 'popoverTitleCalendar',
+				        text: eventClickInfo.event.title
+				      }).css({
+				        'background': event.backgroundColor,
+				        'color': event.textColor
+				      }),
+				      content: $('<div />', {
+				          class: 'popoverInfoCalendar'
+				        }).append('<p><strong>등록자:</strong> ' + eventClickInfo.event.extendedProps.description + '</p>'),
+				        /* .append('<p><strong>구분:</strong> ' + event.type + '</p>')
+				        .append('<p><strong>시간:</strong> ' + getDisplayEventDate(event) + '</p>')
+				        .append('<div class="popoverDescCalendar"><strong>설명:</strong> ' + event.description + '</div>'),
+				      delay: {
+				        show: "800",
+				        hide: "50"
+				      },
+				      trigger: 'hover',
+				      placement: 'top',
+				      html: true,
+				      container: 'body'
+				    });
+				}, */
 				eventLimit: true,
 				views: {
 					timeGrid: {
