@@ -11,7 +11,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>글 내용</title>
+<title>공지사항</title>
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="/resources/images/favicon.png">
@@ -93,9 +93,9 @@
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="javascript:void(0)">무료 나눔</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">공지사항</a></li>
 						<li class="breadcrumb-item active"><a
-							href="javascript:void(0)">무료 나눔</a></li>
+							href="javascript:void(0)">글 내용</a></li>
 					</ol>
 				</div>
 			</div>

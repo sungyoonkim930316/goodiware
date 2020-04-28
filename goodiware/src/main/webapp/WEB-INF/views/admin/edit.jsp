@@ -66,9 +66,9 @@
 			<div class="row page-titles mx-0">
 				<div class="col p-md-0">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="javascript:void(0)">마이페이지</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">관리자페이지</a></li>
 						<li class="breadcrumb-item active"><a
-							href="javascript:void(0)">나의정보수정</a></li>
+							href="javascript:void(0)">사원정보수정</a></li>
 					</ol>
 				</div>
 			</div>
