@@ -20,6 +20,7 @@
     <link href="/resources/plugins/fullcalendar/css/fcmain.css" rel="stylesheet" />
     <link href="/resources/plugins/fullcalendar/css/dgmain.css" rel="stylesheet" />
     <link href="/resources/plugins/fullcalendar/css/tgmain.css" rel="stylesheet" />
+    <link href="/resources/plugins/fullcalendar/css/bsmain.css" rel="stylesheet" />
     <link href="/resources/css/jquery.datetimepicker.min.css" rel="stylesheet" />
 
     
@@ -117,16 +118,12 @@
 	                        
 	                        <div class="col-md-6 form-group has-feedback">
 	                        	<label class="control-label">일정시작</label>
-	                        	<input class="form-control form-white" autocomplete="off" type="text" id="startdate" name="startdate" placeholder="yyyy-MM-dd" readOnly/>
-	                        	<!-- <span class="input-group-addon">
-				                    <span class="fa fa-calendar">
-				                    </span>
-				                </span>   -->                   	
+	                        	<input class="form-control form-white" autocomplete="off" type="text" id="startdate" name="startdate" placeholder="yyyy-MM-dd HH:mm" readOnly/>                	
 	                        </div>
 	                        
 	                        <div class="col-md-6 form-group">
 	                        	<label class="control-label">일정끝</label>
-	                        	<input class="form-control form-white" autocomplete="off" type="text" id="enddate" name="enddate" placeholder="yyyy-MM-dd" readOnly />
+	                        	<input class="form-control form-white" autocomplete="off" type="text" id="enddate" name="enddate" placeholder="yyyy-MM-dd HH:mm" readOnly />
 	                        </div>
 	                        
 	                        <br>
@@ -219,7 +216,10 @@
     <script src="/resources/plugins/fullcalendar/js/itmain.js"></script>
     <script src="/resources/plugins/fullcalendar/js/dgmain.js"></script>
     <script src="/resources/plugins/fullcalendar/js/tgmain.js"></script>
+    <script src="/resources/plugins/fullcalendar/js/bsmain.js"></script>
     <script src="/resources/plugins/fullcalendar/js/ko.js"></script>
+    <script src="/resources/plugins/fullcalendar/js/tc.js"></script>
+    <script src="/resources/plugins/fullcalendar/js/moment.js"></script>
     <script src="/resources/js/jquery.datetimepicker.full.js"></script>
     
      <script type="text/javascript">
@@ -230,56 +230,33 @@
 			var enddate = document.getElementById('enddate');
 
 			var calendar = new Calendar(calendarEl, {
-				plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
+				plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'bootstrap' ],
 				header: {
 					left: 'prev, next today',
 					center: 'title',
 					right: 'dayGridMonth,timeGridWeek,timeGridDay'
 				},
 				editable: false,
+				selectable: true,
+				height: 'auto',
+				themeSystem: 'bootstrap',
 				dateClick: function() {
 					$('#scd-modal').modal('show');
 				},
-				eventClick: function(eventClickInfo, format) {
-
-					$('#scdedit-modal').modal('show');
-					$('#scdedit-modal').find('#scheno').val(eventClickInfo.event.id);
-					$('#scdedit-modal').find('#schdivs').val(eventClickInfo.event.extendedProps.resourceId);
-					$('#scdedit-modal').find('#title').val(eventClickInfo.event.title);
-					$('#scdedit-modal').find('#startdate').val(eventClickInfo.event.start);
-					$('#scdedit-modal').find('#enddate').val(eventClickInfo.event.end);
-					$('#scdedit-modal').find('#content').val(eventClickInfo.event.extendedProps.description);
+				eventClick: function(calEvent, jsEvent, view) {
 					
-					$('#modalDeleteBtn').attr('data-scheno', eventClickInfo.event.id);
+					$('#scdedit-modal').modal('show');
+					$('#scdedit-modal').find('#scheno').val(calEvent.event.id);
+					$('#scdedit-modal').find('#schdivs').val(calEvent.event.extendedProps.resourceId);
+					$('#scdedit-modal').find('#title').val(calEvent.event.title);
+					$('#scdedit-modal').find('#startdate').val(moment(calEvent.event.start).format('YYYY-MM-DD HH:mm'));
+					$('#scdedit-modal').find('#enddate').val(moment(calEvent.event.end).format('YYYY-MM-DD HH:mm'));
+					$('#scdedit-modal').find('#content').val(calEvent.event.extendedProps.description);
+					
+					$('#modalDeleteBtn').attr('data-scheno', calEvent.event.id);
 
-					$('#modalUpdateBtn').attr('data-scheno', eventClickInfo.event.id);
+					$('#modalUpdateBtn').attr('data-scheno', calEvent.event.id);
 				},
-				/* eventRender: function (event, element, view, eventClickInfo) {
-
-				    element.popover({
-				      title: $('<div />', {
-				        class: 'popoverTitleCalendar',
-				        text: eventClickInfo.event.title
-				      }).css({
-				        'background': event.backgroundColor,
-				        'color': event.textColor
-				      }),
-				      content: $('<div />', {
-				          class: 'popoverInfoCalendar'
-				        }).append('<p><strong>등록자:</strong> ' + eventClickInfo.event.extendedProps.description + '</p>'),
-				        /* .append('<p><strong>구분:</strong> ' + event.type + '</p>')
-				        .append('<p><strong>시간:</strong> ' + getDisplayEventDate(event) + '</p>')
-				        .append('<div class="popoverDescCalendar"><strong>설명:</strong> ' + event.description + '</div>'),
-				      delay: {
-				        show: "800",
-				        hide: "50"
-				      },
-				      trigger: 'hover',
-				      placement: 'top',
-				      html: true,
-				      container: 'body'
-				    });
-				}, */
 				eventLimit: true,
 				views: {
 					timeGrid: {
@@ -292,8 +269,8 @@
 							id: '${ schedules.scheno }',
 							resourceId: '${ schedules.schedivno }',
 							title: '${ schedules.title }',
-							start: '<fmt:formatDate value="${ schedules.startdate }" pattern="yyyy-MM-dd" />',
-							end: '<fmt:formatDate value="${ schedules.enddate }" pattern="yyyy-MM-dd" />',
+							start: '<fmt:formatDate value="${ schedules.startdate }" pattern="yyyy-MM-dd HH:mm" />',
+							end: '<fmt:formatDate value="${ schedules.enddate }" pattern="yyyy-MM-dd HH:mm" />',
 							extendedProps: {
 								description: '${ schedules.content }'
 							},
@@ -352,6 +329,10 @@
 					alert("일정 종료일을 입력하세요")
 					return;
 				}
+				if($('#startdate').val() > $('#enddate').val()) {
+					alert("끝나는 날짜가 앞설 수 없습니다.")
+					return;
+				}
 				$('#addscd-form').submit();
 			})
 			
@@ -388,44 +369,44 @@
 						"enddate": $("#editscd-form input[name=enddate]").val(),
 						"content": $("#editscd-form textarea[name=content]").val()
 							};
-				
 				$.ajax({
 					url: "/schedule/update",
 					method: "put",
 					data: JSON.stringify(data),
 					contentType: "application/json",
 					success: function(result, status, xhr) {
+
+						if (data.title === '') {
+							alert("일정이름을 입력하세요")
+							return false
+						}
+						if (data.startdate === '') {
+							alert("일정 시작일을 입력하세요")
+							return;
+						}
+
+						if (data.enddate === '') {
+							alert("일정 종료일을 입력하세요")
+							return;
+						}
+						if(data.startdate > data.enddate) {
+							alert("끝나는 날짜가 앞설 수 없습니다.")
+							return;
+						}
+						
 						$('#scdedit-modal').modal('hide');
 						location.reload();
 					},
 					error: function(xhr, status, err) {
-						alert('어버버버버버버버버');
-						alert('실패ㅋ')
+						alert('error');
 					}
 				});
 			})
 			
-			function makeForm(action, scheno, method="get") {
-				var form = $('<form></form>');
-				form.attr({
-					'action': action,
-					'method': method
-				});
-				form.append($('<input>').attr({
-					"type": "hidden",
-					"name": "scheno",
-					"value" : scheno })
-				);
-				
-				form.appendTo("body");
-				
-				return form;
-			};
-			
-			/* $('#startdate, #enddate').on('click', function(event) {
-				$(this).datetimepicker("show");
-			}) */
-			/* $('#startdate, #enddate').datetimepicker(); */
+			$('.modal').on('hidden.bs.modal', function(e) {
+				console.log('modal closed');
+				$(this).find('form')[0].reset()
+			});
 
 			$("#startdate, #enddate").datetimepicker({
 				icons: {
