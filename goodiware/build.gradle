@@ -59,6 +59,9 @@ dependencies {
 	
 }
 
-test {
-	useJUnitPlatform()
+
+tasks.bootJar {
+    enabled = true
+    mainClassName = "com.goodiware.GoodiwareApplication"
 }
+
