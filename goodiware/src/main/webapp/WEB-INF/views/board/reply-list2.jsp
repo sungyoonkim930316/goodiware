@@ -36,7 +36,7 @@
 										</div>
 									</c:when>
 									<c:otherwise>
-									[삭제된 글입니다.]				
+									[삭제된 댓글입니다.]				
 									</c:otherwise>
 									</c:choose>
 									</div>
